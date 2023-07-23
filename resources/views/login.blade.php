@@ -12,9 +12,12 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="card-title">Login</h1>
+                    <h1 class="card-title">Computer Engineering</h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body " style=background-color:#76B6E3; >
+                <h2 align="center" style="color:white;">เข้าสู่ระบบ</h2>
+                <img src="{{ asset('images/peoper_icon.png') }}" style="width: 300px; height: 300px;margin-right: 180px">
+                </div>
                     @if(Session::has('error'))
                         <div class="alert alert-danger" role="alert">
                             {{ Session::get('error') }}
@@ -22,8 +25,9 @@
                     @endif
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
+                        
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
+                            <label for="email" class="form-label">เข้าสู่ระบบ</label>
                             <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
                         </div>
                         <div class="mb-3">
@@ -36,20 +40,17 @@
                             </div>
                         </div>
                         <!-- ... -->
-<div class="mb-3">
-    <div class="d-grid">
-        <button class="btn btn-primary">Login</button>
-    </div>
-</div>
-<div class="mb-3">
-    <div class="d-grid">
-        <a href="{{ route('login.google') }}" class="btn btn-danger">Login with Google</a>
-    </div>
-</div>
-<!-- ... -->
-
-                    </form>
-                </div>
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <button class="btn btn-primary">Login</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-grid">
+                                <a href="{{ route('login.google') }}" class="btn btn-danger">Login with Google</a>
+                            </div>
+                    </div>
+                
             </div>
         </div>
     </div>
