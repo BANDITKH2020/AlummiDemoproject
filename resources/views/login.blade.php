@@ -12,12 +12,14 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="card-title">Computer Engineering</h1>
+                    <h1 class="card-title" style="text-align:center; ">Computer Engineering</h1>
                 </div>
-                <div class="card-body " style=background-color:#76B6E3; >
-                <h2 align="center" style="color:white;">เข้าสู่ระบบ</h2>
-                <img src="{{ asset('images/peoper_icon.png') }}" style="width: 300px; height: 300px;margin-right: 180px">
+                <div class="card-body" style="background-color:#76ade3;"><br>
+                    <h2 align="center" style="color:white; ">เข้าสู่ระบบ</h2>
+                    
+                    <p style="background-image: url({{url('images/color1.png')}});"><br><br><br><br><br>
                 </div>
+                <img class="position-absolute top-50 start-50 translate-middle" src="{{ asset('images/teamwork.png') }}" style="width: 200px; height: 200px;  margin-right: 180px">
                     @if(Session::has('error'))
                         <div class="alert alert-danger" role="alert">
                             {{ Session::get('error') }}
@@ -25,30 +27,15 @@
                     @endif
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
-                        
-                        <div class="mb-3">
-                            <label for="email" class="form-label">เข้าสู่ระบบ</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" required>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-grid">
-                                <button class="btn btn-primary">Login</button>
-                            </div>
-                        </div>
-                        <!-- ... -->
-                        <div class="mb-3">
-                            <div class="d-grid">
-                                <button class="btn btn-primary">Login</button>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-grid">
-                                <a href="{{ route('login.google') }}" class="btn btn-danger">Login with Google</a>
-                            </div>
+                        <br><br><br><br><br><br><br>
+                        <div class="d-grid gap-4 col-6 mx-auto">
+                                <a  class="btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none"  >
+                                    <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    Login with Google
+                                </a>
+                        </div><br>
+                        <p style="text-align:center; ">หากยังไม่ลงทะเบียนกรุณา <a href="{{ route('register') }}">ลงทะเบียน</a></p>
+                        <br><br><br>
                     </div>
                 
             </div>
