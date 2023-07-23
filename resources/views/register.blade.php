@@ -11,52 +11,55 @@
 </head>
 <body>
 <div class="row justify-content-center mt-5">
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                   
-                    @if(Session::has('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ Session::get('success') }}
+        <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-6 float-md-start mb-3 ms-md-3"><br><br>
+                            <img src="{{ asset('images/student.jpg') }}" style="width: 300px; height: 400px;margin-right: 180px; border-radius: 8px;">
                         </div>
-                    @endif
-                    <form  class="row g-1" action="{{ route('register') }}" method="POST">
-                        @csrf
-                        <div class="mb-2">
-                            <label for="firstname" class="form-label">ชื่อ</label>
-                            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="" required>
-                        </div>
-                        <div class="mb-2">
-                            <label for="lastname" class="form-label">นามสกุล</label>
-                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="student_grp" class="form-label">รหัสนักศึกษา</label>
-                            <input type="text" class="form-control" id="student_grp">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="graduatesem" class="form-label">กลุ่มปีการศึกษา</label>
-                            <input type="text" class="form-control" id="graduatesem">
-                        </div>
-                        <div class="my-3">
-                            <label for="Token_id" class="form-label">กรอกโค้ดที่ได้จากอาจารย์</label>
-                            <input type="text" name="Token_id" class="form-control" id="Token_id" placeholder="" required>
-                        </div>
-                        <hr size="3" width="50%"  color="black">
-                        <div class="mb-3">
-                            <div class="g-recaptcha" data-sitekey="your_site_key"></div>
-                        </div>
-                        <div class="mb-3">
-                                <a class="btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none"  align="center">
-                                <img width="20px" style="margin-bottom:3px; margin-right:5px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                Login with Google
+                        @if(Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+                        <form  class="row g-1" action="{{ route('register') }}" method="POST">
+                            @csrf
+                            <h3 align="center">ลงทะเบียนศิษย์เก่า</h3>
+                            <div class="mb-2">
+                                <label for="firstname" class="form-label">ชื่อ</label>
+                                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="lastname" class="form-label">นามสกุล</label>
+                                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="student_grp" class="form-label">รหัสนักศึกษา</label>
+                                <input type="text" class="form-control" id="student_grp">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="graduatesem" class="form-label">กลุ่มปีการศึกษา</label>
+                                <input type="text" class="form-control" id="graduatesem">
+                            </div>
+                            <div class="my-3">
+                                <label for="Token_id" class="form-label">กรอกโค้ดที่ได้จากอาจารย์</label>
+                                <input type="text" name="Token_id" class="form-control" id="Token_id" placeholder="" required>
+                            </div>
+                            <hr size="3" width="50%"  color="black">
+                            <div class="mb-3">
+                                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+                            </div>
+                            <div class="d-grid gap-2 col-12 mx-auto">
+                                <a  class="btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none"  >
+                                    <img width="20px" style="margin-bottom:3px; margin-right:10px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    Login with Google
                                 </a>
-                        </div>
-                        
-                    </form>
+                            </div>
+                            
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
+        </div> 
     </div>
 </body>
 </html>
