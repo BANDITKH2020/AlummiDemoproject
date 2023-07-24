@@ -59,7 +59,7 @@
                 <a href="{{ route('contacthistory') }}" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a class="textmenu"><h5>ออกจากระบบ</h5></a>
+                <a href="{{ route('welcome') }}" class="textmenu"><h5>ออกจากระบบ</h5></a>
             </div>
             <div class="col-12 mt-5" style="border: 2px solid #576CBC;border-radius:10px;background-color: #EFF4FF">
                 <h3 class="text-center">ติดต่อภาควิชา</h3>

@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
+Route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/pressrelease', [HomeController::class, 'pressrelease'])->name('pressrelease');
 Route::get('/studentlist', [HomeController::class, 'studentlist'])->name('studentlist');
 Route::get('/graduatehouse', [HomeController::class, 'graduatehouse'])->name('graduatehouse');

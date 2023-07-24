@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function welcome()
     {
-        return view('home');
+        return view('welcome');
     }
 
     public function pressrelease()

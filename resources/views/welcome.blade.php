@@ -25,8 +25,6 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                             <button class="btn btn-primary" onclick="window.location.href='{{ route('register') }}'">ลงทะเบียน</button>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-end">
                             <button class="btn btn-warning" onclick="window.location.href='{{ route('pressrelease') }}'">หน้าข่าว</button>
                         </div>
                     </div>
