@@ -32,9 +32,10 @@
             </div>
         </div>
 
-        <div class="col-2 mt-5" style="border: 2px solid #1400FF;margin-left:30px;height:424px;border-radius:10px">
-            <div class="col-10 mx-auto mt-3" style="border: 2px solid #000;border-radius:10px;">
-                <h3 class="text-center">เมนู</h3>
+        <div class="col-2 mt-5" style="border: 2px solid #1400FF;margin-left:30px;border-radius:10px">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;">
+                <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
+                <h3>เมนู</h3>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 <a href="{{ route('login') }}" class="textmenu"><h5>หน้าหลัก</h5></a>
