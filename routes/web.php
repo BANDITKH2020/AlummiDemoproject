@@ -11,6 +11,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'registerPost'])->name('register');
@@ -25,3 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
+
+Route::get('/pressrelease', [HomeController::class, 'pressrelease'])->name('pressrelease');
+

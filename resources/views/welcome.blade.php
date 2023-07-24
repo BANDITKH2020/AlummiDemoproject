@@ -24,7 +24,10 @@
                             <h2 style="margin-left:200px;color:#FFD53F">Technology Thanyaburi</h2>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                            <button type="submit" class="btn btn-primary" onclick="window.location.href='{{ route('register') }}'">ลงทะเบียน</button>
+                            <button class="btn btn-primary" onclick="window.location.href='{{ route('register') }}'">ลงทะเบียน</button>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <button class="btn btn-primary" onclick="window.location.href='{{ route('pressrelease') }}'">หน้าข่าว</button>
                         </div>
                     </div>
                 </div>
@@ -36,7 +39,7 @@
                         <h1 style="color:#FFD53F">ศิษย์เก่าทุกท่านกลับเข้าสู่รั้ว</h1>
                         <h1 style="color:#FFD53F">ราชมงคลธัญบุรี</h1>
                         <h1 style="color:#FFD53F">คณะวิศวกรรมคอมพิวเตอร์</h1>
-                        <button type="button" class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login') }}'">เข้าสู่ระบบ ></button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login') }}'">เข้าสู่ระบบ ></button>
                     </div>
                 </div>
                 <div class="col-lg-4 row">
