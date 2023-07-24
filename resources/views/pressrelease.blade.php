@@ -38,16 +38,16 @@
                 <h3>เมนู</h3>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="{{ route('login') }}" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="{{ route('pressrelease') }}" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('login') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentlist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('login') }}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="{{ route('graduatehouse') }}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('login') }}" class="textmenu"><h5>รางวัลประกาศ</h5></a>
+                <a href="{{ route('awardannounce') }}" class="textmenu"><h5>รางวัลประกาศ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('login') }}" class="textmenu"><h5>แบบสอบถาม</h5></a>

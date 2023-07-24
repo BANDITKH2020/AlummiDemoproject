@@ -29,4 +29,7 @@ Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 Route::get('/pressrelease', [HomeController::class, 'pressrelease'])->name('pressrelease');
+Route::get('/studentlist', [HomeController::class, 'studentlist'])->name('studentlist');
+Route::get('/graduatehouse', [HomeController::class, 'graduatehouse'])->name('graduatehouse');
+Route::get('/awardannounce', [HomeController::class, 'awardannounce'])->name('awardannounce');
 

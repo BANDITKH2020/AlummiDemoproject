@@ -15,4 +15,17 @@ class HomeController extends Controller
     {
         return view('pressrelease');
     }
+
+    public function studentlist()
+    {
+        return view('studentlist');
+    }
+    public function graduatehouse()
+    {
+        return view('graduatehouse');
+    }
+    public function awardannounce()
+    {
+        return view('awardannounce');
+    }
 }
