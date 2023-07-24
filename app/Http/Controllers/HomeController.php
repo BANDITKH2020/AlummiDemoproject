@@ -28,4 +28,12 @@ class HomeController extends Controller
     {
         return view('awardannounce');
     }
+    public function accountsetting()
+    {
+        return view('accountsetting');
+    }
+    public function contacthistory()
+    {
+        return view('contacthistory');
+    }
 }

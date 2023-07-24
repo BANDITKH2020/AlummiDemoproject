@@ -32,4 +32,6 @@ Route::get('/pressrelease', [HomeController::class, 'pressrelease'])->name('pres
 Route::get('/studentlist', [HomeController::class, 'studentlist'])->name('studentlist');
 Route::get('/graduatehouse', [HomeController::class, 'graduatehouse'])->name('graduatehouse');
 Route::get('/awardannounce', [HomeController::class, 'awardannounce'])->name('awardannounce');
+Route::get('/accountsetting', [HomeController::class, 'accountsetting'])->name('accountsetting');
+Route::get('/contacthistory', [HomeController::class, 'contacthistory'])->name('contacthistory');
 
