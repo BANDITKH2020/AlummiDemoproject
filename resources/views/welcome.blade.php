@@ -14,7 +14,7 @@
                 margin: auto;
                 font-family:'THSarabunNew';
                 overflow: auto;
-                background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgba(255,25,25,1) 98%);
+                background: linear-gradient(315deg, rgb(146, 143, 146) 3%, rgb(150, 162, 173) 38%, rgb(149, 167, 165) 68%, rgb(173, 162, 162) 98%);
                 animation: gradient 15s ease infinite;
                 background-size: 400% 400%;
                 background-attachment: fixed;
@@ -80,31 +80,29 @@
                 }
             }
 
-            h2:before{
-                content: attr(data-text);
-                background: linear-gradient(#f70000, #f89200, #f8f501, #038f00,#0168f8, #a200f7);
-                -webkit-background-clip: text;
-                color: transparent;
-                background-size: 100% 90%;
-                line-height: 0.9;
-                clip-path: ellipse(120px 120px at -2.54% -9.25%);
-                animation: swing 5s infinite;
-                animation-direction: alternate;
+            h1 {
+                font-size: 40px;
+                color: #fff;
             }
-
-            @keyframes swing{
-                0%{
-                    -webkit-clip-path: ellipse(120px 120px at -2.54% -9.25%)
-                    clip-path: ellipse(120px 120px at -2.54% -9.25%)
+            .waviy {
+                position: relative;
+                -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.2));
+                font-size: 60px;
+            }
+            .waviy span {
+                position: relative;
+                display: inline-block;
+                color: #fff;
+                text-transform: uppercase;
+                animation: waviy 1s infinite;
+                animation-delay: calc(.1s * var(--i));
+            }
+            @keyframes waviy {
+                0%,40%,100% {
+                    transform: translateY(0)
                 }
-                50%{
-                    -webkit-clip-path: ellipse(120px 120px at 49.66% 64.36%);
-                    clip-path: ellipse(120px 120px at 49.66% 64.36%);
-
-                }
-                100%{
-                    -webkit-clip-path: ellipse(120px 120px at 102.62% -1.61%;);
-                    clip-path: ellipse(120px 120px at 102.62% -1.61%);
+                20% {
+                    transform: translateY(-20px)
                 }
             }
 
@@ -164,6 +162,50 @@
             button:focus {
                 outline: none;
             }
+
+            .gallery {
+                --g: 8px;   /* the gap */
+                --s: 400px; /* the size */
+
+                display: grid;
+                border-radius: 50%;
+            }
+            .gallery > img {
+                grid-area: 1/1;
+                width: 400px;
+                aspect-ratio: 1;
+                object-fit: cover;
+                border-radius: 50%;
+                transform: translate(var(--_x,0),var(--_y,0));
+                cursor: pointer;
+                z-index: 0;
+                transition: .3s, z-index 0s .3s;
+            }
+            .gallery img:hover {
+                --_i: 1;
+                z-index: 1;
+                transition: transform .2s, clip-path .3s .2s, z-index 0s;
+            }
+            .gallery:hover img {
+                transform: translate(0,0);
+            }
+            .gallery > img:nth-child(1) {
+                clip-path: polygon(50% 50%,calc(50%*var(--_i,0)) calc(120%*var(--_i,0)),0 calc(100%*var(--_i,0)),0 0,100% 0,100% calc(100%*var(--_i,0)),calc(100% - 50%*var(--_i,0)) calc(120%*var(--_i,0)));
+                --_y: calc(-1*var(--g))
+            }
+            .gallery > img:nth-child(2) {
+                clip-path: polygon(50% 50%,calc(100% - 120%*var(--_i,0)) calc(50%*var(--_i,0)),calc(100% - 100%*var(--_i,0)) 0,100% 0,100% 100%,calc(100% - 100%*var(--_i,0)) 100%,calc(100% - 120%*var(--_i,0)) calc(100% - 50%*var(--_i,0)));
+                --_x: var(--g)
+            }
+            .gallery > img:nth-child(3) {
+                clip-path: polygon(50% 50%,calc(100% - 50%*var(--_i,0)) calc(100% - 120%*var(--_i,0)),100% calc(100% - 120%*var(--_i,0)),100% 100%,0 100%,0 calc(100% - 100%*var(--_i,0)),calc(50%*var(--_i,0)) calc(100% - 120%*var(--_i,0)));
+                --_y: var(--g)
+            }
+            .gallery > img:nth-child(4) {
+                clip-path: polygon(50% 50%,calc(120%*var(--_i,0)) calc(50%*var(--_i,0)),calc(100%*var(--_i,0)) 0,0 0,0 100%,calc(100%*var(--_i,0)) 100%,calc(120%*var(--_i,0)) calc(100% - 50%*var(--_i,0)));
+                --_x: calc(-1*var(--g))
+            }
+
         </style>
     </head>
     <body class="container">
@@ -172,8 +214,8 @@
                 <div class="col-lg-12 row mt-5">
                     <div class="d-flex align-items-center justify-content-between" style="padding: 0px 15px;">
                         <div class="col-lg-8 align-items-center justify-content-start">
-                            <h2 data-text= "Rajamangala University of" style="color:#FFD53F"></h2>
-                            <h2 data-text= "Technology Thanyaburi" style="margin-left:200px;color:#FFD53F"></h2>
+                            <h1 >Rajamangala University of</h1>
+                            <h1 style="margin-left:200px">Technology Thanyaburi</h1>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                             <button class="btn btn-primary noselect" onclick="window.location.href='{{ route('register') }}'">ลงทะเบียน</button>
@@ -183,29 +225,37 @@
                 </div>
                 <div class="col-lg-12 mt-5"></div>
                 <div class="col-lg-12 mt-5"></div>
-                <div class="col-lg-8 row mt-5">
-                    <div class="col-lg-8">
-                        <h1 style="color:#FFD53F">ยินดีต้อนรับ</h1>
-                        <h1 style="color:#FFD53F">ศิษย์เก่าทุกท่านกลับเข้าสู่รั้ว</h1>
-                        <h1 style="color:#FFD53F">ราชมงคลธัญบุรี</h1>
-                        <h1 style="color:#FFD53F">คณะวิศวกรรมคอมพิวเตอร์</h1>
+                <div class="col-lg-8 mt-5">
+                    <div class="col-lg-12">
+                        <div class="waviy">
+                            <span style="--i:1">ยิ</span>
+                            <span style="--i:2">น</span>
+                            <span style="--i:3">ดี</span>
+                            <span style="--i:4">ต้</span>
+                            <span style="--i:5">อ</span>
+                            <span style="--i:6">น</span>
+                            <span style="--i:7">รั</span>
+                            <span style="--i:8">บ</span>
+                        </div>
+                        <div class="mt-5"></div>
+                        <h1>ศิษย์เก่าทุกท่านกลับเข้าสู่รั้ว</h1>
+                        <h1>ราชมงคลธัญบุรี</h1>
+                        <h1>คณะวิศวกรรมคอมพิวเตอร์</h1>
                         <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login') }}'">เข้าสู่ระบบ</button>
                     </div>
                 </div>
-                <div class="col-lg-4 row">
-                    <div class="d-flex align-items-center flex-column">
-                        <img src="{{ asset('images/1.jpg') }}" style="width: 300px; height: 300px;margin-right: 180px">
-                    </div>
-                    <div class="d-flex align-items-center flex-column">
-                        <img src="{{ asset('images/2.jpg') }}" style="width: 300px; height: 300px;margin-left: 180px">
-                    </div>
+                <div class="col-lg-4 gallery">
+                    <img src="{{ asset('images/1.jpg') }}">
+                    <img src="{{ asset('images/2.jpg') }}">
+                    <img src="{{ asset('images/student.jpg') }}">
+                    <img src="{{ asset('images/teamwork.png') }}">
                 </div>
             </div>
-            <div>
+            {{-- <div>
                 <div class="wave"></div>
                 <div class="wave"></div>
                 <div class="wave"></div>
-             </div>
+             </div> --}}
         </div>
     </body>
 </html>
