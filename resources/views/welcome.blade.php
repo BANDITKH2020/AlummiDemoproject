@@ -7,11 +7,12 @@
         <title>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <style>
             body {
                 margin: auto;
-                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                font-family:'THSarabunNew';
                 overflow: auto;
                 background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgba(255,25,25,1) 98%);
                 animation: gradient 15s ease infinite;
@@ -188,7 +189,7 @@
                         <h1 style="color:#FFD53F">ศิษย์เก่าทุกท่านกลับเข้าสู่รั้ว</h1>
                         <h1 style="color:#FFD53F">ราชมงคลธัญบุรี</h1>
                         <h1 style="color:#FFD53F">คณะวิศวกรรมคอมพิวเตอร์</h1>
-                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login') }}'">เข้าสู่ระบบ ></button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login') }}'">เข้าสู่ระบบ</button>
                     </div>
                 </div>
                 <div class="col-lg-4 row">
