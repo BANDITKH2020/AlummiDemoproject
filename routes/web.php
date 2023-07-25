@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthControllerAdmin;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use Laravel\Socialite\Facades\Socialite;
@@ -20,9 +21,16 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
 });
 
+//admin
+    Route::get('/adminregister', [AuthControllerAdmin::class, 'adminregister'])->name('adminregister');
+    Route::post('/adminregister', [AuthControllerAdmin::class, 'adminregisterPost'])->name('adminregister');
+    Route::get('/adminlogin', [AuthControllerAdmin::class, 'adminlogin'])->name('adminlogin');
+    Route::post('/adminlogin', [AuthControllerAdmin::class, 'adminloginPost'])->name('adminlogin');
+
+
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [HomeController::class, 'index']);
-    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/homeadmin', [AuthControllerAdmin::class, 'homeadmin']);
+    Route::delete('/logout', [AuthControllerAdmin::class, 'logout'])->name('logout');
 });
 
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
