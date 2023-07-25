@@ -38,25 +38,25 @@
                 <h3>เมนู</h3>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="{{ route('pressrelease') }}" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/User/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('studentlist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="/User/studentlist" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('graduatehouse') }}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="/User/graduatehouse" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('awardannounce') }}" class="textmenu"><h5>รางวัลประกาศ</h5></a>
+                <a href="/User/awardannounce" class="textmenu"><h5>รางวัลประกาศ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a class="textmenu"><h5>แบบสอบถาม</h5></a>
+                <a href="๒" class="textmenu"><h5>แบบสอบถาม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('accountsetting') }}" class="textmenu"><h5>ตั้งค่าโปรไฟล์</h5></a>
+                <a href="/User/accountsetting" class="textmenu"><h5>ตั้งค่าโปรไฟล์</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('contacthistory') }}" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
+                <a href="/User/contacthistory" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('welcome') }}" class="textmenu"><h5>ออกจากระบบ</h5></a>

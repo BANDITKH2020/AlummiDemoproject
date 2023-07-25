@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register()
+    public function userregister()
     {
-        return view('register');
+        return view('userregister');
     }
 
-    public function registerPost(Request $request)
+    public function userregisterPost(Request $request)
     {
         $user = new User();
 
@@ -27,12 +27,12 @@ class AuthController extends Controller
         return back()->with('success', 'Register successfully');
     }
 
-    public function login()
+    public function userlogin()
     {
-        return view('login');
+        return view('userlogin');
     }
 
-    public function loginPost(Request $request)
+    public function userloginPost(Request $request)
     {
         $credetials = [
             'email' => $request->email,
@@ -46,10 +46,10 @@ class AuthController extends Controller
         return back()->with('error', 'Error Email or Password');
     }
 
-    public function logout()
+    public function userlogout()
     {
         Auth::logout();
 
-        return redirect()->route('login');
+        return redirect()->route('userlogin');
     }
 }
