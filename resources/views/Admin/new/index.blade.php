@@ -54,7 +54,7 @@
                 <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/Admin/editnew" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
+                <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="/User/accountsetting" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
@@ -113,10 +113,11 @@
                                     <td>{{$row->title_name}}</td>
                                     <td>{{$row->cotent}}</td>
                                     <td>{{$row->created_at->diffForHumans()}}</td><!-- diffForHumans() คือเปรียบเทียบวันที่สร้างจนถึงปัจจุบัน-->
-                                    <td> <a href="{{url('/service/edit/'.$row->id)}}" class="btn btn-primary">แก้ไข</a></td>
-                                    <td> <a href="{{url('/service/delete/'.$row->id)}}" class="btn btn-danger"
-                                          onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"
-                                         >ลบข้อมูล</a>
+                                    <td> <a href=""><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
+                                        <a href="" 
+                                          onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
+                                          <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
+                                        </a>
                                     </td>
                                     </tr>
                                     @endforeach

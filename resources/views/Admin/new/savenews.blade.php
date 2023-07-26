@@ -54,7 +54,7 @@
                 <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/Admin/editnew" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
+                <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="/User/accountsetting" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
@@ -83,39 +83,55 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-    
-    <div class="container "style="position: absolute;left:500px;top: 215px;">
-        <h2>เพิ่มข่าวสาร</h2>
-        <hr class="mt-1" style="border: 1px solid #000">
+        <form action="{{route('addsavenews')}}" method="post" enctype="multipart/form-data">  
+        @csrf
+        <div class="container "style="position: absolute;left:500px;top: 215px;">
+            <h2>เพิ่มข่าวสาร</h2>
+            <hr class="mt-1" style="border: 1px solid #000">
+            
             <div class="card mb-4" style="max-width: 640px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                    <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text">1.อัพโหลดรูปภาพ</p>
-                            <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
-                            <div class="input-group">
-                                <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">Button</button>
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text">1.อัพโหลดรูปภาพ</p>
+                                <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    @error('title_name')
+                                    <div class="my-2">
+                                        <span class="text-danger">{{$message}}</span>
+                                    </div>
+                                    @enderror
+                                    <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">Button</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-            </div>    
+                    
+                </div>    
+            </div>
         </div>
-    </div>
-    <form action="" method="post" enctype="multipart/form-data">
         <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 480px;">
                 <h2>หัวข้อข่าวสาร</h2>
-                <input type="text" class="form-control"  aria-label="title_name" aria-describedby="basic-addon1"><br>
+                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
+                @error('title_name')
+                    <div class="my-2">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror
                 <h2>เนื้อหาข่าวสาร</h2>
-                <textarea rows="5" cols="35" class="form-control" aria-label="With textarea"></textarea>
+                <textarea type="text" name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea"></textarea>
+                @error('cotent')
+                    <div class="my-2">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror
                 <br>
                 <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
-                <a href="" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
+                <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
         </div>  
     </form>
 </form>
