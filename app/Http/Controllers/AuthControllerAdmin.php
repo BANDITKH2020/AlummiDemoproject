@@ -43,7 +43,7 @@ class AuthControllerAdmin extends Controller
         ];
 
         if (Auth::attempt($credetials)) {
-            return redirect('Admin.homeadmin')->with('success', 'Login Success');
+            return redirect('/Admin/homeadmin')->with('success', 'Login Success');
         }
 
         return back()->with('error', 'Error Email or Password');
@@ -57,7 +57,7 @@ class AuthControllerAdmin extends Controller
     }
     public function homeadmin()
     {
-        return view('Admin.homeadmin');
+        return view('/Admin/homeadmin');
     }
 }
 

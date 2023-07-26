@@ -8,6 +8,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
+<style>
+        body {
+                margin: auto;
+                font-family:'THSarabunNew';
+                overflow: auto;
+                background: linear-gradient(315deg, rgb(146, 143, 146) 3%, rgb(150, 162, 173) 38%, rgb(149, 167, 165) 68%, rgb(173, 162, 162) 98%);
+                animation: gradient 15s ease infinite;
+                background-size: 400% 400%;
+                background-attachment: fixed;
+            }
+            @keyframes gradient {
+                0% {
+                    background-position: 0% 0%;
+                }
+                50% {
+                    background-position: 100% 100%;
+                }
+                100% {
+                    background-position: 0% 0%;
+                }
+            }
+    </style>
 <div class="row justify-content-center mt-5">
         <div class="col-lg-4">
             <div class="card">

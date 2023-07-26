@@ -29,7 +29,7 @@
                         <h2>Computer Engineering Alummi</h2>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
 
         <div class="col-2 mt-5" style="border: 2px solid #1400FF;margin-left:30px;border-radius:10px">
