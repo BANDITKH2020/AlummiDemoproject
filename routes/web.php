@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsandActivitiesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthControllerAdmin;
@@ -48,3 +49,5 @@ Route::get('/User/awardannounce', [UserController::class, 'awardannounce'])->nam
 Route::get('/User/accountsetting', [UserController::class, 'accountsetting'])->name('accountsetting'); // ตั้งค่าโปรไฟล์
 Route::get('/User/contacthistory', [UserController::class, 'contacthistory'])->name('contacthistory'); // ประวัติการติดต่อ
 
+Route::get('/new/all', [NewsandActivitiesController::class, 'index'])->name('news');
+Route::get('/new/savenews', [NewsandActivitiesController::class, 'savenews'])->name('savenews');
