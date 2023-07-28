@@ -52,3 +52,6 @@ Route::get('/User/contacthistory', [UserController::class, 'contacthistory'])->n
 Route::get('/new/all', [NewsandActivitiesController::class, 'index'])->name('news');
 Route::get('/new/savenews', [NewsandActivitiesController::class, 'savenews'])->name('savenews');
 Route::post('/new/savenews/add', [NewsandActivitiesController::class, 'store'])->name('addsavenews');
+Route::get('/new/editnews/{id}',[NewsandActivitiesController::class,'edit']);
+Route::post('/new/update/{id}',[NewsandActivitiesController::class,'update']);
+Route::get('/new/delete/{id}',[NewsandActivitiesController::class,'delete']);

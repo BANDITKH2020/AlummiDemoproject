@@ -83,58 +83,57 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-    
-    <div class="container "style="position: absolute;left:500px;top: 215px;">
-    <h2>จัดการข่าวสาร</h2>
-    <hr class="mt-1" style="border: 1px solid #000">
-    <a class="btn btn-outline-warning" href="{{ route('savenews') }}" role="button" >เพิ่มข่าว</a>
-    
-        <div class="row" >   
-            <div class="col-md-8">
-                    @if(session("success"))
-                    <div class="alert alert-success">{{session('success')}}</div>
-                    @endif
-                    <br>
-                    <div class="card">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col"class="text-center">หัวข้อ</th>
-                                    <th scope="col"class="text-center">เนื้อหาข่าว</th>
-                                    <th scope="col"class="text-center">วันที่แก้ไข</th>
-                                    <th scope="col"class="text-center">ตัวเลือก</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    
-                                    @foreach($newsandactivity as $row)
-                                    <tr>
-                                    <td>{{$row->title_name}}</td>
-                                    <td>{{$row->cotent}}</td>
-                                    <td>{{$row->created_at->diffForHumans()}}</td><!-- diffForHumans() คือเปรียบเทียบวันที่สร้างจนถึงปัจจุบัน-->
-                                    <td> <a href="{{url('/new/editnews/'.$row->id)}}"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
-                                        <a href="{{url('/new/delete/'.$row->id)}}" 
-                                          onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
-                                          <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
-                                        </a>
-                                    </td>
-                                    </tr>
-                                    @endforeach
-                            </tbody>
-                        </table>
-                    </div> 
-            </div> 
-        </div>  
-        <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
-        </script>           
-    </div>
-    
-</div>
+        <form action="{{url('/new/update/'.$newsandactivity->id)}}" method="post" enctype="multipart/form-data">  
+        @csrf
+        <div class="container "style="position: absolute;left:500px;top: 215px;">
+            <h2>เพิ่มข่าวสาร</h2>
+            <hr class="mt-1" style="border: 1px solid #000">
+            
+            <div class="card mb-4" style="max-width: 640px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="{{ asset($newsandactivity->title_image) }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text">1.อัพโหลดรูปภาพ</p>
+                                <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    @error('title_name')
+                                    <div class="my-2">
+                                        <span class="text-danger">{{$message}}</span>
+                                    </div>
+                                    @enderror
+                                    <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">เพิ่มภาพ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>    
+            </div>
+        </div>
+        <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 480px;">
+                <h2>หัวข้อข่าวสาร</h2>
+                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1" value="{{$newsandactivity->title_name}}"><br>
+                @error('title_name')
+                    <div class="my-2">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror
+                <h2>เนื้อหาข่าวสาร</h2>
+                <textarea type="text" id="cotent" name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea" required>{{$newsandactivity->cotent}}</textarea>
+                @error('cotent')
+                    <div class="my-2">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror
+                <br>
+                <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
+                <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
+        </div> 
+    </form>
+</form>
 </body>
 </html>
