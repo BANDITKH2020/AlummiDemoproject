@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-12">
-                                        <form id="userRegisterForm" {{ route('register') }} method="POST">
+                                        <form id="userRegisterForm" action="{{ route('register') }}" method="POST">
                                             @csrf
                                             <h3 style="text-align:center">ลงทะเบียนศิษย์เก่า</h3>
                                             <div class="col-lg-12 row">
