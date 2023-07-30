@@ -9,8 +9,25 @@ use Illuminate\Http\Request;
 
 class NewsandActivitiesController extends Controller
 {
-    public function index(){
-        $newsandactivity = newsandactivity::paginate(3);
+    public function index(Request $request){
+        $newsandactivity = newsandactivity::paginate(10);
+        $search = $request->input('search');
+        $gender = $request->gender;
+        // Search in the title and body columns from the posts table
+        
+        switch ($gender) {
+            case 'all':
+                $newsandactivity  = newsandactivity::query()->where('title_name', 'LIKE', "%{$search}%")
+                ->orWhere('created_at', 'LIKE', "%{$search}%")->get();
+                break;
+            case 'department_name':
+                $newsandactivity  = newsandactivity::query()->where('title_name', 'LIKE', "%{$search}%")->get();
+                break;
+            case 'created_at':
+                $newsandactivity  = newsandactivity::query()->where('created_at', 'LIKE', "%{$search}%")->get();
+                break;     
+           
+        }
         return view('admin.new.index',compact('newsandactivity'));
     }
     public function savenews(){

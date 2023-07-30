@@ -84,57 +84,78 @@
         </div>
     </div>
     
-    <div class="container "style="position: absolute;left:500px;top: 215px;">
+    <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการข่าวสาร</h2>
     <hr class="mt-1" style="border: 1px solid #000">
     <a class="btn btn-outline-warning" href="{{ route('savenews') }}" role="button" >เพิ่มข่าว</a>
+        <form action="" method="GET" >
+                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
+                    <select name="gender" class="form-select" >
+                        <option value="all">ทั้งหมด</option>
+                        <option value="title_name" >หัวข้อ</option>
+                        <option value="created_at">วันที่</option>
+                    </select>
+                    <div class="col-mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-35px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:3px;">Search</button>
+                    </div>
+                </label>
+        </form>
     
-        <div class="row" >   
+        <div class="row" >
             <div class="col-md-8">
                     @if(session("success"))
                     <div class="alert alert-success">{{session('success')}}</div>
                     @endif
                     <br>
-                    <div class="card">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col"class="text-center">หัวข้อ</th>
-                                    <th scope="col"class="text-center">เนื้อหาข่าว</th>
-                                    <th scope="col"class="text-center">วันที่แก้ไข</th>
-                                    <th scope="col"class="text-center">ตัวเลือก</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    
-                                    @foreach($newsandactivity as $row)
+                    <div class="card my-3" >
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                    <td>{{$row->title_name}}</td>
-                                    <td>{{$row->cotent}}</td>
-                                    <td>{{$row->created_at->diffForHumans()}}</td><!-- diffForHumans() คือเปรียบเทียบวันที่สร้างจนถึงปัจจุบัน-->
-                                    <td> <a href="{{url('/new/editnews/'.$row->id)}}"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
-                                        <a href="{{url('/new/delete/'.$row->id)}}" 
-                                          onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
-                                          <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
-                                        </a>
-                                    </td>
+                                        <th scope="col"class="text-center">หัวข้อ</th>
+                                        <th scope="col"class="text-center">เนื้อหาข่าว</th>
+                                        <th scope="col"class="text-center">วันที่แก้ไข</th>
+                                        <th scope="col"class="text-center">ตัวเลือก</th>
+                                        
                                     </tr>
-                                    @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                        
+                                        @foreach($newsandactivity as $row)
+                                        <tr>
+                                        <td>{{$row->title_name}}</td>
+                                        <td>{{$row->cotent}}</td>
+                                        <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                        <td> <a href="{{url('/new/editnews/'.$row->id)}}"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
+                                            <a href="{{url('/new/delete/'.$row->id)}}" 
+                                            onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
+                                            <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                        @endforeach
+                                </tbody>
+                            </table>
+                                                      
                     </div> 
             </div> 
-        </div>  
+        </div> 
+                    
         <script>
             var msg = '{{Session::get('alert')}}';
             var exist = '{{Session::has('alert')}}';
             if(exist){
             alert(msg);
             }
-        </script>           
+        </script>   
+       
     </div>
-    
+  
+     
+
+
+
 </div>
+   
 </body>
 </html>
