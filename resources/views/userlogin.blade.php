@@ -47,11 +47,11 @@
                             {{ Session::get('error') }}
                         </div>
                     @endif
-                    <form action="{{ route('userlogin') }}" method="POST">
+                    <form action="{{ route('login.google') }}" method="POST">
                         @csrf
                         <br><br><br><br><br><br><br>
                         <div class="d-grid gap-4 col-6 mx-auto">
-                                <a  class="btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none"  >
+                                <a  class="btn btn-outline-dark"role="button" style="text-transform:none"  >
                                     <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                                     Login with Google
                                 </a>
@@ -59,7 +59,6 @@
                         <p style="text-align:center; ">หากยังไม่ลงทะเบียนกรุณา <a href="{{ route('userregister') }}">ลงทะเบียน</a></p>
                         <br><br><br>
                     </div>
-
             </div>
         </div>
     </div>

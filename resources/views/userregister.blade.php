@@ -32,19 +32,14 @@
                 }
             }
     </style>
-<div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-5">
         <div class="col-lg-5">
                 <div class="card">
                     <div class="card-body">
                         <div class="col-md-6 float-md-start mb-3 ms-md-3"><br><br>
                             <img src="{{ asset('images/student.jpg') }}" style="width: 300px; height: 400px;margin-right: 180px; border-radius: 8px;">
                         </div>
-                        @if(Session::has('success'))
-                            <div class="alert alert-success" role="alert">
-                                {{ Session::get('success') }}
-                            </div>
-                        @endif
-                        <form  class="row g-1" action="{{ route('userregister') }}" method="POST">
+                        <form  class="row g-1" {{ route('register') }} method="POST">
                             @csrf
                             <h3 align="center">ลงทะเบียนศิษย์เก่า</h3>
                             <div class="mb-2">
@@ -57,27 +52,30 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="student_grp" class="form-label">รหัสนักศึกษา</label>
-                                <input type="text" class="form-control" id="student_grp">
+                                <input type="text" name="student_grp" class="form-control" id="student_grp" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="graduatesem" class="form-label">กลุ่มปีการศึกษา</label>
-                                <input type="text" class="form-control" id="graduatesem">
+                                <input type="text" name="graduatesem" class="form-control" id="graduatesem" required>
                             </div>
                             <div class="my-3">
                                 <label for="Token_id" class="form-label">กรอกโค้ดที่ได้จากอาจารย์</label>
-                                <input type="text" name="Token_id" class="form-control" id="Token_id" placeholder="" required>
-                            </div>
-                            <hr size="3" width="50%"  color="black">
-                            <div class="mb-3">
-                                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+                                <input type="text" name="Token_id" class="form-control" id="Token_id" placeholder="">
                             </div>
                             <div class="d-grid gap-2 col-12 mx-auto">
-                                <a  class="btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none"  >
-                                    <img width="20px" style="margin-bottom:3px; margin-right:10px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                    Login with Google
-                                </a>
+                                <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
                             </div>
-
+                            <hr size="3" width="50%"  color="black">
+                            {{-- <div class="mb-3">
+                                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+                            </div> --}}
+                            {{-- <div class="d-grid gap-2 col-12 mx-auto">
+                                <button style="border-radius:10px;padding:5px;background-color:white">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:10px; text-align:center; "alt="Google sign-in"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    Login with Google
+                                </button>
+                            </div> --}}
                         </form>
                     </div>
                 </div>

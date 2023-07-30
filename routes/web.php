@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\UserRegisterController;
 
 
 Route::get('/', function () {
@@ -19,9 +20,8 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/userregister', [AuthController::class, 'userregister'])->name('userregister');
-    Route::post('/userregister', [AuthController::class, 'userregisterPost'])->name('userregister');
     Route::get('/userlogin', [AuthController::class, 'userlogin'])->name('userlogin');
-    Route::post('/userlogin', [AuthController::class, 'userloginPost'])->name('userlogin');
+    Route::post('/userlogin', [AuthController::class, 'userloginPost'])->name('userloginPost');
 });
 
 //admin
@@ -48,6 +48,8 @@ Route::get('/User/graduatehouse', [UserController::class, 'graduatehouse'])->nam
 Route::get('/User/awardannounce', [UserController::class, 'awardannounce'])->name('awardannounce'); // รางวัลประกาศ
 Route::get('/User/accountsetting', [UserController::class, 'accountsetting'])->name('accountsetting'); // ตั้งค่าโปรไฟล์
 Route::get('/User/contacthistory', [UserController::class, 'contacthistory'])->name('contacthistory'); // ประวัติการติดต่อ
+
+Route::post('/userregister', [UserRegisterController::class, 'register'])->name('register');
 
 Route::get('/new/all', [NewsandActivitiesController::class, 'index'])->name('news');
 Route::get('/new/savenews', [NewsandActivitiesController::class, 'savenews'])->name('savenews');

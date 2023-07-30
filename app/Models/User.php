@@ -25,9 +25,7 @@ class User extends Authenticatable
         'student_grp',
         'email',
         'password',
-        
-        
-        
+
     ];
 
     /**
