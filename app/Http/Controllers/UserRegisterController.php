@@ -12,6 +12,6 @@ class UserRegisterController extends Controller
         User::create($data);
 
         // ทำการ redirect หลังจากบันทึกข้อมูลเสร็จสิ้น
-        return redirect()->route('homeuser')->with('success', 'ลงทะเบียนสำเร็จ');
+        return view('userregister')->with('success', true);
     }
 }
