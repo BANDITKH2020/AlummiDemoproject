@@ -135,8 +135,9 @@
                                         </tr>
                                         @endforeach
                                 </tbody>
+                                
                             </table>
-                                                      
+                         {{$newsandactivity->links()}}                   
                     </div> 
             </div> 
         </div> 

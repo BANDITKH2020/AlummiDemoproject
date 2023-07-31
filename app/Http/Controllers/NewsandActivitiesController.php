@@ -6,30 +6,39 @@ use App\Http\Controllers\Controller;
 use App\Models\newsandactivity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class NewsandActivitiesController extends Controller
 {
-    public function index(Request $request){
-        $newsandactivity = newsandactivity::paginate(10);
-        $search = $request->input('search');
-        $gender = $request->gender;
-        // Search in the title and body columns from the posts table
-        
+    public function index(Request $request)
+{
+    $query = newsandactivity::query();
+
+    $search = $request->input('search');
+    $gender = $request->gender;
+
+    // Apply search filters
+    if (!empty($search)) {
         switch ($gender) {
             case 'all':
-                $newsandactivity  = newsandactivity::query()->where('title_name', 'LIKE', "%{$search}%")
-                ->orWhere('created_at', 'LIKE', "%{$search}%")->get();
+                $query->where('title_name', 'LIKE', "%{$search}%")
+                    ->orWhere('created_at', 'LIKE', "%{$search}%");
                 break;
-            case 'department_name':
-                $newsandactivity  = newsandactivity::query()->where('title_name', 'LIKE', "%{$search}%")->get();
+            case 'title_name':
+                $query->where('title_name', 'LIKE', "%{$search}%");
                 break;
             case 'created_at':
-                $newsandactivity  = newsandactivity::query()->where('created_at', 'LIKE', "%{$search}%")->get();
-                break;     
-           
+                $query->where('created_at', 'LIKE', "%{$search}%");
+                break;
         }
-        return view('admin.new.index',compact('newsandactivity'));
     }
+
+    // Paginate the results after applying the filters
+    $newsandactivity = $query->paginate(3);
+
+    return view('admin.new.index', compact('newsandactivity'));
+}
+
     public function savenews(){
         return view('admin.new.savenews');
     }
@@ -141,10 +150,5 @@ class NewsandActivitiesController extends Controller
         //ลบข้อมูลฐาน
         $delete= newsandactivity::find($id)->delete();
         return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
-    }
-
-
-    
-
-   
+    }  
 }
