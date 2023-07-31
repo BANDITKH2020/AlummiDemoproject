@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\activityController;
 use App\Http\Controllers\NewsandActivitiesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -50,10 +51,13 @@ Route::get('/User/accountsetting', [UserController::class, 'accountsetting'])->n
 Route::get('/User/contacthistory', [UserController::class, 'contacthistory'])->name('contacthistory'); // ประวัติการติดต่อ
 
 Route::post('/userregister', [UserRegisterController::class, 'register'])->name('register');
-
+//---------------------ข่าว-----------------------
 Route::get('/new/all', [NewsandActivitiesController::class, 'index'])->name('news');
 Route::get('/new/savenews', [NewsandActivitiesController::class, 'savenews'])->name('savenews');
 Route::post('/new/savenews/add', [NewsandActivitiesController::class, 'store'])->name('addsavenews');
 Route::get('/new/editnews/{id}',[NewsandActivitiesController::class,'edit']);
 Route::post('/new/update/{id}',[NewsandActivitiesController::class,'update']);
 Route::get('/new/delete/{id}',[NewsandActivitiesController::class,'delete']);
+//----------------------กิจกรรม--------------------
+Route::get('/activity/all',[activityController::class,'index'])->name('activitys');
+Route::get('/activity/saveactivity', [activityController::class, 'saveactivitys'])->name('saveactivitys');

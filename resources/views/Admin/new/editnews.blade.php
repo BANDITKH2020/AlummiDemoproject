@@ -57,7 +57,7 @@
                 <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/accountsetting" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
+                <a href="{{ route('activitys') }}" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="/User/contacthistory" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>

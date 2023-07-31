@@ -83,57 +83,55 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-        <form action="{{route('addsavenews')}}" method="post" enctype="multipart/form-data">  
-        @csrf
-        <div class="container "style="position: absolute;left:500px;top: 215px;">
-            <h2>เพิ่มข่าวสาร</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            
-            <div class="card mb-4" style="max-width: 640px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                        <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text">1.อัพโหลดรูปภาพ</p>
-                                <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                    @error('title_name')
-                                    <div class="my-2">
-                                        <span class="text-danger">{{$message}}</span>
-                                    </div>
-                                    @enderror
-                                    <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">Button</button>
-                                </div>
-                            </div>
-                        </div>
+    
+    <div class="container "style="position:absolute;left:500px;top: 215px;">
+    <h2>จัดการการกิจกรรม</h2>
+    <hr class="mt-1" style="border: 1px solid #000">
+    <a class="btn btn-outline-warning" href="{{route('saveactivitys')}}" role="button" >เพิ่มกิจกรรม</a>
+        <form action="" method="GET" >
+                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
+                    <select name="gender" class="form-select" >
+                        <option value="all">ทั้งหมด</option>
+                        <option value="title_name" >ชื่อเรื่อง</option>
+                        <option value="created_at">ประเภทกิจกรรม</option>
+                        <option value="created_at">วันที่จัดกิจกรรม</option>
+                    </select>
+                    <div class="col-mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="Search activitys" style="position:relative;left:300px;top:-35px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:3px;">Search</button>
                     </div>
-                    
-                </div>    
-            </div>
-        </div>
-        <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 480px;">
-                <h2>หัวข้อข่าวสาร</h2>
-                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
-                @error('title_name')
-                    <div class="my-2">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror
-                <h2>เนื้อหาข่าวสาร</h2>
-                <textarea type="text" name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea"></textarea>
-                @error('cotent')
-                    <div class="my-2">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror
-                <br>
-                <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
-                <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
-        </div>  
-    </form>
-</form>
+                </label>
+        </form>
+    
+        <div class="row" >
+            <div class="col-md-8">
+                    @if(session("success"))
+                    <div class="alert alert-success">{{session('success')}}</div>
+                    @endif
+                    <br>
+                    <div class="card my-3" >
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"class="text-center">หัวข้อ</th>
+                                        <th scope="col"class="text-center">ประเภทกิจกรรม</th>
+                                        <th scope="col"class="text-center">วันที่จัดกิจกรรม</th>
+                                        <th scope="col"class="text-center">ตัวเลือก</th>
+                                        
+                                    </tr>
+                                </thead>
+                            </table>                  
+                    </div> 
+            </div> 
+        </div>            
+        <script>
+            var msg = '{{Session::get('alert')}}';
+            var exist = '{{Session::has('alert')}}';
+            if(exist){
+            alert(msg);
+            }
+        </script>   
+    </div>
+</div> 
 </body>
 </html>

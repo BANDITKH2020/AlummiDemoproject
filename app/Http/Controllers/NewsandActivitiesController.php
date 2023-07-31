@@ -142,5 +142,9 @@ class NewsandActivitiesController extends Controller
         $delete= newsandactivity::find($id)->delete();
         return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
     }
+
+
+    
+
    
 }

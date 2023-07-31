@@ -89,7 +89,7 @@
             <h2>เพิ่มข่าวสาร</h2>
             <hr class="mt-1" style="border: 1px solid #000">
             
-            <div class="card mb-4" style="max-width: 640px;">
+            <div class="card mb-4" style="max-width: 440px;">
                     <div class="row g-0">
                         <div class="col-md-4">
                         <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
@@ -105,7 +105,7 @@
                                         <span class="text-danger">{{$message}}</span>
                                     </div>
                                     @enderror
-                                    <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">Button</button>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -114,17 +114,24 @@
                 </div>    
             </div>
         </div>
-        <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 480px;">
-                <h2>หัวข้อข่าวสาร</h2>
+        <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
+                <h3>หัวข้อข่าวสาร</h3>
                 <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
                 @error('title_name')
                     <div class="my-2">
                         <span class="text-danger">{{$message}}</span>
                     </div>
                 @enderror
-                <h2>เนื้อหาข่าวสาร</h2>
-                <textarea type="text" name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea"></textarea>
+                <h3>เนื้อหาข่าวสาร</h3>
+                <textarea type="text" name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
                 @error('cotent')
+                    <div class="my-2">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror<br>
+                <h3>วัตถุประสงค์</h3>
+                <textarea type="text" name="objective" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
+                @error('objective')
                     <div class="my-2">
                         <span class="text-danger">{{$message}}</span>
                     </div>
@@ -132,7 +139,26 @@
                 <br>
                 <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
                 <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
-        </div>  
+        </div>
+        <div class="card mb-4" style="max-width: 440px;position: absolute;left:1200px;top: 280px;">
+            <div class="card-body">  
+            <h4>ประเภทกิจกรรม</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">งานพบประสังสรรค์
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">งานวิชาการ
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">งานแข่งขันกีฬา
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">อื่นๆ
+                    <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
+                </div>
+
+            </div>
+        </div>
     </form>
 </form>
 </body>
