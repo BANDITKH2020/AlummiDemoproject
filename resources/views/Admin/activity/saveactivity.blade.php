@@ -83,9 +83,9 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-        <form action="{{route('addsavenews')}}" method="post" enctype="multipart/form-data">  
+        <form action="{{route('addactivitys')}}" method="post" enctype="multipart/form-data">  
         @csrf
-        <div class="container "style="position: absolute;left:500px;top: 215px;">
+        <div class="container "style="position: absolute;left:500px;top: 180px;">
             <h2>เพิ่มข่าวสาร</h2>
             <hr class="mt-1" style="border: 1px solid #000">
             
@@ -100,8 +100,8 @@
                                 <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
                                 <div class="input-group">
                                     <input type="file" class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                    @error('title_name')
-                                    <div class="my-2">
+                                    @error('title_image')
+                                    <div class="my-1">
                                         <span class="text-danger">{{$message}}</span>
                                     </div>
                                     @enderror
@@ -116,26 +116,27 @@
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
                 <h3>หัวข้อข่าวสาร</h3>
-                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
+                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1">
                 @error('title_name')
-                    <div class="my-2">
+                    <div class="my">
                         <span class="text-danger">{{$message}}</span>
                     </div>
                 @enderror
+                <br>
                 <h3>เนื้อหาข่าวสาร</h3>
                 <textarea type="text" name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
                 @error('cotent')
-                    <div class="my-2">
+                    <div class="my">
                         <span class="text-danger">{{$message}}</span>
                     </div>
                 @enderror<br>
                 <h3>วัตถุประสงค์</h3>
                 <textarea type="text" name="objective" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
                 @error('objective')
-                    <div class="my-2">
+                    <div class="my">
                         <span class="text-danger">{{$message}}</span>
                     </div>
-                @enderror
+                @enderror<br>
                 <br>
                 <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
                 <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
