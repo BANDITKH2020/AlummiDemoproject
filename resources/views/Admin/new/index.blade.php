@@ -96,17 +96,15 @@
                         <option value="created_at">วันที่</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-35px" required/> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:3px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-37px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
                     </div>
                 </label>
         </form>
     
         <div class="row" >
             <div class="col-md-8">
-                    @if(session("success"))
-                    <div class="alert alert-success">{{session('success')}}</div>
-                    @endif
+                    
                     <br>
                     <div class="card my-3" >
                             <table class="table table-bordered">
@@ -141,7 +139,7 @@
                     </div> 
             </div> 
         </div> 
-                    
+             
         <script>
             var msg = '{{Session::get('alert')}}';
             var exist = '{{Session::has('alert')}}';

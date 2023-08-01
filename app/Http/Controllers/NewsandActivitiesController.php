@@ -61,7 +61,7 @@ class NewsandActivitiesController extends Controller
 
         //เข้ารหัสรูปภาพ
         $category= 'news';
-        $objective='-';
+        $objective='';
 
         $title_image = $request->file('title_image');
         //generate ชื่อภาพ
@@ -84,7 +84,7 @@ class NewsandActivitiesController extends Controller
             'created_at'=>Carbon::now()
         ]);
         $title_image->move($upload_location,$img_name);
-        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        return redirect()->route('news')->with('alert',"บันทึกข้อมูลเรียบร้อย");
 
         
     }

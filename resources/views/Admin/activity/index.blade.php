@@ -97,8 +97,8 @@
                         <option value="created_at">วันที่จัดกิจกรรม</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search activitys" style="position:relative;left:300px;top:-35px" required/> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:3px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="Search activitys" style="position:relative;left:300px;top:-37px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
                     </div>
                 </label>
         </form>

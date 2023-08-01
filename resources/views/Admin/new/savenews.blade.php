@@ -105,7 +105,7 @@
                                         <span class="text-danger">{{$message}}</span>
                                     </div>
                                     @enderror
-                                    <button class="btn btn-primary" type="button" id="inputGroupFileAddon04">Button</button>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,15 @@
                 <br>
                 <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
                 <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
-        </div>  
+        </div>
+        
+        <script>
+            var msg = '{{Session::get('alert')}}';
+            var exist = '{{Session::has('alert')}}';
+            if(exist){
+            alert(msg);
+            }
+        </script>  
     </form>
 </form>
 </body>
