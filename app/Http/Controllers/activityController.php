@@ -32,14 +32,10 @@ class activityController extends Controller
                 'objective.required'=>"กรุณาป้อนเนื้อหาวัตถุประสงค์ครับ",
                 'title_image.required'=>"กรุณาใส่ภาพประกอบกิจกรรมครับ", 
                 'title_image.mimes'=>"กรุณาไฟล์ภาพเป็น jpg, jpeg, png ครับ", 
+                'category.required'=>"กรุณาเลือกประเภทกิจกรรมครับ", 
             ]
            
         );
-
-        //เข้ารหัสรูปภาพ
-        
-       
-
         $title_image = $request->file('title_image');
         //generate ชื่อภาพ
         $name_gen = hexdec(uniqid());
@@ -51,8 +47,18 @@ class activityController extends Controller
         //บันทึกข้อมูล
         $upload_location = 'image/newsandactivity/';
         $full_path = $upload_location.$img_name;
-
-        newsandactivity::insert([
+        $category = $request;
+        if ($category !='1') {
+            newsandactivity::insert([
+                'title_name'=>$request->title_name,
+                'cotent'=>$request->cotent,
+                'title_image'=>$full_path,
+                'category'=>$request->categoryall,
+                'objective'=>$request->objective,
+                'created_at'=>Carbon::now()
+            ]);
+        }else{
+            newsandactivity::insert([
             'title_name'=>$request->title_name,
             'cotent'=>$request->cotent,
             'title_image'=>$full_path,
@@ -60,8 +66,9 @@ class activityController extends Controller
             'objective'=>$request->objective,
             'created_at'=>Carbon::now()
         ]);
+        }
         $title_image->move($upload_location,$img_name);
-        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        return redirect()->route('activitys')->with('alert',"บันทึกข้อมูลเรียบร้อย");
 
         
     }

@@ -145,19 +145,23 @@
             <div class="card-body">  
             <h4>ประเภทกิจกรรม</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">งานพบประสังสรรค์
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="งานพบประสังสรรค์">งานพบประสังสรรค์
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">งานวิชาการ
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="งานวิชาการ">งานวิชาการ
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">งานแข่งขันกีฬา
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="งานแข่งขันกีฬา">งานแข่งขันกีฬา
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">อื่นๆ
-                    <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
+                <div class="form-check"  >
+                    <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="1">อื่นๆ
+                    <input type="text" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
                 </div>
-
+                @error('category')
+                    <div class="my">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror<br>
             </div>
         </div>
     </form>
