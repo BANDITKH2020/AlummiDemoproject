@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\newsandactivity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
+
 
 class NewsandActivitiesController extends Controller
 {
@@ -32,9 +33,11 @@ class NewsandActivitiesController extends Controller
                 break;
         }
     }
-
+    if ($query->where('cotent_type', '1')->exists()) {
+        $newsandactivity = $query->paginate(3);
+    }
     // Paginate the results after applying the filters
-    $newsandactivity = $query->paginate(3);
+   
 
     return view('admin.new.index', compact('newsandactivity'));
 }
@@ -62,6 +65,7 @@ class NewsandActivitiesController extends Controller
         //เข้ารหัสรูปภาพ
         $category= 'news';
         $objective='';
+        $cotent_type=1;
 
         $title_image = $request->file('title_image');
         //generate ชื่อภาพ
@@ -81,6 +85,7 @@ class NewsandActivitiesController extends Controller
             'title_image'=>$full_path,
             'category'=>$category,
             'objective'=>$objective,
+            'cotent_type'=>$request->cotent_type,
             'created_at'=>Carbon::now()
         ]);
         $title_image->move($upload_location,$img_name);

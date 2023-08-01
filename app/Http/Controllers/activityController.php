@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 class activityController extends Controller
 {
     public function index(){
-        return view('admin.activity.index');
+        $query = newsandactivity::query()->where('objective','1');
+        
+            $activity = $query->paginate(3);
+        
+        return view('admin.activity.index',compact('activity'));
     }
     public function saveactivitys(){
         return view('admin.activity.saveactivity');
