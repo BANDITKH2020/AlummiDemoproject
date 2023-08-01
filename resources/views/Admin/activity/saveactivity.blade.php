@@ -145,16 +145,16 @@
             <div class="card-body">  
             <h4>ประเภทกิจกรรม</h4>
                 <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="งานพบประสังสรรค์">งานพบประสังสรรค์
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="1">งานพบประสังสรรค์
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="งานวิชาการ">งานวิชาการ
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="2">งานวิชาการ
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="งานแข่งขันกีฬา">งานแข่งขันกีฬา
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="3">งานแข่งขันกีฬา
                 </div>
                 <div class="form-check"  >
-                    <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="1">อื่นๆ
+                    <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="4">อื่นๆ
                     <input type="text" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
                 </div>
                 @error('category')

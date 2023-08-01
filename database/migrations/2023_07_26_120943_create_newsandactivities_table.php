@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title_image');
             $table->string('category');
             $table->string('objective');
+            $table->string('cotent_type');
             $table->timestamps();
         });
     }

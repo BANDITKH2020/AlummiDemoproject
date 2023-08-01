@@ -65,7 +65,7 @@ class NewsandActivitiesController extends Controller
         //เข้ารหัสรูปภาพ
         $category= 'news';
         $objective='';
-        $cotent_type=1;
+        $cotent_type='1';
 
         $title_image = $request->file('title_image');
         //generate ชื่อภาพ
@@ -85,7 +85,7 @@ class NewsandActivitiesController extends Controller
             'title_image'=>$full_path,
             'category'=>$category,
             'objective'=>$objective,
-            'cotent_type'=>$request->cotent_type,
+            'cotent_type'=>$cotent_type,
             'created_at'=>Carbon::now()
         ]);
         $title_image->move($upload_location,$img_name);

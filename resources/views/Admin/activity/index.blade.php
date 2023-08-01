@@ -120,7 +120,24 @@
                                         
                                     </tr>
                                 </thead>
-                            </table>                  
+                                <tbody>
+                                        
+                                        @foreach($activity as $row)
+                                        <tr>
+                                        <td>{{$row->title_name}}</td>
+                                        <td>{{$row->cotent}}</td>
+                                        <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                        <td> <a href="{{url('/new/editnews/'.$row->id)}}"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
+                                            <a href="{{url('/new/delete/'.$row->id)}}" 
+                                            onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
+                                            <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                        @endforeach
+                                </tbody>
+                            </table>       
+                            {{$activity->links()}}             
                     </div> 
             </div> 
         </div>            

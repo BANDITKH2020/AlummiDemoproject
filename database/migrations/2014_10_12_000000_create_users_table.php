@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
+            $table->string('email');
+            $table->string('password')->nullable();
             $table->string('student_grp')->nullable();
             $table->string('graduatesem')->nullable();
             $table->string('Token_id')->nullable();

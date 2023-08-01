@@ -15,5 +15,6 @@ class newsandactivity extends Model
         'title_image',
         'category',
         'objective',
+        'cotent_type',
     ];
 }

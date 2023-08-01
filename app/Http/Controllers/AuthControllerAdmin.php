@@ -18,12 +18,11 @@ class AuthControllerAdmin extends Controller
     {
         $user = new User();
 
-        $user->firstname = 'null';
-        $user->lastname = 'null';
+        $user->firstname = 'admin';
+        $user->lastname = 'admin';
         $user->email = $request->email;
         $user->graduatesem = 'null';
         $user->student_grp = 'null';
-        $user->google_id = 'null';
         $user->password = Hash::make($request->password);
         $user->save();
 

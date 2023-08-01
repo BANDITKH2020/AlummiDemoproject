@@ -10,10 +10,11 @@ use Illuminate\Http\Request;
 class activityController extends Controller
 {
     public function index(){
-        $query = newsandactivity::query()->where('objective','1');
+        $query = newsandactivity::query();
         
+        if ($query->where('cotent_type','2')->exists()) {
             $activity = $query->paginate(3);
-        
+        }
         return view('admin.activity.index',compact('activity'));
     }
     public function saveactivitys(){
@@ -51,26 +52,59 @@ class activityController extends Controller
         //บันทึกข้อมูล
         $upload_location = 'image/newsandactivity/';
         $full_path = $upload_location.$img_name;
-        $category = $request;
-        if ($category !='1') {
-            newsandactivity::insert([
-                'title_name'=>$request->title_name,
-                'cotent'=>$request->cotent,
-                'title_image'=>$full_path,
-                'category'=>$request->categoryall,
-                'objective'=>$request->objective,
-                'created_at'=>Carbon::now()
-            ]);
-        }else{
-            newsandactivity::insert([
-            'title_name'=>$request->title_name,
-            'cotent'=>$request->cotent,
-            'title_image'=>$full_path,
-            'category'=>$request->category,
-            'objective'=>$request->objective,
-            'created_at'=>Carbon::now()
-        ]);
-        }
+        
+        $cotent_type='2';
+        $category = $request->category;
+            switch ($category) {
+                case '1':
+                    $category='งานพบประสังสรรค์';
+                    newsandactivity::insert([
+                        'title_name'=>$request->title_name,
+                        'cotent'=>$request->cotent,
+                        'title_image'=>$full_path,
+                        'category'=>$category,
+                        'objective'=>$request->objective,
+                        'cotent_type'=>$cotent_type,
+                        'created_at'=>Carbon::now()
+                    ]);
+                    break;
+                case '2':
+                    $category='งานวิชาการ';
+                    newsandactivity::insert([
+                        'title_name'=>$request->title_name,
+                        'cotent'=>$request->cotent,
+                        'title_image'=>$full_path,
+                        'category'=>$category,
+                        'objective'=>$request->objective,
+                        'cotent_type'=>$cotent_type,
+                        'created_at'=>Carbon::now()
+                    ]);
+                    break;
+                case '3':
+                    $category='งานแข่งขันกีฬา';
+                    newsandactivity::insert([
+                        'title_name'=>$request->title_name,
+                        'cotent'=>$request->cotent,
+                        'title_image'=>$full_path,
+                        'category'=>$category,
+                        'objective'=>$request->objective,
+                        'cotent_type'=>$cotent_type,
+                        'created_at'=>Carbon::now()
+                    ]);
+                    break;
+                case '4':
+                    newsandactivity::insert([
+                        'title_name'=>$request->title_name,
+                        'cotent'=>$request->cotent,
+                        'title_image'=>$full_path,
+                        'category'=>$request->categoryall,
+                        'objective'=>$request->objective,
+                        'cotent_type'=>$cotent_type,
+                        'created_at'=>Carbon::now()
+                    ]);
+                    break;
+            }
+        
         $title_image->move($upload_location,$img_name);
         return redirect()->route('activitys')->with('alert',"บันทึกข้อมูลเรียบร้อย");
 
