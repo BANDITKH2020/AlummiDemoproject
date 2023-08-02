@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\activityController;
 use App\Http\Controllers\NewsandActivitiesController;
+use App\Http\Controllers\surveylinkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthControllerAdmin;
@@ -9,7 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
-use Laravel\Socialite\Facades\Socialite;
+
 use App\Http\Controllers\UserRegisterController;
 
 
@@ -65,3 +66,5 @@ Route::post('/activity/saveactivity/add', [activityController::class, 'store'])-
 Route::get('/activity/editactivity/{id}',[activityController::class,'edit']);
 Route::post('/activity/update/{id}',[activityController::class,'update']);
 Route::get('/activity/delete/{id}',[activityController::class,'delete']);
+//----------------------จัดการแบบสอบถาม--------------------------------
+Route::get('/link/all',[surveylinkController::class,'index'])->name('links');

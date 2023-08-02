@@ -147,9 +147,7 @@
             alert(msg);
             }
         </script>   
-       
     </div>
 </div>
-   
 </body>
 </html>

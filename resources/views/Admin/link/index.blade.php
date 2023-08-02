@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
@@ -18,22 +19,22 @@
                 text-decoration: none;
               }
     </style>
-  <div class="col-12">
-    <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px; ;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+    <div class="col-12">
+        <div class="col-12 outset" style="background-color: #EFF4FF;">
+        <div class="col-12">
+            <div class="col-12 row">
+            <div class="col-1">
+                <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
+            </div>
+            <div class="col-4" style="padding: 15px; ;">
+                <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                <hr class="mt-1" style="border: 1px solid #000">
+                <h2>Computer Engineering Alummi</h2>
+            </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
-    </div>
+        </div>
     
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
@@ -81,42 +82,54 @@
             
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-  </div>
-  
-  <div class="row" style="position: absolute;left:500px;top:180px;">
-  <h2 class="text-left" >ประชาสัมพันธ์</h2>
-  <div class="col-sm-3">
-    <div class="card">
-    <img src="{{ asset('images/student.jpg') }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
     </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="card">
-      <img src="{{ asset('images/student.jpg') }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+    
+    <div class="container "style="position:absolute;left:500px;top: 215px;">
+    <h2>จัดการแบบสอบถาม</h2>
+    <hr class="mt-1" style="border: 1px solid #000">
+    <a class="btn btn-outline-warning" href="{{ route('savenews') }}" role="button" >เพิ่มข่าว</a>
+        <form action="" method="GET" >
+                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
+                    <div class="col-mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-1px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:-1px;">Search</button>
+                    </div>
+                </label>
+        </form>
+    
+        <div class="row" >
+            <div class="col-md-8">
+                    <br>
+                    <div class="card my-3" >
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
+                                        <th scope="col"class="text-center">ลิงก์</th>
+                                        <th scope="col"class="text-center">วันที่แก้ไข</th>
+                                        <th scope="col"class="text-center">ตัวเลือก</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        
+                                       
+                                </tbody>
+                                
+                            </table>
+                                        
+                    </div> 
+            </div> 
+        </div> 
+             
+        <script>
+            var msg = '{{Session::get('alert')}}';
+            var exist = '{{Session::has('alert')}}';
+            if(exist){
+            alert(msg);
+            }
+        </script>   
     </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="card">
-    <img src="{{ asset('images/student.jpg') }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
 </div>
-  
-  
 </body>
 </html>
