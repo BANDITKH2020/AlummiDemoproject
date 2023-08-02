@@ -62,3 +62,6 @@ Route::get('/new/delete/{id}',[NewsandActivitiesController::class,'delete']);
 Route::get('/activity/all',[activityController::class,'index'])->name('activitys');
 Route::get('/activity/saveactivity', [activityController::class, 'saveactivitys'])->name('saveactivitys');
 Route::post('/activity/saveactivity/add', [activityController::class, 'store'])->name('addactivitys');
+Route::get('/activity/editactivity/{id}',[activityController::class,'edit']);
+Route::post('/activity/update/{id}',[activityController::class,'update']);
+Route::get('/activity/delete/{id}',[activityController::class,'delete']);

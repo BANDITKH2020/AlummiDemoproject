@@ -9,9 +9,30 @@ use Illuminate\Http\Request;
 
 class activityController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $query = newsandactivity::query();
-        
+        $search = $request->input('search');
+        $searchdata = $request->searchdata;
+
+    // Apply search filters
+    if (!empty($search)) {
+        switch ($searchdata) {
+            case 'all':
+                $query->where('title_name', 'LIKE', "%{$search}%")
+                    ->orWhere('category', 'LIKE', "%{$search}%")
+                    ->orWhere('created_at', 'LIKE', "%{$search}%");
+                break;
+            case 'title_name':
+                $query->where('title_name', 'LIKE', "%{$search}%");
+                break;
+            case 'category':
+                $query->where('category', 'LIKE', "%{$search}%");
+                break;
+            case 'created_at':
+                $query->where('created_at', 'LIKE', "%{$search}%");
+                break;
+        }
+    }
         if ($query->where('cotent_type','2')->exists()) {
             $activity = $query->paginate(3);
         }
@@ -106,8 +127,73 @@ class activityController extends Controller
             }
         
         $title_image->move($upload_location,$img_name);
-        return redirect()->route('activitys')->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        return redirect()->route('activitys')->with('alert',"บันทึกข้อมูลเรียบร้อย"); 
+    }
+    public function edit($id){
+        $activity = newsandactivity::find($id);
+        return view('admin.activity.editactivity',compact('activity'));
+    }
 
+    public function update(Request $request, $id){
+        $request->validate(
+            [
+                'title_name'=>'required',
+                'cotent'=>'required',
+                'objective'=>'required',
+            ],
+            [
+                'title_name.required'=>"กรุณาป้อนชื่อหัวข้อกิจกรรมครับ",
+                'cotent.required'=>"กรุณาป้อนเนื้อหากิจกรรมครับ",
+                'objective.required'=>"กรุณาป้อนเนื้อหาวัตถุประสงค์ครับ",
+                
+            ]
+        );
+        $title_image = $request->file('title_image');
+        //อัพเดตภาพและชื่อ
+        if($title_image){
+            $name_gen = hexdec(uniqid());
+
+            //ดึ่งนามสกุลไฟล์ภาพ
+            $img_ext = strtolower($title_image->getClientOriginalExtension());
+            $img_name = $name_gen.'.'.$img_ext;
         
+            //บันทึกข้อมูล
+            $upload_location = 'image/newsandactivity/';
+            $full_path = $upload_location.$img_name;
+
+            
+            //อัพเดตข้อมูล
+            newsandactivity::find($id)->update([
+                'title_name'=>$request->title_name,
+                'cotent'=>$request->cotent,
+                'objective'=>$request->objective,
+                'title_image'=>$full_path,
+            ]);
+
+            //ลบภาพเก่าแทนภาพใหม่
+            $old_image = $request->old_image;
+            unlink($old_image);
+            $title_image->move($upload_location,$img_name);
+            return redirect()->route('activitys')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
+    
+        }else{
+           //อัพเดตชื่อ 
+           newsandactivity::find($id)->update([
+                'title_name'=>$request->title_name,
+                'cotent'=>$request->cotent,
+                'objective'=>$request->objective,
+                
+            ]);
+            return redirect()->route('activitys')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
+        }
+    }
+    public function delete($id){
+        //ลบภาพ
+        $img = newsandactivity::find($id)->title_image;
+        unlink($img);
+        
+        //ลบข้อมูลฐาน
+        $delete= newsandactivity::find($id)->delete();
+        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
     }
 }

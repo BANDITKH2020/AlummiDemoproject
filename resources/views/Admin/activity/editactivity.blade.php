@@ -83,72 +83,65 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-    
-    <div class="container "style="position:absolute;left:500px;top: 215px;">
-    <h2>จัดการการกิจกรรม</h2>
-    <hr class="mt-1" style="border: 1px solid #000">
-    <a class="btn btn-outline-warning" href="{{route('saveactivitys')}}" role="button" >เพิ่มกิจกรรม</a>
-        <form action="" method="GET" >
-                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
-                    <select name="searchdata" class="form-select" >
-                        <option value="all">ทั้งหมด</option>
-                        <option value="title_name" >ชื่อเรื่อง</option>
-                        <option value="category">ประเภทกิจกรรม</option>
-                        <option value="created_at">วันที่จัดกิจกรรม</option>
-                    </select>
-                    <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search activitys" style="position:relative;left:300px;top:-37px" required/> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
+        <form action="{{url('/activity/update/'.$activity->id)}}" method="post" enctype="multipart/form-data">  
+        @csrf
+        <div class="container "style="position: absolute;left:500px;top: 180px;">
+            <h2>เพิ่มกิจกรรม</h2>
+            <hr class="mt-1" style="border: 1px solid #000">
+            
+            <div class="card mb-4" style="max-width: 440px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="{{ asset($activity->title_image) }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text">1.อัพโหลดรูปภาพ</p>
+                                <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    @error('title_image')
+                                    <div class="my-1">
+                                        <span class="text-danger">{{$message}}</span>
+                                    </div>
+                                    @enderror
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </label>
-        </form>
-    
-        <div class="row" >
-            <div class="col-md-8">
-                    @if(session("success"))
-                    <div class="alert alert-success">{{session('success')}}</div>
-                    @endif
-                    <br>
-                    <div class="card my-3" >
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"class="text-center">หัวข้อ</th>
-                                        <th scope="col"class="text-center">ประเภทกิจกรรม</th>
-                                        <th scope="col"class="text-center">วันที่จัดกิจกรรม</th>
-                                        <th scope="col"class="text-center">ตัวเลือก</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        
-                                        @foreach($activity as $row)
-                                        <tr>
-                                        <td>{{$row->title_name}}</td>
-                                        <td>{{$row->category}}</td>
-                                        <td>{{$row->created_at->format('d-m-Y')}}</td>
-                                        <td> <a href="{{url('/activity/editactivity/'.$row->id)}}"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
-                                            <a href="{{url('/activity/delete/'.$row->id)}}" 
-                                            onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
-                                            <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
-                                            </a>
-                                        </td>
-                                        </tr>
-                                        @endforeach
-                                </tbody>
-                            </table>       
-                            {{$activity->links()}}             
-                    </div> 
-            </div> 
-        </div>            
-        <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
-        </script>   
-    </div>
-</div> 
+                    
+                </div>    
+            </div>
+        </div>
+        <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
+                <h3>หัวข้อกิจกรรม</h3>
+                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"value="{{$activity->title_name}}">
+                @error('title_name')
+                    <div class="my">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror
+                <br>
+                <h3>เนื้อหากิจกรรม</h3>
+                <textarea type="text" name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea">{{$activity->cotent}}</textarea>
+                @error('cotent')
+                    <div class="my">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror<br>
+                <h3>วัตถุประสงค์ของกิจกรรมนี้</h3>
+                <textarea type="text" name="objective" rows="3" cols="25" class="form-control" aria-label="With textarea">{{$activity->objective}}</textarea>
+                @error('objective')
+                    <div class="my">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                @enderror<br>
+                <br>
+                <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
+                <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
+        </div>
+    </form>
+</form>
 </body>
 </html>

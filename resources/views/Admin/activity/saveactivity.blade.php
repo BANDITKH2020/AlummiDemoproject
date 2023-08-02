@@ -86,7 +86,7 @@
         <form action="{{route('addactivitys')}}" method="post" enctype="multipart/form-data">  
         @csrf
         <div class="container "style="position: absolute;left:500px;top: 180px;">
-            <h2>เพิ่มข่าวสาร</h2>
+            <h2>เพิ่มกิจกรรม</h2>
             <hr class="mt-1" style="border: 1px solid #000">
             
             <div class="card mb-4" style="max-width: 440px;">
@@ -115,7 +115,7 @@
             </div>
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
-                <h3>หัวข้อข่าวสาร</h3>
+                <h3>หัวข้อกิจกรรม</h3>
                 <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1">
                 @error('title_name')
                     <div class="my">
@@ -123,14 +123,14 @@
                     </div>
                 @enderror
                 <br>
-                <h3>เนื้อหาข่าวสาร</h3>
+                <h3>เนื้อหากิจกรรม</h3>
                 <textarea type="text" name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
                 @error('cotent')
                     <div class="my">
                         <span class="text-danger">{{$message}}</span>
                     </div>
                 @enderror<br>
-                <h3>วัตถุประสงค์</h3>
+                <h3>วัตถุประสงค์ของกิจกรรมนี้</h3>
                 <textarea type="text" name="objective" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
                 @error('objective')
                     <div class="my">
