@@ -116,7 +116,7 @@
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
                 <h3>หัวข้อกิจกรรม</h3>
-                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"value="{{$activity->title_name}}">
+                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1" value="{{$activity->title_name}}">
                 @error('title_name')
                     <div class="my">
                         <span class="text-danger">{{$message}}</span>

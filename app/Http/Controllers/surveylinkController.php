@@ -33,8 +33,20 @@ class surveylinkController extends Controller
             'created_at'=>Carbon::now()
         ]);
         
-        return redirect()->route('links')->with('alert',"บันทึกข้อมูลเรียบร้อย");
-
-        
+        return redirect()->route('links')->with('alert',"บันทึกข้อมูลเรียบร้อย");  
     }
+    
+    public function update(Request $request, $id){
+        if ($request->isMethod('post')) {
+            $surveylink = $request->all();
+            Surveylink::where(['id'=>$id])->update(['graduatedyear'=>$surveylink['graduatedyear'],'link'=>$surveylink['link']]);
+            return redirect()->route('links')->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+        }
+    }
+    public function delete($id){
+        //ลบข้อมูลฐาน
+        $delete= Surveylink::find($id)->delete();
+        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+    }
+
 }

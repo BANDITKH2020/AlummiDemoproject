@@ -149,9 +149,9 @@
                                         <td>{{$row->graduatedyear}}</td>
                                         <td>{{$row->link}}</td>
                                         <td>{{$row->created_at->format('d-m-Y')}}</td>
-                                        <td> <a href=""><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:735px;"></a>
+                                        <td><a href="#edit{{$row->id}}" data-bs-toggle="modal"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:735px;"></a>
                                             
-                                            <a href="" 
+                                            <a href="{{url('/link/delete/'.$row->id)}}" 
                                             onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
                                             <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
                                             </a>
@@ -165,7 +165,37 @@
                     </div> 
             </div> 
         </div> 
-             
+        @foreach($surveylink as $row)
+        <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">แก้ไขลิงก์</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url('/link/update/'.$row->id)}}" method="post" enctype="multipart/form-data" id="linkForm">
+                                {{ csrf_field() }}
+                                <div class="mb-3 @error('graduatedyear') error @enderror">
+                                    <label for="recipient-name" class="col-form-label">ปีการศึกษาที่จบ</label>
+                                    <input type="text" class="form-control" id="graduatedyear" name="graduatedyear" value="{{$row->graduatedyear}}" >
+                                   
+                                </div>
+                                <div class="mb-3 @error('link') error @enderror">
+                                    <label for="message-text" class="col-form-label">ลิงก์แบบสอบถาม</label>
+                                    <input type="text" class="form-control" id="link" name="link" value="{{$row->link}}">
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary" id="submitBtn" >ยืนยัน</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div> 
+        @endforeach   
         @if(Session::has('alert'))
         <script>
             swal("Massage","{{Session::get('alert')}}",'info',{
