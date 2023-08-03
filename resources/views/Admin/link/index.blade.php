@@ -86,11 +86,11 @@
     </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
-    <h2>จัดการแบบสอบถาม</h2>
-    <hr class="mt-1" style="border: 1px solid #000">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        เพิ่มลิงก์
-    </button>
+        <h2>จัดการแบบสอบถาม</h2>
+        <hr class="mt-1" style="border: 1px solid #000">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            เพิ่มลิงก์
+        </button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -120,10 +120,11 @@
                     </div>
                 </div>
             </div>   
-        <form action="" method="GET" >
+        <div>
+        <form action="{{ url('/search') }}" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-1px" required/> 
+                        <input type="text" class="form-control" name="search" placeholder="ปีการศึกษา" style="position:relative;left:300px;top:-1px" required/> 
                         <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:-1px;">Search</button>
                     </div>
                 </label>
@@ -165,6 +166,7 @@
                     </div> 
             </div> 
         </div> 
+        </div>
         @foreach($surveylink as $row)
         <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -230,6 +232,8 @@
             });
         </script>
     </div>
+    </div>
 </div>
+
 </body>
 </html>

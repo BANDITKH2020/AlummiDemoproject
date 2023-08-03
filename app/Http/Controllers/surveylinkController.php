@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 class surveylinkController extends Controller
 {
     public function index(){
-       
         $surveylink = Surveylink::paginate(3);
         return view('admin.link.index',compact('surveylink'));
+    }
+    public function search(Request $request){
+        $searchTerm = $request->input('search'); // Get the search term from the request
+        $surveylink = SurveyLink::where('graduatedyear', 'like', '%' . $searchTerm . '%')
+                            ->paginate(10); // Perform the search and paginate the results
+
+        return view('admin.link.index', compact('surveylink'));
+        
     }
     public function store(Request $request){
         //ตรวจสอบข้อมูล

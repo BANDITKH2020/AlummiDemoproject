@@ -66,7 +66,7 @@
                 <a href="/User/contacthistory" class="textmenu"><h5>จัดการโค้ด</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
+                <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="/User/contacthistory" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
@@ -85,9 +85,9 @@
     </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
-    <h2>จัดการการกิจกรรม</h2>
-    <hr class="mt-1" style="border: 1px solid #000">
-    <a class="btn btn-outline-warning" href="{{route('saveactivitys')}}" role="button" >เพิ่มกิจกรรม</a>
+        <h2>จัดการการกิจกรรม</h2>
+        <hr class="mt-1" style="border: 1px solid #000">
+        <a class="btn btn-outline-warning" href="{{route('saveactivitys')}}" role="button" >เพิ่มกิจกรรม</a>
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <select name="searchdata" class="form-select" >
