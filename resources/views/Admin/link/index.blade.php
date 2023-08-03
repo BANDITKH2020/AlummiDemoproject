@@ -6,6 +6,7 @@
     <title></title>
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -158,20 +159,23 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                {{$surveylink->links()}}
+                                
                             </table>
-                                        
+                             {{$surveylink->links()}}           
                     </div> 
             </div> 
         </div> 
              
+        @if(Session::has('alert'))
         <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
-        </script>   
+            swal("Massage","{{Session::get('alert')}}",'info',{
+                title: "Good job!",
+                text: "บันทึกข้อมูลสำเร็จ",
+                icon: "success",
+            });
+        </script>
+        @endif
+        
         <script>
             // JavaScript สำหรับการตรวจสอบและควบคุมปุ่ม Submit
             document.addEventListener('DOMContentLoaded', function () {
