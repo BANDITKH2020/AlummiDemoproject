@@ -68,3 +68,4 @@ Route::post('/activity/update/{id}',[activityController::class,'update']);
 Route::get('/activity/delete/{id}',[activityController::class,'delete']);
 //----------------------จัดการแบบสอบถาม--------------------------------
 Route::get('/link/all',[surveylinkController::class,'index'])->name('links');
+Route::post('/link/savelink/add', [surveylinkController::class, 'store'])->name('addlinks');

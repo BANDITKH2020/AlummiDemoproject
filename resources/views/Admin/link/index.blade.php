@@ -87,7 +87,38 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการแบบสอบถาม</h2>
     <hr class="mt-1" style="border: 1px solid #000">
-    <a class="btn btn-outline-warning" href="{{ route('savenews') }}" role="button" >เพิ่มข่าว</a>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        เพิ่มลิงก์
+    </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">เพิ่มลิงก์</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('addlinks')}}" method="post" enctype="multipart/form-data" id="linkForm">
+                                {{ csrf_field() }}
+                                <div class="mb-3 @error('graduatedyear') error @enderror">
+                                    <label for="recipient-name" class="col-form-label">ปีการศึกษาที่จบ</label>
+                                    <input type="text" class="form-control" id="graduatedyear" name="graduatedyear" >
+                                   
+                                </div>
+                                <div class="mb-3 @error('link') error @enderror">
+                                    <label for="message-text" class="col-form-label">ลิงก์แบบสอบถาม</label>
+                                    <input type="text" class="form-control" id="link" name="link" >
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary" id="submitBtn" disabled>ยืนยัน</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>   
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <div class="col-mb-2">
@@ -112,10 +143,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        
-                                       
+                                    @foreach($surveylink as $row)
+                                        <tr>
+                                        <td>{{$row->graduatedyear}}</td>
+                                        <td>{{$row->link}}</td>
+                                        <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                        <td> <a href=""><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:735px;"></a>
+                                            
+                                            <a href="" 
+                                            onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
+                                            <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
-                                
+                                {{$surveylink->links()}}
                             </table>
                                         
                     </div> 
@@ -129,6 +172,29 @@
             alert(msg);
             }
         </script>   
+        <script>
+            // JavaScript สำหรับการตรวจสอบและควบคุมปุ่ม Submit
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('linkForm');
+                const graduatedYearInput = document.getElementById('graduatedyear');
+                const linkInput = document.getElementById('link');
+                const submitBtn = document.getElementById('submitBtn');
+
+                form.addEventListener('input', function () {
+                    // ตรวจสอบว่าทั้งสอง input fields มีค่าที่ไม่เป็นช่องว่าง
+                    const graduatedYearValue = graduatedYearInput.value.trim();
+                    const linkValue = linkInput.value.trim();
+
+                    if (graduatedYearValue !== '' && linkValue !== '') {
+                        // ถ้าทั้งสอง input fields ถูกกรอกครบถ้วน ปลด attribute disabled ในปุ่ม Submit
+                        submitBtn.removeAttribute('disabled');
+                    } else {
+                        // ถ้ามีอย่างน้อยหนึ่ง input field ไม่ถูกกรอกหรือทั้งสอง fields ไม่ถูกกรอกครบ ให้เพิ่ม attribute disabled ในปุ่ม Submit
+                        submitBtn.setAttribute('disabled', 'disabled');
+                    }
+                });
+            });
+        </script>
     </div>
 </div>
 </body>
