@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\newsandactivity;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +56,9 @@ class AuthControllerAdmin extends Controller
         return redirect()->route('adminlogin');
     }
     public function homeadmin()
-    {
-        return view('/Admin/homeadmin');
+    {   $newsandactivity=newsandactivity::paginate(3);
+        return view('/Admin/homeadmin',compact('newsandactivity'));
+
     }
 }
 

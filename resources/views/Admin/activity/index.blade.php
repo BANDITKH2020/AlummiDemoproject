@@ -122,11 +122,11 @@
                                 </thead>
                                 <tbody>
                                         
-                                        @foreach($activity as $row)
+                                        @foreach($activitys as $row)
                                         <tr>
                                         <td>{{$row->title_name}}</td>
                                         <td>{{$row->category}}</td>
-                                        <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                        <td>{{$row->event_date}}</td>
                                         <td> <a href="{{url('/activity/editactivity/'.$row->id)}}"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:725px;"></a>
                                             <a href="{{url('/activity/delete/'.$row->id)}}" 
                                             onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
@@ -137,7 +137,7 @@
                                         @endforeach
                                 </tbody>
                             </table>       
-                            {{$activity->links()}}             
+                            {{$activitys->links()}}             
                     </div> 
             </div> 
         </div>            

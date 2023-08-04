@@ -82,40 +82,27 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
-  
+  <div class="container">
   <div class="row" style="position: absolute;left:500px;top:180px;">
-  <h2 class="text-left" >ประชาสัมพันธ์</h2>
-  <div class="col-sm-3">
-    <div class="card">
-    <img src="{{ asset('images/student.jpg') }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+    @foreach ($newsandactivity as $row)
+    <div class="col-md-4" style="max-width: 350px;">
+      <div class="card mt-5 " >
+        <div class='card-body'>
+        <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start"style="width: 300px;" >
+          <h5 class='card-title'>{{ $row->title_name }}</h5>
+          <h6 class='sub-subtitle mb-2 text-muted'>{{ $row->title_name }}</h6>
+          <p class='card-text'>{{ $row->category }}</p>
+          <a href="#" class="btn btn-primary">edit</a>
+          <a href="#" class="btn btn-danger">delete</a>
+        </div>
       </div>
     </div>
+    @endforeach
+    {{ $newsandactivity->links() }}   
   </div>
-  <div class="col-sm-3">
-    <div class="card">
-      <img src="{{ asset('images/student.jpg') }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="card">
-    <img src="{{ asset('images/student.jpg') }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
+  
 </div>
+  
   
   
 </body>

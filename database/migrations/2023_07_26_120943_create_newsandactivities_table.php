@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('objective');
             $table->string('cotent_type');
+            $table->date('event_date');
             $table->timestamps();
         });
     }

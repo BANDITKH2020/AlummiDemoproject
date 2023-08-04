@@ -157,6 +157,8 @@
                     <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="4">อื่นๆ
                     <input type="text" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
                 </div>
+                <h4>วันที่จัดกิจกรรม</h4>
+                <input class="form-control" type="date" id="event_date" name="event_date">
                 @error('category')
                     <div class="my">
                         <span class="text-danger">{{$message}}</span>
@@ -164,6 +166,10 @@
                 @enderror<br>
             </div>
         </div>
+        
+        
+        
+        
     </form>
 </form>
 </body>

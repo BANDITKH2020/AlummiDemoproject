@@ -35,6 +35,8 @@ class NewsandActivitiesController extends Controller
     }
     if ($query->where('cotent_type', '1')->exists()) {
         $newsandactivity = $query->paginate(3);
+    }else{
+        $newsandactivity = $query->paginate(3);
     }
     // Paginate the results after applying the filters
    
@@ -66,7 +68,7 @@ class NewsandActivitiesController extends Controller
         $category= 'news';
         $objective='';
         $cotent_type='1';
-
+        
         $title_image = $request->file('title_image');
         //generate ชื่อภาพ
         $name_gen = hexdec(uniqid());
@@ -86,6 +88,7 @@ class NewsandActivitiesController extends Controller
             'category'=>$category,
             'objective'=>$objective,
             'cotent_type'=>$cotent_type,
+            'event_date'=>Carbon::now(),
             'created_at'=>Carbon::now()
         ]);
         $title_image->move($upload_location,$img_name);

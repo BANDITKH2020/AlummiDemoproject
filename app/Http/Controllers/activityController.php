@@ -13,30 +13,33 @@ class activityController extends Controller
         $query = newsandactivity::query();
         $search = $request->input('search');
         $searchdata = $request->searchdata;
-
+        
     // Apply search filters
-    if (!empty($search)) {
-        switch ($searchdata) {
-            case 'all':
-                $query->where('title_name', 'LIKE', "%{$search}%")
-                    ->orWhere('category', 'LIKE', "%{$search}%")
-                    ->orWhere('created_at', 'LIKE', "%{$search}%");
-                break;
-            case 'title_name':
-                $query->where('title_name', 'LIKE', "%{$search}%");
-                break;
-            case 'category':
-                $query->where('category', 'LIKE', "%{$search}%");
-                break;
-            case 'created_at':
-                $query->where('created_at', 'LIKE', "%{$search}%");
-                break;
+        if (!empty($search)) {
+            switch ($searchdata) {
+                case 'all':
+                    $query->where('title_name', 'LIKE', "%{$search}%")
+                        ->orWhere('category', 'LIKE', "%{$search}%")
+                        ->orWhere('created_at', 'LIKE', "%{$search}%");
+                    break;
+                case 'title_name':
+                    $query->where('title_name', 'LIKE', "%{$search}%");
+                    break;
+                case 'category':
+                    $query->where('category', 'LIKE', "%{$search}%");
+                    break;
+                case 'created_at':
+                    $query->where('created_at', 'LIKE', "%{$search}%");
+                    break;
+            }
         }
-    }
+
         if ($query->where('cotent_type','2')->exists()) {
-            $activity = $query->paginate(3);
+            $activitys = $query->paginate(3);
+        }else{
+            $activitys = $query->paginate(3);
         }
-        return view('admin.activity.index',compact('activity'));
+        return view('admin.activity.index', compact('activitys'));
     }
     public function saveactivitys(){
         return view('admin.activity.saveactivity');
@@ -50,6 +53,7 @@ class activityController extends Controller
                 'title_image'=>'required|mimes:jpg,jpeg,png',
                 'objective'=>'required',
                 'category'=>'required',
+                'event_date'=>'required',
                 
             ],
             [
@@ -59,6 +63,7 @@ class activityController extends Controller
                 'title_image.required'=>"กรุณาใส่ภาพประกอบกิจกรรมครับ", 
                 'title_image.mimes'=>"กรุณาไฟล์ภาพเป็น jpg, jpeg, png ครับ", 
                 'category.required'=>"กรุณาเลือกประเภทกิจกรรมครับ", 
+                'event_date.required'=>"กรุณาใส่วันที่จัดกิจกรรมครับ",
             ]
            
         );
@@ -86,6 +91,7 @@ class activityController extends Controller
                         'category'=>$category,
                         'objective'=>$request->objective,
                         'cotent_type'=>$cotent_type,
+                        'event_date'=>$request->event_date,
                         'created_at'=>Carbon::now()
                     ]);
                     break;
@@ -98,6 +104,7 @@ class activityController extends Controller
                         'category'=>$category,
                         'objective'=>$request->objective,
                         'cotent_type'=>$cotent_type,
+                        'event_date'=>$request->event_date,
                         'created_at'=>Carbon::now()
                     ]);
                     break;
@@ -110,6 +117,7 @@ class activityController extends Controller
                         'category'=>$category,
                         'objective'=>$request->objective,
                         'cotent_type'=>$cotent_type,
+                        'event_date'=>$request->event_date,
                         'created_at'=>Carbon::now()
                     ]);
                     break;
@@ -121,6 +129,7 @@ class activityController extends Controller
                         'category'=>$request->categoryall,
                         'objective'=>$request->objective,
                         'cotent_type'=>$cotent_type,
+                        'event_date'=>$request->event_date,
                         'created_at'=>Carbon::now()
                     ]);
                     break;
@@ -168,6 +177,7 @@ class activityController extends Controller
                 'cotent'=>$request->cotent,
                 'objective'=>$request->objective,
                 'title_image'=>$full_path,
+                'event_date'=>$request->event_date,
             ]);
 
             //ลบภาพเก่าแทนภาพใหม่
@@ -182,6 +192,7 @@ class activityController extends Controller
                 'title_name'=>$request->title_name,
                 'cotent'=>$request->cotent,
                 'objective'=>$request->objective,
+                'event_date'=>$request->event_date,
                 
             ]);
             return redirect()->route('activitys')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
