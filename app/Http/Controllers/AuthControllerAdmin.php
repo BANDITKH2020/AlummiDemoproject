@@ -22,8 +22,10 @@ class AuthControllerAdmin extends Controller
         $user->firstname = 'admin';
         $user->lastname = 'admin';
         $user->email = $request->email;
-        $user->graduatesem = 'null';
-        $user->student_grp = 'null';
+        $user->student_id = 'admin';
+        $user->student_grp = 'admin';
+        $user->Token_id='123465';
+        $user->google_id='-';
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -53,7 +55,7 @@ class AuthControllerAdmin extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('adminlogin');
+        return redirect()->route('welcome');
     }
     public function homeadmin()
     {   $newsandactivity=newsandactivity::paginate(3);

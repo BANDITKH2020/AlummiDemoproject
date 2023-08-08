@@ -3,18 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ลงทะเบียน</title>
-    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
+    <title>เข้าสู่ระบบ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <style>
+<style>
         body {
                 margin: auto;
                 font-family:'THSarabunNew';
@@ -35,181 +29,38 @@
                     background-position: 0% 0%;
                 }
             }
-
-            .modal-confirm {
-                color: #434e65;
-                width: 525px;
-            }
-            .modal-confirm .modal-content {
-                padding: 20px;
-                font-size: 16px;
-                border-radius: 5px;
-                border: none;
-            }
-            .modal-confirm .modal-header {
-                background: #47c9a2;
-                border-bottom: none;
-                position: relative;
-                text-align: center;
-                margin: -20px -20px 0;
-                border-radius: 5px 5px 0 0;
-                padding: 35px;
-            }
-            .modal-confirm h4 {
-                text-align: center;
-                font-size: 36px;
-                margin: 10px 0;
-            }
-            .modal-confirm .form-control, .modal-confirm .btn {
-                min-height: 40px;
-                border-radius: 3px;
-            }
-            .modal-confirm .close {
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                color: #fff;
-                text-shadow: none;
-                opacity: 0.5;
-            }
-            .modal-confirm .close:hover {
-                opacity: 0.8;
-            }
-            .modal-confirm .icon-box {
-                color: #fff;
-                width: 95px;
-                height: 95px;
-                display: inline-block;
-                border-radius: 50%;
-                z-index: 9;
-                border: 5px solid #fff;
-                padding: 15px;
-                text-align: center;
-            }
-            .modal-confirm .icon-box i {
-                font-size: 64px;
-                margin: -4px 0 0 -4px;
-            }
-            .modal-confirm.modal-dialog {
-                margin-top: 80px;
-            }
-            .modal-confirm .btn, .modal-confirm .btn:active {
-                color: #fff;
-                border-radius: 4px;
-                background: #eeb711 !important;
-                text-decoration: none;
-                transition: all 0.4s;
-                line-height: normal;
-                border-radius: 30px;
-                margin-top: 10px;
-                padding: 6px 20px;
-                border: none;
-            }
-            .modal-confirm .btn:hover, .modal-confirm .btn:focus {
-                background: #eda645 !important;
-                outline: none;
-            }
-            .modal-confirm .btn span {
-                margin: 1px 3px 0;
-                float: left;
-            }
-            .modal-confirm .btn i {
-                margin-left: 1px;
-                font-size: 20px;
-                float: right;
-            }
-            .trigger-btn {
-                display: inline-block;
-                margin: 100px auto;
-            }
     </style>
-    <div class="row justify-content-center" style="margin-top:150px">
-        <div class="col-lg-7">
-                <div class="card" style="border-radius:30px;">
-                    <div class="card-body" >
-                        <div class="col-lg-12">
-                            <div class="col-lg-12 row">
-                                <div class="col-lg-6 mt-3">
-                                    <img src="{{ asset('images/student.jpg') }}" style="width: 400px; height:500px;border-radius: 10px;margin-left:30px;">
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="col-lg-12">
-                                        <form id="userRegisterForm" action="{{ route('register') }}" method="POST">
-                                            @csrf
-                                            <h3 style="text-align:center">ลงทะเบียนศิษย์เก่า</h3>
-                                            <div class="col-lg-12 row">
-                                                <div class="col-lg-12">
-                                                    <label for="firstname" class="form-label">ชื่อ</label>
-                                                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="" required>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <label for="lastname" class="form-label">นามสกุล</label>
-                                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="" required>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <label for="student_grp" class="form-label">รหัสนักศึกษา</label>
-                                                    <input type="text" name="student_grp" class="form-control" id="student_grp" required>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <label for="graduatesem" class="form-label">รุ่นปีการศึกษา</label>
-                                                    <input type="text" name="graduatesem" class="form-control" id="graduatesem" required>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <label for="Token_id" class="form-label">กรอกโค้ดที่ได้จากอาจารย์</label>
-                                                    <input type="text" name="Token_id" class="form-control" id="Token_id" placeholder="">
-                                                </div>
-                                                <div class="d-grid gap-2 col-lg-12 mx-auto mt-3">
-                                                    <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
-                                                </div>
-                                                <div class="col-lg-8 mt-3">
-                                                    <div class="g-recaptcha" data-sitekey="your_site_key"></div>
-                                                </div>
-                                                <div class="d-grid gap-2 col-12 mt-3">
-                                                    <button style="border-radius:10px;padding:5px;background-color:white">
-                                                        <img width="20px" style="margin-bottom:3px; margin-right:10px; text-align:center; "alt="Google sign-in"
-                                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                                        Login with Google
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="row justify-content-center mt-5">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title" style="text-align:center; ">Computer Engineering</h1>
                 </div>
-        </div>
-    </div>
+                <div class="card-body" style="background-color:#76ade3;"><br>
+                    <h2 align="center" style="color:white; ">ลงทะเบียน</h2>
 
-    <div id="Modalsuccess" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header justify-content-center">
-                    <div class="icon-box">
-                        <i class="material-icons">&#xE876;</i>
+                    <p style="background-image: url({{url('images/color1.png')}});"><br><br><br><br><br>
+                </div>
+                <img class="position-absolute top-50 start-50 translate-middle" src="{{ asset('images/teamwork.png') }}" style="width: 200px; height: 200px;  margin-right: 180px">
+                    @if(Session::has('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ Session::get('error') }}
+                        </div>
+                    @endif
+                  
+                        @csrf
+                        <br><br><br><br><br><br><br>
+                        <div class="d-grid gap-4 col-6 mx-auto">
+                                <a  class="btn btn-outline-dark"role="button" style="text-transform:none" href="{{ url('auth/google/register') }}"  >
+                                    <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    Login with Google
+                                </a>
+                        </div><br>
+                        <p style="text-align:center; ">หากลงทะเบียนแล้ว <a href="{{ route('userlogin') }}">เข้าสู่ระบบ</a></p>
+                        <br><br><br>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <h4 class="mt-5">ลงทะเบียนสำเร็จ</h4>
-                <div class="modal-body text-center mt-2">
-                    <button class="btn btn-success" data-dismiss="modal"><span>ปิด</span></button>
-                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-<script>
-    $(document).ready(function() {
-        console.log('do',document);
-        @if(isset($success) && $success)
-            $('#Modalsuccess').modal('show');
-            setTimeout(function() {
-                window.location.href = "{{ route('homeuser') }}";
-            }, 1000);
-        @endif
-    });
-</script>
-

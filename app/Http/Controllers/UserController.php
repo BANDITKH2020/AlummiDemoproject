@@ -2,26 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\newsandactivity;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    function homeuser(){
-        return view('User.homeuser');
+    public function homeuser()
+    {   $newsandactivity=newsandactivity::paginate(3);
+        return view('User.homeuser',compact('newsandactivity'));
     }
-    function studentlist(){
-        return view('User.studentlist');
-    }
-    function graduatehouse(){
-        return view('User.graduatehouse');
-    }
-    function awardannounce(){
-        return view('User.awardannounce');
-    }
-    function accountsetting(){
-        return view('User.accountsetting');
-    }
-    function contacthistory(){
-        return view('User.contacthistory');
-    }
+ 
 }
