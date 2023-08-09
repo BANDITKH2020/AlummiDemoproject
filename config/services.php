@@ -30,11 +30,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
     'google' => [
-        'client_id' => '717261811237-viligebj90hk46m9aqshbbf4qfe5ovfa.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'http://localhost:8080/auth/google/callback',
+        'client_id' => '717261811237-rc473vdh42k2u7l1tusf3vp8iitdjk02.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost:8085/auth/google/callback',
     ],
 
 ];

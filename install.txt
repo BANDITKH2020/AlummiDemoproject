@@ -1,0 +1,23 @@
+1. composer require laravel/ui
+2. php artisan ui vue --auth
+3. npm install && npm run dev
+composer require laravel/socialite
+'google' => [
+        'client_id' => 'google app id',
+        'client_secret' => 'google add secret',
+        'redirect' => 'http://localhost:8080/auth/google/callback',
+    ],
+'providers' => [
+    Laravel\Socialite\SocialiteServiceProvider::class,
+],
+'aliases' => [
+    'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+],
+
+วิธีรัน
+npm run dev 
+php artisan serve --port=8085
+
+new-laravel ชื่อฐานข้อมูล อัปใหม่ด้วย
+
+วิธีเข้า admin เข้า /loginAdmin แล้วสมัครสมาชิก

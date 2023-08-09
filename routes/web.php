@@ -1,59 +1,43 @@
 <?php
 
 use App\Http\Controllers\activityController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\NewsandActivitiesController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\surveylinkController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AuthControllerAdmin;
-use App\Http\Controllers\HomeController;
 
-
-use App\Http\Controllers\UserRegisterController;
-
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomeproject');
 });
+Route::get('/welcome', [HomeController::class,'welcome'])->name('welcome');
+Auth::routes();
+//สมัครAdmin
+Route::get('/loginAdmin', [HomeController::class,'index'])->name('index');
 
+//สมัครสมาชิก google
+Route::get('auth/google', [SocialController::class, 'googleRedirect']);
+Route::get('auth/google/callback', [SocialController::class, 'loginWithGoogle']);
+Route::get('users/login', [SocialController::class, 'login'])->name('login.ris');
 
-
-Route::group(['middleware' => 'guest'], function () {
-    Route::get('/userregister', [AuthController::class, 'userregister'])->name('userregister');
-    Route::get('/userlogin', [AuthController::class, 'userlogin'])->name('userlogin');
-
-});
-
-//ลงทะเบียน
-Route::get('auth/google/register', [RegisterController::class, 'registergoogleRedirect']);
-Route::get('auth/google/callback', [RegisterController::class, 'registerWithGoogle']);
-//เข้าสู่ระบบ
-Route::get('auth/google', [LoginController::class, 'googleRedirect']);
-Route::get('auth/google/callback', [LoginController::class, 'loginWithGoogle']);
-//admin
-    Route::get('/adminregister', [AuthControllerAdmin::class, 'adminregister'])->name('adminregister');
-    Route::post('/adminregister', [AuthControllerAdmin::class, 'adminregisterPost'])->name('adminregister');
-    Route::get('/adminlogin', [AuthControllerAdmin::class, 'adminlogin'])->name('adminlogin');
-    Route::post('/adminlogin', [AuthControllerAdmin::class, 'adminloginPost'])->name('adminlogin');
-
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/Admin/homeadmin', [AuthControllerAdmin::class, 'homeadmin']);
-    Route::get('/User/homeuser', [UserController::class,'homeuser'])->name('homeuser');
-    Route::get('/User/accountsettinguser', [UserController::class,'accountsettinguser'])->name('accountsettinguser');
-    Route::delete('/logout', [AuthControllerAdmin::class, 'logout'])->name('logout');
-});
-
-Route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
-
-
-
-
-
-Route::post('/userregister', [UserRegisterController::class, 'register'])->name('register');
+//หน้าแรกuser
+Route::get('/users/homeuser', [HomeUserController::class, 'homeuser'])->name('homeuser');
+Route::get('/User/accountsettinguser', [UserController::class,'accountsettinguser'])->name('accountsettinguser');
+//ออกจากระบบ
+Route::delete('/logout', [HomeUserController::class, 'logout'])->name('logout');
 //---------------------ข่าว-----------------------
 Route::get('/new/all', [NewsandActivitiesController::class, 'index'])->name('news');
 Route::get('/new/savenews', [NewsandActivitiesController::class, 'savenews'])->name('savenews');
