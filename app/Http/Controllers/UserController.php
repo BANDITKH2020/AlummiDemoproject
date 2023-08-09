@@ -11,5 +11,11 @@ class UserController extends Controller
     {   $newsandactivity=newsandactivity::paginate(3);
         return view('User.homeuser',compact('newsandactivity'));
     }
- 
+    public function accountsettinguser()
+    {
+        $newsandactivity=newsandactivity::paginate(3);
+        return view('User.accountsettinguser',compact('newsandactivity'));
+    }
+
+
 }

@@ -219,7 +219,8 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                             <button class="btn btn-primary noselect" onclick="window.location.href='{{ route('userregister') }}'">ลงทะเบียน</button>
-                            
+                            <button class="btn btn-primary noselect" onclick="window.location.href='{{ route('homeuser') }}'">22222</button>
+
                         </div>
                     </div>
                 </div>
