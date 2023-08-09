@@ -17,6 +17,10 @@
                 background-color: transparent;
                 text-decoration: none;
               }
+
+        h5:hover{
+            color: #05FF2D;
+        }
     </style>
   <div class="col-12">
     <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -25,7 +29,7 @@
           <div class="col-1">
             <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
           </div>
-          <div class="col-4" style="padding: 15px; ;">
+          <div class="col-4" style="padding: 15px;">
             <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
             <hr class="mt-1" style="border: 1px solid #000">
             <h2>Computer Engineering Alummi</h2>
@@ -34,9 +38,9 @@
         <hr class="mt-1" style="border: 2px solid #000">
       </div>
     </div>
-    
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
-            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+
+    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 <h3>{{ Auth::user()->firstname }}</h3>
             </div>
@@ -44,31 +48,22 @@
                 <a href="/User/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>การจัดการ</h5></a>
+                <a href="/User/accountsettinguser" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/graduatehouse" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="#" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
+                <a href="#" class="textmenu"><h5>รางวัลประกาศ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
+                <a href="#" class="textmenu"><h5>แบบสอบถาม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
+                <a href="#" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการโค้ด</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
+                <a href="#" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -78,7 +73,7 @@
               </form>
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
-            
+
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
@@ -98,12 +93,12 @@
       </div>
     </div>
     @endforeach
-    {{ $newsandactivity->links() }}   
+    {{ $newsandactivity->links() }}
   </div>
-  
+
 </div>
-  
-  
-  
+
+
+
 </body>
 </html>

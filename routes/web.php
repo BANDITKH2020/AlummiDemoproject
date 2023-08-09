@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/userregister', [AuthController::class, 'userregister'])->name('userregister');
     Route::get('/userlogin', [AuthController::class, 'userlogin'])->name('userlogin');
-    
+
 });
 
 //ลงทะเบียน
@@ -41,11 +41,11 @@ Route::get('auth/google/callback', [LoginController::class, 'loginWithGoogle']);
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/User/homeuser', [UserController::class,'homeuser']);
     Route::get('/Admin/homeadmin', [AuthControllerAdmin::class, 'homeadmin']);
+    Route::get('/User/homeuser', [UserController::class,'homeuser'])->name('homeuser');
+    Route::get('/User/accountsettinguser', [UserController::class,'accountsettinguser'])->name('accountsettinguser');
     Route::delete('/logout', [AuthControllerAdmin::class, 'logout'])->name('logout');
 });
-
 
 Route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
 
