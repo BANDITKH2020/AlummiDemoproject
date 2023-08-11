@@ -85,7 +85,7 @@
     <form action="" method="post" enctype="multipart/form-data">  
         @csrf
         <div class="container "style="position: absolute;left:500px;top: 180px;">
-            <h2>เพิ่มกิจกรรม</h2>
+            <h2>จัดการโค้ด</h2>
             <hr class="mt-1" style="border: 1px solid #000">
             
             
