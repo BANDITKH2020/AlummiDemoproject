@@ -82,39 +82,78 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
-    <form action="" method="post" enctype="multipart/form-data">  
-        @csrf
+  <script>
+    function generateRandomCode(length) {
+        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let randomCode = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            randomCode += characters.charAt(randomIndex);
+        }
+
+        return randomCode;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const generateCodeButton = document.getElementById('generateCodeButton');
+        const saveCodeButton = document.getElementById('saveCodeButton');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const randomCodeElement = document.getElementById('randomCode');
+        const dateTimeInput = document.getElementById('dateTimeInput');
+
+        generateCodeButton.addEventListener('click', function() {
+            const newRandomCode = generateRandomCode(10);
+            randomCodeElement.textContent = newRandomCode;
+        });
+
+        saveCodeButton.addEventListener('click', function() {
+            const randomCode = randomCodeElement.textContent;
+            const selectedDateTime = dateTimeInput.value;
+            sendRandomCodeAndDateTime(randomCode, selectedDateTime);
+        });
+
+        function sendRandomCodeAndDateTime(randomCode, selectedDateTime) {
+            fetch('/Admin/Token/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({ random_code: randomCode, selected_date_time: selectedDateTime }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    messageDisplay.textContent = data.alert;
+                    console.log('Created At:', data.createdAt);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+});
+
+</script> 
         <div class="container "style="position: absolute;left:500px;top: 180px;">
             <h2>จัดการโค้ด</h2>
             <hr class="mt-1" style="border: 1px solid #000">
-            
-            
+            <p id="messageDisplay"></p>
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:800px;top: 330px;">
             <div class="d-grid gap-2 col-6 mx-auto">
             <h3>รหัสโค้ด</h3>
-            <input type="text" class="form-control" name="token" aria-label="token" aria-describedby="basic-addon1">
-                    @error('token')
-                        <div class="my">
-                            <span class="text-danger">{{$message}}</span>
-                        </div>
-                    @enderror
-                    <button class="btn btn-success  " style="position: absolute;left:500px;top:65px;">สุ่มโค้ด</button>
+            <span id="randomCode"></span><br>
+            <button class="btn btn-success  " id="generateCodeButton" style="position: absolute;left:500px;top:65px;">สุ่มโค้ด</button>
             </div><br>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <h3>วันเวลาที่หมดอายุ</h3>
-                 <input class="form-control" type="date" id="event_date" name="end_date">
-                @error('end_date')
-                    <div class="my">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror
+                <input class="form-control" type="datetime-local" id="dateTimeInput">
                 <br>
             </div>
-            <button class="btn btn-primary" style="position: absolute;left:275px;">บันทึก</button>    
+            <button class="btn btn-primary" id="saveCodeButton" style="position: absolute;left:275px;">บันทึก</button>    
         </div>
-    </form>
-    <div class="d-grid gap-2 col-6 mx-auto "style="position: absolute;left:825px;top:600px;">
+        <br>
+    <div class="d-grid gap-2 col-6 mx-auto "style="position: absolute;left:825px;top:625px;">
     <div class="row" >
             <div class="col-md-8">
                     <br>
@@ -130,18 +169,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        
-                                        
-                                       
+                                    @php($i=1)
+                                    @foreach($randomcode as $row)
+                                        <tr>
+                                        <td>{{$i++}}</td>
+                                        <td>{{$row->code}}</td>
+                                        <td>{{$row->end_date}}</td>
+                                        <td><a href="{{url('/Token/delete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a> </td>
+                                        </tr>
+                                    @endforeach                                     
+                                    
                                 </tbody>
                                 
                             </table>
-                                          
+                            {{$randomcode->links()}}           
                     </div> 
             </div> 
         </div> 
     </div>
-    </div>
+    <script>
+            var msg = '{{Session::get('alert')}}';
+            var exist = '{{Session::has('alert')}}';
+            if(exist){
+            alert(msg);
+            }
+    </script> 
+</div>
     
   
   

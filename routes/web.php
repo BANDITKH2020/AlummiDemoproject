@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::get('/welcome', [HomeController::class,'welcome'])->name('welcome');
 Auth::routes();
 //สมัครAdmin
-Route::get('/loginAdmin', [HomeController::class,'index'])->name('index');
+Route::get('/home', [HomeController::class,'index'])->name('index');
 
 //สมัครสมาชิก google
 Route::get('auth/google', [SocialController::class, 'googleRedirect']);
@@ -61,3 +61,5 @@ Route::get('/link/delete/{id}',[surveylinkController::class,'delete']);
 Route::get('/search',[surveylinkController::class,'search']);
 //--------------จัดการโค้ด------------------------
 Route::get('/Token/all',[TokenController::class,'viewtoken'])->name('viewtoken');
+Route::post('/Admin/Token/save',  [TokenController::class,'store'])->name('admin.code.save');
+Route::get('/Token/delete/{id}',[TokenController::class,'delete']);
