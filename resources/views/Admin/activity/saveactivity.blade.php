@@ -63,7 +63,7 @@
                 <a href="/User/contacthistory" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>

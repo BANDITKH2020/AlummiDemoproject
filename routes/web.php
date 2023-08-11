@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\NewsandActivitiesController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\surveylinkController;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +59,5 @@ Route::post('/link/savelink/add', [surveylinkController::class, 'store'])->name(
 Route::match(['get','post'],'/link/update/{id}',[surveylinkController::class, 'update']);
 Route::get('/link/delete/{id}',[surveylinkController::class,'delete']);
 Route::get('/search',[surveylinkController::class,'search']);
+//--------------จัดการโค้ด------------------------
+Route::get('/Token/all',[TokenController::class,'viewtoken'])->name('viewtoken');

@@ -63,7 +63,7 @@
                 <a href="/User/contacthistory" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
@@ -83,7 +83,7 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-        <form action="{{url('/activity/update/'.$activity->id)}}" method="post" enctype="multipart/form-data">  
+    <form action="{{url('/activity/update/'.$activity->id)}}" method="post" enctype="multipart/form-data">  
         @csrf
         <div class="container "style="position: absolute;left:500px;top: 180px;">
             <h2>เพิ่มกิจกรรม</h2>
