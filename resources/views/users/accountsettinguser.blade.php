@@ -561,117 +561,40 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-warning" id="addEducation">เพิ่มประวัติการฝึกอบรม</button>
+                        </div>
+                    </div>
                     <form>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
-                                <div class="col-lg-2">
-                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
-                                    <select name="" id="" class="select">
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาย">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
-                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
-                                        </div>
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อบริษัท/หน่วยงานที่จัดกิจกรรม</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <label class="col-form-label font-weight-bold text-dark">วันที่เริ่ม</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
+                                        <input type="date" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                    <label class="col-form-label font-weight-bold text-dark">วันที่สิ้นสุด</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center"
-                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
+                                        <input type="date" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                             </div>
