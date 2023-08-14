@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;">
+    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:20px;border-radius:10px;">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 {{-- <h3>{{ Auth::user()->firstname }}</h3> --}}
