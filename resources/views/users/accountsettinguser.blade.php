@@ -85,7 +85,7 @@
                 <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
             </div>
 
-            <div class="col-9 mt-5" style="border: 2px solid #000;margin-left:30px;border-radius:10px;">
+            <div class="col-9 mt-5">
                 <h4 class="mt-3">ตั้งค่าโปรไฟล์</h4>
                 <hr>
                 <div class="col-12" style="text-align: end">
