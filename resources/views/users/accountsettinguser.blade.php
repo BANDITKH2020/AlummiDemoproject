@@ -152,6 +152,18 @@
                     <form>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
+                                <div class="col-lg-12 row">
+                                    <div class="col-lg-4">
+                                        <img src="{{ asset('images/teamwork.png') }}" style="width:170px;height:170px;padding:10px">
+                                    </div>
+                                    <div class="col-lg-8" style="margin-top:50px">
+                                        <h5 style="font-size: 16px">1.อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h5>
+                                        <h5 style="font-size: 16px">2.ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h5>
+                                        <input type="file" name="image" accept="image/jpeg, image/png, image/svg">
+                                    </div>
+                                </div>
+
+                                <hr class="mt-3">
                                 <div class="col-lg-2">
                                     <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
                                     <select name="" id="" class="select">
@@ -282,117 +294,67 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-warning" id="addEducation">เพิ่มประวัติการศึกษา</button>
+                        </div>
+                    </div>
+                    <form id="educationForm">
                         <div class="col-lg-12">
+                            <label class="col-form-label font-weight-bold text-danger">
+                                ลำดับที่ 1 <i class="fas fa-trash"></i>
+                            </label>
                             <div class="col-lg-12 row">
-                                <div class="col-lg-2">
-                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">สถาบัน</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ปีที่จบการศึกษา</label>
                                     <select name="" id="" class="select">
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาย">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
+                                        <option value="2566">2566</option>
+                                        <option value="2566">2567</option>
+                                        <option value="2566">2568</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
-                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
-                                        </div>
-                                    </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">วุฒิการศึกษา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                        <option value="ปริญญาโท">ปริญญาโท</option>
+                                        <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                    </select>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                    <label class="col-form-label font-weight-bold text-dark">ประเภทของสถาบันการศึกษา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                        <option value="ปริญญาโท">ปริญญาโท</option>
+                                        <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">คณะวิชา</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
                                         required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <label class="col-form-label font-weight-bold text-dark">สาขาวิชา</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
                                         required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                    <label class="col-form-label font-weight-bold text-dark">เกรดเฉลี่ย</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
                                         required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center"
-                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
                                     </div>
                                 </div>
                             </div>
@@ -806,12 +768,7 @@
         </div>
     </div>
 </body>
-
-
 </html>
-
-
-
 
 
 <script>
@@ -838,6 +795,63 @@
                 $('#Traininginfo').modal('show');
             }break;
         }
-
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const educationForm = document.getElementById("educationForm");
+        const addButton = document.getElementById("addEducation");
+
+        addButton.addEventListener("click", function () {
+            const educationGroup = document.createElement("div");
+            educationGroup.className = "col-lg-12 row";
+
+            // Create and add your form fields here
+            const fields = [
+                { label: "สถาบัน", type: "text" },
+                { label: "ปีที่จบการศึกษา", type: "select", options: ["2566", "2567", "2568"] },
+                { label: "วุฒิการศึกษา", type: "select", options: ["ปริญญาตรี", "ปริญญาโท", "ปริญญาเอก"] },
+                { label: "ประเภทของสถาบันการศึกษา", type: "select", options: ["ปริญญาตรี", "ปริญญาโท", "ปริญญาเอก"] },
+                { label: "คณะวิชา", type: "text" },
+                { label: "สาขาวิชา", type: "text" },
+                { label: "เกรดเฉลี่ย", type: "text" }
+            ];
+
+            fields.forEach(fieldData => {
+                const fieldDiv = document.createElement("div");
+                fieldDiv.className = "col-lg-5";
+                const fieldLabel = document.createElement("label");
+                fieldLabel.className = "col-form-label font-weight-bold text-dark";
+                fieldLabel.textContent = fieldData.label;
+
+                const fieldElement = fieldData.type === "select"
+                    ? document.createElement("select")
+                    : document.createElement("input");
+
+                fieldElement.className = fieldData.type === "select"
+                    ? "select"
+                    : "form-control form-control-sm text-center bg-white";
+
+                if (fieldData.type === "select") {
+                    fieldData.options.forEach(optionValue => {
+                        const option = document.createElement("option");
+                        option.value = optionValue;
+                        option.textContent = optionValue;
+                        fieldElement.appendChild(option);
+                    });
+                }
+
+                if (fieldData.type === "text") {
+                    fieldElement.type = "text";
+                    fieldElement.required = true;
+                }
+
+                fieldDiv.appendChild(fieldLabel);
+                fieldDiv.appendChild(fieldElement);
+                educationGroup.appendChild(fieldDiv);
+            });
+                educationForm.appendChild(educationGroup);
+            });
+    });
+
+
 </script>
