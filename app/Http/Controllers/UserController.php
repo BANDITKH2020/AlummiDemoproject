@@ -13,4 +13,9 @@ class UserController extends Controller
         $newsandactivity=newsandactivity::paginate(3);
         return view('users.accountsettinguser',compact('newsandactivity'));
     }
+    public function studentslist()
+    {
+        $newsandactivity=newsandactivity::paginate(3);
+        return view('users.studentslist',compact('newsandactivity'));
+    }
 }

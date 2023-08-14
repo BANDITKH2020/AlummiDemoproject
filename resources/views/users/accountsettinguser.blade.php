@@ -56,7 +56,7 @@
                     <a href="/User/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
-                    <a href="/User/accountsettinguser" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                    <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
                     <a href="#" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
@@ -68,7 +68,7 @@
                     <a href="#" class="textmenu"><h5>แบบสอบถาม</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
-                    <a href="#" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                    <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
                     <a href="#" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>

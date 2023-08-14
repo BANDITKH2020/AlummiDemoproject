@@ -37,6 +37,7 @@ Route::get('users/login', [SocialController::class, 'login'])->name('login.ris')
 //หน้าแรกuser
 Route::get('/users/homeuser', [HomeUserController::class, 'homeuser'])->name('homeuser');
 Route::get('/User/accountsettinguser', [UserController::class,'accountsettinguser'])->name('accountsettinguser');
+Route::get('/User/studentslist', [UserController::class,'studentslist'])->name('studentslist');
 //ออกจากระบบ
 Route::delete('/logout', [HomeUserController::class, 'logout'])->name('logout');
 //---------------------ข่าว-----------------------
