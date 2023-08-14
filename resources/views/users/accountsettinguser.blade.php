@@ -377,119 +377,88 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-warning" id="">เพิ่มประวัติการทำงาน</button>
+                        </div>
+                    </div>
                     <form>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
-                                <div class="col-lg-2">
-                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ระยะเวลา</label>
                                     <select name="" id="" class="select">
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาย">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
+                                        <option value="2566">2566</option>
+                                        <option value="2567">2567</option>
+                                        <option value="2568">2568</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
+                                    <label class="col-form-label font-weight-bold text-dark">เดือน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="เดือน">เดือน</option>
+                                    </select>
                                 </div>
                                 <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
+                                    <label class="col-form-label font-weight-bold text-dark">ถึง</label>
+                                    <select name="" id="" class="select">
+                                        <option value="2566">2566</option>
+                                        <option value="2567">2567</option>
+                                        <option value="2568">2568</option>
+                                    </select>
                                 </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">เดือน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="เดือน">เดือน</option>
+                                    </select>
+
+                                    <div class="d-flex align-items-center mt-2">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
-                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
+                                            <label class="form-check-label" for="contactCheckbox">ถึงปัจจุบัน</label>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อบริษัท</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
-                                    <div class="input-group">
+                                    <label class="col-form-label font-weight-bold text-dark">ตำแหน่งงาน</label>
+                                    <div class="input-group" style="border-radius: 50px">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <label class="col-form-label font-weight-bold text-dark">ช่วงเงินเดือน</label>
+                                    <select name="" id="" class="select">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ที่อยู่บริษัท</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
+                                        style="border-radius: 10px" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
+                                    <label class="col-form-label font-weight-bold text-dark">ประเภทของงาน</label>
+                                    <select name="" id="" class="select">
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
+                                    <label class="col-form-label font-weight-bold text-dark">รายละเอียดของงาน (ถ้ามี)</label>
+                                    <textarea id="" name="" rows="3" cols="40"></textarea>
                                 </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center"
-                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </form>
@@ -513,117 +482,66 @@
                     <form>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
+                                <div class="col-lg-9">
+                                    <label class="col-form-label font-weight-bold text-dark">ทักษะตามสาขาอาชีพ (สูงสุด 10 ทักษะ)</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        id="skillInput" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" style="margin-top: 35px">
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-warning" id="addSkill">เพิ่มทักษะ</button>
+                                    </div>
+                                </div>
+                                <div id="skillList"></div>
                                 <div class="col-lg-2">
-                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                    <label class="col-form-label font-weight-bold text-dark">ภาษา</label>
                                     <select name="" id="" class="select">
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาย">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
+                                        <option value="ไทย">ไทย</option>
+                                        <option value="อังกฤษ">อังกฤษ</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">ฟัง</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">พูด</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">อ่าน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">เขียน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2" style="margin-top: 35px">
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
-                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm text-center bg-white"
-                                        required>
-                                    </div>
-                                </div>
-                                <hr class="mt-3">
-                                <div class="col-lg-12">
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center"
-                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
+                                        <button type="button" class="btn btn-warning" id="addSkill">เพิ่มทักษะ</button>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </form>
                 </div>
@@ -800,7 +718,6 @@
     document.addEventListener("DOMContentLoaded", function () {
         const educationForm = document.getElementById("educationForm");
         const addButton = document.getElementById("addEducation");
-
         addButton.addEventListener("click", function () {
             const educationGroup = document.createElement("div");
             educationGroup.className = "col-lg-12 row";
@@ -851,6 +768,46 @@
             });
                 educationForm.appendChild(educationGroup);
             });
+
+        const skillList = document.getElementById("skillList");
+        const skillInput = document.getElementById("skillInput");
+        const addSkillButton = document.getElementById("addSkill");
+        let skillCounter = 1;
+
+        addSkillButton.addEventListener("click", function () {
+            const skillText = skillInput.value.trim();
+            if (skillText === "") {
+                return;
+            }
+
+            const skillItem = document.createElement("div");
+            skillItem.className = "skill-item";
+            skillItem.innerHTML = `
+                <span>${skillCounter}) ${skillText}</span>
+                <button class="edit-button">แก้ไข</button>
+                <button class="delete-button">ลบ</button>
+            `;
+
+            skillList.appendChild(skillItem);
+            skillInput.value = "";
+            skillCounter++;
+
+            // Add event listeners for edit and delete buttons
+            const editButton = skillItem.querySelector(".edit-button");
+            const deleteButton = skillItem.querySelector(".delete-button");
+
+            editButton.addEventListener("click", function () {
+                const currentSkillText = skillItem.querySelector("span").textContent;
+                const skillNumber = currentSkillText.split(")")[0];
+                skillInput.value = currentSkillText.substring(skillNumber.length + 1);
+                skillList.removeChild(skillItem);
+            });
+
+            deleteButton.addEventListener("click", function () {
+                skillCounter.length - 1;
+                skillList.removeChild(skillItem);
+            });
+        });
     });
 
 
