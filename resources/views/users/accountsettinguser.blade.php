@@ -94,25 +94,25 @@
                 <div class="col-10 mx-auto mt-3 text-center">
                     <img src="{{asset('images/teamwork.png')}}" style="width:200px;height:200px;padding:10px">
                     <h5>ชื่อ-นามสกุล <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                        onclick="accountSetting('personalHistory')"></a></h5>
+                        onclick="accountSetting('personalinfo')"></a></h5>
                 </div>
                 <hr>
                 <div class="col-12 row">
                     <div class="col-3" style="text-align: center">
                         <h5>ประวัติการศึกษา <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('educationHistory')"></a></h5>
+                            onclick="accountSetting('Educationinfo')"></a></h5>
                     </div>
                     <div class="col-3" style="text-align: center">
                         <h5>ประวัติการทำงาน <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('workHistory')"></a></h5>
+                            onclick="accountSetting('Workhistoryinfo')"></a></h5>
                     </div>
                     <div class="col-3" style="text-align: center">
                         <h5>ทักษะ <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('skills')"></a></h5>
+                            onclick="accountSetting('Skillsinfo')"></a></h5>
                     </div>
                     <div class="col-3" style="text-align: center">
                         <h5>ประวัติการฝึกอบรม <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('traningHistory')"></a></h5>
+                            onclick="accountSetting('Traininginfo')"></a></h5>
                     </div>
                 </div>
             </div>
@@ -273,6 +273,538 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="Educationinfo" tabindex="-1" aria-labelledby="Educationinfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขประวัติการศึกษา</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                    <select name="" id="" class="select">
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาย">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
+                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Workhistoryinfo" tabindex="-1" aria-labelledby="Workhistoryinfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขประวัติการทำงาน</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                    <select name="" id="" class="select">
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาย">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
+                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Skillsinfo" tabindex="-1" aria-labelledby="Skillsinfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขทักษะ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                    <select name="" id="" class="select">
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาย">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
+                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Traininginfo" tabindex="-1" aria-labelledby="Traininginfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขประวัติการฝึกอบรม</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
+                                    <select name="" id="" class="select">
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาย">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
+                                            <label class="form-check-label" for="contactCheckbox">ไม่เปิดเปิดเผยช่องทางการติดต่อ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Tel.</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">Instagram</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <hr class="mt-3">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">งานพบปะสังสรรค์ประจำปี</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">อบรมให้ความรู้วิชาการ</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">แข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมศิษย์เก่าสัมพันธ์</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="col-form-label font-weight-bold text-dark me-3"></label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="">
+                                            <label class="form-check-label" for="">กิจกรรมอื่นๆ</label>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                            style="max-width:300px;margin-left:3px" placeholder="กรุณาระบุ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 
@@ -286,24 +818,24 @@
     function accountSetting(action) {
         console.log('action', action);
         switch(action){
-            case 'personalHistory' : {
+            case 'personalinfo' : {
                 $('#Studentinfo').modal('show');
             }break;
 
-            case 'educationHistory' : {
-                $('#').modal('show');
+            case 'Educationinfo' : {
+                $('#Educationinfo').modal('show');
             }break;
 
-            case 'workHistory' : {
-                $('#').modal('show');
+            case 'Workhistoryinfo' : {
+                $('#Workhistoryinfo').modal('show');
             }break;
 
-            case 'skills' : {
-                $('#').modal('show');
+            case 'Skillsinfo' : {
+                $('#Skillsinfo').modal('show');
             }break;
 
-            case 'traningHistory' : {
-                $('#').modal('show');
+            case 'Traininginfo' : {
+                $('#Traininginfo').modal('show');
             }break;
         }
 
