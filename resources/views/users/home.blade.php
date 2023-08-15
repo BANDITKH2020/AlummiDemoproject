@@ -77,23 +77,32 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
-  <div class="container">
-  <div class="row" style="position: absolute;left:500px;top:180px;">
-    @foreach ($newsandactivity as $row)
-    <div class="col-md-4" style="max-width: 350px;">
-      <div class="card mt-5 " >
-        <div class='card-body'>
-        <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start"style="width: 300px;" >
-          <h5 class='card-title'>{{ $row->title_name }}</h5>
-          <h6 class='sub-subtitle mb-2 text-muted'>{{ $row->title_name }}</h6>
-          <p class='card-text'>{{ $row->category }}</p>
-          <a href="#" class="btn btn-primary">edit</a>
-          <a href="#" class="btn btn-danger">delete</a>
+  <style>
+    .custom-card {
+        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
+        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
+        margin-bottom: 10px;
+    }
+  </style>
+
+  <div class="container"  style="position: absolute; left: 500px; top: 180px;">
+    <div class="row">
+        @foreach ($newsandactivity as $row)
+        <div class="col-md-3">
+            <div class="card mt-5 custom-card">
+                <div class='card-body'>
+                    <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
+                    <h5 class='card-title' >{{ $row->title_name }}</h5>
+                    <h6 class='sub-subtitle mb-2 text-muted'>{{ $row->title_name }}</h6>
+                    <p class='card-text'>{{ $row->category }}</p>
+                    <a href="#" class="btn btn-primary">edit</a>
+                    <a href="#" class="btn btn-danger">delete</a>
+                </div>
+            </div>
         </div>
+        @endforeach
+        {{ $newsandactivity->links() }}
       </div>
-    </div>
-    @endforeach
-    {{ $newsandactivity->links() }}
   </div>
 
 </div>

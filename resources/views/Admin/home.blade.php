@@ -41,7 +41,7 @@
                 <h4>{{ Auth::user()->firstname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/loginAdmin" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="" class="textmenu"><h5>การจัดการ</h5></a>
@@ -83,6 +83,66 @@
         </div>
   </div>
 
+  <style>
+    .custom-card {
+        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
+        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
+        margin-bottom: 10px;
+    }
+  </style>
+ 
+ 
+  <div class="container"  style="position: absolute; left: 500px; top: 180px;">
+    <div class="col-md-12">
+      <h2 class="text-center">ข่าวประชาสัมพันธ์</h2>
+    </div>
+    <hr class="mt-1" style="border: 1px solid #000">
+    <form action="" method="GET" >
+    <label class="form-label" style="position: absolute;left:750px;top: 65px;">
+      <select name="searchdata" class="form-select" >
+        <option value="all">ทั้งหมด</option>
+        <option value="" >ข่าว</option>
+        <option value="">กิจกรรม</option>
+      </select>
+      <div class="col-mb-2">
+        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:-37px" required/> 
+        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+      </div>
+    </label>            
+    </form>
+    <br>
+    <div class="row">
+        @foreach ($newsandactivity as $row)
+        <div class="col-md-3">
+            <div class="card mt-5 custom-card">
+            <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
+                <div class='card-body'>
+                    <h5 class="card-title font-weight-bold">{{ $row->title_name }}</h5>
+                    <p class="card-text">
+                    {{ Str::limit($row->cotent, 50) }}
+                    </p>
+                    <p class="card-text">วันที่อัพเดต
+                    {{$row->created_at->format('d-m-Y')}}
+                    </p>
+                    @if ($row->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
+                      @if ($row->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
+                        <p class="card-text">วันที่จัดกิจกรรม: 
+                        {{ Carbon\Carbon::parse($row->event_date)->format('d-m-Y') }}
+                        </p>
+                        @else
+                        <p class="card-text">วันที่จัดกิจกรรม: ไม่มี</p>
+                      @endif
+                    @endif
+                    <div class="d-flex justify-content-center">
+                      <button type="button" href="" class="btn btn-primary btn-lg">รายละเอียด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        {{ $newsandactivity->links() }}
+      </div>
+  </div>
 </div>
   
   

@@ -7,6 +7,7 @@ use App\Models\newsandactivity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class NewsandActivitiesController extends Controller
@@ -53,7 +54,7 @@ class NewsandActivitiesController extends Controller
             [
                 'title_name'=>'required',
                 'cotent'=>'required',
-                'title_image'=>'required|mimes:jpg,jpeg,png'
+                'title_image'=>'required|mimes:jpg,jpeg,png|max:3000',
             ],
             [
                 'title_name.required'=>"กรุณาป้อนชื่อหัวข้อข่าวครับ",

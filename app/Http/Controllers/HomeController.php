@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\newsandactivity;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,7 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         //หน้าแรก admin
-        return view('Admin.home');
+        $query = newsandactivity::query();
+        $newsandactivity = $query->paginate(4);
+        return view('Admin.home', compact('newsandactivity'));
     }
     public function welcome()
     {

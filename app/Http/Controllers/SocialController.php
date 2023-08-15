@@ -23,7 +23,7 @@ class SocialController extends Controller
     
             $user = Socialite::driver('google')->stateless()->user();
             $existingUser = User::where('google_id', $user->id)->first();
-     
+     //เขียนส่วนนี้
             if($existingUser){
                 Auth::login($existingUser);
                 return redirect('/users/homeuser');
