@@ -22,10 +22,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         //หน้าแรก admin
         $query = newsandactivity::query();
+        $search = $request->input('search');
+        $gender = $request->gender;
+
+    // Apply search filters
+   
+     $query->where('title_name', 'LIKE', "%{$search}%")
+     ->orWhere('category', 'LIKE', "%{$search}%")
+     ->orWhere('created_at', 'LIKE', "%{$search}%");
+       
+    
+    
         $newsandactivity = $query->paginate(4);
         return view('Admin.home', compact('newsandactivity'));
     }

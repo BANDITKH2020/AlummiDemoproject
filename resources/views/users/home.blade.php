@@ -93,13 +93,9 @@
     <hr class="mt-1" style="border: 1px solid #000">
     <form action="" method="GET" >
     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-      <select name="searchdata" class="form-select" >
-        <option value="all">ทั้งหมด</option>
-        <option value="" >ข่าว</option>
-        <option value="">กิจกรรม</option>
-      </select>
+      
       <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:-37px" required/> 
+        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/> 
         <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
       </div>
     </label>            
