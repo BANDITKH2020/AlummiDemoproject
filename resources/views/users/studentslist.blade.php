@@ -55,7 +55,7 @@
                             {{-- <h3>{{ Auth::user()->firstname }}</h3> --}}
                         </div>
                         <div class="col-7 mt-3" style="margin-left:50px">
-                            <a href="/User/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
+                            <a href="/users/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
                         </div>
                         <div class="col-10 mt-1" style="margin-left:50px">
                             <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
@@ -219,25 +219,6 @@
         </div>
 
 
-    <div class="container">
-        <div class="row" style="position: absolute;left:500px;top:180px;">
-            @foreach ($newsandactivity as $row)
-            <div class="col-md-4" style="max-width: 350px;">
-            <div class="card mt-5 " >
-                <div class='card-body'>
-                <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start"style="width: 300px;" >
-                <h5 class='card-title'>{{ $row->title_name }}</h5>
-                <h6 class='sub-subtitle mb-2 text-muted'>{{ $row->title_name }}</h6>
-                <p class='card-text'>{{ $row->category }}</p>
-                <a href="#" class="btn btn-primary">edit</a>
-                <a href="#" class="btn btn-danger">delete</a>
-                </div>
-            </div>
-            </div>
-            @endforeach
-            {{ $newsandactivity->links() }}
-        </div>
-    </div>
 
 </body>
 </html>

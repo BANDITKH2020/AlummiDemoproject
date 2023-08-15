@@ -53,7 +53,7 @@
                     {{-- <h3>{{ Auth::user()->firstname }}</h3> --}}
                 </div>
                 <div class="col-7 mt-3" style="margin-left:50px">
-                    <a href="/User/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
+                    <a href="/users/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
                     <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>

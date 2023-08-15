@@ -11,7 +11,7 @@ class HomeUserController extends Controller
     public function homeuser()
     {
         $query = newsandactivity::query();
-        $newsandactivity = $query->paginate(3);
+        $newsandactivity = $query->paginate(4);
         return view('users.home', compact('newsandactivity'));
     }
     public function logout()
