@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-12 row">
-            <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;">
+            <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:20px;border-radius:10px;">
                 <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;">
                     <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                     {{-- <h3>{{ Auth::user()->firstname }}</h3> --}}
@@ -56,7 +56,7 @@
                     <a href="/User/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
-                    <a href="/User/accountsettinguser" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                    <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
                     <a href="#" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
@@ -68,7 +68,7 @@
                     <a href="#" class="textmenu"><h5>แบบสอบถาม</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
-                    <a href="#" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                    <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
                 </div>
                 <div class="col-10 mt-1" style="margin-left:50px">
                     <a href="#" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
@@ -85,7 +85,7 @@
                 <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
             </div>
 
-            <div class="col-9 mt-5" style="border: 2px solid #000;margin-left:30px;border-radius:10px;">
+            <div class="col-9 mt-5">
                 <h4 class="mt-3">ตั้งค่าโปรไฟล์</h4>
                 <hr>
                 <div class="col-12" style="text-align: end">
@@ -94,25 +94,25 @@
                 <div class="col-10 mx-auto mt-3 text-center">
                     <img src="{{asset('images/teamwork.png')}}" style="width:200px;height:200px;padding:10px">
                     <h5>ชื่อ-นามสกุล <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                        onclick="accountSetting('personalHistory')"></a></h5>
+                        onclick="accountSetting('personalinfo')"></a></h5>
                 </div>
                 <hr>
                 <div class="col-12 row">
                     <div class="col-3" style="text-align: center">
                         <h5>ประวัติการศึกษา <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('educationHistory')"></a></h5>
+                            onclick="accountSetting('Educationinfo')"></a></h5>
                     </div>
                     <div class="col-3" style="text-align: center">
                         <h5>ประวัติการทำงาน <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('workHistory')"></a></h5>
+                            onclick="accountSetting('Workhistoryinfo')"></a></h5>
                     </div>
                     <div class="col-3" style="text-align: center">
                         <h5>ทักษะ <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('skills')"></a></h5>
+                            onclick="accountSetting('Skillsinfo')"></a></h5>
                     </div>
                     <div class="col-3" style="text-align: center">
                         <h5>ประวัติการฝึกอบรม <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"
-                            onclick="accountSetting('traningHistory')"></a></h5>
+                            onclick="accountSetting('Traininginfo')"></a></h5>
                     </div>
                 </div>
             </div>
@@ -152,6 +152,18 @@
                     <form>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
+                                <div class="col-lg-12 row">
+                                    <div class="col-lg-4">
+                                        <img src="{{ asset('images/teamwork.png') }}" style="width:170px;height:170px;padding:10px">
+                                    </div>
+                                    <div class="col-lg-8" style="margin-top:50px">
+                                        <h5 style="font-size: 16px">1.อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h5>
+                                        <h5 style="font-size: 16px">2.ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h5>
+                                        <input type="file" name="image" accept="image/jpeg, image/png, image/svg">
+                                    </div>
+                                </div>
+
+                                <hr class="mt-3">
                                 <div class="col-lg-2">
                                     <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
                                     <select name="" id="" class="select">
@@ -273,39 +285,453 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="Educationinfo" tabindex="-1" aria-labelledby="Educationinfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขประวัติการศึกษา</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-warning" id="addEducation">เพิ่มประวัติการศึกษา</button>
+                        </div>
+                    </div>
+                    <form id="educationForm">
+                        <div class="col-lg-12">
+                            <label class="col-form-label font-weight-bold text-danger">
+                                ลำดับที่ 1 <i class="fas fa-trash"></i>
+                            </label>
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">สถาบัน</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ปีที่จบการศึกษา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="2566">2566</option>
+                                        <option value="2566">2567</option>
+                                        <option value="2566">2568</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">วุฒิการศึกษา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                        <option value="ปริญญาโท">ปริญญาโท</option>
+                                        <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ประเภทของสถาบันการศึกษา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                        <option value="ปริญญาโท">ปริญญาโท</option>
+                                        <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">คณะวิชา</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">สาขาวิชา</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">เกรดเฉลี่ย</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Workhistoryinfo" tabindex="-1" aria-labelledby="Workhistoryinfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขประวัติการทำงาน</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-warning" id="">เพิ่มประวัติการทำงาน</button>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ระยะเวลา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="2566">2566</option>
+                                        <option value="2567">2567</option>
+                                        <option value="2568">2568</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">เดือน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="เดือน">เดือน</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">ถึง</label>
+                                    <select name="" id="" class="select">
+                                        <option value="2566">2566</option>
+                                        <option value="2567">2567</option>
+                                        <option value="2568">2568</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-form-label font-weight-bold text-dark">เดือน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="เดือน">เดือน</option>
+                                    </select>
+
+                                    <div class="d-flex align-items-center mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="contactCheckbox">
+                                            <label class="form-check-label" for="contactCheckbox">ถึงปัจจุบัน</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อบริษัท</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ตำแหน่งงาน</label>
+                                    <div class="input-group" style="border-radius: 50px">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ช่วงเงินเดือน</label>
+                                    <select name="" id="" class="select">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ที่อยู่บริษัท</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ประเภทของงาน</label>
+                                    <select name="" id="" class="select">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">รายละเอียดของงาน (ถ้ามี)</label>
+                                    <textarea id="" name="" rows="3" cols="40"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Skillsinfo" tabindex="-1" aria-labelledby="Skillsinfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขทักษะ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-9">
+                                    <label class="col-form-label font-weight-bold text-dark">ทักษะตามสาขาอาชีพ (สูงสุด 10 ทักษะ)</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        id="skillInput" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" style="margin-top: 35px">
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-warning" id="addSkill">เพิ่มทักษะ</button>
+                                    </div>
+                                </div>
+                                <div id="skillList"></div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">ภาษา</label>
+                                    <select name="" id="" class="select">
+                                        <option value="ไทย">ไทย</option>
+                                        <option value="อังกฤษ">อังกฤษ</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">ฟัง</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">พูด</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">อ่าน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="col-form-label font-weight-bold text-dark">เขียน</label>
+                                    <select name="" id="" class="select">
+                                        <option value="พอใช้">พอใช้</option>
+                                        <option value="ดี">ดี</option>
+                                        <option value="ดีมาก">ดีมาก</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2" style="margin-top: 35px">
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-warning" id="addSkill">เพิ่มทักษะ</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Traininginfo" tabindex="-1" aria-labelledby="Traininginfo" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">แก้ไขประวัติการฝึกอบรม</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-warning" id="addEducation">เพิ่มประวัติการฝึกอบรม</button>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อบริษัท/หน่วยงานที่จัดกิจกรรม</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">วันที่เริ่ม</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="col-form-label font-weight-bold text-dark">วันที่สิ้นสุด</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control form-control-sm text-center bg-white"
+                                        style="border-radius: 10px" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-
-
 </html>
-
-
-
 
 
 <script>
     function accountSetting(action) {
         console.log('action', action);
         switch(action){
-            case 'personalHistory' : {
+            case 'personalinfo' : {
                 $('#Studentinfo').modal('show');
             }break;
 
-            case 'educationHistory' : {
-                $('#').modal('show');
+            case 'Educationinfo' : {
+                $('#Educationinfo').modal('show');
             }break;
 
-            case 'workHistory' : {
-                $('#').modal('show');
+            case 'Workhistoryinfo' : {
+                $('#Workhistoryinfo').modal('show');
             }break;
 
-            case 'skills' : {
-                $('#').modal('show');
+            case 'Skillsinfo' : {
+                $('#Skillsinfo').modal('show');
             }break;
 
-            case 'traningHistory' : {
-                $('#').modal('show');
+            case 'Traininginfo' : {
+                $('#Traininginfo').modal('show');
             }break;
         }
-
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const educationForm = document.getElementById("educationForm");
+        const addButton = document.getElementById("addEducation");
+        addButton.addEventListener("click", function () {
+            const educationGroup = document.createElement("div");
+            educationGroup.className = "col-lg-12 row";
+
+            // Create and add your form fields here
+            const fields = [
+                { label: "สถาบัน", type: "text" },
+                { label: "ปีที่จบการศึกษา", type: "select", options: ["2566", "2567", "2568"] },
+                { label: "วุฒิการศึกษา", type: "select", options: ["ปริญญาตรี", "ปริญญาโท", "ปริญญาเอก"] },
+                { label: "ประเภทของสถาบันการศึกษา", type: "select", options: ["ปริญญาตรี", "ปริญญาโท", "ปริญญาเอก"] },
+                { label: "คณะวิชา", type: "text" },
+                { label: "สาขาวิชา", type: "text" },
+                { label: "เกรดเฉลี่ย", type: "text" }
+            ];
+
+            fields.forEach(fieldData => {
+                const fieldDiv = document.createElement("div");
+                fieldDiv.className = "col-lg-5";
+                const fieldLabel = document.createElement("label");
+                fieldLabel.className = "col-form-label font-weight-bold text-dark";
+                fieldLabel.textContent = fieldData.label;
+
+                const fieldElement = fieldData.type === "select"
+                    ? document.createElement("select")
+                    : document.createElement("input");
+
+                fieldElement.className = fieldData.type === "select"
+                    ? "select"
+                    : "form-control form-control-sm text-center bg-white";
+
+                if (fieldData.type === "select") {
+                    fieldData.options.forEach(optionValue => {
+                        const option = document.createElement("option");
+                        option.value = optionValue;
+                        option.textContent = optionValue;
+                        fieldElement.appendChild(option);
+                    });
+                }
+
+                if (fieldData.type === "text") {
+                    fieldElement.type = "text";
+                    fieldElement.required = true;
+                }
+
+                fieldDiv.appendChild(fieldLabel);
+                fieldDiv.appendChild(fieldElement);
+                educationGroup.appendChild(fieldDiv);
+            });
+                educationForm.appendChild(educationGroup);
+            });
+
+        const skillList = document.getElementById("skillList");
+        const skillInput = document.getElementById("skillInput");
+        const addSkillButton = document.getElementById("addSkill");
+        let skillCounter = 1;
+
+        addSkillButton.addEventListener("click", function () {
+            const skillText = skillInput.value.trim();
+            if (skillText === "") {
+                return;
+            }
+
+            const skillItem = document.createElement("div");
+            skillItem.className = "skill-item";
+            skillItem.innerHTML = `
+                <span>${skillCounter}) ${skillText}</span>
+                <button class="edit-button">แก้ไข</button>
+                <button class="delete-button">ลบ</button>
+            `;
+
+            skillList.appendChild(skillItem);
+            skillInput.value = "";
+            skillCounter++;
+
+            // Add event listeners for edit and delete buttons
+            const editButton = skillItem.querySelector(".edit-button");
+            const deleteButton = skillItem.querySelector(".delete-button");
+
+            editButton.addEventListener("click", function () {
+                const currentSkillText = skillItem.querySelector("span").textContent;
+                const skillNumber = currentSkillText.split(")")[0];
+                skillInput.value = currentSkillText.substring(skillNumber.length + 1);
+                skillList.removeChild(skillItem);
+            });
+
+            deleteButton.addEventListener("click", function () {
+                skillCounter.length - 1;
+                skillList.removeChild(skillItem);
+            });
+        });
+    });
+
+
 </script>
