@@ -7,6 +7,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -129,44 +130,83 @@
                     </div>
                 </label>
         </form>
-    
-        <div class="row" >
-            <div class="col-md-8">
-                    <br>
-                    <div class="card my-3" >
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
-                                        <th scope="col"class="text-center">ลิงก์</th>
-                                        <th scope="col"class="text-center">วันที่แก้ไข</th>
-                                        <th scope="col"class="text-center">ตัวเลือก</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($surveylink as $row)
+        <div class="d-grid gap-2 col-12 mx-auto "style="position: absolute;left:125px;top:125px;">
+            <div class="row" >
+                <div class="col-md-8">
+                        <br>
+                        <div class="card my-3" >
+                            <style>
+                                .custom-action-buttons {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+
+                                .custom-action-buttons a {
+                                    margin-right: 10px; /* กำหนดระยะห่างด้านขวาของปุ่ม */
+                                }
+                                .custom-action-buttons a.btn {
+                                    color: black;
+                                }
+                                .custom-icon {
+                                    font-size: 24px;
+                                    color: #FFC107;
+                                }
+                                .edit iconify-icon {
+                                    font-size: 24px;
+                                    color: #fd7e14; /* สีตั้งต้นของไอคอน */
+                                    transition: color 0.3s; /* เพิ่มการเปลี่ยนสีเมื่อ hover */
+                                }
+
+                                .edit:hover iconify-icon {
+                                    color: yellow; /* สีของไอคอนเมื่อ hover */
+                                }
+                                .delete iconify-icon {
+                                    font-size: 24px;
+                                    color: #990000; /* สีตั้งต้นของไอคอน */
+                                    transition: color 0.3s; /* เพิ่มการเปลี่ยนสีเมื่อ hover */
+                                }
+
+                                .delete:hover iconify-icon {
+                                    color: #FF0033; /* สีของไอคอนเมื่อ hover */
+                                }
+                            </style>
+                            
+                                <table class="table table-bordered">
+                                    <thead>
                                         <tr>
-                                        <td>{{$row->graduatedyear}}</td>
-                                        <td>{{$row->link}}</td>
-                                        <td>{{$row->created_at->format('d-m-Y')}}</td>
-                                        <td><a href="#edit{{$row->id}}" data-bs-toggle="modal"><img src="{{ asset('images/pencil.jpg') }}" width="30" height="30" style="position: absolute;left:735px;"></a>
+                                            <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
+                                            <th scope="col"class="text-center">ลิงก์</th>
+                                            <th scope="col"class="text-center">วันที่แก้ไข</th>
+                                            <th scope="col"class="text-center">ตัวเลือก</th>
                                             
-                                            <a href="{{url('/link/delete/'.$row->id)}}" 
-                                            onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')">
-                                            <img src="{{ asset('images/trash.jpg') }}" width="30" height="30"style="position: absolute;left:775px;">
-                                            </a>
-                                        </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                                
-                            </table>
-                             {{$surveylink->links()}}           
-                    </div> 
+                                    </thead>
+                                    <tbody>
+                                            
+                                            @foreach($surveylink as $row)
+                                            <tr>
+                                            <td>{{$row->graduatedyear}}</td>
+                                            <td >{{$row->link}}</td>
+                                            <td >{{$row->created_at->format('d-m-Y')}}</td>
+                                            <td class="custom-action-buttons">
+                                                <a href="#edit{{$row->id}}" data-bs-toggle="modal" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
+                                                <a href="{{url('/link/delete/'.$row->id)}}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                            </td>
+                                            </tr>
+                                            @endforeach
+                                    </tbody>
+                                    
+                                </table>
+                                <div class="d-flex justify-content-center">
+                                    {{$surveylink->links()}}
+                                </div>   
+                            </div>                
+                        </div>    
+                </div> 
             </div> 
-        </div> 
         </div>
+       
         @foreach($surveylink as $row)
         <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">

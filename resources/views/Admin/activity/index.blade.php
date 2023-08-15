@@ -160,8 +160,8 @@
                                             @foreach($activitys as $row)
                                             <tr>
                                             <td>{{$row->title_name}}</td>
-                                            <td>{{$row->category}}</td>
-                                            <td>{{$row->event_date}}</td>
+                                            <td >{{$row->category}}</td>
+                                            <td >{{$row->event_date}}</td>
                                             <td class="custom-action-buttons">
                                                 <a href="{{ url('/activity/editactivity/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
                                                 <a href="{{ url('/activity/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
