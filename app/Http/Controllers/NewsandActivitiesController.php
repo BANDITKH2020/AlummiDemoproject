@@ -66,7 +66,7 @@ class NewsandActivitiesController extends Controller
         );
 
         //เข้ารหัสรูปภาพ
-        $category= 'news';
+        $category= 'ข่าวสาร';
         $objective='';
         $cotent_type='1';
         

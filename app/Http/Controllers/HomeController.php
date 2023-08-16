@@ -44,4 +44,9 @@ class HomeController extends Controller
     {
         return view('welcomeproject');
     }
+    public function view($id)
+    {
+        $view = newsandactivity::find($id);
+        return view('Admin.view',compact('view'));
+    }
 }

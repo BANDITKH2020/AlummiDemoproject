@@ -28,7 +28,7 @@ Route::get('/welcome', [HomeController::class,'welcome'])->name('welcome');
 Auth::routes();
 //สมัครAdmin
 Route::get('/home', [HomeController::class,'index'])->name('index');
-
+Route::get('/home/view/{id}', [HomeController::class,'view'])->name('view');
 //สมัครสมาชิก google
 Route::get('auth/google', [SocialController::class, 'googleRedirect']);
 Route::get('auth/google/callback', [SocialController::class, 'loginWithGoogle']);
