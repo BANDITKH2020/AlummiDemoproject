@@ -83,28 +83,47 @@
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-    <div class="container"  style="position: absolute; left: 500px; top: 180px;">
+    <div class="container"  style="position: absolute; left: 500px; top: 200px;">
     @csrf
     
-    <h1>{{$view->title_name}}</h1>
-    <img src="{{ asset($view->title_image) }}" class="img-fluid rounded-start"style="width: 300px; height: 200px;">
-    <h3>{{$view->cotent}}</h3>
-    <h3>{{$view->category}}</h3>
-    <h3>{{$view->objective}}</h3>
-    @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
-        @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-            <h3 class="card-text">วันที่จัดกิจกรรม: 
-            {{ Carbon\Carbon::parse($view->event_date)->format('d-m-Y') }}
-            </h3>
-        @else
-            <h3 class="card-text">วันที่จัดกิจกรรม: ไม่มี</h3>
+        <h1>{{$view->title_name}}</h1>
+        <style>
+        .centered-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .centered-image {
+            width: 600px;
+            height: 350px;
+            object-fit: cover;
+        }
+        .indented-text {
+            font-size: 24px;
+            line-height: 1.5;
+            text-align: justify;
+            text-indent: 4em; /* ปรับค่าตามที่ต้องการ */
+        }
+        </style>
+
+        <div class="centered-container mt-3">
+            <img src="{{ asset($view->title_image) }}" class="centered-image img-fluid rounded-start" alt="Image">
+        </div>
+        <div class="indented-text  mt-3">
+            <h3>{{$view->cotent}}</h3>
+        </div>
+        <h3>ประเภทเนื้อหา: {{$view->category}}</h3>
+        <h3> {{$view->objective}}</h3>
+        @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
+            @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
+                <h3 class="card-text">วันที่จัดกิจกรรม: 
+                {{ Carbon\Carbon::parse($view->event_date)->format('d-m-Y') }}
+                </h3>
+            @else
+                <h3 class="card-text">วันที่จัดกิจกรรม: ไม่มี</h3>
+            @endif
         @endif
-    @endif
-    <h3>{{$view->created_at}}</h3>
+        <h3>วันที่ลงเนื้อหา: {{$view->created_at}}</h3>
     </div>
-        
-        
-    </form>
-</form>
 </body>
 </html>
