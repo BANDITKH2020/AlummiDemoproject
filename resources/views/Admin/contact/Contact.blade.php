@@ -92,7 +92,7 @@
             <h3>ช่วงเวลาติดต่อ  จ-ศ 08.30 - 16.30 น. </h3>
             <h3>โทร. 02 549  3460</h3>
             <br>
-            <h3>Computer Engineering RMUTT</h3>
+            <a href="https://www.facebook.com/ComputerEngineeringRmutt"><h3>Computer Engineering RMUTT</h3>
             <br>
             <a href="https://cpe.engineer.rmutt.ac.th/?fbclid=IwAR2b_3j35XEJZK6IhP_8tZbxsC0D4SBzJoomEt1c4CFeC_4SSOENwpNgmm4"><h3>เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</h3></a>
 
@@ -102,7 +102,12 @@
         <iconify-icon icon="logos:facebook" class="custom-face"></iconify-icon>
         <iconify-icon icon="emojione:school"class="custom-school"></iconify-icon>
         <div class="custom-map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3870.6850321332804!2d100.727662!3d14.036675!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692362016210!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3870.6850321332804!2d100.727662!3d14.036675!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692362016210!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-warning" href="/home" role="button" >กลับหน้าหลัก</a>
+        </div>
+        
     </div>
     
     
