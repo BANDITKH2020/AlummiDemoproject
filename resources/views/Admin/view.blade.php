@@ -80,7 +80,7 @@
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
             
-            <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
+            <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
     <div class="container"  style="position: absolute; left: 500px; top: 200px;">

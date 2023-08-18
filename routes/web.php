@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\activityController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\NewsandActivitiesController;
@@ -64,3 +65,5 @@ Route::get('/search',[surveylinkController::class,'search']);
 Route::get('/Token/all',[TokenController::class,'viewtoken'])->name('viewtoken');
 Route::post('/Admin/Token/save',  [TokenController::class,'store'])->name('admin.code.save');
 Route::get('/Token/delete/{id}',[TokenController::class,'delete']);
+//---------------ช่องทางการติดต่อ--------------------
+Route::get('/contact/rmutt',[ContactController::class,'contact'])->name('contact');
