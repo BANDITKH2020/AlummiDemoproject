@@ -46,13 +46,13 @@
                 font-size: 2rem;
                 position: absolute;
                 left:350px;
-                top:625px;
+                top:585px;
             }
         .custom-school {
                 font-size: 2rem;
                 position: absolute;
                 left:350px;
-                top:725px;
+                top:645px;
             }
         .custom-map { 
                 position: absolute;
@@ -91,6 +91,11 @@
             <br>
             <h3>ช่วงเวลาติดต่อ  จ-ศ 08.30 - 16.30 น. </h3>
             <h3>โทร. 02 549  3460</h3>
+            <br>
+            <h3>Computer Engineering RMUTT</h3>
+            <br>
+            <a href="https://cpe.engineer.rmutt.ac.th/?fbclid=IwAR2b_3j35XEJZK6IhP_8tZbxsC0D4SBzJoomEt1c4CFeC_4SSOENwpNgmm4"><h3>เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</h3></a>
+
         </div>
         <iconify-icon icon="basil:location-solid" class="custom-icon" ></iconify-icon> 
         <iconify-icon icon="foundation:telephone"class="custom-tel"></iconify-icon>  
