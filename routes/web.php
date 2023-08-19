@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\NewsandActivitiesController;
+use App\Http\Controllers\RewardController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\surveylinkController;
 use App\Http\Controllers\TokenController;
@@ -67,3 +68,5 @@ Route::post('/Admin/Token/save',  [TokenController::class,'store'])->name('admin
 Route::get('/Token/delete/{id}',[TokenController::class,'delete']);
 //---------------ช่องทางการติดต่อ--------------------
 Route::get('/contact/rmutt',[ContactController::class,'contact'])->name('contact');
+Route::get('/Admin/graduate/view',[HomeController::class,'graduate'])->name('graduate');
+Route::get('/Admin/reward/all',[RewardController::class,'reward'])->name('reward');

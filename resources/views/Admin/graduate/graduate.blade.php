@@ -6,6 +6,7 @@
     <title></title>
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -83,90 +84,67 @@
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
-        <form action="{{route('addactivitys')}}" method="post" enctype="multipart/form-data">  
-        @csrf
-        <div class="container "style="position: absolute;left:500px;top: 180px;">
-            <h2>เพิ่มกิจกรรม</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            
-            <div class="card mb-4" style="max-width: 440px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                        <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text">1.อัพโหลดรูปภาพ</p>
-                                <p class="card-text">2.ชนิดของไฟล์ JPEG,PNG และ SVG</p>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                    @error('title_image')
-                                    <div class="my-1">
-                                        <span class="text-danger">{{$message}}</span>
-                                    </div>
-                                    @enderror
+    
+    <div class="container "style="position:absolute;left:500px;top: 215px;">
+        <h2>จัดการการกิจกรรม</h2>
+        <hr class="mt-1" style="border: 1px solid #000">
+        <form action="" method="GET" >
+                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
+                    <select name="searchdata" class="form-select" >
+                        <option value="all">ทั้งหมด</option>
+                        <option value="" >ปีการศึกษาที่จบ</option>
+                        <option value="" >รหัสนักศึกษา</option>
+                        <option value="">กลุ่มนักศึกษา</option>
+                        <option value="">ชื่อ</option>
+                        <option value="">นามสกุล</option>
+                    </select>
+                    <div class="col-mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="position:relative;left:300px;top:-37px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
+                    </div>
+                </label>
+        </form>
+        <div class="d-grid gap-2 col-12 mx-auto "style="position: absolute;left:125px;top:125px;">
+            <div class="row" >
+                <div class="col-md-8">
+                        <br>
+                        <div class="card my-3" >
+                            <style>
+                                .table-color{
+                                    background-color: Orange;
+                                    color: black;
+                                }
+                            </style>
+                            
+                                <table class="table table-bordered">
+                                    <thead class="table-color">
+                                        <tr>
+                                            <th scope="col"class="text-center">ลำดับ</th>
+                                            <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
+                                            <th scope="col"class="text-center">รหัสนักศึกษา</th>
+                                            <th scope="col"class="text-center">ชื่อ-นามสกุล</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            
+                                            
+                                            <tr>
+                                            <td></td>
+                                            <td ></td>
+                                            <td ></td>
+                                            
+                                            </tr>
+                                            
+                                    </tbody>
                                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>    
-            </div>
+                                </table>
+                               
+                            </div>                
+                        </div>    
+                </div> 
+            </div> 
         </div>
-        <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
-                <h3>หัวข้อกิจกรรม</h3>
-                <input type="text" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1">
-                @error('title_name')
-                    <div class="my">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror
-                <br>
-                <h3>เนื้อหากิจกรรม</h3>
-                <textarea type="text" name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
-                @error('cotent')
-                    <div class="my">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror<br>
-                <h3>วัตถุประสงค์ของกิจกรรมนี้</h3>
-                <textarea type="text" name="objective" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
-                @error('objective')
-                    <div class="my">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror<br>
-                <br>
-                <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
-                <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
-        </div>
-        <div class="card mb-4" style="max-width: 440px;position: absolute;left:1200px;top: 280px;">
-            <div class="card-body">  
-            <h4>ประเภทกิจกรรม</h4>
-                <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="1">งานพบประสังสรรค์
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="2">งานวิชาการ
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="3">งานแข่งขันกีฬา
-                </div>
-                <div class="form-check"  >
-                    <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="4">อื่นๆ
-                    <input type="text" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
-                </div>
-                <h4>วันที่จัดกิจกรรม</h4>
-                <input class="form-control" type="date" id="event_date" name="event_date">
-                @error('category')
-                    <div class="my">
-                        <span class="text-danger">{{$message}}</span>
-                    </div>
-                @enderror<br>
-            </div>
-        </div>
-        
         
         <script>
             var msg = '{{Session::get('alert')}}';
@@ -174,9 +152,8 @@
             if(exist){
             alert(msg);
             }
-        </script>
-        
-    </form>
-</form>
+        </script>   
+    </div>
+</div> 
 </body>
 </html>

@@ -49,4 +49,8 @@ class HomeController extends Controller
         $view = newsandactivity::find($id);
         return view('Admin.view',compact('view'));
     }
+    public function graduate()
+    {
+        return view('Admin.graduate.graduate');
+    }
 }

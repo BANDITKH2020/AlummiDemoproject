@@ -88,18 +88,22 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
         <h2>จัดการการกิจกรรม</h2>
         <hr class="mt-1" style="border: 1px solid #000">
-        <a class="btn btn-outline-warning" href="{{route('saveactivitys')}}" role="button" >เพิ่มกิจกรรม</a>
+        <a class="btn btn-outline-warning" href="" role="button" >เพิ่มรางวัล</a>
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <select name="searchdata" class="form-select" >
                         <option value="all">ทั้งหมด</option>
-                        <option value="title_name" >ชื่อเรื่อง</option>
-                        <option value="category">ประเภทกิจกรรม</option>
-                        <option value="created_at">วันที่จัดกิจกรรม</option>
+                        <option value="title_name" >ปีการศึกษา</option>
+                        <option value="category">รหัสนักศึกษา</option>
+                        <option value="created_at">ชื่อ</option>
+                        <option value="title_name" >นามสกุล</option>
+                        <option value="category">ผู้จัด</option>
+                        <option value="created_at">รางวัล/ชื่อทุน</option>
+                        <option value="created_at">อันดับ/มูลค่าทุน</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search activitys" style="position:relative;left:300px;top:-37px" required/> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหารางวัล" style="position:relative;left:300px;top:-37px" required/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -143,36 +147,48 @@
                                 .delete:hover iconify-icon {
                                     color: #FF0033; /* สีของไอคอนเมื่อ hover */
                                 }
+                                
+                                .table-color{
+                                    background-color: Orange;
+                                    color: black;
+                                }
+                            
                             </style>
                             
                                 <table class="table table-bordered">
-                                    <thead>
+                                    <thead class="table-color">
                                         <tr>
-                                            <th scope="col"class="text-center">หัวข้อ</th>
-                                            <th scope="col"class="text-center">ประเภทกิจกรรม</th>
-                                            <th scope="col"class="text-center">วันที่จัดกิจกรรม</th>
+                                            <th scope="col"class="text-center">ปีการศึกษา</th>
+                                            <th scope="col"class="text-center">รหัสนักศึกษา</th>
+                                            <th scope="col"class="text-center">ชื่อ-นามสกุล</th>
+                                            <th scope="col"class="text-center">ผู้จัด</th>
+                                            <th scope="col"class="text-center">รางวัล/ชื่อทุน</th>
+                                            <th scope="col"class="text-center">อันดับ/มูลค่าทุน</th>
                                             <th scope="col"class="text-center">ตัวเลือก</th>
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
                                             
-                                            @foreach($activitys as $row)
+                                            
                                             <tr>
-                                            <td>{{$row->title_name}}</td>
-                                            <td >{{$row->category}}</td>
-                                            <td >{{$row->event_date}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td class="custom-action-buttons">
-                                                <a href="{{ url('/activity/editactivity/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
-                                                <a href="{{ url('/activity/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                <a href="" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
+                                                <a href=""  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                             </td>
                                             </tr>
-                                            @endforeach
+                                            
                                     </tbody>
                                     
                                 </table>
                                 <div class="d-flex justify-content-center">
-                                    {{$activitys->links()}}
+                                    
                                 </div>   
                             </div>                
                         </div>    
