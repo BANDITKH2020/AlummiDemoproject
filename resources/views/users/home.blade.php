@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
     <style>
@@ -19,7 +23,7 @@
               }
 
         h5:hover{
-            color: #05FF2D;
+            /* color: #05FF2D; */
         }
     </style>
   <div class="col-12">
@@ -63,7 +67,7 @@
                 <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="#" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
+                <a href="" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -74,7 +78,7 @@
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
 
-            <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
+            <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
   <style>
@@ -84,8 +88,8 @@
         margin-bottom: 10px;
     }
   </style>
- 
- 
+
+
   <div class="container"  style="position: absolute; left: 500px; top: 180px;">
     <div class="col-md-12">
       <h2 class="text-center">ข่าวประชาสัมพันธ์</h2>
@@ -93,12 +97,12 @@
     <hr class="mt-1" style="border: 1px solid #000">
     <form action="" method="GET" >
     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-      
+
       <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/> 
+        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/>
         <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
       </div>
-    </label>            
+    </label>
     </form>
     <br>
     <div class="row">
@@ -116,7 +120,7 @@
                     </p>
                     @if ($row->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
                       @if ($row->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                        <p class="card-text">วันที่จัดกิจกรรม: 
+                        <p class="card-text">วันที่จัดกิจกรรม:
                         {{ Carbon\Carbon::parse($row->event_date)->format('d-m-Y') }}
                         </p>
                         @else
@@ -135,7 +139,92 @@
     </div>
   </div>
 
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: 60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="col-lg-12">
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-1">
+                                        <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <h5>39 หมู่ที่ 1 ถนนรังสิต-นครนายก ตำบลคลองหก อำเภอคลองหลวง จังหวัดปทุมธานี</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-1">
+                                        <i class="fas fa-phone" style="margin-top:15px"></i>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <h5>ช่วงเวลาติดต่อ จ-ศ 08.30 - 16.30 น.<br>โทร.02 549 3460</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-1">
+                                        <a href="https://www.facebook.com/ComputerEngineeringRmutt" target="_blank">
+                                            <img src="{{ asset('images/facebook-icon.png') }}" style="width:25px;height:25px">
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <a href="https://cpe.engineer.rmutt.ac.th/" target="_blank">
+                                            <img src="{{ asset('images/www-icon.png') }}" style="width:25px;height:25px">
+                                        </a>
+                                    </div>
+                                </div>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7741.4212556805005!2d100.7219335028924!3d14.035159447469107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692540328004!5m2!1sth!2sth"
+                                    width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-12">
+                                    <label class="col-form-label font-weight-bold text-dark">ชื่อเรื่อง</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm text-center bg-white"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label class="col-form-label font-weight-bold text-dark">ข้อความ</label>
+                                    <div class="input-group">
+                                        <textarea type="text" id="" name="" rows="4" cols="100"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <label class="col-form-label font-weight-bold text-dark">เลือกเอกสารที่ต้องการอัพโหลด</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="document" name="document">
+                                            {{-- <button type="submit" class="btn btn-primary">อัพโหลด</button> --}}
+                                        </div>
 
-
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">ส่ง</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
+<script>
+    function openContactModal() {
+        $('#contactModal').modal('show');
+    }
+</script>
