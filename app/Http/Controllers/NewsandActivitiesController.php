@@ -143,7 +143,7 @@ class NewsandActivitiesController extends Controller
     
         }else{
            //อัพเดตชื่อ 
-           newsandactivity::find($id)->update([
+            newsandactivity::find($id)->update([
                 'title_name'=>$request->title_name,
                 'cotent'=>$request->cotent,
                 

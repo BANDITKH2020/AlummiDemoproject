@@ -13,12 +13,12 @@
     <style>
         body {
                 font-family:'THSarabunNew';
-              }
+            }
         a:link {
                 color: black;
                 background-color: transparent;
                 text-decoration: none;
-              }
+            }
     </style>
     <div class="col-12">
         <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -86,9 +86,9 @@
     </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
-        <h2>จัดการการกิจกรรม</h2>
+        <h2>จัดการกิจกรรม</h2>
         <hr class="mt-1" style="border: 1px solid #000">
-        <a class="btn btn-outline-warning" href="" role="button" >เพิ่มรางวัล</a>
+        <a class="btn btn-outline-warning" href="{{ route('savereward') }}" role="button" >เพิ่มรางวัล</a>
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <select name="searchdata" class="form-select" >
@@ -170,25 +170,25 @@
                                     </thead>
                                     <tbody>
                                             
-                                            
-                                            <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        @foreach($reward as $row)
+                                        <tr>
+                                            <td>{{$row->year}}</td>
+                                            <td>{{$row->student_id}}</td>
+                                            <td>{{$row->firstname}} {{$row->lastname}}</td>
+                                            <td>{{$row->organizer}}</td>
+                                            <td>{{$row->award_name}}</td>
+                                            <td>{{$row->amount}}</td>
                                             <td class="custom-action-buttons">
-                                                <a href="" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
-                                                <a href=""  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                <a href="{{ url('/Admin/reward/editreward/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
+                                                <a href="{{ url('/Admin/reward/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                             </td>
-                                            </tr>
-                                            
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                     
                                 </table>
                                 <div class="d-flex justify-content-center">
-                                    
+                                    {{ $reward->links() }}
                                 </div>   
                             </div>                
                         </div>    

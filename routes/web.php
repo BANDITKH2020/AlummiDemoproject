@@ -69,4 +69,10 @@ Route::get('/Token/delete/{id}',[TokenController::class,'delete']);
 //---------------ช่องทางการติดต่อ--------------------
 Route::get('/contact/rmutt',[ContactController::class,'contact'])->name('contact');
 Route::get('/Admin/graduate/view',[HomeController::class,'graduate'])->name('graduate');
+//---------------จัดการกิจกรรม-----------------------
 Route::get('/Admin/reward/all',[RewardController::class,'reward'])->name('reward');
+Route::get('/Admin/reward/savereward',[RewardController::class,'savereward'])->name('savereward');
+Route::post('/Admin/reward/savereward/add', [RewardController::class, 'store'])->name('addreward');
+Route::get('/Admin/reward/editreward/{id}',[RewardController::class,'edit']);
+Route::post('/Admin/reward/update/{id}',[RewardController::class,'update']);
+Route::get('/Admin/reward/delete/{id}',[RewardController::class,'delete']);
