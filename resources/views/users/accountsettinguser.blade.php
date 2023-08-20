@@ -82,7 +82,7 @@
                 </div>
                 <hr class="mt-5" style="border: 2px solid #000">
 
-                <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
+                <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
             </div>
 
             <div class="col-9 mt-5">
@@ -608,6 +608,88 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                        <div class="col-lg-1">
+                                            <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <h5>39 หมู่ที่ 1 ถนนรังสิต-นครนายก ตำบลคลองหก อำเภอคลองหลวง จังหวัดปทุมธานี</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                        <div class="col-lg-1">
+                                            <i class="fas fa-phone" style="margin-top:15px"></i>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <h5>ช่วงเวลาติดต่อ จ-ศ 08.30 - 16.30 น.<br>โทร.02 549 3460</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                        <div class="col-lg-1">
+                                            <a href="https://www.facebook.com/ComputerEngineeringRmutt" target="_blank">
+                                                <img src="{{ asset('images/facebook-icon.png') }}" style="width:25px;height:25px">
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <a href="https://cpe.engineer.rmutt.ac.th/" target="_blank">
+                                                <img src="{{ asset('images/www-icon.png') }}" style="width:25px;height:25px">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7741.4212556805005!2d100.7219335028924!3d14.035159447469107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692540328004!5m2!1sth!2sth"
+                                        width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        <label class="col-form-label font-weight-bold text-dark">ชื่อเรื่อง</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control form-control-sm text-center bg-white"
+                                            required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="col-form-label font-weight-bold text-dark">ข้อความ</label>
+                                        <div class="input-group">
+                                            <textarea type="text" id="" name="" rows="4" cols="100"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <label class="col-form-label font-weight-bold text-dark">เลือกเอกสารที่ต้องการอัพโหลด</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control" id="document" name="document">
+                                                {{-- <button type="submit" class="btn btn-primary">อัพโหลด</button> --}}
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">ส่ง</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
@@ -636,6 +718,10 @@
                 $('#Traininginfo').modal('show');
             }break;
         }
+    }
+
+    function openContactModal() {
+        $('#contactModal').modal('show');
     }
 
     document.addEventListener("DOMContentLoaded", function () {
