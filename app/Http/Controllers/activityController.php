@@ -207,4 +207,21 @@ class activityController extends Controller
         $delete= newsandactivity::find($id)->delete();
         return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
     }
+    public function addImage(Request $request, $id)
+    {
+        $newsandactivity = newsandactivity::findOrFail($id);
+
+        if ($request->hasFile('addImage')) {
+            $images = $request->file('addImage');
+
+            foreach ($images as $image) {
+                $imagePath = $image->store('activity_images', 'public'); // Save image to storage/app/public/activity_images directory
+                $newsandactivity->images()->create(['image_path' => $imagePath]);
+            }
+
+            return redirect()->back()->with('alert', 'รูปภาพถูกเพิ่มเรียบร้อยแล้ว');
+        }
+
+        return redirect()->back()->with('alert', 'ไม่พบรูปภาพที่อัพโหลด');
+    }
 }

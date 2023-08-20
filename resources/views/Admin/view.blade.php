@@ -124,6 +124,21 @@
             @endif
         @endif
         <h3>วันที่ลงเนื้อหา: {{$view->created_at}}</h3>
+        <div class="row">
+            
+            @if($view->images->count() > 0)
+            <h3>รูปภาพกิจกรรม</h3>
+                @foreach($view->images as $index => $image)
+                    @if($index > 0 && $index % 6 === 0)
+                        </div><div class="row">
+                    @endif
+                    <div class="col-md-2 mb-3">
+                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="My Image" class="img-fluid img-thumbnail">
+                    </div>
+                @endforeach
+            @endif
+        </div>
+
     </div>
 </body>
 </html>

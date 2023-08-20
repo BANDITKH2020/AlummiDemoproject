@@ -56,6 +56,7 @@ Route::post('/activity/saveactivity/add', [activityController::class, 'store'])-
 Route::get('/activity/editactivity/{id}',[activityController::class,'edit']);
 Route::post('/activity/update/{id}',[activityController::class,'update']);
 Route::get('/activity/delete/{id}',[activityController::class,'delete']);
+Route::post('/activity/addImage/{id}',[activityController::class,'addImage'])->name('addImage');
 //----------------------จัดการแบบสอบถาม--------------------------------
 Route::get('/link/all',[surveylinkController::class,'index'])->name('links');
 Route::post('/link/savelink/add', [surveylinkController::class, 'store'])->name('addlinks');
@@ -76,3 +77,4 @@ Route::post('/Admin/reward/savereward/add', [RewardController::class, 'store'])-
 Route::get('/Admin/reward/editreward/{id}',[RewardController::class,'edit']);
 Route::post('/Admin/reward/update/{id}',[RewardController::class,'update']);
 Route::get('/Admin/reward/delete/{id}',[RewardController::class,'delete']);
+

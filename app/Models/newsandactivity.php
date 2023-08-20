@@ -16,4 +16,8 @@ class newsandactivity extends Model
         'objective',
         'cotent_type',
     ];
+    public function images()
+    {
+        return $this->hasMany(addimage::class);
+    }
 }

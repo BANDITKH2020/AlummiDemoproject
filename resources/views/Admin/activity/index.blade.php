@@ -7,6 +7,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -134,6 +135,13 @@
                                 .edit:hover iconify-icon {
                                     color: yellow; /* สีของไอคอนเมื่อ hover */
                                 }
+                                .addImage{
+                                    font-size: 24px;
+                                    transition: color 0.3s; /* เพิ่มการเปลี่ยนสีเมื่อ hover */
+                                }
+                                .addImage:hover iconify-icon {
+                                    color: #990099; /* สีของไอคอนเมื่อ hover */
+                                }
                                 .delete iconify-icon {
                                     font-size: 24px;
                                     color: #990000; /* สีตั้งต้นของไอคอน */
@@ -164,6 +172,7 @@
                                             <td >{{$row->event_date}}</td>
                                             <td class="custom-action-buttons">
                                                 <a href="{{ url('/activity/editactivity/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
+                                                <a href="#addImage{{$row->id}}" data-bs-toggle="modal" class="addImage" title="addImage" data-toggle="tooltip"><iconify-icon icon="clarity:image-line"></iconify-icon></a>
                                                 <a href="{{ url('/activity/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                             </td>
                                             </tr>
@@ -178,15 +187,62 @@
                         </div>    
                 </div> 
             </div> 
+        </div> 
+        @foreach($activitys as $row)
+        <div class="modal fade" id="addImage{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">เพิ่มรูปกิจกรรม</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('addImage', ['id' => $row->id]) }}" method="post" enctype="multipart/form-data" id="linkForm">
+                                {{ csrf_field() }}
+                                <div class="mb-3 @error('addImage') error @enderror">
+                                    <label for="recipient-name" class="col-form-label">ปีการศึกษาที่จบ</label>
+                                    <input type="file" class="form-control" id="addImage" name="addImage[]" multiple>
+                                   
+                                </div>
+                                
+                                    <label for="message-text" class="col-form-label">รูปภาพที่อัพโหลด</label>
+                                    <ul id="uploadedFiles"></ul>
+                                    
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary" id="submitBtn" >ยืนยัน</button>
+                                </div>
+                            </form>
+                            <script>
+                                const addImageInput = document.getElementById('addImage');
+                                const uploadedFilesList = document.getElementById('uploadedFiles');
+
+                                addImageInput.addEventListener('change', (event) => {
+                                    uploadedFilesList.innerHTML = ''; // Clear previous entries
+
+                                    const files = event.target.files;
+                                    for (let i = 0; i < files.length; i++) {
+                                        const listItem = document.createElement('li');
+                                        listItem.textContent = files[i].name;
+                                        uploadedFilesList.appendChild(listItem);
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
         </div>
-        
+        @endforeach
+        @if(Session::has('alert'))
         <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
-        </script>   
+            swal("Massage","{{Session::get('alert')}}",'info',{
+                icon: "success",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+        @endif   
     </div>
 </div> 
 </body>
