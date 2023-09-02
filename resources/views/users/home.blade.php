@@ -64,6 +64,9 @@
                 <a href="#" class="textmenu"><h5>แบบสอบถาม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>ข้อมูลระบบ</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">

@@ -18,4 +18,9 @@ class UserController extends Controller
         $newsandactivity=newsandactivity::paginate(3);
         return view('users.studentslist',compact('newsandactivity'));
     }
+    public function dashboard()
+    {
+        $newsandactivity=newsandactivity::paginate(3);
+        return view('users.dashboard',compact('newsandactivity'));
+    }
 }
