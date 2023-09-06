@@ -22,11 +22,16 @@ class User extends Authenticatable
         'email',
         'password',
         'google_id',
+        'role_acc',
         'firstname',
         'lastname',
         'student_id',
         'student_grp',
-        'token_id',
+        'inviteby',
+        'groupleader',
+        'educational_status',
+        'graduatesem',
+        'active',
     ];
 
     /**

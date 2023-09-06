@@ -42,16 +42,13 @@
                 <h3>{{ Auth::user()->firstname }}</h3>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>การจัดการ</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/graduatehouse" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
+                <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
@@ -70,6 +67,9 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">

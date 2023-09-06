@@ -29,11 +29,11 @@ class HomeController extends Controller
         $search = $request->input('search');
         $gender = $request->gender;
 
-    // Apply search filters
+        // Apply search filters
    
-     $query->where('title_name', 'LIKE', "%{$search}%")
-     ->orWhere('category', 'LIKE', "%{$search}%")
-     ->orWhere('created_at', 'LIKE', "%{$search}%");
+        $query->where('title_name', 'LIKE', "%{$search}%")
+        ->orWhere('category', 'LIKE', "%{$search}%")
+        ->orWhere('created_at', 'LIKE', "%{$search}%");
        
     
     
@@ -49,8 +49,7 @@ class HomeController extends Controller
         $view = newsandactivity::with('images')->find($id);
         return view('Admin.view',compact('view'));
     }
-    public function graduate()
-    {
-        return view('Admin.graduate.graduate');
-    }
+    
+    
+    
 }

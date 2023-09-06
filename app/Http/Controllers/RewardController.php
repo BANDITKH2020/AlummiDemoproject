@@ -9,9 +9,47 @@ use Illuminate\Http\Request;
 
 class RewardController extends Controller
 {
-    public function reward()
+    public function reward(Request $request)
     {
         $query = reward::query();
+        $search = $request->input('search');
+        $searchdata = $request->searchdata;
+
+    // Apply search filters
+    if (!empty($search)) {
+        switch ($searchdata) {
+            case 'all':
+                $query->where('student_id', 'LIKE', "%{$search}%")
+                    ->orWhere('firstname', 'LIKE', "%{$search}%")
+                    ->orWhere('lastname', 'LIKE', "%{$search}%")
+                    ->orWhere('year', 'LIKE', "%{$search}%")
+                    ->orWhere('organizer', 'LIKE', "%{$search}%")
+                    ->orWhere('award_name', 'LIKE', "%{$search}%")
+                    ->orWhere('amount', 'LIKE', "%{$search}%");
+                break;
+            case 'student_id':
+                $query->where('student_id', 'LIKE', "%{$search}%");
+                break;
+            case 'firstname':
+                $query->where('firstname', 'LIKE', "%{$search}%");
+                break;
+            case 'lastname':
+                $query->where('lastname', 'LIKE', "%{$search}%");
+                break; 
+            case 'year':
+                $query->where('year', 'LIKE', "%{$search}%");
+                break;
+            case 'organizer':
+                $query->where('organizer', 'LIKE', "%{$search}%");
+                break;   
+            case 'award_name':
+                $query->where('award_name', 'LIKE', "%{$search}%");
+                break;
+            case 'amount':
+                $query->where('amount', 'LIKE', "%{$search}%");
+                break;    
+        }
+    }
         $reward = $query->paginate(3);
         return view('Admin.reward.reward',compact('reward'));
     }
@@ -94,8 +132,6 @@ class RewardController extends Controller
             'amount'=>$reward['amount'],'reward_type'=>$reward['reward_type']]);
             return redirect()->route('reward')->with('alert',"แก้ไขข้อมูลเรียบร้อย");
         }
-     
-        
     }
         public function delete($id){
         //ลบข้อมูลฐาน

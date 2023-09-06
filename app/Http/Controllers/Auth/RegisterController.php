@@ -66,13 +66,17 @@ class RegisterController extends Controller
     {
         return User::create([
             'firstname' => $data['firstname'],
+            'lastname'=> 'null',
+            'student_id'=> 'Admin',
+            'student_grp'=> 'Admin',
+            'graduatesem'=> 'null',
+            'inviteby'=> 'Admin',
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'lastname' =>'null',
-            'student_id' =>'null',
-            'student_grp' =>'null',
-            'token_id' =>'null',
-            'google_id' => 'null',
+            'google_id' => 'Admin',
+            'role_acc' => 'Admin',
+            'groupleader'=> 'Admin',
+            'educational_status'=> 'Admin',
         ]);
     }
 }

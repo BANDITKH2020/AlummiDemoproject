@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card" style="">
+                <div class="card-header text-bg-light text-center mt-1"><h4 style="font-weight: bold;">Login Admin</h4></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('loginAdmin') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -24,7 +24,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
@@ -39,19 +38,11 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end"></label>
-                            <div class="col-md-6">
-                            <a class="btn btn-primary" href="{{ url('auth/google') }}"> Login with Google</a>
-                            </div>
-                            </div>
-
-                        <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        {{ __('จดจำฉัน') }}
                                     </label>
                                 </div>
                             </div>
@@ -60,12 +51,12 @@
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('เข้าสู่ระบบ') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('จำรหัสผ่านไม่ได้ ?') }}
                                     </a>
                                 @endif
                             </div>

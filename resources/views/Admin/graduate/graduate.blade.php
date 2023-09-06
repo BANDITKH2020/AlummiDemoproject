@@ -19,6 +19,14 @@
                 background-color: transparent;
                 text-decoration: none;
               }
+              .re-admin iconify-icon {
+        font-size: 29px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
+        .re-teacher iconify-icon {
+        font-size: 24px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
     </style>
     <div class="col-12">
         <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -43,34 +51,75 @@
                 <h3>{{ Auth::user()->firstname }}</h3>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
+                <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+                <a href="/users/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>การจัดการ</h5></a>
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
+                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+                <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/graduatehouse" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
+                <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+              <a href="{{route('graduate')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+              <a href="#" class="textmenu"><h5>รางวัลประกาศ</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('activitys') }}" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+                <a href="#" class="textmenu"><h5>แบบสอบถาม</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('reward') }}" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+                <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
+              @endif
+              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
+                <a href="" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
+              @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
+                <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
+              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -79,27 +128,35 @@
                 <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
               </form>
             </div>
-            <hr class="mt-5" style="border: 2px solid #000">
+            <div  class="col-10 mt-3" style="display: flex; justify-content: center; align-items: center;">
+              <a href="/register/Admin" class="re-admin" title="เพิ่มผู้ดูแลระบบ"style="margin-right: 5px;">
+                  <iconify-icon icon="ri:admin-fill"></iconify-icon>
+              </a>
+              <a href="/register/teacher" class="re-teacher" title="เพิ่มอาจารย์"style="margin-left: 5px;">
+                  <iconify-icon icon="subway:admin-1"></iconify-icon>
+              </a>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
             
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
     </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
-        <h2>จัดการการกิจกรรม</h2>
+        <h2>ทำเนียบบัณฑิต</h2>
         <hr class="mt-1" style="border: 1px solid #000">
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <select name="searchdata" class="form-select" >
                         <option value="all">ทั้งหมด</option>
-                        <option value="" >ปีการศึกษาที่จบ</option>
-                        <option value="" >รหัสนักศึกษา</option>
-                        <option value="">กลุ่มนักศึกษา</option>
-                        <option value="">ชื่อ</option>
-                        <option value="">นามสกุล</option>
+                        <option value="graduatesem" >ปีการศึกษาที่จบ</option>
+                        <option value="student_id" >รหัสนักศึกษา</option>
+                        <option value="student_grp">กลุ่มนักศึกษา</option>
+                        <option value="firstname">ชื่อ</option>
+                        <option value="lastname">นามสกุล</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="position:relative;left:300px;top:-37px" required/> 
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="position:relative;left:300px;top:-37px"/> 
                         <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
@@ -122,24 +179,24 @@
                                             <th scope="col"class="text-center">ลำดับ</th>
                                             <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
                                             <th scope="col"class="text-center">รหัสนักศึกษา</th>
-                                            <th scope="col"class="text-center">ชื่อ-นามสกุล</th>
-                                            
+                                            <th scope="col"class="text-center">ชื่อ-นามสกุล</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                            
-                                            
-                                            <tr>
-                                            <td></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            
-                                            </tr>
-                                            
+                                        @php($i=1)
+                                        @foreach($users as $row)
+                                        <tr>
+                                            <th scope="col"class="text-center">{{$i++}}</th>
+                                            <td scope="col"class="text-center">{{$row->graduatesem}}</td>
+                                            <td scope="col"class="text-center">{{$row->student_id}}</td>
+                                            <td scope="col"class="text-center">{{$row->firstname}} {{$row->lastname}}</td>
+                                        </tr>
+                                        @endforeach  
                                     </tbody>
-                                    
                                 </table>
-                               
+                                <div class="d-flex justify-content-center">
+                                {{$users->links()}}
+                                </div>
                             </div>                
                         </div>    
                 </div> 

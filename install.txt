@@ -21,3 +21,7 @@ php artisan serve --port=8085
 new-laravel ชื่อฐานข้อมูล อัปใหม่ด้วย
 
 วิธีเข้า admin เข้า /loginAdmin แล้วสมัครสมาชิก
+
+
+
+ไฟล์เกี่ยวกับหน้าเข้าสู่ระบบ อยู่ใน vendor/laravel/ui/auth-backend

@@ -6,6 +6,7 @@
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
     <style>
@@ -17,6 +18,14 @@
                 background-color: transparent;
                 text-decoration: none;
               }
+        .re-admin iconify-icon {
+        font-size: 29px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
+        .re-teacher iconify-icon {
+        font-size: 24px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
     </style>
   <div class="col-12">
     <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -41,16 +50,14 @@
                 <h4>{{ Auth::user()->firstname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+            </div>
+            
+            <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>การจัดการ</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/graduatehouse" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
+            <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
@@ -59,7 +66,7 @@
                 <a href="{{ route('activitys') }}" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
+                <a href="{{ route('reward') }}" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
@@ -68,7 +75,10 @@
                 <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/contacthistory" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
+                <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -77,7 +87,15 @@
                 <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
               </form>
             </div>
-            <hr class="mt-5" style="border: 2px solid #000">
+            <div  class="col-10 mt-3" style="display: flex; justify-content: center; align-items: center;">
+              <a href="/register/Admin" class="re-admin" title="เพิ่มผู้ดูแลระบบ"style="margin-right: 5px;">
+                  <iconify-icon icon="ri:admin-fill"></iconify-icon>
+              </a>
+              <a href="/register/teacher" class="re-teacher" title="เพิ่มอาจารย์"style="margin-left: 5px;">
+                  <iconify-icon icon="subway:admin-1"></iconify-icon>
+              </a>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
             
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
@@ -169,15 +187,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php($i=1)
-                                    @foreach($randomcode as $row)
-                                        <tr>
+                                @foreach($randomcode as $row)
+                                    @php
+                                        $thaiMonths = [
+                                            1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                            4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                            7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                            10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                                        ];
+                                        $eventDate = \Carbon\Carbon::parse($row->end_date);
+                                        $i = 1;
+                                    @endphp
+                                    <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->code}}</td>
-                                        <td>{{$row->end_date}}</td>
+                                        <td>{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
                                         <td><a href="{{url('/Token/delete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a> </td>
-                                        </tr>
-                                    @endforeach                                     
+                                    </tr>
+                                @endforeach
+                                   
                                     
                                 </tbody>
                                 

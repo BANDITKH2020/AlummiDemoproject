@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Models\Tranning_info;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class TranningInfoController extends Controller
+{
+    public function store(Request $request){
+        //ตรวจสอบข้อมูล
+        $ID_student = Auth::user()->student_id;
+        $Certi_name = $request->input('Certi_name');
+        $Organize_name = $request->input('Organize_name');
+        $startdate = $request->input('startdate');
+        $enddate = $request->input('enddate');
+        Tranning_info::insert([
+            'ID_student'=>$ID_student,
+            'Certi_name'=>$Certi_name,
+            'Organize_name'=>$Organize_name,
+            'startdate'=>$startdate,
+            'enddate'=>$enddate,
+            'created_at'=>Carbon::now()
+        ]);
+
+        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+    }
+
+    public function update(Request $request, $id) 
+    { 
+        if ($request->isMethod('post')) {
+            $id = $request->input('id');
+            $Certi_name = $request->input('Certi_name');
+            $Organize_name = $request->input('Organize_name');
+            $startdate = $request->input('startdate');
+            $enddate = $request->input('enddate');
+            
+            Tranning_info::find($id)->update([
+                'Certi_name'=>$Certi_name,
+                'Organize_name'=>$Organize_name,
+                'startdate'=>$startdate,
+                'enddate'=>$enddate,
+            ]);
+            
+            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+        }
+
+    }
+    public function delete($id){
+        
+        $delete= Tranning_info::find($id)->delete();
+        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+    }
+}

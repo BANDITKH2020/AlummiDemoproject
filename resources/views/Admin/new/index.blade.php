@@ -20,6 +20,14 @@
                 background-color: transparent;
                 text-decoration: none;
               }
+              .re-admin iconify-icon {
+        font-size: 29px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
+        .re-teacher iconify-icon {
+        font-size: 24px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
     </style>
     <div class="col-12">
         <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -44,16 +52,13 @@
                 <h3>{{ Auth::user()->firstname }}</h3>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="" class="textmenu"><h5>การจัดการ</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/graduatehouse" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="/User/awardannounce" class="textmenu"><h5>ปรับสภาพ</h5></a>
+               <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
@@ -74,13 +79,24 @@
                 <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
               </form>
             </div>
-            <hr class="mt-5" style="border: 2px solid #000">
+            <div  class="col-10 mt-3" style="display: flex; justify-content: center; align-items: center;">
+              <a href="/register/Admin" class="re-admin" title="เพิ่มผู้ดูแลระบบ"style="margin-right: 5px;">
+                  <iconify-icon icon="ri:admin-fill"></iconify-icon>
+              </a>
+              <a href="/register/teacher" class="re-teacher" title="เพิ่มอาจารย์"style="margin-left: 5px;">
+                  <iconify-icon icon="subway:admin-1"></iconify-icon>
+              </a>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
             
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
@@ -98,7 +114,7 @@
                         <option value="created_at">วันที่</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-37px" required/> 
+                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-37px" /> 
                         <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
                     </div>
                 </label>
@@ -111,7 +127,7 @@
                             <style>
                                 .custom-action-buttons {
                                     display: flex;
-                                    justify-content: space-between;
+                                    justify-content: center;
                                     align-items: center;
                                 }
 
@@ -156,12 +172,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                            
+                                            @php
+                                                $thaiMonths = [
+                                                    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                                    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                                    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                                    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                                                ];
+                                            @endphp
                                             @foreach($newsandactivity as $row)
                                             <tr>
                                             <td>{{$row->title_name}}</td>
                                             <td>{{ Str::limit($row->cotent, 50) }}</td>
-                                            <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                            <td scope="col"class="text-center">{{$row->created_at->format('d')}} {{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</td>
                                             <td class="custom-action-buttons">
                                                 <a href="{{ url('/new/editnews/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
                                                 <a href="{{ url('/new/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>

@@ -18,7 +18,12 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('student_id');
             $table->string('student_grp');
-            $table->string('token_id');
+            $table->string('graduatesem');//ปีการศึกษา
+            $table->string('role_acc');
+            $table->string('educational_status');
+            $table->string('inviteby');//อาจารย์ที่เพิ่ม
+            $table->string('groupleader');//หัวหน้าห้อง
+            $table->boolean('active')->default(true);
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->rememberToken();

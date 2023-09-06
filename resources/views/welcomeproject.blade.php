@@ -238,7 +238,7 @@
                         <h1>ราชมงคลธัญบุรี</h1>
                         <h1>คณะวิศวกรรมคอมพิวเตอร์</h1>
                         <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login.ris') }}'">เข้าสู่ระบบ</button>
-                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('homeuser') }}'">tttt</button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('register.ris') }}'">สมัครสมาชิก</button>
                     </div>
                 </div>
                 <div class="col-lg-4 gallery">
