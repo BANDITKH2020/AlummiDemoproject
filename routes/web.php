@@ -22,6 +22,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\surveylinkController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\TokenTeacherController;
 use App\Http\Controllers\TranningInfoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersetController;
@@ -140,15 +141,23 @@ Route::match(['get','post'],'/update/tranning/{id}',[TranningInfoController::cla
 Route::get('/User/accountuser/tranning/delete/{id}',[TranningInfoController::class,'delete'])->middleware('auth', 'checkRole:student');
 //---------------จัดการรางวัล student---------------
 Route::get('/user/reward/all',[RewardUserController::class,'reward'])->name('rewarduser')->middleware('auth', 'checkRole:student');
-//----------------
+//----------------ทำเนียบบัณฑิต-
 Route::get('/user/graduate/view',[graduateController::class,'graduateuser'])->name('graduateuser')->middleware('auth', 'checkRole:student');
 //----------------ส่งข้อความ---------------------
 Route::post('/user/post/massage', [MassageController::class, 'store'])->middleware('auth', 'checkRole:student');
 
-//-------------------
-Route::get('/User/studentslist/view/{id}',[UserController::class,'viewProfile'])->middleware('auth', 'checkRole:student');
+//-------------------ดูโปรไฟล์
+Route::get('/User/studentslist/view/{id}',[UserController::class,'viewProfile'])->middleware('auth', 'checkRole:student,teacher');
 
 
 //------------------------อาจารย์-------------------------------
 
 Route::get('/users/hometeacher', [TeacherController::class, 'hometeacher'])->name('hometeacher')->middleware('auth', 'checkRole:teacher');
+
+Route::get('/User/studentslist/teacher', [TeacherController::class,'studentslist'])->name('studentslist_teacher')->middleware('auth', 'checkRole:teacher');
+//----------------ทำเนียบบัณฑิต-
+Route::get('/user/teacher/graduate/view',[TeacherController::class,'graduate_teacher'])->name('graduateuser_teacher')->middleware('auth', 'checkRole:teacher');
+//--------------จัดการโค้ด------------------------
+Route::get('/Token/teacher/all',[TokenTeacherController::class,'viewtoken'])->name('teacherviewtoken')->middleware('auth', 'checkRole:teacher');
+Route::post('/teacher/Token/save',  [TokenTeacherController::class,'store'])->name('teacher.code.save')->middleware('auth', 'checkRole:teacher');
+Route::get('/teacher/delete/{id}',[TokenTeacherController::class,'delete'])->middleware('auth', 'checkRole:teacher');

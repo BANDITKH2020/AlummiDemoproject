@@ -8,7 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
 </head>
 <body>
@@ -21,10 +23,6 @@
                 background-color: transparent;
                 text-decoration: none;
               }
-
-        h5:hover{
-            /* color: #05FF2D; */
-        }
     </style>
   <div class="col-12">
     <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -46,54 +44,52 @@
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                <h4>{{Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
                 @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
                 @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ทำเนียบบัณฑิต</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
                 <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>จัดการโค้ด</h5>
+                
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
+                    @if($surveylink)
+                        <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
+                    @endif
                 @endif
+                
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-            @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
-            @endif
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
                 <a href="{{ route('accountuser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ตั้งค่าบัญชี</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
                 <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ประวัติการติดต่อ</h5>
-                @endif
+                
                 
             </div>
    
@@ -109,92 +105,77 @@
             <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
-  <style>
-    .custom-card {
-        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
-        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
-        margin-bottom: 10px;
-    }
-    .content-container {
-            text-align: center;
-            color: red;
-        }
-        .modal-content1 {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 25%;
-        }
-
-        .close-bottom-right {
-            font-weight: bold; 
-            }
-
-        .close-bottom-right:hover,
-        .close-bottom-right:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            }
-        .content-container {
-            text-align: center;
-            color: red;
-        }
-  </style>
-
-
-  <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-    <div class="col-md-12">
-      <h2 class="text-center">ข่าวประชาสัมพันธ์</h2>
-    </div>
-    <hr class="mt-1" style="border: 1px solid #000">
-    <form action="" method="GET" >
-    <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-
-      <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/>
-        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
-      </div>
-    </label>
-    </form>
-    <br><br><br>
-   
-    @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-    <div class="row" id="content">
-    @foreach ($newsandactivity as $row)
-        <div class="col-md-3">
-            <div class="card mt-5 custom-card">
-            <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
-                <div class='card-body'>
-                    <h5 class="card-title font-weight-bold">{{ $row->title_name }}</h5>
-                    <p class="card-text">
-                    {{ Str::limit($row->cotent, 50) }}
-                    </p>
-                    <p class="card-text">วันที่อัพเดต
-                    {{$row->created_at->format('d-m-Y')}}
-                    </p>
-                    @if ($row->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
-                      @if ($row->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                        <p class="card-text">วันที่จัดกิจกรรม: 
-                        {{ Carbon\Carbon::parse($row->event_date)->format('d-m-Y') }}
-                        </p>
-                        @else
-                        <p class="card-text">วันที่จัดกิจกรรม: ไม่มี</p>
-                      @endif
-                    @endif
-                    <div class="d-flex justify-content-center">
-                      <a type="button" style="color: black;" href="{{ url('users/homeuser/view/'.$row->id) }}" class="btn btn-primary btn-lg">รายละเอียด</a>
+  
+  <div class="container "style="position:absolute;left:500px;top: 215px;">
+        <h2>ทำเนียบบัณฑิต</h2>
+        <hr class="mt-1" style="border: 1px solid #000">
+        <form action="" method="GET" >
+                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
+                    <select name="searchdata" class="form-select" >
+                        <option value="all">ทั้งหมด</option>
+                        <option value="graduatesem" >ปีการศึกษาที่จบ</option>
+                        <option value="student_id" >รหัสนักศึกษา</option>
+                        <option value="student_grp">กลุ่มนักศึกษา</option>
+                        <option value="firstname">ชื่อ</option>
+                        <option value="lastname">นามสกุล</option>
+                    </select>
+                    <div class="col-mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="position:relative;left:300px;top:-37px"/> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
-                </div>
-            </div>
+                </label>
+        </form>
+        <div class="d-grid gap-2 col-12 mx-auto "style="position: absolute;left:125px;top:125px;">
+            <div class="row" >
+                <div class="col-md-8">
+                        <br>
+                        <div class="card my-3" >
+                            <style>
+                                .table-color{
+                                    background-color: Orange;
+                                    color: black;
+                                }
+                            </style>
+                            
+                                <table class="table table-bordered">
+                                    <thead class="table-color">
+                                        <tr>
+                                            <th scope="col"class="text-center">ลำดับ</th>
+                                            <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
+                                            <th scope="col"class="text-center">รหัสนักศึกษา</th>
+                                            <th scope="col"class="text-center">ชื่อ-นามสกุล</th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php($i=1)
+                                        @foreach($users as $row)
+                                        <tr>
+                                            <th scope="col"class="text-center">{{$i++}}</th>
+                                            <td scope="col"class="text-center">{{$row->graduatesem}}</td>
+                                            <td scope="col"class="text-center">{{$row->student_id}}</td>
+                                            <td scope="col"class="text-center">{{$row->firstname}} {{$row->lastname}}</td>
+                                        </tr>
+                                        @endforeach  
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-center">
+                                {{$users->links()}}
+                                </div>
+                            </div>                
+                        </div>    
+                </div> 
+            </div> 
         </div>
-        @endforeach
-        {{ $newsandactivity->links() }}
-      </div>
+        
+        <script>
+            var msg = '{{Session::get('alert')}}';
+            var exist = '{{Session::has('alert')}}';
+            if(exist){
+            alert(msg);
+            }
+        </script>   
     </div>
-  </div>
-  @endif
+</div> 
 
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
@@ -292,15 +273,13 @@
                             </tr>
                         </thead>
                         @foreach ($groupedMessages['messages'] as $message)
-                            @if ($message->ID_student === Auth::user()->student_id)
-                            <tbody>
-                                <tr>
-                                <th>{{ $message->massage_name }}</th>
-                                <td>{{ $message->massage_cotent }}</td>
-                                <td>{{ $message->created_at->format('H:i:s') }}</td>
-                                </tr>
-                            </tbody>
-                            @endif
+                        <tbody>
+                            <tr>
+                            <th>{{ $message->massage_name }}</th>
+                            <td>{{ $message->massage_cotent }}</td>
+                            <td>{{ $message->created_at->format('H:i:s') }}</td>
+                            </tr>
+                        </tbody>
                         @endforeach
                     </table>
                     @endforeach
@@ -319,15 +298,5 @@
         $('#MassageModal').modal('show');
     }
 </script>
-<script>
-    // ปิดการใช้งานปุ่มย้อนกลับ
-    history.pushState(null, null, location.href);
-    window.addEventListener('popstate', function(event) {
-        history.pushState(null, null, location.href);
-    });
-</script>
-
 </body>
 </html>
-
-

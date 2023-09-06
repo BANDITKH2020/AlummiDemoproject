@@ -25,7 +25,7 @@ class UserController extends Controller
         $query = User::query();
         $student = $query
             ->select('id','student_id', 'firstname', 'lastname', 'educational_status','inviteby','student_grp','role_acc','created_at','active','email','graduatesem','groupleader')
-            ->where('role_acc', 'student','teacher')
+            ->whereIn('role_acc', ['student', 'teacher'])
             ->paginate(10);
         $LoginHistory = LoginHistory::query()->get(); 
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {

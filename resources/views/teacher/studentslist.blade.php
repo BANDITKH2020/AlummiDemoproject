@@ -26,74 +26,72 @@
             /* color: #05FF2D; */
         }
     </style>
-  <div class="col-12">
-    <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+    <div class="col-12">
+        <div class="col-12 outset" style="background-color: #EFF4FF;">
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
+                </div>
+                <div class="col-4" style="padding: 15px;">
+                    <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                    <hr class="mt-1" style="border: 1px solid #000">
+                    <h2>Computer Engineering Alummi</h2>
+                </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
 
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                <h4>{{Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
                 @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
                 @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ทำเนียบบัณฑิต</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
                 <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>จัดการโค้ด</h5>
+                
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
+                    @if($surveylink)
+                        <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
+                    @endif
                 @endif
+                
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-            @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
-            @endif
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
                 <a href="{{ route('accountuser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ตั้งค่าบัญชี</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
                 <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ประวัติการติดต่อ</h5>
-                @endif
+                
                 
             </div>
    
@@ -144,57 +142,63 @@
   </style>
 
 
-  <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-    <div class="col-md-12">
-      <h2 class="text-center">ข่าวประชาสัมพันธ์</h2>
-    </div>
-    <hr class="mt-1" style="border: 1px solid #000">
-    <form action="" method="GET" >
-    <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-
-      <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/>
-        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
-      </div>
-    </label>
-    </form>
-    <br><br><br>
-   
-    @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-    <div class="row" id="content">
-    @foreach ($newsandactivity as $row)
-        <div class="col-md-3">
-            <div class="card mt-5 custom-card">
-            <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
-                <div class='card-body'>
-                    <h5 class="card-title font-weight-bold">{{ $row->title_name }}</h5>
-                    <p class="card-text">
-                    {{ Str::limit($row->cotent, 50) }}
-                    </p>
-                    <p class="card-text">วันที่อัพเดต
-                    {{$row->created_at->format('d-m-Y')}}
-                    </p>
-                    @if ($row->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
-                      @if ($row->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                        <p class="card-text">วันที่จัดกิจกรรม: 
-                        {{ Carbon\Carbon::parse($row->event_date)->format('d-m-Y') }}
-                        </p>
-                        @else
-                        <p class="card-text">วันที่จัดกิจกรรม: ไม่มี</p>
-                      @endif
-                    @endif
-                    <div class="d-flex justify-content-center">
-                      <a type="button" style="color: black;" href="{{ url('users/homeuser/view/'.$row->id) }}" class="btn btn-primary btn-lg">รายละเอียด</a>
+    <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
+        <div class="col-md-12">
+        <h2 class="text">รายชื่อนักศึกษา</h2>
+        </div>
+        <hr class="mt-1" style="border: 1px solid #000">
+            <form action="" method="GET" >
+                <label class="form-label" style="position: absolute;left:750px;top: 65px;">
+                    <select name="searchdata" class="form-select" >
+                        <option value="all">ทั้งหมด</option>
+                        <option value="student_id" >รหัสนักศึกษา</option>
+                        <option value="firstname">ชื่อ</option>
+                        <option value="lastname">นามสกุล</option>
+                        <option value="graduatesem">ภาคการศึกษาที่จบ</option>
+                        <option value="student_grp">กลุ่มนักศึกษา</option>
+                        <option value="active">สถานะเข้าใช้งาน</option>
+                    </select>
+                    <div class="col-mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" /> 
+                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+                    </div>
+                </label>
+            </form><br>
+            <div class="col-12 my-5">
+                @foreach ($student as $row) 
+                <div class="row">
+                    <div class="col-md-2 mt-3">
+                        <div class="card text-center">
+                            <img class="mx-auto mt-3" src="{{ asset('images/teamwork.png') }}" alt="John" style="width:60%;">
+                            <h5 class="mt-3">{{$row->firstname}} {{$row->lastname}}</h5>
+                            <p>{{$row->student_grp}}</p>
+                            <p><a class="btn btn-primary mt-2" onclick="window.location.href='{{ url('/User/studentslist/view/'.$row->id) }}'" >ดูโปรไฟล์</a></p>
+                        </div>
                     </div>
                 </div>
+                @endforeach
+                {{ $student->links() }}
             </div>
-        </div>
-        @endforeach
-        {{ $newsandactivity->links() }}
-      </div>
     </div>
-  </div>
-  @endif
+   
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
@@ -311,6 +315,7 @@
             </div>
         </div>
     </div>
+    
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');

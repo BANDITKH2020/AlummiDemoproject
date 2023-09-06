@@ -222,9 +222,16 @@
                 {{$language_skill->links()}}
             </div>
         </div>  
+        @if (Auth::check() && Auth::user()->role_acc === 'student')
         <div class="d-flex justify-content-center"style="position: absolute; left: 200px; top: 180px;">
             <a class="btn btn-outline-warning" href="{{ route('studentslist') }}" role="button" >กลับหน้าหลัก</a>
         </div>
+        @endif
+        @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+        <div class="d-flex justify-content-center"style="position: absolute; left: 200px; top: 180px;">
+            <a class="btn btn-outline-warning" href="{{ route('studentslist_teacher') }}" role="button" >กลับหน้าหลัก</a>
+        </div>
+        @endif
     
     
 

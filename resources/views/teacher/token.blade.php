@@ -47,38 +47,31 @@
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                <h4>{{ Auth::user()->firstname }}</h4>
+                <h4>{{ Auth::user()->firstname }}{{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
-            </div>
-            
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-            <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
+                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
+                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
+                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('activitys') }}" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
+                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('reward') }}" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
+                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -132,7 +125,7 @@
         });
 
         function sendRandomCodeAndDateTime(randomCode, selectedDateTime) {
-            fetch('/Admin/Token/save', {
+            fetch('/teacher/Token/save', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -196,12 +189,13 @@
                                             10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
                                         ];
                                         $eventDate = \Carbon\Carbon::parse($row->end_date);
+                                        
                                     @endphp
                                     <tr>
                                         <td>{{$row->id}}</td>
                                         <td>{{$row->code}}</td>
                                         <td>{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
-                                        <td><a href="{{url('/Token/delete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a> </td>
+                                        <td><a href="{{url('/teacher/delete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a> </td>
                                     </tr>
                                 @endforeach
                                    
@@ -223,7 +217,15 @@
     </script> 
 </div>
     
-  
+    @if(Session::has('alert'))
+        <script>
+            swal("Massage","{{Session::get('alert')}}",'info',{
+                icon: "success",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+    @endif  
   
   
 </body>
