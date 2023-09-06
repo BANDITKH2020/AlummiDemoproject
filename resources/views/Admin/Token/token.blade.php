@@ -43,7 +43,7 @@
         <hr class="mt-1" style="border: 2px solid #000">
       </div>
     </div>
-    
+
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
@@ -52,7 +52,7 @@
             <div class="col-7 mt-3" style="margin-left:50px">
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
-            
+
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
             </div>
@@ -96,7 +96,7 @@
               </a>
             </div>
             <hr class="mt-1" style="border: 2px solid #000">
-            
+
             <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
@@ -151,7 +151,7 @@
         }
 });
 
-</script> 
+</script>
         <div class="container "style="position: absolute;left:500px;top: 180px;">
             <h2>จัดการโค้ด</h2>
             <hr class="mt-1" style="border: 1px solid #000">
@@ -160,7 +160,10 @@
         <div class="col-4" style="padding: 15px; position: absolute;left:800px;top: 330px;">
             <div class="d-grid gap-2 col-6 mx-auto">
             <h3>รหัสโค้ด</h3>
-            <span id="randomCode"></span><br>
+            {{-- <input type="text" id="randomCode"> --}}
+            <div id="randomCodeContainer" style="border: 1px solid #ccc; padding: 5px;height:40px">
+                <span class="ms-2" id="randomCode"></span>
+            </div>
             <button class="btn btn-success  " id="generateCodeButton" style="position: absolute;left:500px;top:65px;">สุ่มโค้ด</button>
             </div><br>
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -168,7 +171,7 @@
                 <input class="form-control" type="datetime-local" id="dateTimeInput">
                 <br>
             </div>
-            <button class="btn btn-primary" id="saveCodeButton" style="position: absolute;left:275px;">บันทึก</button>    
+            <button class="btn btn-primary" id="saveCodeButton" style="position: absolute;left:275px;">บันทึก</button>
         </div>
         <br>
     <div class="d-grid gap-2 col-6 mx-auto "style="position: absolute;left:825px;top:625px;">
@@ -183,7 +186,7 @@
                                         <th scope="col"class="text-center">รหัสโค้ด</th>
                                         <th scope="col"class="text-center">วันเวลาที่หมดอายุ</th>
                                         <th scope="col"class="text-center">ตัวเลือก</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -196,23 +199,24 @@
                                             10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
                                         ];
                                         $eventDate = \Carbon\Carbon::parse($row->end_date);
+                                        $i = 1;
                                     @endphp
                                     <tr>
-                                        <td>{{$row->id}}</td>
+                                        <td>{{$i++}}</td>
                                         <td>{{$row->code}}</td>
                                         <td>{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
                                         <td><a href="{{url('/Token/delete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a> </td>
                                     </tr>
                                 @endforeach
-                                   
-                                    
+
+
                                 </tbody>
-                                
+
                             </table>
-                            {{$randomcode->links()}}           
-                    </div> 
-            </div> 
-        </div> 
+                            {{$randomcode->links()}}
+                    </div>
+            </div>
+        </div>
     </div>
     <script>
             var msg = '{{Session::get('alert')}}';
@@ -220,11 +224,11 @@
             if(exist){
             alert(msg);
             }
-    </script> 
+    </script>
 </div>
-    
-  
-  
-  
+
+
+
+
 </body>
 </html>
