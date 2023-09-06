@@ -161,7 +161,7 @@
             <div class="d-grid gap-2 col-6 mx-auto">
             <h3>รหัสโค้ด</h3>
             {{-- <input type="text" id="randomCode"> --}}
-            <div id="randomCodeContainer" style="border: 1px solid #ccc; padding: 5px;height:40px">
+            <div id="randomCodeContainer" style="border: 1px solid #ccc; padding: 5px;height:40px;border-radius:10px">
                 <span class="ms-2" id="randomCode"></span>
             </div>
             <button class="btn btn-success  " id="generateCodeButton" style="position: absolute;left:500px;top:65px;">สุ่มโค้ด</button>
