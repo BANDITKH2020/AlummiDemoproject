@@ -1,0 +1,32 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class AdminSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        User::create([
+            'firstname' => 'Admintest',
+            'lastname'=> 'null',
+            'student_id'=> 'Admin',
+            'student_grp'=> 'Admin',
+            'graduatesem'=> 'null',
+            'inviteby'=> 'Admin',
+            'email' => 'admintest@admin.com',
+            'password' => Hash::make('12345678900'),
+            'google_id' => 'Admin',
+            'role_acc' => 'Admin',
+            'groupleader'=> 'Admin',
+            'educational_status'=> 'Admin',
+        ]);
+    }
+}

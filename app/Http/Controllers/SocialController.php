@@ -57,8 +57,15 @@ class SocialController extends Controller
             $existing = User::where('google_id', $id)->first();
             $otherUser = randomcode::where('code', $token_id)->first();
             if ($existing) {
-                Auth::login($existing);
-                return redirect('/users/homeuser');
+                if ($existing->role_acc === 'student') {
+                    Auth::login($existing);
+                    return redirect('/users/homeuser');
+                }elseif ($existing->role_acc === 'teacher') {
+                    Auth::login($existing);
+                    return redirect('/users/hometeacher');
+                }else{
+                    return redirect('/')->with('error','กรุณาลงทะเบียนให้ถูกต้อง');
+                }
             } else {
                 $emailteacher = User::where('email', $email)->first();
                 if($emailteacher){
