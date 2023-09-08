@@ -216,31 +216,31 @@
                                         <div class="col-lg-1">
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
-                                        <div class="col-lg-10">
-                                            <h5>39 หมู่ที่ 1 ถนนรังสิต-นครนายก ตำบลคลองหก อำเภอคลองหลวง จังหวัดปทุมธานี</h5>
-                                        </div>
+                                    <div class="col-lg-11">
+                                        <h5>{{$department->address}}</h5>
                                     </div>
-                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
-                                        <div class="col-lg-10">
-                                            <h5>ช่วงเวลาติดต่อ จ-ศ 08.30 - 16.30 น.<br>โทร.02 549 3460</h5>
+                                        <div class="col-lg-11">
+                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-12 row" >
                                         <div class="col-lg-1">
-                                            <a href="https://www.facebook.com/ComputerEngineeringRmutt" target="_blank">
+                                            <a href="{{$department->facebook}}" target="_blank">
                                                 <img src="{{ asset('images/facebook-icon.png') }}" style="width:25px;height:25px">
                                             </a>
                                         </div>
                                         <div class="col-lg-1">
-                                            <a href="https://cpe.engineer.rmutt.ac.th/" target="_blank">
+                                            <a href="{{$department->web}}" target="_blank">
                                                 <img src="{{ asset('images/www-icon.png') }}" style="width:25px;height:25px">
                                             </a>
                                         </div>
+                                        </div>
                                     </div>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7741.4212556805005!2d100.7219335028924!3d14.035159447469107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692540328004!5m2!1sth!2sth"
+                                    <iframe src="{{$department->map}}"
                                         width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                                     </iframe>
                                 </div>

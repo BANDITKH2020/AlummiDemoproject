@@ -290,6 +290,86 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                            <div class="col-lg-6">
+                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                        <div class="col-lg-1">
+                                            <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
+                                        </div>
+                                    <div class="col-lg-11">
+                                        <h5>{{$department->address}}</h5>
+                                    </div>
+                                    <div class="col-lg-12 row">
+                                        <div class="col-lg-1">
+                                            <i class="fas fa-phone" style="margin-top:15px"></i>
+                                        </div>
+                                        <div class="col-lg-11">
+                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 row" >
+                                        <div class="col-lg-1">
+                                            <a href="{{$department->facebook}}" target="_blank">
+                                                <img src="{{ asset('images/facebook-icon.png') }}" style="width:25px;height:25px">
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <a href="{{$department->web}}" target="_blank">
+                                                <img src="{{ asset('images/www-icon.png') }}" style="width:25px;height:25px">
+                                            </a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <iframe src="{{$department->map}}"
+                                        width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form action="/user/post/massage" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                        <div class="col-lg-12">
+                                            <label class="col-form-label font-weight-bold text-dark">ชื่อเรื่อง</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-sm text-center bg-white" name="massage_name"
+                                                required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label class="col-form-label font-weight-bold text-dark">ข้อความ</label>
+                                            <div class="input-group">
+                                                <textarea type="text" id="" rows="4" cols="100" name="massage_cotent"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">  
+                                                <label class="col-form-label font-weight-bold text-dark">เลือกเอกสารที่ต้องการอัพโหลด</label>
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control" id="massage_file" name="massage_file">
+                                                </div>
+                                        </div>
+                                        <br><br><br><br><br>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">ส่ง</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');

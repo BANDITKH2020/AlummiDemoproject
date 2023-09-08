@@ -7,7 +7,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -84,32 +84,103 @@
         <div class="d-flex justify-content-center">
             <hr class="vertical-hr">
         </div>
-        <div style="position: absolute;left:400px;top:325px;" >
-            <h3> 39 หมู่ที่ 1 ถนนรังสิต-นครนายก ตำบลคลองหก </h3>
-            <h3> อำเภอคลองหลวง </h3>
-            <h3> จังหวัดปทุมธานี 12110</h3>
-            <br>
-            <h3>ช่วงเวลาติดต่อ  จ-ศ 08.30 - 16.30 น. </h3>
-            <h3>โทร. 02 549  3460</h3>
-            <br>
-            <a href="https://www.facebook.com/ComputerEngineeringRmutt"><h3>Computer Engineering RMUTT</h3>
-            <br>
-            <a href="https://cpe.engineer.rmutt.ac.th/?fbclid=IwAR2b_3j35XEJZK6IhP_8tZbxsC0D4SBzJoomEt1c4CFeC_4SSOENwpNgmm4"><h3>เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</h3></a>
-
+        @if($department)
+        <div style="position: absolute;left:275px;top:325px;" >
+            <div class="col-lg-6">
+                <div class="col-lg-12 row" style="margin-left:15px">
+                    <div class="col-lg-1">
+                        <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
+                    </div>
+                <div class="col-lg-10">
+                    <h2>{{$department->address}}</h2>
+                </div>
+            </div>
+            <div class="col-lg-12 row" style="margin-left:15px">
+                <div class="col-lg-1">
+                    <i class="fas fa-phone" style="margin-top:15px"></i>
+                </div>
+                <div class="col-lg-11">
+                    <h2>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h2>
+                </div>
+            </div>
+            <div class="col-lg-12 row" style="margin-left:55px">
+                <div class="col-lg-1">
+                    <a href="{{$department->facebook}}" target="_blank">
+                        <img src="{{ asset('images/facebook-icon.png') }}" style="width:50px;height:50px">
+                    </a>
+                </div>
+                <div class="col-lg-1">
+                    <a href="{{$department->web}}" target="_blank">
+                        <img src="{{ asset('images/www-icon.png') }}" style="width:50px;height:50px">
+                    </a>
+                </div>
+                </div>
+            </div>
         </div>
-        <iconify-icon icon="basil:location-solid" class="custom-icon" ></iconify-icon> 
-        <iconify-icon icon="foundation:telephone"class="custom-tel"></iconify-icon>  
-        <iconify-icon icon="logos:facebook" class="custom-face"></iconify-icon>
-        <iconify-icon icon="emojione:school"class="custom-school"></iconify-icon>
         <div class="custom-map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3870.6850321332804!2d100.727662!3d14.036675!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692362016210!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="{{$department->map}}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="d-flex justify-content-center">
-            <a class="btn btn-outline-warning" href="/home" role="button" >กลับหน้าหลัก</a>
+        @endif
+        <div class="d-flex justify-content" style="position:absolute;left:842.5px;top: 755px;">
+            <button class="btn btn-info" onclick="window.location.href='/admin/home'" role="button" style="margin-right: 10px;">กลับหน้าหลัก</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#department" role="button" >แก้ไขข้อมูลภาควิชา</button>
         </div>
-        
     </div>
-    
-    
+
+    <div class="modal fade" id="department" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">ข้อมูลติดต่อ</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{url('/Admin/Contact/save')}}" method="post" enctype="multipart/form-data" >
+                {{ csrf_field() }}
+                <div class="col-lg-12 row">
+                    <div class="col-lg-12 mt-3">
+                        <label for="address" class="form-label">ที่อยู่</label>
+                        <input type="text" name="address" class="form-control" id="address" placeholder="" required>
+                    </div>
+                    <div class="col-lg-6 mt-3">
+                        <label for="contact_time" class="form-label">ช่วงเวลาติดต่อ</label>
+                        <input type="text" name="contact_time" class="form-control" id="contact_time" placeholder="" required>
+                    </div>  
+                    <div class="col-lg-6 mt-3">
+                        <label for="phone_number" class="form-label">เบอร์โทร</label>
+                        <input type="text" name="phone_number" class="form-control" id="phone_number" placeholder="" required>
+                    </div>   
+                    <div class="col-lg-12 mt-3">
+                        <label for="facebook" class="form-label">facebook</label>
+                        <input type="text" name="facebook" class="form-control" id="facebook" placeholder="" required>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <label for="web" class="form-label">เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</label>
+                        <input type="text" name="web" class="form-control" id="web" placeholder="" required>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <label for="map" class="form-label">แผนที่มหาวิยาลัย</label>
+                        <input type="text" name="map" class="form-control" id="map" placeholder="" required>
+                    </div>   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                </div>
+                </form>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+    @if(Session::has('alert'))
+        <script>
+            swal("Massage","{{Session::get('alert')}}",'info',{
+                icon: "success",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+    @endif  
 </body>
 </html>

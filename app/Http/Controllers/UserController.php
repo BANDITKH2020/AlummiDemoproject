@@ -17,7 +17,7 @@ use App\Models\User;
 use App\Models\Workhistory_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use App\Models\department;
 class UserController extends Controller
 {
     public function studentslist()
@@ -36,7 +36,8 @@ class UserController extends Controller
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
         $surveylink = Surveylink::query()->first();
-        return view('users.studentslist',compact('student','surveylink','messages','LoginHistory'));
+        $department = department::where('ID', 1)->first();
+        return view('users.studentslist',compact('student','surveylink','messages','LoginHistory','department'));
     }
     public function viewProfile($id){
         $user = User::find($id);

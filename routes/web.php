@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\activityController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EducationInfomController;
 use App\Http\Controllers\graduateController;
 use App\Http\Controllers\HomeController;
@@ -82,7 +84,7 @@ Route::get('/Token/all',[TokenController::class,'viewtoken'])->name('viewtoken')
 Route::post('/Admin/Token/save',  [TokenController::class,'store'])->name('admin.code.save')->middleware('auth', 'checkRole:Admin');
 Route::get('/Token/delete/{id}',[TokenController::class,'delete'])->middleware('auth', 'checkRole:Admin');
 //---------------ช่องทางการติดต่อ--------------------
-Route::get('/contact/rmutt',[ContactController::class,'contact'])->name('contact')->middleware('auth', 'checkRole:Admin');
+Route::get('/contact/rmutt',[DepartmentController::class,'contact'])->name('contact')->middleware('auth', 'checkRole:Admin');
 
 //---------------จัดการรางวัล-----------------------
 Route::get('/Admin/reward/all',[RewardController::class,'reward'])->name('reward')->middleware('auth', 'checkRole:Admin');
@@ -114,6 +116,11 @@ Route::post('/register/teacher/add', [RegisterAdminController::class, 'addteache
 Route::get('/Admin/post/starandread/{id}', [MassegeController::class, 'readmassege'])->name('readmassege')->middleware('auth', 'checkRole:Admin');
 Route::post('/Admin/post/starandread/{id}', [MassegeController::class, 'readmassege'])->name('readmassege')->middleware('auth', 'checkRole:Admin');
 Route::post('/Admin/post/read/{id}', [MassegeController::class, 'read_massege'])->name('read_massege')->middleware('auth', 'checkRole:Admin');
+//----------------ข้อมูลติดต่อ----------------------
+Route::post('/Admin/Contact/save', [DepartmentController::class, 'store'])->name('Contactsave')->middleware('auth', 'checkRole:Admin');
+//----------------แดชบอร์ด----------------------
+Route::get('/Admin/view/dashboard/', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth', 'checkRole:Admin');
+
 
 
  //user
@@ -146,14 +153,14 @@ Route::get('/user/graduate/view',[graduateController::class,'graduateuser'])->na
 //----------------ส่งข้อความ---------------------
 Route::post('/user/post/massage', [MassageController::class, 'store'])->middleware('auth', 'checkRole:student');
 
-//-------------------ดูโปรไฟล์
+
+
+
+//-------------------ดูโปรไฟล์----------------------
 Route::get('/User/studentslist/view/{id}',[UserController::class,'viewProfile'])->middleware('auth', 'checkRole:student,teacher');
-
-
 //------------------------อาจารย์-------------------------------
-
 Route::get('/users/hometeacher', [TeacherController::class, 'hometeacher'])->name('hometeacher')->middleware('auth', 'checkRole:teacher');
-
+//---------------------ดูนักศึกษา---------------
 Route::get('/User/studentslist/teacher', [TeacherController::class,'studentslist'])->name('studentslist_teacher')->middleware('auth', 'checkRole:teacher');
 //----------------ทำเนียบบัณฑิต-
 Route::get('/user/teacher/graduate/view',[TeacherController::class,'graduate_teacher'])->name('graduateuser_teacher')->middleware('auth', 'checkRole:teacher');

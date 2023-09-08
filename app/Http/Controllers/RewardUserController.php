@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\department;
 use App\Models\Massage;
 use App\Models\reward;
 use App\Models\Surveylink;
@@ -61,6 +62,7 @@ class RewardUserController extends Controller
             $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
-        return view('users.reward',compact('reward','surveylink','messages'));
+        $department = department::where('ID', 1)->first();
+        return view('users.reward',compact('reward','surveylink','messages','department'));
     }
 }

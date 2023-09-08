@@ -53,25 +53,40 @@
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
                 @endif
-                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
                 @endif
-                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
                 @endif
-                
+                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
+                <h5>ทำเนียบบัณฑิต</h5>
+                @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
                 <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
                 @endif
-                
+                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
+                <h5>จัดการโค้ด</h5>
+                @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+            @if($surveylink)
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
+            @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                <a href="" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                @endif
+                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
+                <h5>ตั้งค่าบัญชี</h5>
+                @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -80,19 +95,64 @@
                 <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
               </form>
             </div>
-            <div  class="col-10 mt-3" style="display: flex; justify-content: center; align-items: center;">
-              <a href="/register/Admin" class="re-admin" title="เพิ่มผู้ดูแลระบบ"style="margin-right: 5px;">
-                  <iconify-icon icon="ri:admin-fill"></iconify-icon>
-              </a>
-              <a href="/register/teacher" class="re-teacher" title="เพิ่มอาจารย์"style="margin-left: 5px;">
-                  <iconify-icon icon="subway:admin-1"></iconify-icon>
-              </a>
-            </div>
-            <hr class="mt-1" style="border: 2px solid #000">
+            <hr class="mt-5" style="border: 2px solid #000">
+            <a class="text-center" data-bs-toggle="modal" data-bs-target="#contactModal" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
             
-            <a href="" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 row">
+                            <div class="col-lg-6">
+                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                        <div class="col-lg-1">
+                                            <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
+                                        </div>
+                                    <div class="col-lg-11">
+                                        <h5>{{$department->address}}</h5>
+                                    </div>
+                                    <div class="col-lg-12 row">
+                                        <div class="col-lg-1">
+                                            <i class="fas fa-phone" style="margin-top:15px"></i>
+                                        </div>
+                                        <div class="col-lg-11">
+                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 row" >
+                                        <div class="col-lg-1">
+                                            <a href="{{$department->facebook}}" target="_blank">
+                                                <img src="{{ asset('images/facebook-icon.png') }}" style="width:25px;height:25px">
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <a href="{{$department->web}}" target="_blank">
+                                                <img src="{{ asset('images/www-icon.png') }}" style="width:25px;height:25px">
+                                            </a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <iframe src="{{$department->map}}"
+                                        width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   <script>
     function generateRandomCode(length) {
         const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -106,45 +166,44 @@
         return randomCode;
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const generateCodeButton = document.getElementById('generateCodeButton');
-        const saveCodeButton = document.getElementById('saveCodeButton');
-        const messageDisplay = document.getElementById('messageDisplay');
-        const randomCodeElement = document.getElementById('randomCode');
-        const dateTimeInput = document.getElementById('dateTimeInput');
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateCodeButton = document.getElementById('generateCodeButton');
+            const saveCodeButton = document.getElementById('saveCodeButton');
+            const messageDisplay = document.getElementById('messageDisplay');
+            const randomCodeElement = document.getElementById('randomCode');
+            const dateTimeInput = document.getElementById('dateTimeInput');
 
-        generateCodeButton.addEventListener('click', function() {
-            const newRandomCode = generateRandomCode(10);
-            randomCodeElement.textContent = newRandomCode;
-        });
+            generateCodeButton.addEventListener('click', function() {
+                const newRandomCode = generateRandomCode(10);
+                randomCodeElement.textContent = newRandomCode;
+            });
 
-        saveCodeButton.addEventListener('click', function() {
-            const randomCode = randomCodeElement.textContent;
-            const selectedDateTime = dateTimeInput.value;
-            sendRandomCodeAndDateTime(randomCode, selectedDateTime);
-        });
+            saveCodeButton.addEventListener('click', function() {
+                const randomCode = randomCodeElement.textContent;
+                const selectedDateTime = dateTimeInput.value;
+                sendRandomCodeAndDateTime(randomCode, selectedDateTime);
+            });
 
-        function sendRandomCodeAndDateTime(randomCode, selectedDateTime) {
-            fetch('/teacher/Token/save', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({ random_code: randomCode, selected_date_time: selectedDateTime }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    messageDisplay.textContent = data.alert;
-                    console.log('Created At:', data.createdAt);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-});
-
-</script> 
+            function sendRandomCodeAndDateTime(randomCode, selectedDateTime) {
+                fetch('/teacher/Token/save', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({ random_code: randomCode, selected_date_time: selectedDateTime }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        messageDisplay.textContent = data.alert;
+                        console.log('Created At:', data.createdAt);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+    });
+    </script> 
         <div class="container "style="position: absolute;left:500px;top: 180px;">
             <h2>จัดการโค้ด</h2>
             <hr class="mt-1" style="border: 1px solid #000">
@@ -208,14 +267,8 @@
             </div> 
         </div> 
     </div>
-    <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
-    </script> 
 </div>
+
     
     @if(Session::has('alert'))
         <script>
@@ -226,7 +279,13 @@
             }});
         </script>
     @endif  
-  
+    <script>
+            var msg = '{{Session::get('alert')}}';
+            var exist = '{{Session::has('alert')}}';
+            if(exist){
+            alert(msg);
+            }
+    </script> 
   
 </body>
 </html>

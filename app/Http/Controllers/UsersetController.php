@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contart_info;
+use App\Models\department;
 use App\Models\Education_infom;
 use App\Models\language_skill;
 use App\Models\Massage;
@@ -33,6 +34,7 @@ class UsersetController extends Controller
         $surveylink = Surveylink::query()->first();
         // ดึงข้อมูล User ด้วย student_id
         $user = User::where('student_id', $student_id)->first();
+        $department = department::where('ID', 1)->first();
 
         $contact = Contart_info::where('ID_student', $student_id)->get();
         $education = Education_infom::where('ID_student', $student_id)->get();
@@ -50,7 +52,7 @@ class UsersetController extends Controller
         });
         return view('users.accsettinguser', compact('contactInfo', 'user', 'education_infom',
          'Workhistory_info', 'contact', 'education', 'Workhistory','Skill_info','language_skill',
-         'Skill','language','Tranning_info','Tranning','surveylink','messages'));
+         'Skill','language','Tranning_info','Tranning','surveylink','messages','department'));
     }
 
 

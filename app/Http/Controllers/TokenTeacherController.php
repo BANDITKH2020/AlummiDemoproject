@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\randomcode;
 use Auth;
 use Illuminate\Http\Request;
-
+use App\Models\department;
+use App\Models\Surveylink;
 class TokenTeacherController extends Controller
 {
     public function viewtoken(){
         $randomcode = randomcode::paginate(3);
-        return view('teacher.token',compact('randomcode'));
+        $department = department::where('ID', 1)->first();
+        $surveylink = Surveylink::query()->first();
+        return view('teacher.token',compact('randomcode','department','surveylink'));
     }
     public function store(Request $request)
     {

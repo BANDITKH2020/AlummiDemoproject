@@ -11,6 +11,7 @@ use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\department;
 
 class TeacherController extends Controller
 {
@@ -49,7 +50,8 @@ class TeacherController extends Controller
             $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
-        return view('teacher.home', compact('newsandactivity','surveylink','messages'));
+        $department = department::where('ID', 1)->first();
+        return view('teacher.home', compact('newsandactivity','surveylink','messages','department'));
     }
     public function studentslist()
     {   
@@ -67,7 +69,8 @@ class TeacherController extends Controller
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
         $surveylink = Surveylink::query()->first();
-        return view('teacher.studentslist',compact('student','surveylink','messages','LoginHistory'));
+        $department = department::where('ID', 1)->first();
+        return view('teacher.studentslist',compact('student','surveylink','messages','LoginHistory','department'));
     }
 
     public function graduate_teacher(Request $request)
@@ -117,6 +120,7 @@ class TeacherController extends Controller
             $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
-        return view('teacher.graduate', compact('users','surveylink','messages'));
+        $department = department::where('ID', 1)->first();
+        return view('teacher.graduate', compact('users','surveylink','messages','department'));
     }
 }

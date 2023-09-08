@@ -56,7 +56,8 @@ class SocialController extends Controller
             $token_id = session('token_id');
             $existing = User::where('google_id', $id)->first();
             $otherUser = randomcode::where('code', $token_id)->first();
-            if ($existing) {
+            if ($existing) { 
+                
                 if ($existing->role_acc === 'student') {
                     Auth::login($existing);
                     return redirect('/users/homeuser');
