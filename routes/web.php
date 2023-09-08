@@ -23,6 +23,7 @@ use App\Http\Controllers\SocialController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\surveylinkController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeachersetController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\TokenTeacherController;
 use App\Http\Controllers\TranningInfoController;
@@ -168,3 +169,6 @@ Route::get('/user/teacher/graduate/view',[TeacherController::class,'graduate_tea
 Route::get('/Token/teacher/all',[TokenTeacherController::class,'viewtoken'])->name('teacherviewtoken')->middleware('auth', 'checkRole:teacher');
 Route::post('/teacher/Token/save',  [TokenTeacherController::class,'store'])->name('teacher.code.save')->middleware('auth', 'checkRole:teacher');
 Route::get('/teacher/delete/{id}',[TokenTeacherController::class,'delete'])->middleware('auth', 'checkRole:teacher');
+//----------------ประวัตืส่วนตัวอาจารย์------------------
+Route::get('/users/accTeacher', [TeachersetController::class, 'accTeacher'])->name('accTeacher')->middleware('auth', 'checkRole:teacher');
+Route::post('/Teacher/accountuser/saveaccount/addaccount', [TeachersetController::class, 'store'])->name('addaccountteacher')->middleware('auth', 'checkRole:teacher');

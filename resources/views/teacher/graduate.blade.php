@@ -79,7 +79,7 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                <a href="{{route('accTeacher')}}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
                 @endif
                 @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
                 <h5>ตั้งค่าบัญชี</h5>
@@ -168,7 +168,6 @@
         </script>   
     </div>
 </div> 
-
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
