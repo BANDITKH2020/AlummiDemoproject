@@ -50,6 +50,7 @@ class TeachersetController extends Controller
 
     public function updateExistingContact($existingContact, $request)
     {
+        
         $image = $request->file('image');
         $prefix = $request->input('prefix');
         $email = $request->input('email');
@@ -57,23 +58,28 @@ class TeachersetController extends Controller
         $Facebook = $request->input('Facebook');
         $Tel = $request->input('Tel');
         $Instagram = $request->input('Instagram');
-        $attention ="-";
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($image->getClientOriginalExtension());
-        $img_name = $name_gen . '.' . $img_ext;
+        $attention = "-";
 
-        // บันทึกข้อมูล
-        $upload_location = 'public/image/profileuser/';
-        $full_path = $upload_location . $img_name;
+        // ตรวจสอบว่ามีไฟล์รูปถูกส่งมาหรือไม่
+        if ($image) {
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($image->getClientOriginalExtension());
+            $img_name = $name_gen . '.' . $img_ext;
+
+            // บันทึกข้อมูล
+            $upload_location = 'public/image/profileuser/';
+            $full_path = $upload_location . $img_name;
+            
+
+            // ลบไฟล์รูปเก่า
+            Storage::delete($existingContact->image);
+
+            // ย้ายไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
+            $image->storeAs('public/image/profileuser', $img_name);
+
+            $existingContact->image = $img_name;
+        }
         $status_contact = $request['status_contact'] == 'true' ? 1 : 0;
-
-        // ลบไฟล์รูปเก่า
-        Storage::delete($existingContact->image);
-
-        // ย้ายไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
-        $image->storeAs('public/image/profileuser', $img_name);
-
-        $existingContact->image = $img_name;
         $existingContact->prefix = $prefix;
         $existingContact->ID_email = $email;
         $existingContact->ID_line = $Line;
@@ -81,9 +87,10 @@ class TeachersetController extends Controller
         $existingContact->telephone = $Tel;
         $existingContact->ID_instagram = $Instagram;
         $existingContact->status_contact = $status_contact;
-        $existingContact->ID_student = Auth::user()->id;
-        $existingContact->attention =$attention;
+        $existingContact->ID_student = Auth::user()->student_id;
+        $existingContact->attention = $attention;
         $existingContact->save();
+
         return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
     }
 
@@ -123,7 +130,7 @@ class TeachersetController extends Controller
         $Contart_info->ID_instagram = $Instagram;
         $Contart_info->status_contact = $status_contact;
         $Contart_info->attention = '-'; // หรือตั้งค่าเป็น null ตามความต้องการของคุณ
-        $Contart_info->ID_student = $id;
+        $Contart_info->ID_student = Auth::user()->student_id;
         $Contart_info->save();
 
         return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");

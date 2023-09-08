@@ -97,23 +97,25 @@ class UsersetController extends Controller
         $Facebook = $request->input('Facebook');
         $Tel = $request->input('Tel');
         $Instagram = $request->input('Instagram');
+        if ($image) {
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($image->getClientOriginalExtension());
+            $img_name = $name_gen . '.' . $img_ext;
 
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($image->getClientOriginalExtension());
-        $img_name = $name_gen . '.' . $img_ext;
+            // บันทึกข้อมูล
+            $upload_location = 'public/image/profileuser/';
+            $full_path = $upload_location . $img_name;
+            
 
-        // บันทึกข้อมูล
-        $upload_location = 'public/image/profileuser/';
-        $full_path = $upload_location . $img_name;
+            // ลบไฟล์รูปเก่า
+            Storage::delete($existingContact->image);
+
+            // ย้ายไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
+            $image->storeAs('public/image/profileuser', $img_name);
+
+            $existingContact->image = $img_name;
+        }
         $status_contact = $request['status_contact'] == 'true' ? 1 : 0;
-
-        // ลบไฟล์รูปเก่า
-        Storage::delete($existingContact->image);
-
-        // ย้ายไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
-        $image->storeAs('public/image/profileuser', $img_name);
-
-        $existingContact->image = $img_name;
         $existingContact->prefix = $prefix;
         $existingContact->ID_email = $email;
         $existingContact->ID_line = $Line;
@@ -135,6 +137,7 @@ class UsersetController extends Controller
 
     public function createNewContact($student_id, $request)
     {
+        if ($request->hasFile('image')) {
         $image = $request->file('image');
         $prefix = $request->input('prefix');
         $categoryall = $request->input('categoryall');
@@ -147,18 +150,19 @@ class UsersetController extends Controller
         $Facebook = $request->input('Facebook');
         $Tel = $request->input('Tel');
         $Instagram = $request->input('Instagram');
+
         $name_gen = hexdec(uniqid());
         $img_ext = strtolower($image->getClientOriginalExtension());
         $img_name = $name_gen . '.' . $img_ext;
-
+        // บันทึกไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
+        $image->storeAs('public/image/profileuser', $img_name);
+        } else {
+            $img_name = null; // ตั้งค่าเป็น null ในกรณีที่ไม่มีไฟล์รูปถูกส่งมา
+        }
         // บันทึกข้อมูล
         $upload_location = 'public/image/profileuser/';
         $full_path = $upload_location . $img_name;
         $status_contact = $request['status_contact'] == 'true' ? 1 : 0;
-
-        // บันทึกไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
-        $image->storeAs('public/image/profileuser', $img_name);
-
         $Contart_info = new Contart_info();
         $Contart_info->image = $img_name;
         $Contart_info->prefix = $prefix;
