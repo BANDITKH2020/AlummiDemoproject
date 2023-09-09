@@ -54,10 +54,6 @@ class UsersetController extends Controller
          'Workhistory_info', 'contact', 'education', 'Workhistory','Skill_info','language_skill',
          'Skill','language','Tranning_info','Tranning','surveylink','messages','department'));
     }
-
-
-
-
     public function store(Request $request)
     {
         $student_id = Auth::user()->student_id;
