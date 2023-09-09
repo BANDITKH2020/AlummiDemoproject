@@ -145,15 +145,15 @@
                     <div class="col-3 mt-4">
                         <div class="col-12 ml-4 mt-4 text-center" style="border: 1px solid #000;border-radius:10px;background-color: #ffffff;">
                             <h5 class="mt-3">จำนวนผู้เข้าใช้งานระบบ (ยอดรวม)</h5>
-                            <h1 style="color: #FF8A00">999 คน</h1>
+                            <h1 style="color: #FF8A00">{{$user}} คน</h1>
                         </div>
                         <div class="col-12 ml-4 mt-4 text-center" style="border: 1px solid #000;border-radius:10px;background-color: #ffffff;">
                             <h5 class="mt-3">จำนวนผู้ที่จบในปี 2565 (ล่าสุด)</h5>
-                            <h1 style="color: #1400FF">100 คน</h1>
+                            <h1 style="color: #1400FF">{{$educational_status}} คน</h1>
                         </div>
                         <div class="col-12 ml-4 mt-4 text-center" style="border: 1px solid #000;border-radius:10px;background-color: #ffffff;">
                             <h5 class="mt-3">จำนวนผู้ที่ไม่เข้าใช้งานระบบ <br>(ปีปัจจุบัน)</h5>
-                            <h1 style="color: #FF0000">50 คน</h1>
+                            <h1 style="color: #FF0000">{{$inactiveUserCount}} คน</h1>
                         </div>
                     </div>
                     <div class="col-5">
@@ -179,18 +179,18 @@
                                 <div class="col-6 vertical-line text-right">
                                     <h5 class="text-center">จำนวน (คน)</h5>
                                     <hr>
-                                    <h5 style="margin-right: 10px">1</h5>
-                                    <h5 style="margin-right: 10px">2</h5>
-                                    <h5 style="margin-right: 10px">3</h5>
-                                    <h5 style="margin-right: 10px">4</h5>
-                                    <h5 style="margin-right: 10px">5</h5>
-                                    <h5 style="margin-right: 10px">6</h5>
-                                    <h5 style="margin-right: 10px">7</h5>
-                                    <h5 style="margin-right: 10px">8</h5>
-                                    <h5 style="margin-right: 10px">9</h5>
-                                    <h5 style="margin-right: 10px">10</h5>
-                                    <h5 style="margin-right: 10px">11</h5>
-                                    <h5 style="margin-right: 10px">12</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['01'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['02'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['03'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['04'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['05'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['06'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['07'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['08'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['09'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['10'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['11'] ?? '0' }}</h5>
+                                    <h5 style="margin-right: 10px">{{ $monthlyCounts['12'] ?? '0' }}</h5>
                                 </div>
 
                             </div>
@@ -210,11 +210,11 @@
                                     <h5 class="text-left mt-3" style="margin-left:10px">อื่นๆ</h5>
                                 </div>
                                 <div class="col-4 vertical-line2 text-right mt-4">
-                                    <h5 style="margin-right: 10px">1 %</h5>
-                                    <h5 class="mt-3" style="margin-right: 10px">2 %</h5>
-                                    <h5 class="mt-3" style="margin-right: 10px">3 %</h5>
-                                    <h5 class="mt-3" style="margin-right: 10px">4 %</h5>
-                                    <h5 class="mt-3" style="margin-right: 10px">5 %</h5>
+                                    <h5 style="margin-right: 10px">{{ $percentageOne ?? '0' }}%</h5>
+                                    <h5 class="mt-3" style="margin-right: 10px">{{ $percentageTwo ?? '0' }}%</h5>
+                                    <h5 class="mt-3" style="margin-right: 10px">{{ $percentageThree ?? '0' }}%</h5>
+                                    <h5 class="mt-3" style="margin-right: 10px">{{ $percentageFour ?? '0' }}%</h5>
+                                    <h5 class="mt-3" style="margin-right: 10px">{{ $percentageOthers ?? '0' }}%</h5>
                                 </div>
                             </div>
                         </div>
