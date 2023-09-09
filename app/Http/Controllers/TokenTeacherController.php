@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contart_info;
 use App\Models\randomcode;
 use Auth;
 use Illuminate\Http\Request;
@@ -14,7 +15,9 @@ class TokenTeacherController extends Controller
         $randomcode = randomcode::paginate(3);
         $department = department::where('ID', 1)->first();
         $surveylink = Surveylink::query()->first();
-        return view('teacher.token',compact('randomcode','department','surveylink'));
+        $id = Auth::user()->id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        return view('teacher.token',compact('randomcode','department','surveylink','contactInfo'));
     }
     public function store(Request $request)
     {
