@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-class MassegeController extends Controller
+class MassageAdminController extends Controller
 {
     public function massege(Request $request)
     {

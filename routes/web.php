@@ -11,8 +11,8 @@ use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ManageAccountController;
+use App\Http\Controllers\MassageAdminController;
 use App\Http\Controllers\MassageController;
-use App\Http\Controllers\MassegeController;
 use App\Http\Controllers\NewsandActivitiesController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\registerController;
@@ -106,7 +106,7 @@ Route::get('/Admin/manage/manage_account',[ManageAccountController::class,'manag
 Route::match(['get','post'],'/update-user-status/{id}',[ManageAccountController::class, 'update'])->middleware('auth', 'checkRole:Admin');
 Route::get('/Admin/manage/delete/{id}',[ManageAccountController::class,'delete'])->middleware('auth', 'checkRole:Admin');
 //---------------รายการข้อความ---------------------------
-Route::get('/Admin/masseges/massege',[MassegeController::class,'massege'])->name('massege')->middleware('auth', 'checkRole:Admin');
+Route::get('/Admin/masseges/massege',[MassageAdminController::class,'massege'])->name('massege')->middleware('auth', 'checkRole:Admin');
 //--------------เพิ่ม admin---------------------------
 Route::get('/register/Admin', [RegisterAdminController::class,'registerAdmin'])->middleware('auth', 'checkRole:Admin');
 Route::post('/register/Admin/add', [RegisterAdminController::class, 'addAdmin'])->name("addAdmin")->middleware('auth', 'checkRole:Admin');
@@ -114,9 +114,9 @@ Route::post('/register/Admin/add', [RegisterAdminController::class, 'addAdmin'])
 Route::get('/register/teacher', [RegisterAdminController::class,'registerteacher'])->middleware('auth', 'checkRole:Admin');
 Route::post('/register/teacher/add', [RegisterAdminController::class, 'addteacher'])->name("addteacher")->middleware('auth', 'checkRole:Admin');
 //------------------ข้อความ admin---------------
-Route::get('/Admin/post/starandread/{id}', [MassegeController::class, 'readmassege'])->name('readmassege')->middleware('auth', 'checkRole:Admin');
-Route::post('/Admin/post/starandread/{id}', [MassegeController::class, 'readmassege'])->name('readmassege')->middleware('auth', 'checkRole:Admin');
-Route::post('/Admin/post/read/{id}', [MassegeController::class, 'read_massege'])->name('read_massege')->middleware('auth', 'checkRole:Admin');
+Route::get('/Admin/post/starandread/{id}', [MassageAdminController::class, 'readmassege'])->name('readmassege')->middleware('auth', 'checkRole:Admin');
+Route::post('/Admin/post/starandread/{id}', [MassageAdminController::class, 'readmassege'])->name('readmassege')->middleware('auth', 'checkRole:Admin');
+Route::post('/Admin/post/read/{id}', [MassageAdminController::class, 'read_massege'])->name('read_massege')->middleware('auth', 'checkRole:Admin');
 //----------------ข้อมูลติดต่อ----------------------
 Route::post('/Admin/Contact/save', [DepartmentController::class, 'store'])->name('Contactsave')->middleware('auth', 'checkRole:Admin');
 //----------------แดชบอร์ด----------------------
