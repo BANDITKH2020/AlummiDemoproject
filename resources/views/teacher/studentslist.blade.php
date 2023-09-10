@@ -158,6 +158,9 @@
                 <div class="row">
                     <div class="col-md-2 mt-3">
                         <div class="card text-center">
+                        @php
+                            $imageData = App\Models\Contart_info::where('ID_student', $row->student_id)->first();
+                        @endphp
                             <img class="mx-auto mt-3" src="{{ asset('images/teamwork.png') }}" alt="John" style="width:60%;">
                             <h5 class="mt-3">{{$row->firstname}} {{$row->lastname}}</h5>
                             <p>{{$row->student_grp}}</p>
