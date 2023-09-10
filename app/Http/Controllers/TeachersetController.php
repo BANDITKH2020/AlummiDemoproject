@@ -16,7 +16,7 @@ class TeachersetController extends Controller
     { 
         $student_id = Auth::user()->student_id;
         $id = Auth::user()->id;
-        $surveylink = Surveylink::query()->first();
+        $surveylink = Surveylink::query()->latest();
         $contactInfo = Contart_info::where('ID_student', $student_id)->first();
         $user = User::where('id', $id)->first();
         $department = department::where('ID', 1)->first();

@@ -144,16 +144,19 @@
                 <label class="form-label" style="position: absolute;left:750px;top: 65px;">
                     <select name="searchdata" class="form-select" >
                         <option value="all">ทั้งหมด</option>
-                        <option value="student_id" >รหัสนักศึกษา</option>
                         <option value="firstname">ชื่อ</option>
                         <option value="lastname">นามสกุล</option>
-                        <option value="graduatesem">ภาคการศึกษาที่จบ</option>
                         <option value="student_grp">กลุ่มนักศึกษา</option>
-                        <option value="active">สถานะเข้าใช้งาน</option>
+                        <option value="graduatesem">ภาคการศึกษาที่จบ</option>
+                        <option value="School_name">ชื่อสถาบันการศึกษา</option>
+                        <option value="degree">ระดับการศึกษา</option>
+                        <option value="Company_name">ชื่อบริษัท</option>
+                        <option value="position">ตำแหน่งงาน</option>
+                        <option value="Skill_name">ทักษะ</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" /> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" required> 
+                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
             </form><br>
@@ -250,49 +253,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">ประวัติข้อความ</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @foreach ($messages as $date => $groupedMessages)
-                    <table class="table caption-top ">
-                        <thead>
-                            <tr>
-                            <th scope="col"colspan="4"class="table-info">{{ $groupedMessages['date'] }}</th>
-                            </tr>
-                        </thead>
-                        @foreach ($groupedMessages['messages'] as $message)
-                            @if ($message->ID_student === Auth::user()->student_id)
-                            <tbody>
-                                <tr>
-                                <th>{{ $message->massage_name }}</th>
-                                <td>{{ $message->massage_cotent }}</td>
-                                <td>{{ $message->created_at->format('H:i:s') }}</td>
-                                </tr>
-                            </tbody>
-                            @endif
-                        @endforeach
-                    </table>
-                    @endforeach
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');
     }
-    function openMassageModal() {
-        $('#MassageModal').modal('show');
-    }
+    
 </script>
 <script>
     // ปิดการใช้งานปุ่มย้อนกลับ

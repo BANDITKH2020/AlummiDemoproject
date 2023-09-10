@@ -155,16 +155,19 @@
                 <label class="form-label" style="position: absolute;left:750px;top: 65px;">
                     <select name="searchdata" class="form-select" >
                         <option value="all">ทั้งหมด</option>
-                        <option value="student_id" >รหัสนักศึกษา</option>
                         <option value="firstname">ชื่อ</option>
                         <option value="lastname">นามสกุล</option>
-                        <option value="graduatesem">ภาคการศึกษาที่จบ</option>
                         <option value="student_grp">กลุ่มนักศึกษา</option>
-                        <option value="active">สถานะเข้าใช้งาน</option>
+                        <option value="graduatesem">ภาคการศึกษาที่จบ</option>
+                        <option value="School_name">ชื่อสถาบันการศึกษา</option>
+                        <option value="degree">ระดับการศึกษา</option>
+                        <option value="Company_name">ชื่อบริษัท</option>
+                        <option value="position">ตำแหน่งงาน</option>
+                        <option value="Skill_name">ทักษะ</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" /> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" required> 
+                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
             </form><br>

@@ -252,13 +252,12 @@
                                             10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
                                         ];
                                         $eventDate = \Carbon\Carbon::parse($row->end_date);
-                                        
                                     @endphp
                                     <tr>
-                                        <td>{{$row->id}}</td>
-                                        <td>{{$row->code}}</td>
-                                        <td>{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
-                                        <td><a href="{{url('/teacher/delete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a> </td>
+                                        <td class="text-center">{{$row->id}}</td>
+                                        <td class="text-center">{{$row->code}}</td>
+                                        <td class="text-center">{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
+                                        <td class="text-center"><button onclick="window.location.href='{{url('/teacher/delete/'.$row->id)}}'" class="btn btn-danger">ลบข้อมูล</button> </td>
                                     </tr>
                                 @endforeach
                                    
