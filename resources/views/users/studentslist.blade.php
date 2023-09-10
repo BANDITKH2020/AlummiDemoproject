@@ -45,7 +45,11 @@
 
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+                @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
+                @else
+                <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
+                @endif
                 <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
@@ -165,19 +169,23 @@
                 </label>
             </form><br>
             <div class="col-12 my-5">
-                @foreach ($student as $row) 
-                <div class="row">
-                    <div class="col-md-2 mt-3">
-                        <div class="card text-center">
-                            <img class="mx-auto mt-3" src="{{ asset('images/teamwork.png') }}" alt="John" style="width:60%;">
-                            <h5 class="mt-3">{{$row->firstname}} {{$row->lastname}}</h5>
-                            <p>{{$row->student_grp}}</p>
-                            <p><a class="btn btn-primary mt-2" onclick="window.location.href='{{ url('/User/studentslist/view/'.$row->id) }}'" >ดูโปรไฟล์</a></p>
-                        </div>
+            @foreach ($students as $student) 
+            <div class="row">
+                <div class="col-md-2 mt-3">
+                    <div class="card text-center">
+                        @if ($student->image)
+                            <img class="mx-auto mt-3" src="{{ Storage::url('image/profileuser/' . $student->image) }}" alt="{{ $student->firstname }} {{ $student->lastname }}" style="width:120px;height:120px;padding:10px; border-radius: 50%;">
+                        @else
+                            <img src="{{ asset('images/teamwork.png') }}" style="width: 120px; height: 120px;padding: 10px">
+                        @endif
+                        <h5 class="mt-3">{{ $student->firstname }} {{ $student->lastname }}</h5>
+                        <p>{{ $student->student_grp }}</p>
+                        <p><a class="btn btn-primary mt-2" onclick="window.location.href='{{ url('/User/studentslist/view/'.$student->id) }}'" >ดูโปรไฟล์</a></p>
                     </div>
                 </div>
-                @endforeach
-                {{ $student->links() }}
+            </div>
+            @endforeach
+            {{ $students->links() }}
             </div>
     </div>
    

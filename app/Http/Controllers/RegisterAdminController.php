@@ -53,10 +53,14 @@ class RegisterAdminController extends Controller
                 
             ]
         );
+        $randomStudentID = rand(10000, 99999);
+        while (User::where('student_id', 'S' . $randomStudentID)->exists()) {
+            $randomStudentID = rand(10000, 99999);
+        }
         User::create([
             'firstname' => $request->firstname,
             'lastname'=> $request->lastname,
-            'student_id'=> 'teacher',
+            'student_id'=> 'S' . $randomStudentID,
             'student_grp'=> 'teacher',
             'graduatesem'=> 'teacher',
             'inviteby'=> 'teacher',

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contart_info;
 use App\Models\department;
 use App\Models\Massage;
 use App\Models\reward;
 use App\Models\Surveylink;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -63,6 +65,8 @@ class RewardUserController extends Controller
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
         $department = department::where('ID', 1)->first();
-        return view('users.reward',compact('reward','surveylink','messages','department'));
+        $id = Auth::user()->student_id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        return view('users.reward',compact('reward','surveylink','messages','department','contactInfo'));
     }
 }

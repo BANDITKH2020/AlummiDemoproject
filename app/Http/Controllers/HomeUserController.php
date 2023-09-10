@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contart_info;
 use App\Models\department;
 use App\Models\LoginHistory;
 use App\Models\Massage;
@@ -52,7 +53,9 @@ class HomeUserController extends Controller
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
         $department = department::where('ID', 1)->first();
-        return view('users.home', compact('newsandactivity','surveylink','messages','department'));
+        $id = Auth::user()->student_id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        return view('users.home', compact('newsandactivity','surveylink','messages','department','contactInfo'));
     }
     public function logout()
     {
@@ -71,7 +74,9 @@ class HomeUserController extends Controller
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
         $surveylink = Surveylink::query()->first();
-        return view('users.view',compact('view'));
+        $id = Auth::user()->student_id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        return view('users.view',compact('view','contactInfo'));
     }
    
 }

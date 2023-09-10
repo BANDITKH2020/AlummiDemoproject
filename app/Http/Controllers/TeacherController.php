@@ -26,10 +26,10 @@ class TeacherController extends Controller
             );
             
         }
-        /*$userLoginHistory = LoginHistory::where('user_id', $user->id)->first();
+        $userLoginHistory = LoginHistory::where('user_id', $user->id)->first();
             if ($userLoginHistory) {
                 $userLoginHistory->update(['login_at' => now()]);
-            }*/
+            }
         $query = newsandactivity::query();
         $search = $request->input('search');
         $gender = $request->gender;
@@ -51,7 +51,7 @@ class TeacherController extends Controller
             $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
-        $id = Auth::user()->id;
+        $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
         $department = department::where('ID', 1)->first();
         return view('teacher.home', compact('newsandactivity','surveylink','messages','department','contactInfo'));
@@ -59,10 +59,10 @@ class TeacherController extends Controller
     public function studentslist()
     {   
         $query = User::query();
-        $student = $query
-            ->select('id','student_id', 'firstname', 'lastname', 'educational_status','inviteby','student_grp','role_acc','created_at','active','email','graduatesem','groupleader')
-            ->whereIn('role_acc', ['student', 'teacher'])
-            ->paginate(10);
+        $students = User::select('users.id', 'users.student_id', 'users.firstname', 'users.lastname', 'users.educational_status', 'users.inviteby', 'users.student_grp', 'users.role_acc', 'users.created_at', 'users.active', 'users.email', 'users.graduatesem', 'users.groupleader', 'contart_infos.image')
+                    ->whereIn('users.role_acc', ['student', 'teacher'])
+                    ->leftJoin('contart_infos', 'users.student_id', '=', 'contart_infos.ID_student')
+                    ->paginate(10);
         $LoginHistory = LoginHistory::query()->get(); 
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
             return $message->created_at->format('Y-m-d'); // แยกตามวันที่
@@ -73,9 +73,9 @@ class TeacherController extends Controller
         });
         $surveylink = Surveylink::query()->first();
         $department = department::where('ID', 1)->first();
-        $id = Auth::user()->id;
+        $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
-        return view('teacher.studentslist',compact('student','surveylink','messages','LoginHistory','department','contactInfo'));
+        return view('teacher.studentslist',compact('students','surveylink','messages','LoginHistory','department','contactInfo'));
     }
 
     public function graduate_teacher(Request $request)
@@ -126,7 +126,7 @@ class TeacherController extends Controller
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
         $department = department::where('ID', 1)->first();
-        $id = Auth::user()->id;
+        $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
         return view('teacher.graduate', compact('users','surveylink','messages','department','contactInfo'));
     }

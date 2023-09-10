@@ -14,9 +14,10 @@ class TeachersetController extends Controller
 {
     public function accTeacher()
     { 
+        $student_id = Auth::user()->student_id;
         $id = Auth::user()->id;
         $surveylink = Surveylink::query()->first();
-        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        $contactInfo = Contart_info::where('ID_student', $student_id)->first();
         $user = User::where('id', $id)->first();
         $department = department::where('ID', 1)->first();
         
@@ -86,7 +87,7 @@ class TeachersetController extends Controller
         $existingContact->telephone = $Tel;
         $existingContact->ID_instagram = $Instagram;
         $existingContact->status_contact = $status_contact;
-        $existingContact->ID_student = Auth::user()->id;
+        $existingContact->ID_student = Auth::user()->student_id;
         $existingContact->attention = $attention;
         $existingContact->save();
 
@@ -129,7 +130,7 @@ class TeachersetController extends Controller
         $Contart_info->ID_instagram = $Instagram;
         $Contart_info->status_contact = $status_contact;
         $Contart_info->attention = '-'; // หรือตั้งค่าเป็น null ตามความต้องการของคุณ
-        $Contart_info->ID_student = Auth::user()->id;
+        $Contart_info->ID_student = Auth::user()->student_id;
         $Contart_info->save();
 
         return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");

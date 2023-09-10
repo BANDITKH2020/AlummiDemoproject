@@ -15,6 +15,7 @@ use App\Models\Surveylink;
 use App\Models\Tranning_info;
 use App\Models\User;
 use App\Models\Workhistory_info;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\department;
@@ -23,10 +24,10 @@ class UserController extends Controller
     public function studentslist()
     {   
         $query = User::query();
-        $student = $query
-            ->select('id','student_id', 'firstname', 'lastname', 'educational_status','inviteby','student_grp','role_acc','created_at','active','email','graduatesem','groupleader')
-            ->whereIn('role_acc', ['student', 'teacher'])
-            ->paginate(10);
+        $students = User::select('users.id', 'users.student_id', 'users.firstname', 'users.lastname', 'users.educational_status', 'users.inviteby', 'users.student_grp', 'users.role_acc', 'users.created_at', 'users.active', 'users.email', 'users.graduatesem', 'users.groupleader', 'contart_infos.image')
+                    ->whereIn('users.role_acc', ['student', 'teacher'])
+                    ->leftJoin('contart_infos', 'users.student_id', '=', 'contart_infos.ID_student')
+                    ->paginate(10);
         $LoginHistory = LoginHistory::query()->get(); 
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
             return $message->created_at->format('Y-m-d'); // แยกตามวันที่
@@ -37,7 +38,9 @@ class UserController extends Controller
         });
         $surveylink = Surveylink::query()->first();
         $department = department::where('ID', 1)->first();
-        return view('users.studentslist',compact('student','surveylink','messages','LoginHistory','department'));
+        $id = Auth::user()->student_id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        return view('users.studentslist',compact('students','surveylink','messages','LoginHistory','department','contactInfo'));
     }
     public function viewProfile($id){
         $user = User::find($id);

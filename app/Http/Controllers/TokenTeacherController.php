@@ -15,7 +15,7 @@ class TokenTeacherController extends Controller
         $randomcode = randomcode::paginate(3);
         $department = department::where('ID', 1)->first();
         $surveylink = Surveylink::query()->first();
-        $id = Auth::user()->id;
+        $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
         return view('teacher.token',compact('randomcode','department','surveylink','contactInfo'));
     }
