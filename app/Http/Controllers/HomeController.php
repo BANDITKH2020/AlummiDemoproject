@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\newsandactivity;
+use Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +25,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+        if ($user->active == 0) {
+            Auth::logout();
+            return redirect()->route('loginAdmin')->with('error', 'บัญชีของคุณถูกปิดการใช้งาน');
+        }
         //หน้าแรก admin
         $query = newsandactivity::query();
         $search = $request->input('search');
