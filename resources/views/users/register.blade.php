@@ -157,6 +157,9 @@
                                                     <label for="token_id" class="form-label">รหัส</label>
                                                     <input type="text" name="token_id" class="form-control" id="token_id" required>
                                                 </div>
+                                                <div class="col-lg-12 mt-3">
+                                                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                                                </div>
                                                 <div class="d-grid gap-2 col-12 mt-3">
                                                     <button type="submit" class="btn btn-outline-dark"role="button" style="text-transform:none" id="googleLoginButton" >
                                                         <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />

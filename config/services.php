@@ -40,10 +40,9 @@ return [
 
 
 
-        'login' => [
-            'client_id' => env('ANOTHER_GOOGLE_CLIENT_ID'),
-            'client_secret' => env('ANOTHER_GOOGLE_CLIENT_SECRET'),
-            'redirect' => env('ANOTHER_GOOGLE_REDIRECT_URI'),
+        'recaptcha' => [
+            'site_key' => env('RECAPTCHA_SECRET'),
+            'secret' => env('RECAPTCHA_SITEKEY'),
         ],
         
     
