@@ -175,7 +175,7 @@
                 </select>
                 <div class="col-mb-2">
                     <input type="text" class="form-control" name="search" placeholder="ค้นหาข้อความ" style="position:relative;left:250px;top:-37px" /> 
-                    <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
+                    <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
                 </div>
             </label>
         </form>

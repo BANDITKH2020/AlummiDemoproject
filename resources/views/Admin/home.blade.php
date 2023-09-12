@@ -122,7 +122,7 @@
     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
       <div class="col-mb-2">
         <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" /> 
-        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+        <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
       </div>
     </label>            
     </form>
