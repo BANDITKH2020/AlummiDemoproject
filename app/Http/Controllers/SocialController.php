@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\randomcode;
-use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -10,7 +9,6 @@ use Validator;
 use Illuminate\Support\Facades\Session;
 use Exception;
 use Auth;
-use Mvdnbrk\Hcaptcha\Facades\Hcaptcha;
 class SocialController extends Controller
 {   
    
