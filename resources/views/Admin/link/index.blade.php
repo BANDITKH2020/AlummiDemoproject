@@ -55,7 +55,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
             <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -82,6 +82,9 @@
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
@@ -105,7 +108,7 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
         <h2>จัดการแบบสอบถาม</h2>
         <hr class="mt-1" style="border: 1px solid #000">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
             เพิ่มลิงก์
         </button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,8 +144,8 @@
         <form action="{{ url('/search') }}" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ปีการศึกษา" style="position:relative;left:300px;top:-1px" /> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:-1px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาลิงค์" style="position:relative;left:300px;top:-1px" /> 
+                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:-1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -199,15 +202,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                            
+                                            @php
+                                                $thaiMonths = [
+                                                    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                                    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                                    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                                    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                                                ];
+                                            @endphp
                                             @foreach($surveylink as $row)
                                             <tr>
-                                            <td>{{$row->graduatedyear}}</td>
-                                            <td >{{$row->link}}</td>
-                                            <td >{{$row->created_at->format('d-m-Y')}}</td>
+                                            <td class="text-center">{{$row->graduatedyear}}</td>
+                                            <td>{{$row->link}}</td>
+                                            <td class="text-center">{{$row->created_at->format('d')}} {{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</td>
                                             <td class="custom-action-buttons">
                                                 <a href="#edit{{$row->id}}" data-bs-toggle="modal" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
-                                                <a href="{{url('/link/delete/'.$row->id)}}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">
+                                                <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                             </td>
                                             </tr>
                                             @endforeach
@@ -256,13 +267,13 @@
         @endforeach   
         @if(Session::has('alert'))
         <script>
-            swal("Massage","{{Session::get('alert')}}",'info',{
-                title: "Good job!",
-                text: "บันทึกข้อมูลสำเร็จ",
+            swal("{{Session::get('alert')}}",{
                 icon: "success",
-            });
+                if(exist){
+                    alert(msg);
+            }});
         </script>
-        @endif
+        @endif  
         
         <script>
             // JavaScript สำหรับการตรวจสอบและควบคุมปุ่ม Submit
@@ -287,6 +298,27 @@
                 });
             });
         </script>
+        <script>
+            function confirmDelete(id) {
+            swal({
+                title: "",
+                text: "คุณแน่ใจที่จะลบลิงค์นี้ใช่ไหม",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                // ถ้าผู้ใช้คลิก "ตกลง"
+                window.location.href = "{{ url('/link/delete/') }}" + '/' + id;
+                } else {
+                // ถ้าผู้ใช้คลิก "ยกเลิก"
+                swal("คุณยกเลิกการลบลิงค์แล้ว");
+                }
+            });
+            return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+            }
+        </script> 
     </div>
     </div>
 </div>

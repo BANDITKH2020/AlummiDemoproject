@@ -53,7 +53,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
             <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -78,6 +78,9 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -161,20 +164,23 @@
             <div class="card-body">  
             <h4>ประเภทกิจกรรม</h4>
                 <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="1">งานพบประสังสรรค์
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="1">งานพบประสังสรรค์ประจำปี
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="2">งานวิชาการ
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1" value="2">อบรมให้ความรู้วิชาการ
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="3">งานแข่งขันกีฬา
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="3">งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input " type="radio" name="category" id="flexRadioDefault1"  value="4">กิจกรรมศิษย์เก่าสัมพันธ์
                 </div>
                 <div class="form-check"  >
-                    <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="4">อื่นๆ
+                    <input class="form-check-input" type="radio" name="category"  id="flexRadioDefault1" value="5">กิจกรรมอื่นๆ
                     <input type="text" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
                 </div>
                 <h4>วันที่จัดกิจกรรม</h4>
-                <input class="form-control" type="date" id="event_date" name="event_date">
+                <input class="form-control" type="date" id="event_date" name="event_date" required>
                 @error('category')
                     <div class="my">
                         <span class="text-danger">{{$message}}</span>

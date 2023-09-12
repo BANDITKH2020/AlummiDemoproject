@@ -15,7 +15,8 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $user = User::count();
-        $educational_status = User::where('educational_status', 'จบการศึกษา')->count();
+        $currentYear = now()->year + 543;
+        $educational_status = User::where('educational_status', 'จบการศึกษา')->where('graduatesem', '=', $currentYear)->count();
         $threeMonthsAgo = Carbon::now()->subMonths(3);
         $inactiveUserCount = LoginHistory::where('login_at', '<=', $threeMonthsAgo)->count();
 

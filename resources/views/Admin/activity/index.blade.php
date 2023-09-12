@@ -55,7 +55,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
             <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -82,6 +82,9 @@
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
@@ -103,9 +106,9 @@
     </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
-        <h2>จัดการการกิจกรรม</h2>
+        <h2>จัดการกิจกรรม</h2>
         <hr class="mt-1" style="border: 1px solid #000">
-        <a class="btn btn-outline-warning" href="{{route('saveactivitys')}}" role="button" >เพิ่มกิจกรรม</a>
+        <button class="btn btn-warning" onclick="window.location.href='{{route('saveactivitys')}}'" role="button" >เพิ่มกิจกรรม</button>
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:500px;top: 65px;">
                     <select name="searchdata" class="form-select" >
@@ -115,8 +118,8 @@
                         <option value="created_at">วันที่จัดกิจกรรม</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search activitys" style="position:relative;left:300px;top:-37px" /> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหากิจกรรม" style="position:relative;left:300px;top:-37px" /> 
+                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -167,6 +170,7 @@
                                 .delete:hover iconify-icon {
                                     color: #FF0033; /* สีของไอคอนเมื่อ hover */
                                 }
+                                
                             </style>
                             
                                 <table class="table table-bordered">
@@ -198,7 +202,8 @@
                                             <td class="custom-action-buttons">
                                                 <a href="{{ url('/activity/editactivity/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
                                                 <a href="#addImage{{$row->id}}" data-bs-toggle="modal" class="addImage" title="addImage" data-toggle="tooltip"><iconify-icon icon="clarity:image-line"></iconify-icon></a>
-                                                <a href="{{ url('/activity/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">
+                                                <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                             </td>
                                             </tr>
                                             @endforeach
@@ -261,13 +266,43 @@
         @endforeach
         @if(Session::has('alert'))
         <script>
-            swal("Massage","{{Session::get('alert')}}",'info',{
+            swal("{{Session::get('alert')}}",{
                 icon: "success",
                 if(exist){
                     alert(msg);
             }});
         </script>
         @endif   
+        @if(Session::has('error'))
+        <script>
+            swal("{{Session::get('error')}}",{
+                icon: "error",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+        @endif  
+        <script>
+            function confirmDelete(id) {
+            swal({
+                title: "",
+                text: "คุณแน่ใจที่จะลบกิจกรรมนี้ใช่ไหม",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                // ถ้าผู้ใช้คลิก "ตกลง"
+                window.location.href = "{{ url('/activity/delete/') }}" + '/' + id;
+                } else {
+                // ถ้าผู้ใช้คลิก "ยกเลิก"
+                swal("คุณยกเลิกการลบกิจกรรมแล้ว");
+                }
+            });
+            return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+            }
+        </script>
     </div>
 </div> 
 </body>

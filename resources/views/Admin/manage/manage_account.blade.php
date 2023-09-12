@@ -57,7 +57,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -82,6 +82,9 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -119,8 +122,8 @@
                             <option value="active">สถานะเข้าใช้งาน</option>
                         </select>
                         <div class="col-mb-2">
-                            <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" /> 
-                            <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+                            <input type="text" class="form-control" name="search" placeholder="ค้นหาบัญชี" style="position:relative;left:250px;top:-37px" /> 
+                            <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
                         </div>
                     </label>
             </form>
@@ -268,7 +271,8 @@
                                                     <td scope="col" class="text-center custom-column ">
                                                         <a class="edit" data-bs-toggle="modal" data-bs-target="#exampleModal{{$row->id}}"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
                                                         <a href="mailto:{{$row->email}}" class="mail" title="mail" data-toggle="tooltip"><iconify-icon icon="ic:outline-mail"></iconify-icon></a>
-                                                        <a href="{{ url('/Admin/manage/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')" class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">
+                                                        <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -347,8 +351,13 @@
                                                         <label for="active" class="col-form-label custom-label">สถานะเข้าใช้งาน</label>
                                                         <div class="col">
                                                             <select name="active" class="form-select custom-input" value="{{$row->active}}">
-                                                            <option value="true" {{$row->groupleader == 'true' ? 'selected' : ''}}>เปิดการใช้งาน</option>
-                                                            <option value="false" {{$row->groupleader == 'false' ? 'selected' : ''}}>ปิดการใช้งาน</option>
+                                                            @if($row->active == 1 )
+                                                            <option value="true" >เปิดการใช้งาน</option>
+                                                            @else
+                                                            <option value="false">ปิดการใช้งาน</option>
+                                                            @endif
+                                                            <option value="true" >เปิดการใช้งาน</option>
+                                                            <option value="false">ปิดการใช้งาน</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -377,6 +386,27 @@
                 }});
             </script>
             @endif  
+            <script>
+            function confirmDelete(id) {
+            swal({
+                title: "",
+                text: "คุณแน่ใจที่จะลบบัญชีนี้ใช่ไหม",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                // ถ้าผู้ใช้คลิก "ตกลง"
+                window.location.href = "{{ url('/Admin/manage/delete/') }}" + '/' + id;
+                } else {
+                // ถ้าผู้ใช้คลิก "ยกเลิก"
+                swal("คุณยกเลิกการลบบัญชีนี้แล้ว");
+                }
+            });
+            return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+            }
+        </script> 
         </div>
         
 </div>

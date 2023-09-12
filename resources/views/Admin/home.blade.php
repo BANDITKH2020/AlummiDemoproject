@@ -45,7 +45,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -94,7 +94,7 @@
             <hr class="mt-1" style="border: 2px solid #000">
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-  </div>
+      </div>
 
   <style>
     .custom-card {
@@ -143,23 +143,24 @@
               <div class="card mt-5 custom-card">
                   <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
                   <div class='card-body'>
-                      <h5 class="card-title font-weight-bold">{{ $row->title_name }}</h5>
+                      <h5 class="card-title font-weight-bold">{{ Str::limit($row->title_name,20) }}</h5>
                       <p class="card-text">{{ Str::limit($row->cotent, 50) }}</p>
                       <p class="card-text">วันที่อัพเดต: {{ $createdDate->format('d') }}{{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</p>
                       @if ($eventDate)
                           <p class="card-text">วันที่จัดกิจกรรม: {{ $eventDate->format('d') }}{{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</p>
                       @else
-                          <p class="card-text">วันที่จัดกิจกรรม: ไม่มี</p>
+                          <p class="card-text"><br></p>
                       @endif
                       <div class="d-flex justify-content-center">
-                          <a type="button" style="color: black;" href="{{ url('/home/view/'.$row->id) }}" class="btn btn-primary btn-lg">รายละเอียด</a>
+                          <button type="button" onclick="window.location.href='{{ url('/home/view/'.$row->id) }}'" class="btn btn-primary btn-lg">รายละเอียด</button>
                       </div>
                   </div>
               </div>
           </div>
       @endforeach
-
+      <div class="d-flex justify-content-center mt-5">
         {{ $newsandactivity->links() }}
+      </div>
       </div>
   </div>
 </div>

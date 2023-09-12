@@ -24,7 +24,6 @@ class TokenController extends Controller
         $randomCodeModel->end_date = $selectedDateTime; // กำหนดวันที่และเวลาที่สร้าง
         $randomCodeModel->user_id = Auth::user()->id;
         $randomCodeModel->save();
-    
         return response()->json(['alert' => 'บันทึกข้อมูลเรียบร้อย', 'createdAt' => $randomCodeModel->created_at]);
     }
     public function delete($id){

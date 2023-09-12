@@ -45,81 +45,43 @@
         </div>
         </div>
     
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
+        <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                <h3>{{ Auth::user()->firstname }}</h3>
+                <h4>{{ Auth::user()->firstname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-                <a href="/users/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-                <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
-              @endif
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-              <a href="{{route('graduate')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-              <a href="#" class="textmenu"><h5>รางวัลประกาศ</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('activitys') }}" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-                <a href="#" class="textmenu"><h5>แบบสอบถาม</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('reward') }}" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-                <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
-              @endif
-              @if (Auth::check() && Auth::user()->role_acc !== 'Admin')
-                <a href="" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
-              @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-              @if (Auth::check() && Auth::user()->role_acc === 'Admin')
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
-              @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -136,11 +98,12 @@
                   <iconify-icon icon="subway:admin-1"></iconify-icon>
               </a>
             </div>
+
+
             <hr class="mt-1" style="border: 2px solid #000">
-            
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-    </div>
+      </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
         <h2>ทำเนียบบัณฑิต</h2>
@@ -157,7 +120,7 @@
                     </select>
                     <div class="col-mb-2">
                         <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="position:relative;left:300px;top:-37px"/> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -203,13 +166,15 @@
             </div> 
         </div>
         
+        @if(Session::has('alert'))
         <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
-        </script>   
+            swal("{{Session::get('alert')}}",{
+                icon: "success",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+        @endif  
     </div>
 </div> 
 </body>

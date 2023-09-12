@@ -35,9 +35,9 @@ class NewsandActivitiesController extends Controller
         }
     }
     if ($query->where('cotent_type', '1')->exists()) {
-        $newsandactivity = $query->paginate(3);
+        $newsandactivity = $query->paginate(10);
     }else{
-        $newsandactivity = $query->paginate(3);
+        $newsandactivity = $query->paginate(10);
     }
     // Paginate the results after applying the filters
    

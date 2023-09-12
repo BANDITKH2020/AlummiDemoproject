@@ -35,9 +35,9 @@ class activityController extends Controller
         }
 
         if ($query->where('cotent_type','2')->exists()) {
-            $activitys = $query->paginate(3);
+            $activitys = $query->paginate(10);
         }else{
-            $activitys = $query->paginate(3);
+            $activitys = $query->paginate(10);
         }
         return view('admin.activity.index', compact('activitys'));
     }
@@ -83,7 +83,7 @@ class activityController extends Controller
         $category = $request->category;
             switch ($category) {
                 case '1':
-                    $category='งานพบประสังสรรค์';
+                    $category='งานพบประสังสรรค์ประจำปี';
                     newsandactivity::insert([
                         'title_name'=>$request->title_name,
                         'cotent'=>$request->cotent,
@@ -96,7 +96,7 @@ class activityController extends Controller
                     ]);
                     break;
                 case '2':
-                    $category='งานวิชาการ';
+                    $category='อบรมให้ความรู้วิชาการ';
                     newsandactivity::insert([
                         'title_name'=>$request->title_name,
                         'cotent'=>$request->cotent,
@@ -109,7 +109,7 @@ class activityController extends Controller
                     ]);
                     break;
                 case '3':
-                    $category='งานแข่งขันกีฬา';
+                    $category='งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์';
                     newsandactivity::insert([
                         'title_name'=>$request->title_name,
                         'cotent'=>$request->cotent,
@@ -122,6 +122,19 @@ class activityController extends Controller
                     ]);
                     break;
                 case '4':
+                        $category='กิจกรรมศิษย์เก่าสัมพันธ์';
+                        newsandactivity::insert([
+                            'title_name'=>$request->title_name,
+                            'cotent'=>$request->cotent,
+                            'title_image'=>$full_path,
+                            'category'=>$category,
+                            'objective'=>$request->objective,
+                            'cotent_type'=>$cotent_type,
+                            'event_date'=>$request->event_date,
+                            'created_at'=>Carbon::now()
+                        ]);
+                        break;
+                case '5':
                     newsandactivity::insert([
                         'title_name'=>$request->title_name,
                         'cotent'=>$request->cotent,
@@ -222,6 +235,6 @@ class activityController extends Controller
             return redirect()->back()->with('alert', 'รูปภาพถูกเพิ่มเรียบร้อยแล้ว');
         }
 
-        return redirect()->back()->with('alert', 'ไม่พบรูปภาพที่อัพโหลด');
+        return redirect()->back()->with('error', 'ไม่พบรูปภาพที่อัพโหลด');
     }
 }

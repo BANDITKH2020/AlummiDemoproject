@@ -82,6 +82,9 @@
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
@@ -105,7 +108,7 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>ปรับสภานภาพ</h2>
     <hr class="mt-1" style="border: 1px solid #000">
-    <button type="button" class="btn btn-primary" id="openModalButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-warning" id="openModalButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
     ปรับสถานะนักศึกษา
     </button>
         <form action="" method="GET" >
@@ -120,8 +123,8 @@
                         <option value="educational_status">สถานะ</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:300px;top:-37px" /> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหานักศึกษา" style="position:relative;left:300px;top:-37px" /> 
+                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -250,8 +253,8 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body" > <!-- ตรวจสอบ ID ที่ถูกต้องให้กับอิลิเมนต์นี้ -->
-                                            <p>จำนวนนักศึกษาที่ปรับสถานะ <span id="selectedIdsCount"></span> คน</p>  
-                                            <p>จำนวนไอดีที่ส่งมา: <span id="selectedIds"></span></p> 
+                                            <h4>จำนวนนักศึกษาที่ปรับสถานะ <span id="selectedIdsCount"></span> คน</h4>  
+                                            <span id="selectedIds" style="display: none;"></span> 
                                             <form action="/Admin/student/status/graduatesem_up" method="post" enctype="multipart/form-data" >
                                                 {{ csrf_field() }}
                                                 <div class="mb-3 @error('graduatesem') error @enderror">

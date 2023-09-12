@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-   
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <style>
@@ -82,6 +82,9 @@
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
@@ -105,19 +108,19 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการข่าวสาร</h2>
     <hr class="mt-1" style="border: 1px solid #000">
-    <a class="btn btn-outline-warning" href="{{ route('savenews') }}" role="button" >เพิ่มข่าว</a>
+    <a class="btn btn-warning" onclick="window.location.href='{{ route('savenews') }}'" role="button" >เพิ่มข่าว</a>
         <form action="" method="GET" >
-                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
-                    <select name="gender" class="form-select" >
-                        <option value="all">ทั้งหมด</option>
-                        <option value="title_name" >หัวข้อ</option>
-                        <option value="created_at">วันที่</option>
-                    </select>
-                    <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="Search news" style="position:relative;left:300px;top:-37px" /> 
-                        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:525px;top:1px;">Search</button>
-                    </div>
-                </label>
+            <label class="form-label" style="position: absolute;left:500px;top: 65px;">
+                <select name="gender" class="form-select" >
+                    <option value="all">ทั้งหมด</option>
+                    <option value="title_name" >หัวข้อ</option>
+                    <option value="created_at">วันที่</option>
+                </select>
+                <div class="col-mb-2">
+                    <input type="text" class="form-control" name="search" placeholder="ค้นหาข่าว" style="position:relative;left:300px;top:-37px" /> 
+                    <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
+                </div>
+            </label>
         </form>
         <div class="d-grid gap-2 col-12 mx-auto "style="position: absolute;left:125px;top:125px;">
             <div class="row" >
@@ -187,7 +190,8 @@
                                             <td scope="col"class="text-center">{{$row->created_at->format('d')}} {{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</td>
                                             <td class="custom-action-buttons">
                                                 <a href="{{ url('/new/editnews/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
-                                                <a href="{{ url('/new/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">
+                                                <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                             </td>
                                             </tr>
                                             @endforeach
@@ -202,16 +206,45 @@
                 </div> 
             </div> 
         </div>
-        
-        
-             
+        @if(Session::has('alert'))
         <script>
-            var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
+            swal("{{Session::get('alert')}}",{
+                icon: "success",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+        @endif   
+        @if(Session::has('error'))
+        <script>
+            swal("{{Session::get('error')}}",{
+                icon: "error",
+                if(exist){
+                    alert(msg);
+            }});
+        </script>
+        @endif  
+        <script>
+            function confirmDelete(id) {
+            swal({
+                title: "",
+                text: "คุณแน่ใจที่จะลบข่าวนี้ใช่ไหม",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                // ถ้าผู้ใช้คลิก "ตกลง"
+                window.location.href = "{{ url('/new/delete/') }}" + '/' + id;
+                } else {
+                // ถ้าผู้ใช้คลิก "ยกเลิก"
+                swal("คุณยกเลิกการลบข่าวแล้ว");
+                }
+            });
+            return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
             }
-        </script>   
+        </script> 
     </div>
 </div>
 </body>

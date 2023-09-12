@@ -55,7 +55,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -82,6 +82,9 @@
                 <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
+                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
@@ -96,11 +99,12 @@
                   <iconify-icon icon="subway:admin-1"></iconify-icon>
               </a>
             </div>
+
+
             <hr class="mt-1" style="border: 2px solid #000">
-            
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-  </div>
+      </div>
 
   <style>
     .custom-card {
@@ -170,8 +174,8 @@
                     <option value="status_massage">ข้อความที่ติดดาว</option>
                 </select>
                 <div class="col-mb-2">
-                    <input type="text" class="form-control" name="search" placeholder="" style="position:relative;left:250px;top:-37px" /> 
-                    <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+                    <input type="text" class="form-control" name="search" placeholder="ค้นหาข้อความ" style="position:relative;left:250px;top:-37px" /> 
+                    <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
                 </div>
             </label>
         </form>
@@ -262,7 +266,7 @@
                             @if ($message->massage_file)
                                 <a href="{{ asset('storage/' . $message->massage_file) }}" download><iconify-icon icon="formkit:file" style="color: black; font-size: 24px;"></iconify-icon> ดาวน์โหลด</a>
                             @else
-                                <p>ไม่มีไฟล์ที่สามารถดาวน์โหลดได้</p>
+                                <iconify-icon icon="formkit:file" style="color: black; font-size: 24px;"></iconify-icon> ไม่มีไฟล์ที่สามารถดาวน์โหลดได้</a>
                             @endif
                         </div>
                         <div class="modal-footer">

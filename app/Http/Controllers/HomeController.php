@@ -43,7 +43,7 @@ class HomeController extends Controller
        
     
     
-        $newsandactivity = $query->paginate(4);
+        $newsandactivity = $query->paginate(10);
         return view('Admin.home', compact('newsandactivity'));
     }
     public function welcome()

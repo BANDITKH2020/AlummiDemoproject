@@ -45,7 +45,7 @@
                 <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>การจัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
@@ -148,7 +148,7 @@
                             <h1 style="color: #FF8A00">{{$user}} คน</h1>
                         </div>
                         <div class="col-12 ml-4 mt-4 text-center" style="border: 1px solid #000;border-radius:10px;background-color: #ffffff;">
-                            <h5 class="mt-3">จำนวนผู้ที่จบในปี 2565 (ล่าสุด)</h5>
+                            <h5 class="mt-3">จำนวนผู้ที่จบการศึกษา (ปีล่าสุด)</h5>
                             <h1 style="color: #1400FF">{{$educational_status}} คน</h1>
                         </div>
                         <div class="col-12 ml-4 mt-4 text-center" style="border: 1px solid #000;border-radius:10px;background-color: #ffffff;">
