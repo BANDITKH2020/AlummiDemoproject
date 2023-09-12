@@ -34,12 +34,8 @@ class SocialController extends Controller
         if (!$recaptcha) {
             return redirect()->back()->with('error', 'กรุณาตอบคำถาม reCAPTCHA');
         }
-        
         // ตรวจสอบคำตอบของ reCAPTCHA ด้วย Google reCAPTCHA API
-        
         return redirect('auth/google');
-    
-        
     }
     public function googleRedirect()
     {   
@@ -64,8 +60,8 @@ class SocialController extends Controller
             $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LebpBooAAAAAGKjwxVakaAsE64472muJOpCQMm9&response={$recaptcha}");
             $responseKeys = json_decode($response, true);
             if ($existing) { 
-                if ($existing->active === 1) {
-                    if ($existing->role_acc === 'student') {
+                if ($existing->active === 1) {//ตรวจสอบสถานะบัญชี
+                    if ($existing->role_acc === 'student') {//ตรวจสอบrole ผู้ใช้
                         Auth::login($existing);
                         return redirect('/users/homeuser');
                     }else{
@@ -78,7 +74,7 @@ class SocialController extends Controller
                 }
             } else {
                 $emailteacher = User::where('email', $email)->first();
-                if($emailteacher){
+                if($emailteacher){ //เพิ่ม google_id ของอาจารย์
                     $emailteacher->update([
                         'google_id' => $id,
                     ]);
@@ -88,7 +84,7 @@ class SocialController extends Controller
                 elseif ($firstname&&$lastname&&$student_id&&$student_grp&&$token_id === null) {
                     return redirect('/')->with('error','กรุณาลงทะเบียนให้ถูกต้อง');
                 }else{
-                    if (intval($responseKeys["success"]) === 1) {
+                    if (intval($responseKeys["success"]) === 1) { //ตรวจสอบ recapcha
                         if ($otherUser && $token_id === $otherUser->code) {
                             $otherUserId = $otherUser->user_id;
                             $user = User::find($otherUserId);
