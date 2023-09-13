@@ -177,7 +177,7 @@
 </div>
     @if(Session::has('alert'))
         <script>
-            swal("Massage","{{Session::get('alert')}}",'info',{
+            swal("{{Session::get('alert')}}",{
                 icon: "success",
                 if(exist){
                     alert(msg);

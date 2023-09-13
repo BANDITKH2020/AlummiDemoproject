@@ -98,7 +98,7 @@ class SocialController extends Controller
                             'email' => $email,
                             'google_id' => $id,
                             'role_acc' => 'student',
-                            'groupleader'=> 'null',
+                            'groupleader'=> 'ไม่เป็นหัวหน้า',
                             'graduatesem'=> Carbon::now()->year + 543,
                             'educational_status'=>'กำลังศึกษา',
                             ]);

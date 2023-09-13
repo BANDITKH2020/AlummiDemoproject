@@ -342,7 +342,8 @@
                                                         <label for="groupleader" class="col-form-label custom-label">สถานะหัวหน้ากลุ่ม</label>
                                                         <div class="col">
                                                             <select name="groupleader" class="form-select custom-input" value="{{$row->groupleader}}">
-                                                                <option value="เป็นหัวหน้า" selected>เป็นหัวหน้า</option>
+                                                                <option value="{{$row->groupleader}}" >{{$row->groupleader}}</option>
+                                                                <option value="เป็นหัวหน้า" >เป็นหัวหน้า</option>
                                                                 <option value="ไม่เป็นหัวหน้า">ไม่เป็นหัวหน้า</option>
                                                             </select>
                                                         </div>
