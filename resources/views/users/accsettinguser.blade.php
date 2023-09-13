@@ -175,8 +175,7 @@
         .tabcontent {
             display: none;
             padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: 1px solid #ccc;
+            border: none;
         }
         .edit iconify-icon {
             font-size: 24px;
@@ -186,158 +185,433 @@
 
         .edit:hover iconify-icon {
             color: yellow; /* สีของไอคอนเมื่อ hover */
-        }  
-        
+        } 
     </style>
-    
-                    <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-                        <div class="col-12 mt-5">
-                            <h4 class="mt-3">ตั้งค่าโปรไฟล์</h4>
-                            <hr>
-                            @php
-                                $thaiMonths = [
-                                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-                                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-                                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-                                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
-                                ];
-                            @endphp
-                            <div class="col-12" style="text-align: end">
-                                @if($contactInfo)
-                                    @if($contactInfo->updated_at === null)
-                                        <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
-                                    @else
-                                        <h5>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</h5>
-                                    @endif
-                                @else
-                                    <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
-                                @endif
-
-                                <div class="col-10 mx-auto mt-3 text-center">
-                                @if($contactInfo)
-                                    @if($contactInfo->image === null)
-                                        <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                                    @else
-                                        <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
-                                    @endif
-                                @else
-                                        <img src="{{ asset('images/teamwork.png') }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
-                                @endif
-                                    <h5>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h5>
-                                <hr>
-                                        <div class="col-12 row">
-                                            <div class="col-3" style="text-align: center">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="nav-item">
-                                                        <a class="tablinks" onclick="openCity(event, 'ประวัติการศึกษา')" id="defaultOpen"><h5>ประวัติการศึกษา <a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#Educationinfo"></a></h5></a>
-                                                    </li>
-                                                </ul> 
-                                            </div>
-                                            <div class="col-3" style="text-align: center">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="nav-item">
-                                                        <a class="tablinks" onclick="openCity(event, 'ประวัติการทำงาน')"><h5>ประวัติการทำงาน <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000"data-bs-toggle="modal" data-bs-target="#Workhistoryinfo"></a></h5></a>
-                                                    </li>
-                                                </ul> 
-                                            </div>
-                                            <div class="col-3" style="text-align: center">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="nav-item">
-                                                        <a class="tablinks" onclick="openCity(event, 'ทักษะ')"><h5>ทักษะ <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#Skill_info"></a></h5></a>
-                                                    </li>
-                                                </ul> 
-                                            </div>
-                                            <div class="col-3" style="text-align: center">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="nav-item">
-                                                        <a class="tablinks" onclick="openCity(event, 'ประวัติการฝึกอบรม')"><h5>ประวัติการฝึกอบรม <a class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#Tranning_info"></a></h5></a>
-                                                    </li>
-                                                </ul> 
-                                            </div>
-                                        </div>
-                                    <br>
-                                    <div id="ประวัติการศึกษา" class="tabcontent">
-                                        @if($education_infom)
-                                            <h5>ชื่อสถาบัน : {{$education_infom->School_name }}</h5>
-                                            <h5>คณะ : {{$education_infom->faculty_study }}</h5>
-                                            <h5>สาขา : {{$education_infom->field_study }}</h5>
-                                            <h5>วุฒิการศึกษา : {{$education_infom->degree }}</h5>
-                                            <h5>เกรดเฉลี่ย : {{$education_infom->gpa }}</h5>
-                                            <h5>ปีที่สำเร็จการศึกษา : พ.ศ.{{$education_infom->endyear }}</h5>
-                                        @endif
-                                        </div>
-                                        <div id="ประวัติการทำงาน" class="tabcontent">
-                                            @if($Workhistory_info)
-                                                @php
-                                                $thaiMonths = [
-                                                    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-                                                    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-                                                    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-                                                    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
-                                                ];
-                                                @endphp
-                                                <h5>ชื่อบริษัท : {{ $Workhistory_info->Company_name }}</h5>
-                                                <h5>ตำแหน่งงาน : {{ $Workhistory_info->position }}</h5>
-                                                <h5>รายละเอียดงาน : {{ $Workhistory_info->desctiption }}</h5>
-                                                <h5>เริ่มต้นทำงาน : {{ $thaiMonths[\Carbon\Carbon::parse($Workhistory_info->startdate)->format('n')] }}/{{ \Carbon\Carbon::parse($Workhistory_info->startdate)->format('Y') }}</h5> 
-                                                <h5>สิ้นสุดทำงาน : {{ $thaiMonths[\Carbon\Carbon::parse($Workhistory_info->enddate)->format('n')] }}/{{ \Carbon\Carbon::parse($Workhistory_info->enddate)->format('Y') }}</h5>
-                                                <h5>ช่วงเงินเดือน : {{ $Workhistory_info->salary }}</h5>
-                                                <h5>ที่อยู่บริษัท : {{ $Workhistory_info->Company_add }}</h5>
-                                                <h5>ประเภทของงาน : {{ $Workhistory_info->worktype }}</h5>
-                                            @endif 
-                                        </div>
-
-                                        <div id="ทักษะ" class="tabcontent">
-                                            <h3>ทักษะตามสาขาอาชีพ</h3>
-                                            @if($Skill)
-                                                <h5>ทักษะ : {{ $Skill->Skill_name }}</h5>
-                                            @endif 
-                                            @if($language)
-                                                <h5>ภาษา : {{ $language->language }}</h5>
-                                                <h5>ฟัง : {{ $language->listening }}</h5>
-                                                <h5>พูด : {{ $language->speaking }}</h5>
-                                                <h5>อ่าน : {{ $language->reading }}</h5>
-                                                <h5>เขียน : {{ $language->writing }}</h5>
-                                            @endif 
-                                        </div>
-                                        <div id="ประวัติการฝึกอบรม" class="tabcontent">
-                                            <h3>ประวัติการฝึกอบรม</h3>
-                                            @if($Tranning)
-                                            @php
-                                                $thaiMonths = [
-                                                    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-                                                    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-                                                    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-                                                    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
-                                                ];
-                                                $startdate = \Carbon\Carbon::parse($Tranning->startdate);
-                                                $enddate = \Carbon\Carbon::parse($Tranning->enddate);
-                                                @endphp
-                                                <h5>ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร : {{ $Tranning->Certi_name }}</h5>
-                                                <h5>ชื่อบริษัท/หน่วยงานที่จัดอบรม : {{ $Tranning->Organize_name }}</h5> 
-                                                <h5>วันที่เริ่มอบรม  : {{$startdate->format('d')}} {{$thaiMonths[$startdate->month]}} {{$startdate->year + 543}} </h5>
-                                                <h5>วันที่สิ้นสุดอบรม : {{$enddate->format('d')}} {{$thaiMonths[$enddate->month]}} {{$enddate->year + 543}}</h5>
-                                            @endif 
-                                        </div>
-                            
+    <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
+        <div class="col-12 mt-5">
+            <h4 class="mt-3">ตั้งค่าโปรไฟล์</h4>
+            <hr>
+            @php
+                $thaiMonths = [
+                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                ];
+            @endphp
+            <div class="col-12" style="text-align: end">
+                @if($contactInfo)
+                    @if($contactInfo->updated_at === null)
+                        <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
+                    @else
+                        <h5>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</h5>
+                    @endif
+                @else
+                    <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
+                @endif
+            </div>
+            <div class="col-10 mx-auto mt-3 text-center">
+                @if($contactInfo)
+                    @if($contactInfo->image === null)
+                        <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
+                    @else
+                        <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
+                    @endif
+                @else
+                    <img src="{{ asset('images/teamwork.png') }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
+                @endif
+                <h5>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h5>
+            </div>
+            <br>
+            <hr class="mt-5" style="border: 1px solid #000">
+        </div>
+        <div class="col-12 row">
+            <div class="row" style="text-align: center;" >
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="openCity(event, 'ประวัติการศึกษา')" id="defaultOpen"><h5>ประวัติการศึกษา <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Educationinfo"></i></h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " style="margin-left: 180px;" onclick="openCity(event, 'ประวัติการทำงาน')" ><h5>ประวัติการทำงาน <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Workhistoryinfo"></i></h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-left: 180px;" onclick="openCity(event, 'ทักษะ')" id="defaultOpen"><h5>ทักษะ <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Skill_info"></i></h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " style="margin-left: 180px;" onclick="openCity(event, 'ประวัติการฝึกอบรม')" ><h5>ประวัติการฝึกอบรม <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Tranning_info"></i></h5></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container" style="position: relative; left: 200px; ">
+            <div id="ประวัติการศึกษา" class="tabcontent mt-3">
+                @if($education_infom)
+                    @if($education_infom === null)
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อสถาบัน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
                         </div>
-                        <script>
-                            function openCity(evt, cityName) {
-                            var i, tabcontent, tablinks;
-                            tabcontent = document.getElementsByClassName("tabcontent");
-                            for (i = 0; i < tabcontent.length; i++) {
-                                tabcontent[i].style.display = "none";
-                            }
-                            tablinks = document.getElementsByClassName("tablinks");
-                            for (i = 0; i < tablinks.length; i++) {
-                                tablinks[i].className = tablinks[i].className.replace(" active", "");
-                            }
-                            document.getElementById(cityName).style.display = "block";
-                            evt.currentTarget.className += " active";
-                            }
-                            document.getElementById("defaultOpen").click();
-                        </script>
-                    </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">คณะ :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">สาขา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">วุฒิการศึกษา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">เกรดเฉลี่ย :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ปีที่สำเร็จการศึกษา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                    @else
+                    <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อสถาบัน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$education_infom->School_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">คณะ :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$education_infom->faculty_study }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">สาขา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{$education_infom->field_study }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">วุฒิการศึกษา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$education_infom->degree }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">เกรดเฉลี่ย :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$education_infom->gpa }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ปีที่สำเร็จการศึกษา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$education_infom->endyear }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div>
+        <div class="container" style="position: relative; left: 200px; "> 
+            <div id="ประวัติการทำงาน" class="tabcontent mt-3">
+                @if($Workhistory_info)
+                @php
+                $thaiMonths = [
+                    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                ];
+                @endphp
+                    @if($Workhistory_info === null)
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อบริษัท :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ตำแหน่งงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">รายละเอียดงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">เริ่มต้นทำงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">สิ้นสุดทำงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ช่วงเงินเดือน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ที่อยู่บริษัท :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ประเภทของงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อบริษัท :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Workhistory_info->Company_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ตำแหน่งงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Workhistory_info->position }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">รายละเอียดงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{ $Workhistory_info->desctiption }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">เริ่มต้นทำงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{ $thaiMonths[\Carbon\Carbon::parse($Workhistory_info->startdate)->format('n')] }}/{{ \Carbon\Carbon::parse($Workhistory_info->startdate)->format('Y') }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">สิ้นสุดทำงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{ $thaiMonths[\Carbon\Carbon::parse($Workhistory_info->enddate)->format('n')] }}/{{ \Carbon\Carbon::parse($Workhistory_info->enddate)->format('Y') }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ช่วงเงินเดือน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Workhistory_info->salary }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ที่อยู่บริษัท :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Workhistory_info->Company_add }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ประเภทของงาน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{ $Workhistory_info->worktype }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div>
+        <div class="container" style="position: relative; left: 200px; "> 
+            <div id="ทักษะ" class="tabcontent mt-3">
+                @if($Skill)
+                    @if($Skill === null)
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ทักษะ :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>   
+                    @else
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ทักษะ :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Skill->Skill_name }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif 
+                @if($language)
+                    @if($language === null)
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ภาษา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ฟัง :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">พูด :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">อ่าน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">เขียน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ภาษา :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{ $language->language }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ฟัง :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $language->listening }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">พูด :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;"> {{ $language->speaking }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">อ่าน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $language->reading }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">เขียน :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $language->writing }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif 
+            </div>
+        </div>
+        <div class="container" style="position: relative; left: 200px; ">
+        <div id="ประวัติการฝึกอบรม" class="tabcontent mt-3">
+                @if($Tranning)
+                    @php
+                    $thaiMonths = [
+                        1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                        4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                        7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                        10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                        
+                    ];
+                    $startdate = \Carbon\Carbon::parse($Tranning->startdate);
+                    $enddate = \Carbon\Carbon::parse($Tranning->enddate);
+                    @endphp
+                    @if($Tranning === null)
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อบริษัท/หน่วยงานที่จัดอบรม :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">วันที่เริ่มอบรม :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">วันที่สิ้นสุดอบรม :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">-</p>
+                            </div>
+                        </div>
+                        @else
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Tranning->Certi_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">ชื่อบริษัท/หน่วยงานที่จัดอบรม :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{ $Tranning->Organize_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">วันที่เริ่มอบรม :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$startdate->format('d')}} {{$thaiMonths[$startdate->month]}} {{$startdate->year + 543}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 col-form-label text-md-end"style="font-size: 20px;">วันที่สิ้นสุดอบรม :</p>
+                            <div class="col-md-5 mt-2">
+                                <p style="text-align: left; font-size: 20px;">{{$enddate->format('d')}} {{$thaiMonths[$enddate->month]}} {{$enddate->year + 543}}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div>
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("nav-link");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+            // โปรดตั้งค่าแท็บเริ่มต้นที่คุณต้องการให้เปิดโดยค่าเริ่มต้น
+            document.getElementById("defaultOpen").click();
+        </script>
+
+
+    </div>         
                     <div>
                         <div class="modal fade" id="Tranning_info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
@@ -400,7 +674,8 @@
                                                                 <td>
                                                                     <label class="col-form-label font-weight-bold text-danger">
                                                                         <a href="#editTranning" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
-                                                                        <a href="{{ url('/User/accountuser/tranning/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteTraining({{ $row->id }})">
+                                                                        <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                     </label>
                                                                 </td>
                                                             </tr>
@@ -422,9 +697,30 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        function confirmDeleteTraining (id) {
+                        swal({
+                            title: "",
+                            text: "คุณแน่ใจที่จะลบข่าวนี้ใช่ไหม",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                            // ถ้าผู้ใช้คลิก "ตกลง"
+                            window.location.href = "{{ url('/User/accountuser/tranning/delete/') }}" + '/' + id;
+                            } else {
+                            // ถ้าผู้ใช้คลิก "ยกเลิก"
+                            swal("คุณยกเลิกการลบข่าวแล้ว");
+                            }
+                        });
+                        return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+                        }
+                    </script> 
                     <div>
                         @foreach($Tranning_info as $row)
-                            <div class="modal fade" id="editTranning" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editTranning" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
@@ -572,7 +868,7 @@
                                                         <label class="form-label">ประเภทงาน</label>
                                                         <select name="worktype" class="form-select" value="{{ $row->worktype}}">
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
-                                                            <option value="รัฐวสาหกิจ">รัฐวิสาหกิจ</option>
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
                                                             <option value="อาชีพอิสระ">อาชีพอิสระ</option>
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
@@ -634,7 +930,8 @@
                                                                                         <td>
                                                                                             <label class="col-form-label font-weight-bold text-danger">
                                                                                             <a href="#editskill{{$row->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
-                                                                                            <a href="{{ url('/User/accountuser/skill/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteskill({{ $row->id }})">
+                                                                                            <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                                             </label>
                                                                                         </td>
                                                                                     </tr>
@@ -709,7 +1006,8 @@
                                                                                         <td>
                                                                                             <label class="col-form-label font-weight-bold text-danger">
                                                                                             <a href="#editlanguage{{$row->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
-                                                                                            <a href="{{ url('/User/accountuser/language/delete/'.$row->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeletelanguage({{ $row->id }})">
+                                                                                            <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                                             </label>
                                                                                         </td>
                                                                                     </tr>
@@ -733,6 +1031,48 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        function confirmDeleteskill (id) {
+                        swal({
+                            title: "",
+                            text: "คุณแน่ใจที่จะลบทักษะนี้ใช่ไหม",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                            // ถ้าผู้ใช้คลิก "ตกลง"
+                            window.location.href = "{{ url('/User/accountuser/skill/delete/') }}" + '/' + id;
+                            } else {
+                            // ถ้าผู้ใช้คลิก "ยกเลิก"
+                            swal("คุณยกเลิกการลบทักษะแล้ว");
+                            }
+                        });
+                        return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+                        }
+                    </script> 
+                    <script>
+                        function confirmDeletelanguage (id) {
+                        swal({
+                            title: "",
+                            text: "คุณแน่ใจที่จะลบภาษานี้ใช่ไหม",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                            // ถ้าผู้ใช้คลิก "ตกลง"
+                            window.location.href = "{{ url('/User/accountuser/language/delete/') }}" + '/' + id;
+                            } else {
+                            // ถ้าผู้ใช้คลิก "ยกเลิก"
+                            swal("คุณยกเลิกการลบภาษาแล้ว");
+                            }
+                        });
+                        return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+                        }
+                    </script> 
                     <div>
                         @foreach($Skill_info as $row  )
                         <div class="modal fade" id="editskill{{$row->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -834,7 +1174,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติประวัติการศึกษา</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการศึกษา</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -894,20 +1234,7 @@
                                             </div>
                                             <hr>
                                             <div class="container mt-2">
-                                                <table class="table table-bordered">
-                                                    
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">สถาบัน</th>
-                                                            <th scope="col">คณะวิชา</th>
-                                                            <th scope="col">สาขาวิชา</th>
-                                                            <th scope="col">เกรดเฉลี่ย</th>
-                                                            <th scope="col">ปีที่จบการศึกษา</th>
-                                                            <th scope="col">วุฒิการศึกษา</th>
-                                                            <th scope="col">ประเภทสถาบัน</th>
-                                                            <th scope="col">ตัวเลือก</th>
-                                                        </tr>
-                                                    </thead>
+                                                <table class="table ">
                                                     @foreach( $education as $education)
                                                     <tbody>
                                                         <tr>
@@ -921,7 +1248,8 @@
                                                             <td>
                                                                 <label class="col-form-label font-weight-bold text-danger">
                                                                 <a href="#edit{{$education->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
-                                                                <a href="{{ url('/User/accountuser/Education/delete/'.$education->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
+                                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteEducation({{ $education->id }})">
+                                                                <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                 </label>
                                                             </td>
                                                         </tr>
@@ -939,7 +1267,27 @@
                             </div>
                         </div>
                     </div>
-
+                    <script>
+                        function confirmDeleteEducation (id) {
+                        swal({
+                            title: "",
+                            text: "คุณแน่ใจที่จะลบประวัติการศึกษานี้ใช่ไหม",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                            // ถ้าผู้ใช้คลิก "ตกลง"
+                            window.location.href = "{{ url('/User/accountuser/Education/delete/') }}" + '/' + id;
+                            } else {
+                            // ถ้าผู้ใช้คลิก "ยกเลิก"
+                            swal("คุณยกเลิกการลบประวัติการศึกษาแล้ว");
+                            }
+                        });
+                        return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+                        }
+                    </script> 
                     <div>
                         @foreach($education as $row)
                         <div class="modal fade" id="edit{{$education->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1114,7 +1462,7 @@
                                                         <label class="form-label">ประเภทงาน</label>
                                                         <select name="worktype" class="form-select">
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
-                                                            <option value="รัฐวสาหกิจ">รัฐวสาหกิจ</option>
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
                                                             <option value="อาชีพอิสระ">อาชีพอิสระ</option>
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
@@ -1129,20 +1477,7 @@
                                             </div>
                                             <hr>
                                             <div class="container mt-2">
-                                                <table class="table table-bordered">
-                                                    
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">ชื่อบริษัท</th>
-                                                            <th scope="col">ตำแหน่งงาน</th>
-                                                            <th scope="col">ช่วงเงินเดือน</th>
-                                                            <th scope="col">ที่อยู่บริษัท</th>
-                                                            <th scope="col">ประเภทงาน</th>
-                                                            <th scope="col">ระยะเวลา</th>
-                                                            <th scope="col">ถึง</th>
-                                                            <th scope="col">ตัวเลือก</th>
-                                                        </tr>
-                                                    </thead>
+                                                <table class="table ">
                                                     @foreach( $Workhistory as $Workhistory)
                                                     <tbody>
                                                         <tr>
@@ -1156,8 +1491,8 @@
                                                             <td>
                                                                 <label class="col-form-label font-weight-bold text-danger">
                                                                 <a href="#edit{{$Workhistory->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
-                                                                <a href="{{ url('/User/accountuser/Workhistory/delete/'.$Workhistory->id) }}"  onclick="return confirm('คุณต้องการลบบริการนี้หรือไม่ ?')"class="delete" title="Delete" data-toggle="tooltip"><iconify-icon icon="ph:trash-light"></iconify-icon></a>
-                                                                </label>
+                                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteWorkhistory({{ $Workhistory->id }})">
+                                                                <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1174,6 +1509,27 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        function confirmDeleteWorkhistory(id) {
+                        swal({
+                            title: "",
+                            text: "คุณแน่ใจที่จะลบประวัติการทำงานนี้ใช่ไหม",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                            // ถ้าผู้ใช้คลิก "ตกลง"
+                            window.location.href = "{{ url('/User/accountuser/Workhistory/delete/') }}" + '/' + id;
+                            } else {
+                            // ถ้าผู้ใช้คลิก "ยกเลิก"
+                            swal("คุณยกเลิกการลบประวัติการทำงานแล้ว");
+                            }
+                        });
+                        return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
+                        }
+                    </script> 
                     <div>
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" style="max-width: 40%">

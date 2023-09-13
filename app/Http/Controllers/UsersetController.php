@@ -31,7 +31,7 @@ class UsersetController extends Controller
         $Skill = Skill_info::where('ID_student', $student_id)->first();
         $language = language_skill::where('ID_student', $student_id)->first();
         $Tranning = Tranning_info::where('ID_student', $student_id)->first();
-        $surveylink = Surveylink::query()->latest();
+        $surveylink = Surveylink::query()->latest()->first();
         // ดึงข้อมูล User ด้วย student_id
         $user = User::where('student_id', $student_id)->first();
         $department = department::where('ID', 1)->first();

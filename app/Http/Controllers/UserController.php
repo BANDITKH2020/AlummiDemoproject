@@ -99,7 +99,7 @@ class UserController extends Controller
             $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
-        $surveylink = Surveylink::query()->latest();
+        $surveylink = Surveylink::query()->latest()->first();
         $department = department::where('ID', 1)->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();

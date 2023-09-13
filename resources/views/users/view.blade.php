@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
     <style>
@@ -43,15 +43,14 @@
       </div>
     </div>
 
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:20px;border-radius:10px;">
-    
-        <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;">
+    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 @else
                 <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
                 @endif
-                <h3></h3>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h3>
+                <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
@@ -88,7 +87,7 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('accountsettinguser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                <a href="{{ route('accountuser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
                 @endif
                 
             </div>
@@ -147,8 +146,9 @@
   </style>
 
 
-    <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-        @csrf
+<div class="container"  style="position: absolute; left: 500px; top: 200px;">
+    @csrf
+    
         <h1>{{$view->title_name}}</h1>
         <style>
         .centered-container {
@@ -157,7 +157,7 @@
             align-items: center;
         }
         .centered-image {
-            width: 600px;
+            width: 400px;
             height: 350px;
             object-fit: cover;
         }
@@ -167,28 +167,81 @@
             text-align: justify;
             text-indent: 4em; /* ปรับค่าตามที่ต้องการ */
         }
+        /* ซ่อนตัวแสดงรูป */
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* ขยายรูป */
+        .modal-content {
+            margin: auto;
+            display: absolute;
+            top: 150px;
+            max-width: 50%;
+            max-height: 100%;
+        }
+
+        /* ปุ่มปิดตัวแสดงรูป */
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+        .return iconify-icon {
+            font-size: 50px;
+            color: black; /* สีตั้งต้นของไอคอน */
+            transition: color 0.3s; /* เพิ่มการเปลี่ยนสีเมื่อ hover */
+        }
+
+        .return:hover iconify-icon {
+            color: #778899; /* สีของไอคอนเมื่อ hover */
+        }
+
         </style>
 
         <div class="centered-container mt-3">
-            <img src="{{ asset($view->title_image) }}" class="centered-image img-fluid rounded-start" alt="Image">
+            <img src="{{ asset($view->title_image) }}" class="centered-image img-fluid rounded-start" alt="Image" onclick="openModal('{{ asset($view->title_image) }}')">
         </div>
-        <div class="indented-text  mt-3">
-            <h3>{{$view->cotent}}</h3>
+        <div class="indented-text  mt-3 my-3">
+            <h4>{{$view->cotent}}</h4>
         </div>
         <h3>ประเภทเนื้อหา: {{$view->category}}</h3>
-        <h3> {{$view->objective}}</h3>
+        @if ($view->objective) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
+            @if ($view->objective == '-') <!-- ตรวจสอบว่า event_date เป็น 1 -->
+                <h3 class="card-text"></h3>
+            @else
+            <h3> {{$view->objective}}</h3>
+            @endif
+        @endif
+        @php
+        $thaiMonths = [
+            1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+            4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+            7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+            10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+            ];
+            $eventdate = \Carbon\Carbon::parse($view->event_date);
+        @endphp
         @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
                 <h3 class="card-text">วันที่จัดกิจกรรม: 
-                {{ Carbon\Carbon::parse($view->event_date)->format('d-m-Y') }}
+                {{$eventdate->format('d')}} {{$thaiMonths[$eventdate->month]}} {{$eventdate->year + 543}}
                 </h3>
             @else
-                <h3 class="card-text">วันที่จัดกิจกรรม: ไม่มี</h3>
+                <h3 class="card-text"></h3>
             @endif
         @endif
-        <h3>วันที่ลงเนื้อหา: {{$view->created_at}}</h3>
+        <h3>วันที่ลงเนื้อหา: {{$view->created_at->format('d')}} {{$thaiMonths[$view->created_at->month]}} {{$view->created_at->year + 543}}</h3>
         <div class="row">
-            
             @if($view->images->count() > 0)
             <h3>รูปภาพกิจกรรม</h3>
                 @foreach($view->images as $index => $image)
@@ -196,13 +249,35 @@
                         </div><div class="row">
                     @endif
                     <div class="col-md-2 mb-3">
-                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="My Image" class="img-fluid img-thumbnail">
+                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="My Image" class="img-fluid img-thumbnail"onclick="openModal('{{ asset('storage/' . $image->image_path) }}')">
                     </div>
                 @endforeach
             @endif
         </div>
-            
+        <div class="d-flex justify-content-center">
+            <a href="{{ url('/users/homeuser') }}" class="return"><iconify-icon icon="ic:baseline-assignment-return"></iconify-icon></a>
+        </div>
     </div>
+    <div id="imageModal" class="modal">
+    <span class="close-button" onclick="closeModal()">&times;</span>
+    <img src="" class="modal-content" id="modalImage">
+    </div>
+    <script>
+        // เมื่อคลิกที่รูป
+        function openModal(imageSrc) {
+        var modal = document.getElementById('imageModal');
+        var modalImg = document.getElementById('modalImage');
+        modal.style.display = 'block';
+        modalImg.src = imageSrc;
+        }
+
+        // เมื่อคลิกที่ปุ่มปิด
+        function closeModal() {
+        var modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+        }
+
+    </script>
     <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -268,36 +343,36 @@
                     <div>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
-                                <div class="col-lg-6">
+                            <div class="col-lg-6">
                                     <div class="col-lg-12 row" style="margin-left:15px">
                                         <div class="col-lg-1">
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
-                                        <div class="col-lg-10">
-                                            <h5>39 หมู่ที่ 1 ถนนรังสิต-นครนายก ตำบลคลองหก อำเภอคลองหลวง จังหวัดปทุมธานี</h5>
-                                        </div>
+                                    <div class="col-lg-11">
+                                        <h5>{{$department->address}}</h5>
                                     </div>
-                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
-                                        <div class="col-lg-10">
-                                            <h5>ช่วงเวลาติดต่อ จ-ศ 08.30 - 16.30 น.<br>โทร.02 549 3460</h5>
+                                        <div class="col-lg-11">
+                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 row" style="margin-left:15px">
+                                    <div class="col-lg-12 row" >
                                         <div class="col-lg-1">
-                                            <a href="https://www.facebook.com/ComputerEngineeringRmutt" target="_blank">
+                                            <a href="{{$department->facebook}}" target="_blank">
                                                 <img src="{{ asset('images/facebook-icon.png') }}" style="width:25px;height:25px">
                                             </a>
                                         </div>
                                         <div class="col-lg-1">
-                                            <a href="https://cpe.engineer.rmutt.ac.th/" target="_blank">
+                                            <a href="{{$department->web}}" target="_blank">
                                                 <img src="{{ asset('images/www-icon.png') }}" style="width:25px;height:25px">
                                             </a>
                                         </div>
+                                        </div>
                                     </div>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7741.4212556805005!2d100.7219335028924!3d14.035159447469107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1692540328004!5m2!1sth!2sth"
+                                    <iframe src="{{$department->map}}"
                                         width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                                     </iframe>
                                 </div>

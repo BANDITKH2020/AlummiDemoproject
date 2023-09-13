@@ -128,7 +128,7 @@ Route::get('/Admin/view/dashboard/', [DashboardController::class, 'dashboard'])-
  Route::get('/User/studentslist', [UserController::class,'studentslist'])->name('studentslist')->middleware('auth', 'checkRole:student');
  Route::get('/users/homeuser', [HomeUserController::class, 'homeuser'])->name('homeuser')->middleware('auth', 'checkRole:student');;
  //---เนื้อหาข่าว
-Route::get('users/homeuser/view/{id}', [HomeUserController::class,'view'])->name('view')->middleware('auth', 'checkRole:student');
+Route::get('/users/homeuser/view/{id}', [HomeUserController::class,'view'])->name('view')->middleware('auth', 'checkRole:student');
 //----------ประวัติส่วนตัว---------
 Route::get('/User/accountuser', [UsersetController::class,'accountuser'])->name('accountuser')->middleware('auth', 'checkRole:student');
 Route::post('/User/accountuser/saveaccount/addaccount', [UsersetController::class, 'store'])->name('addaccount')->middleware('auth', 'checkRole:student');

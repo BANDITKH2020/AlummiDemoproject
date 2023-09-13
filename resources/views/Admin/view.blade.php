@@ -161,11 +161,17 @@
         <div class="centered-container mt-3">
             <img src="{{ asset($view->title_image) }}" class="centered-image img-fluid rounded-start" alt="Image" onclick="openModal('{{ asset($view->title_image) }}')">
         </div>
-        <div class="indented-text  mt-3">
+        <div class="indented-text  mt-3 my-3">
             <h4>{{$view->cotent}}</h4>
         </div>
         <h3>ประเภทเนื้อหา: {{$view->category}}</h3>
-        <h3> {{$view->objective}}</h3>
+        @if ($view->objective) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
+            @if ($view->objective == '-') <!-- ตรวจสอบว่า event_date เป็น 1 -->
+                <h3 class="card-text"></h3>
+            @else
+            <h3> {{$view->objective}}</h3>
+            @endif
+        @endif
         @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
                 <h3 class="card-text">วันที่จัดกิจกรรม: 

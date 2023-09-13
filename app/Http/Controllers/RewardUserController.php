@@ -56,7 +56,7 @@ class RewardUserController extends Controller
         }
     }
         $reward = $query->paginate(3);
-        $surveylink = Surveylink::query()->latest();
+        $surveylink = Surveylink::query()->latest()->first();
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
             return $message->created_at->format('Y-m-d'); // แยกตามวันที่
         });

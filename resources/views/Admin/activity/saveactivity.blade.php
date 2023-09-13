@@ -150,7 +150,7 @@
                     </div>
                 @enderror<br>
                 <h3>วัตถุประสงค์ของกิจกรรมนี้</h3>
-                <textarea type="text" name="objective" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
+                <textarea type="text" name="objective" rows="3" cols="25" class="form-control" placeholder="ถ้าไม่มีเนื้อหาส่วนนี้ให้ใส่ -"aria-label="With textarea"></textarea>
                 @error('objective')
                     <div class="my">
                         <span class="text-danger">{{$message}}</span>

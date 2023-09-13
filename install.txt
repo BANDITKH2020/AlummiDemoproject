@@ -1,6 +1,8 @@
 1. composer require laravel/ui
 2. php artisan ui vue --auth
 3. npm install && npm run dev
+composer require anhskohbo/no-captcha
+
 composer require laravel/socialite
 'google' => [
         'client_id' => 'google app id',

@@ -42,7 +42,7 @@ class HomeUserController extends Controller
         ->orWhere('created_at', 'LIKE', "%{$search}%");
        
     
-        $surveylink = Surveylink::query()->first();
+        $surveylink = Surveylink::query()->latest()->first();
         $newsandactivity = $query->paginate(4);
         
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
@@ -73,10 +73,11 @@ class HomeUserController extends Controller
             $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
             return ['date' => $thaiDate,'messages' => $groupedMessages];
         });
-        $surveylink = Surveylink::query()->first();
+        $surveylink = Surveylink::query()->latest()->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
-        return view('users.view',compact('view','contactInfo'));
+        $department = department::where('ID', 1)->first();
+        return view('users.view',compact('view','contactInfo','surveylink','department','messages'));
     }
    
 }

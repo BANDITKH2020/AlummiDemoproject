@@ -158,9 +158,9 @@
               </div>
           </div>
       @endforeach
-      <div class="d-flex justify-content-center mt-5">
-        {{ $newsandactivity->links() }}
-      </div>
+        <div class="d-flex justify-content-center mt-5">
+          {{ $newsandactivity->links() }}
+        </div>
       </div>
   </div>
 </div>
