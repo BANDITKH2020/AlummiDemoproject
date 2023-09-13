@@ -172,3 +172,5 @@ Route::get('/teacher/delete/{id}',[TokenTeacherController::class,'delete'])->mid
 //----------------ประวัตืส่วนตัวอาจารย์------------------
 Route::get('/users/accTeacher', [TeachersetController::class, 'accTeacher'])->name('accTeacher')->middleware('auth', 'checkRole:teacher');
 Route::post('/Teacher/accountuser/saveaccount/addaccount', [TeachersetController::class, 'store'])->name('addaccountteacher')->middleware('auth', 'checkRole:teacher');
+//----------------ดูข่าวและกิจกรรม-------------------
+Route::get('/users/homeTeacher/view/{id}', [TeacherController::class,'view'])->middleware('auth', 'checkRole:teacher');

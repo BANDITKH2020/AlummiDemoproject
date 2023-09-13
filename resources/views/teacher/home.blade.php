@@ -148,47 +148,48 @@
 
       <div class="col-mb-2">
         <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/>
-        <button type="submit"  class="btn btn-outline-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+        <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">Search</button>
       </div>
     </label>
     </form>
     <br><br><br>
    
-    @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-    <div class="row" id="content">
-    @foreach ($newsandactivity as $row)
-        <div class="col-md-3">
-            <div class="card mt-5 custom-card">
-            <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
-                <div class='card-body'>
-                    <h5 class="card-title font-weight-bold">{{ $row->title_name }}</h5>
-                    <p class="card-text">
-                    {{ Str::limit($row->cotent, 50) }}
-                    </p>
-                    <p class="card-text">วันที่อัพเดต
-                    {{$row->created_at->format('d-m-Y')}}
-                    </p>
-                    @if ($row->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
-                      @if ($row->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                        <p class="card-text">วันที่จัดกิจกรรม: 
-                        {{ Carbon\Carbon::parse($row->event_date)->format('d-m-Y') }}
-                        </p>
-                        @else
-                        <p class="card-text">วันที่จัดกิจกรรม: ไม่มี</p>
+    <div class="row">
+      @foreach ($newsandactivity as $row)
+          @php
+              $thaiMonths = [
+                  1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                  4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                  7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                  10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+              ];
+              $createdDate = \Carbon\Carbon::parse($row->created_at);
+              $eventDate = $row->cotent_type == 2 ? \Carbon\Carbon::parse($row->event_date) : null;
+          @endphp
+          <div class="col-md-3">
+              <div class="card mt-5 custom-card">
+                  <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
+                  <div class='card-body'>
+                      <h5 class="card-title font-weight-bold">{{ Str::limit($row->title_name,20) }}</h5>
+                      <p class="card-text">{{ Str::limit($row->cotent, 50) }}</p>
+                      <p class="card-text">วันที่อัพเดต: {{ $createdDate->format('d') }}{{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</p>
+                      @if ($eventDate)
+                          <p class="card-text">วันที่จัดกิจกรรม: {{ $eventDate->format('d') }}{{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</p>
+                      @else
+                          <p class="card-text"><br></p>
                       @endif
-                    @endif
-                    <div class="d-flex justify-content-center">
-                      <a type="button" style="color: black;" href="{{ url('users/homeuser/view/'.$row->id) }}" class="btn btn-primary btn-lg">รายละเอียด</a>
-                    </div>
-                </div>
-            </div>
+                      <div class="d-flex justify-content-center">
+                          <button type="button" onclick="window.location.href='{{ url('/users/homeTeacher/view/'.$row->id) }}'" class="btn btn-primary btn-lg">รายละเอียด</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      @endforeach
+        <div class="d-flex justify-content-center mt-5">
+          {{ $newsandactivity->links() }}
         </div>
-        @endforeach
-        {{ $newsandactivity->links() }}
       </div>
-    </div>
   </div>
-  @endif
 
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">

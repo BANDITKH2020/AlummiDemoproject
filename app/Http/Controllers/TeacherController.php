@@ -41,7 +41,7 @@ class TeacherController extends Controller
         ->orWhere('created_at', 'LIKE', "%{$search}%");
        
     
-        $surveylink = Surveylink::query()->latest();
+        $surveylink = Surveylink::query()->latest()->first();
         $newsandactivity = $query->paginate(4);
         
         
@@ -121,7 +121,7 @@ class TeacherController extends Controller
                     ->leftJoin('contart_infos', 'users.student_id', '=', 'contart_infos.ID_student')
                     ->paginate(10);
         $LoginHistory = LoginHistory::query()->get(); 
-        $surveylink = Surveylink::query()->latest();
+        $surveylink = Surveylink::query()->latest()->first();
         $department = department::where('ID', 1)->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
@@ -166,10 +166,19 @@ class TeacherController extends Controller
             ->where('role_acc', 'student')
             ->where('educational_status', 'จบการศึกษา')
             ->paginate(10);
-        $surveylink = Surveylink::query()->latest();
+        $surveylink = Surveylink::query()->latest()->first();
         $department = department::where('ID', 1)->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
         return view('teacher.graduate', compact('users','surveylink','department','contactInfo'));
+    }
+    public function view($id)
+    {
+        $view = newsandactivity::with('images')->find($id);
+        $surveylink = Surveylink::query()->latest()->first();
+        $id = Auth::user()->student_id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        $department = department::where('ID', 1)->first();
+        return view('teacher.view',compact('view','contactInfo','surveylink','department'));
     }
 }
