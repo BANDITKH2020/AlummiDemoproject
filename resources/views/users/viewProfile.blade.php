@@ -523,17 +523,17 @@
                 </div>
             </div>
         </div>
+    </div>
         @if (Auth::check() && Auth::user()->role_acc === 'student')
-        <div class="d-flex justify-content-center" style="position: relative; left: -750px; top: -830px;">
+        <div style="position: relative; left: 200px; top: 20px;">
             <button class="btn btn-warning"   onclick="window.location.href='{{ route('studentslist') }}'" role="button" >กลับหน้าหลัก</button>
         </div>
         @endif
         @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-        <div class="d-flex justify-content-center" style="position: relative; left: -750px; top: -830px;">
+        <div style="position: relative; left: 200px; top: 20px;">
             <button class="btn btn-warning" onclick="window.location.href='{{ route('studentslist_teacher') }}'" role="button" >กลับหน้าหลัก</button>
         </div>
         @endif
-    </div>
     <script>
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
