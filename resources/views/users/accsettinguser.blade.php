@@ -1564,6 +1564,7 @@
                                                     <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
                                                     @if($contactInfo)
                                                         <select name="prefix" id="prefix" class="select" value="{{ $contactInfo->prefix }}">
+                                                            <option value="{{ $contactInfo->prefix }}">{{ $contactInfo->prefix }}</option>
                                                             <option value="นาย">นาย</option>
                                                             <option value="นาย">นาง</option>
                                                             <option value="นางสาว">นางสาว</option>

@@ -179,7 +179,7 @@
                         @if ($student->image)
                             <img class="mx-auto mt-3" src="{{ Storage::url('image/profileuser/' . $student->image) }}" alt="{{ $student->firstname }} {{ $student->lastname }}" style="width:120px;height:120px;padding:10px; border-radius: 50%;">
                         @else
-                            <img src="{{ asset('images/teamwork.png') }}" style="width: 120px; height: 120px;padding: 10px">
+                            <img class="mx-auto mt-3" src="{{ asset('images/teamwork.png') }}" style="width: 120px; height: 120px;padding: 10px">
                         @endif
                         <h5 class="mt-3">{{ $student->firstname }} {{ $student->lastname }}</h5>
                         <p>{{ $student->student_grp }}</p>
