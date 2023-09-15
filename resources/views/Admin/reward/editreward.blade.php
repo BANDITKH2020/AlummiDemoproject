@@ -215,8 +215,14 @@
             <div style="display: flex; align-items: center;">
                 <h4 style="margin-right: 15px;">ประเภทรางวัล</h4>
                 <select name="reward_type" class="form-select" >
-                        <option value="reward">รางวัล</option>
-                        <option value="scholarship" >ทุนการศึกษา</option>
+                    @if($row->reward_type == 'รางวัล' )
+                    <option value="รางวัล">รางวัล</option>
+                    <option value="ทุนการศึกษา" >ทุนการศึกษา</option>
+                    @endif
+                    @if($row->reward_type == 'ทุนการศึกษา' )
+                    <option value="ทุนการศึกษา" >ทุนการศึกษา</option>
+                    <option value="รางวัล">รางวัล</option>
+                    @endif
                 </select>
             </div>   
                 <br>

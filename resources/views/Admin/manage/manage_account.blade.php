@@ -109,7 +109,8 @@
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการบัญชีผู้ใช้</h2>
-        <div class="mt-1" style="border: 1px solid #000">
+    <hr class="mt-1" style="border: 1px solid #000">
+        <div class="mt-1" >
             <form action="" method="GET" >
                     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
                         <select name="searchdata" class="form-select" >
@@ -286,13 +287,30 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขข้อมูลนักศึกษา</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขข้อมูล</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                             <form action="{{url('/update-user-status/'.$row->id)}}" method="post" enctype="multipart/form-data" >
                                                 {{ csrf_field() }}
                                                 <div class="custom-form">
+                                                    @if($row->role_acc === 'Admin')
+                                                    <div class="mb-3 row @error('active') error @enderror">
+                                                        <label for="active" class="col-form-label custom-label">สถานะเข้าใช้งาน</label>
+                                                        <div class="col">
+                                                            <select name="active" class="form-select custom-input" value="{{$row->active}}">
+                                                            @if($row->active == 1 )
+                                                            <option value="true" >เปิดการใช้งาน</option>
+                                                            <option value="false">ปิดการใช้งาน</option>
+                                                            @endif
+                                                            @if($row->active == 0 )
+                                                            <option value="false">ปิดการใช้งาน</option>
+                                                            <option value="true" >เปิดการใช้งาน</option>
+                                                            @endif
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    @else
                                                     <div class="mb-3 row @error('student_id') error @enderror">
                                                         <label for="student_id" class="col-form-label custom-label">รหัสนักศึกษา</label>
                                                         <div class="col">
@@ -342,9 +360,15 @@
                                                         <label for="groupleader" class="col-form-label custom-label">สถานะหัวหน้ากลุ่ม</label>
                                                         <div class="col">
                                                             <select name="groupleader" class="form-select custom-input" value="{{$row->groupleader}}">
-                                                                <option value="{{$row->groupleader}}" >{{$row->groupleader}}</option>
+                                                                @if($row->groupleader == 'เป็นหัวหน้า' )
                                                                 <option value="เป็นหัวหน้า" >เป็นหัวหน้า</option>
                                                                 <option value="ไม่เป็นหัวหน้า">ไม่เป็นหัวหน้า</option>
+                                                                @endif
+                                                                @if($row->groupleader == 'ไม่เป็นหัวหน้า' )
+                                                                <option value="ไม่เป็นหัวหน้า">ไม่เป็นหัวหน้า</option>
+                                                                <option value="เป็นหัวหน้า" >เป็นหัวหน้า</option>
+                                                                @endif
+                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -354,14 +378,18 @@
                                                             <select name="active" class="form-select custom-input" value="{{$row->active}}">
                                                             @if($row->active == 1 )
                                                             <option value="true" >เปิดการใช้งาน</option>
-                                                            @else
                                                             <option value="false">ปิดการใช้งาน</option>
                                                             @endif
-                                                            <option value="true" >เปิดการใช้งาน</option>
+                                                            @if($row->active == 0 )
                                                             <option value="false">ปิดการใช้งาน</option>
+                                                            <option value="true" >เปิดการใช้งาน</option>
+                                                            @endif
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    @endif
+                                                    
+                                                    
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>

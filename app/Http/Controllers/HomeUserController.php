@@ -43,7 +43,7 @@ class HomeUserController extends Controller
        
     
         $surveylink = Surveylink::query()->latest()->first();
-        $newsandactivity = $query->paginate(4);
+        $newsandactivity = $query->paginate(8);
         
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
             return $message->created_at->format('Y-m-d'); // แยกตามวันที่

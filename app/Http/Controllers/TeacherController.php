@@ -42,7 +42,7 @@ class TeacherController extends Controller
        
     
         $surveylink = Surveylink::query()->latest()->first();
-        $newsandactivity = $query->paginate(4);
+        $newsandactivity = $query->paginate(8);
         
         
         $id = Auth::user()->student_id;

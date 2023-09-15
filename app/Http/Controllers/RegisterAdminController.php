@@ -67,7 +67,7 @@ class RegisterAdminController extends Controller
             'email' => $request->email,
             'google_id' => 'null',
             'role_acc' => 'teacher',
-            'groupleader'=> 'teacher',
+            'groupleader'=> 'ไม่เป็นหัวหน้า',
             'educational_status'=> 'teacher',
         ]);
         return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");

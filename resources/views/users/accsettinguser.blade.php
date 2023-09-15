@@ -673,7 +673,7 @@
                                                                 <td> {{$enddate->format('d')}} {{$thaiMonths[$enddate->month]}} {{$enddate->year + 543}} </td>                             
                                                                 <td>
                                                                     <label class="col-form-label font-weight-bold text-danger">
-                                                                        <a href="#editTranning" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
+                                                                        <a href="#editTranning{{$row->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
                                                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteTraining({{ $row->id }})">
                                                                         <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                     </label>
@@ -719,8 +719,9 @@
                         }
                     </script> 
                     <div>
+                        
                         @foreach($Tranning_info as $row)
-                            <div class="modal fade" id="editTranning" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editTranning{{$row->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
@@ -771,7 +772,7 @@
                     <div>
                         {{--ประวัติการทำงาน update--}}
                         @foreach($Workhistory as $row  )
-                        <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="edit{{$row->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -787,6 +788,23 @@
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ระยะเวลา</label>
                                                         <select id="monthSelect" name="startdate_m" class="form-select" >
+                                                        @php
+                                                            $thaiMonths = [
+                                                                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                                                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                                                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                                                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                                                            ];
+                                                        @endphp
+                                                        @php
+                                                            $parsedDate = \Carbon\Carbon::parse($row->startdate);
+                                                            $monthN = $parsedDate->format('n');
+                                                            $monthNw = $parsedDate->format('m');
+                                                        @endphp
+                                                        <option value="{{ $monthNw }}">
+                                                            {{ $thaiMonths[$monthN] }}
+                                                        </option>
+
                                                             <option value="01">มกราคม</option>
                                                             <option value="02">กุมภาพันธ์</option>
                                                             <option value="03">มีนาคม</option>
@@ -802,6 +820,9 @@
                                                         </select>
                                                         <br>
                                                         <select id="yearSelect" name="startdate_y" class="form-select" >
+                                                            <option value="{{ $row->startdate ? \Carbon\Carbon::parse($row->startdate)->format('Y') : date('Y') }}">
+                                                                {{ $row->startdate ? \Carbon\Carbon::parse($row->startdate)->format('Y') : date('Y') }}
+                                                            </option>
                                                             <?php
                                                             $currentYear = date("Y");
                                                             for ($year = $currentYear + 543; $year >= $currentYear + 543 - 15; $year--) {
@@ -813,6 +834,22 @@
                                                     <div class="col-lg-6 mb-4">
                                                         <label class="form-label">ถึง</label>
                                                         <select id="monthSelect" name="enddate_m" class="form-select" >
+                                                        @php
+                                                            $thaiMonths = [
+                                                                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                                                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                                                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                                                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                                                            ];
+                                                        @endphp
+                                                        @php
+                                                            $parsedDate = \Carbon\Carbon::parse($row->enddate);
+                                                            $monthNumber = $parsedDate->format('n');
+                                                            $monthNw = $parsedDate->format('m');
+                                                        @endphp
+                                                        <option value="{{ $monthNw }}">
+                                                            {{ $thaiMonths[$monthNumber] }}
+                                                        </option>
                                                             <option value="01">มกราคม</option>
                                                             <option value="02">กุมภาพันธ์</option>
                                                             <option value="03">มีนาคม</option>
@@ -827,7 +864,10 @@
                                                             <option value="12">ธันวาคม</option>
                                                         </select>
                                                         <br>
-                                                        <select id="yearSelect" name="enddate_y" class="form-select" value="">
+                                                        <select id="yearSelect" name="enddate_y" class="form-select" value="{{$row->enddate_y }}">
+                                                            <option value="{{ $row->enddate ? \Carbon\Carbon::parse($row->enddate)->format('Y') : date('Y') }}">
+                                                                {{ $row->enddate ? \Carbon\Carbon::parse($row->enddate)->format('Y') : date('Y') }}
+                                                            </option>
                                                             <?php
                                                             $currentYear = date("Y");
                                                             for ($year = $currentYear + 543; $year >= $currentYear + 543 - 15; $year--) {
@@ -851,13 +891,69 @@
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ช่วงเงินเดือน</label>
                                                         <select name="salary" class="form-select" value="{{ $row->salary}}">
+                                                            @if($row->salary === 'น้อยกว่า 15,000' )
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
                                                             <option value="20,001-25,000">20,001-25,000</option>
                                                             <option value="25,001-30,000">25,001-30,000</option>
                                                             <option value="30,001-35,000">30,001-35,000</option>
                                                             <option value="35,001-40,000">35,001-40,000</option>
-                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option>
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            @endif
+                                                            @if($row->salary === '15,000-20,000' )
+                                                            <option value="15,000-20,000">15,000-20,000</option>
+                                                            <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
+                                                            <option value="20,001-25,000">20,001-25,000</option>
+                                                            <option value="25,001-30,000">25,001-30,000</option>
+                                                            <option value="30,001-35,000">30,001-35,000</option>
+                                                            <option value="35,001-40,000">35,001-40,000</option>
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            @endif
+                                                            @if($row->salary === '20,001-25,000' )
+                                                            <option value="20,001-25,000">20,001-25,000</option>
+                                                            <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
+                                                            <option value="15,000-20,000">15,000-20,000</option>
+                                                            <option value="25,001-30,000">25,001-30,000</option>
+                                                            <option value="30,001-35,000">30,001-35,000</option>
+                                                            <option value="35,001-40,000">35,001-40,000</option>
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            @endif
+                                                            @if($row->salary === '25,001-30,000' )
+                                                            <option value="25,001-30,000">25,001-30,000</option>
+                                                            <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
+                                                            <option value="15,000-20,000">15,000-20,000</option>
+                                                            <option value="20,001-25,000">20,001-25,000</option>
+                                                            <option value="30,001-35,000">30,001-35,000</option>
+                                                            <option value="35,001-40,000">35,001-40,000</option>
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            @endif
+                                                            @if($row->salary === '30,001-35,000' )
+                                                            <option value="30,001-35,000">30,001-35,000</option>
+                                                            <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
+                                                            <option value="15,000-20,000">15,000-20,000</option>
+                                                            <option value="20,001-25,000">20,001-25,000</option>
+                                                            <option value="25,001-30,000">25,001-30,000</option>
+                                                            <option value="35,001-40,000">35,001-40,000</option>
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            @endif
+                                                            @if($row->salary === '35,001-40,000' )
+                                                            <option value="35,001-40,000">35,001-40,000</option>
+                                                            <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
+                                                            <option value="15,000-20,000">15,000-20,000</option>
+                                                            <option value="20,001-25,000">20,001-25,000</option>
+                                                            <option value="25,001-30,000">25,001-30,000</option>
+                                                            <option value="30,001-35,000">30,001-35,000</option>
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            @endif
+                                                            @if($row->salary === '40,001 ขึ้นไป' )
+                                                            <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
+                                                            <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
+                                                            <option value="15,000-20,000">15,000-20,000</option>
+                                                            <option value="20,001-25,000">20,001-25,000</option>
+                                                            <option value="25,001-30,000">25,001-30,000</option>
+                                                            <option value="30,001-35,000">30,001-35,000</option>
+                                                            <option value="35,001-40,000">35,001-40,000</option>
+                                                            @endif
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
@@ -866,13 +962,55 @@
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ประเภทงาน</label>
-                                                        <select name="worktype" class="form-select" value="{{ $row->worktype}}">
+                                                        <select name="worktype" class="form-select">
+                                                            @if($row->worktype === 'ข้าราชการ' )
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
                                                             <option value="อาชีพอิสระ">อาชีพอิสระ</option>
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
-                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option>                                            
+                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option>  
+                                                            @endif
+                                                            @if($row->worktype === 'รัฐวิสาหกิจ' )
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
+                                                            <option value="ข้าราชการ">ข้าราชการ</option>
+                                                            <option value="พนักงานบริษัท">พนักงานบริษัท</option>
+                                                            <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                                            <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
+                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
+                                                            @endif
+                                                            @if($row->worktype === 'พนักงานบริษัท' )
+                                                            <option value="พนักงานบริษัท">พนักงานบริษัท</option>
+                                                            <option value="ข้าราชการ">ข้าราชการ</option>
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
+                                                            <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                                            <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
+                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
+                                                            @endif
+                                                            @if($row->worktype === 'อาชีพอิสระ' )
+                                                            <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                                            <option value="ข้าราชการ">ข้าราชการ</option>
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
+                                                            <option value="พนักงานบริษัท">พนักงานบริษัท</option>
+                                                            <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
+                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
+                                                            @endif
+                                                            @if($row->worktype === 'กิจการของครอบครัว' )
+                                                            <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
+                                                            <option value="ข้าราชการ">ข้าราชการ</option>
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
+                                                            <option value="พนักงานบริษัท">พนักงานบริษัท</option>
+                                                            <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
+                                                            @endif
+                                                            @if($row->worktype === 'พนักงานบริษัทข้ามชาติ' )
+                                                            <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
+                                                            <option value="ข้าราชการ">ข้าราชการ</option>
+                                                            <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
+                                                            <option value="พนักงานบริษัท">พนักงานบริษัท</option>
+                                                            <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                                            <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
+                                                            @endif                                          
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
@@ -1115,46 +1253,95 @@
                                                 <div class="col-lg-2 my-5">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ $row->id}}">
                                                     <label class="col-form-label font-weight-bold text-dark">ภาษา</label>
-                                                    <select name="language" id="language" class="select form-control">
-                                                        <option value="{{$row->language}}">{{$row->language}}</option>
+                                                    <select name="language" id="language" class="select form-control">     
+                                                        @if($row->language === 'ไทย' )
                                                         <option value="ไทย">ไทย</option>
-                                                        <option value="อังกฤษ">อังกฤษ</option>
+                                                        <option value="อังกฤษ">อังกฤษ</option> 
+                                                        @endif
+                                                        @if($row->language === 'อังกฤษ' )
+                                                        <option value="อังกฤษ">อังกฤษ</option> 
+                                                        <option value="ไทย">ไทย</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
                                                     <label class="col-form-label font-weight-bold text-dark">ฟัง</label>
                                                     <select name="listening" id="listening" class="select form-control">
-                                                        <option value="{{$row->listening}}">{{$row->listening}}</option>
+                                                        @if($row->listening === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
                                                         <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->listening === 'ดี' )
+                                                        <option value="ดี">ดี</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->listening === 'ดีมาก' )
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดี">ดี</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
                                                     <label class="col-form-label font-weight-bold text-dark">พูด</label>
                                                     <select name="speaking" id="speaking" class="select form-control">
-                                                        <option value="{{$row->speaking}}">{{$row->speaking}}</option>
+                                                        @if($row->speaking === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
                                                         <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->speaking === 'ดี' )
+                                                        <option value="ดี">ดี</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->speaking === 'ดีมาก' )
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดี">ดี</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
                                                     <label class="col-form-label font-weight-bold text-dark">อ่าน</label>
                                                     <select name="reading" id="reading" class="select form-control">
-                                                        <option value="{{$row->reading}}">{{$row->reading}}</option>
+                                                        @if($row->reading === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
                                                         <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->reading === 'ดี' )
+                                                        <option value="ดี">ดี</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->reading === 'ดีมาก' )
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดี">ดี</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
                                                     <label class="col-form-label font-weight-bold text-dark">เขียน</label>
                                                     <select name="writing" id="writing" class="select form-control">
-                                                        <option value="{{$row->writing}}">{{$row->writing}}</option>
+                                                        @if($row->writing === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
                                                         <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->writing === 'ดี' )
+                                                        <option value="ดี">ดี</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        @endif
+                                                        @if($row->writing === 'ดีมาก' )
+                                                        <option value="ดีมาก">ดีมาก</option>
+                                                        <option value="พอใช้">พอใช้</option>
+                                                        <option value="ดี">ดี</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 mt-2">
@@ -1235,20 +1422,20 @@
                                             <hr>
                                             <div class="container mt-2">
                                                 <table class="table ">
-                                                    @foreach( $education as $education)
+                                                    @foreach($education as $Education)
                                                     <tbody>
                                                         <tr>
-                                                            <td>{{ $education->School_name }}</td>
-                                                            <td>{{ $education->faculty_study }}</td>
-                                                            <td>{{ $education->field_study }}</td>
-                                                            <td>{{ $education->gpa }}</td>
-                                                            <td>{{ $education->endyear }}</td>
-                                                            <td>{{ $education->degree }}</td>
-                                                            <td>{{ $education->schooltype }}</td>
+                                                            <td>{{ $Education->School_name }}</td>
+                                                            <td>{{ $Education->faculty_study }}</td>
+                                                            <td>{{ $Education->field_study }}</td>
+                                                            <td>{{ $Education->gpa }}</td>
+                                                            <td>{{ $Education->endyear }}</td>
+                                                            <td>{{ $Education->degree }}</td>
+                                                            <td>{{ $Education->schooltype }}</td>
                                                             <td>
                                                                 <label class="col-form-label font-weight-bold text-danger">
-                                                                <a href="#edit{{$education->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
-                                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteEducation({{ $education->id }})">
+                                                                <a href="#edit{{$Education->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
+                                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteEducation({{ $Education->id }})">
                                                                 <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                 </label>
                                                             </td>
@@ -1266,7 +1453,124 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
+                    @foreach($education as $row  )
+                        <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการศึกษา</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"onclick="resetPage()"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{url('/update/Education/'.$row->id)}}" method="post" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">สถาบัน</label>
+                                                            <input type="text" class="form-control" name="School_name" value="{{ $row->School_name }}" required>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">คณะวิชา</label>
+                                                            <input type="text" class="form-control" name="faculty_study"  value="{{ $row->faculty_study }}" required>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">สาขาวิชา</label>
+                                                            <input type="text" class="form-control" name="field_study" value="{{ $row->field_study }}" required>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">เกรดเฉลี่ย</label>
+                                                            <input type="text" class="form-control" name="gpa"  value="{{ $row->gpa }}" required>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">ปีที่จบการศึกษา</label>
+                                                            <select class="form-select" name="endyear" onchange="resultName(this.value);">
+                                                                <option value="{{$row->endyear }}">{{$row->endyear }}</option>
+                                                                <?php
+                                                                $selectedYear = isset($_GET['YearsSelect']) ? $_GET['YearsSelect'] : ""; // เก็บค่าปีที่ถูกเลือกจาก URL parameter
+                                                                for ($y = 2560; $y <= 2580; $y++) {
+                                                                    $selected = ($selectedYear == $y) ? "selected='selected'" : "";
+                                                                    echo "<option value='$y' $selected>$y</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">วุฒิการศึกษา</label>
+                                                            <select name="degree" class="form-select"  value="{{ $row->degree }}">
+                                                                @if($row->degree === 'ประกาศนียบัตรบัณฑิต' )
+                                                                <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
+                                                                <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                                                <option value="ปริญญาโท">ปริญญาโท</option>
+                                                                <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                                                @endif
+                                                                @if($row->degree === 'ประกาศนียบัตรบัณฑิตชั้นสูง' )
+                                                                <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
+                                                                <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                                                <option value="ปริญญาโท">ปริญญาโท</option>
+                                                                <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                                                @endif
+                                                                @if($row->degree === 'ปริญญาตรี' )
+                                                                <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
+                                                                <option value="ปริญญาโท">ปริญญาโท</option>
+                                                                <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                                                @endif
+                                                                @if($row->degree === 'ปริญญาโท' )
+                                                                <option value="ปริญญาโท">ปริญญาโท</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
+                                                                <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                                                <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                                                @endif
+                                                                @if($row->degree === 'ปริญญาเอก' )
+                                                                <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
+                                                                <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
+                                                                <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                                                <option value="ปริญญาโท">ปริญญาโท</option>
+                                                                @endif
+                                                                
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3">
+                                                            <label class="form-label">ประเภทของสถาบันการศึกษา</label>
+                                                            <select name="schooltype" class="form-select" >
+                                                                @if($row->schooltype === 'รัฐบาล' )
+                                                                <option value="รัฐบาล">รัฐบาล</option>
+                                                                <option value="เอกชน">เอกชน</option>
+                                                                <option value="ต่างประเทศ">ต่างประเทศ</option>
+                                                                @endif
+                                                                @if($row->schooltype === 'เอกชน' )
+                                                                <option value="เอกชน">เอกชน</option>
+                                                                <option value="รัฐบาล">รัฐบาล</option>
+                                                                <option value="ต่างประเทศ">ต่างประเทศ</option>
+                                                                @endif
+                                                                @if($row->schooltype === 'ต่างประเทศ' )
+                                                                <option value="ต่างประเทศ">ต่างประเทศ</option>
+                                                                <option value="รัฐบาล">รัฐบาล</option>
+                                                                <option value="เอกชน">เอกชน</option>
+                                                                @endif
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"onclick="resetPage()">ปิด</button>
+                                                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                </div>
+                                        </form>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     <script>
                         function confirmDeleteEducation (id) {
                         swal({
@@ -1288,81 +1592,9 @@
                         return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
                         }
                     </script> 
-                    <div>
-                        @foreach($education as $row)
-                        <div class="modal fade" id="edit{{$education->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">ประวัติการศึกษา</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{url('/update/Education/'.$education->id)}}" method="post" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                            <div class="container">
-                                                <div class="row">
-                                                    <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">สถาบัน</label>
-                                                        <input type="text" class="form-control" name="School_name" value="{{ $education->School_name }}" required>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">คณะวิชา</label>
-                                                        <input type="text" class="form-control" name="faculty_study"  value="{{ $education->faculty_study }}" required>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">สาขาวิชา</label>
-                                                        <input type="text" class="form-control" name="field_study" value="{{ $education->field_study }}" required>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">เกรดเฉลี่ย</label>
-                                                        <input type="text" class="form-control" name="gpa"  value="{{ $education->gpa }}" required>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ปีที่จบการศึกษา</label>
-                                                        <select class="form-select" name="endyear" onchange="resultName(this.value);">
-                                                            <option value="">{{ $education->endyear }}</option>
-                                                            <?php
-                                                            $selectedYear = isset($_GET['YearsSelect']) ? $_GET['YearsSelect'] : ""; // เก็บค่าปีที่ถูกเลือกจาก URL parameter
-                                                            for ($y = 2560; $y <= 2580; $y++) {
-                                                                $selected = ($selectedYear == $y) ? "selected='selected'" : "";
-                                                                echo "<option value='$y' $selected>$y</option>";
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">วุฒิการศึกษา</label>
-                                                        <select name="degree" class="form-select"  value="{{ $education->degree }}">
-                                                            <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
-                                                            <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
-                                                            <option value="ปริญญาตรี">ปริญญาตรี</option>
-                                                            <option value="ปริญญาโท">ปริญญาโท</option>
-                                                            <option value="ปริญญาเอก">ปริญญาเอก</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ประเภทของสถาบันการศึกษา</label>
-                                                        <select name="schooltype" class="form-select"  value="{{ $education->schooltype }}">
-                                                            <option value="รัฐบาล">รัฐบาล</option>
-                                                            <option value="เอกชน">เอกชน</option>
-                                                            <option value="ต่างประเทศ">ต่างประเทศ</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                                <button type="submit" class="btn btn-primary">บันทึก</button>
-                                            </div>
-                                        </form>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
+                    
+                        
+                    
 
                     <div>
                         <div class="modal fade" id="Workhistoryinfo" tabindex="-1" aria-labelledby="Workhistoryinfo" aria-hidden="true">
@@ -1565,15 +1797,18 @@
                                                     @if($contactInfo)
                                                         <select name="prefix" id="prefix" class="select" value="{{ $contactInfo->prefix }}">
                                                             <option value="{{ $contactInfo->prefix }}">{{ $contactInfo->prefix }}</option>
-                                                            <option value="นาย">นาย</option>
-                                                            <option value="นาย">นาง</option>
+                                                            @if($contactInfo->prefix == 'นาย' )
+                                                            <option value="นาง">นาง</option>
                                                             <option value="นางสาว">นางสาว</option>
-                                                        </select>
-                                                    @else 
-                                                        <select name="prefix" id="prefix" class="select">
+                                                            @endif
+                                                            @if($contactInfo->prefix == 'นาง' )
                                                             <option value="นาย">นาย</option>
-                                                            <option value="นาย">นาง</option>
                                                             <option value="นางสาว">นางสาว</option>
+                                                            @endif
+                                                            @if($contactInfo->prefix == 'นางสาว' )
+                                                            <option value="นาย">นาย</option>
+                                                            <option value="นาง">นาง</option>
+                                                            @endif
                                                         </select>
                                                     @endif  
                                                     </div>

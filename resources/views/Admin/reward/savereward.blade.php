@@ -215,13 +215,13 @@
             <div style="display: flex; align-items: center;">
                 <h4 style="margin-right: 15px;">ประเภทรางวัล</h4>
                 <select name="reward_type" class="form-select" >
-                        <option value="reward">รางวัล</option>
-                        <option value="scholarship" >ทุนการศึกษา</option>
+                        <option value="รางวัล">รางวัล</option>
+                        <option value="ทุนการศึกษา" >ทุนการศึกษา</option>
                 </select>
             </div>   
-                <br>
-                <button class="btn btn-primary" style="position: absolute;left:500px;">บันทึก</button>
-                <a href="{{ route('reward') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:600px; ">ยกเลิก</a>
+            <br>
+            <button class="btn btn-primary" style="position: absolute;left:500px;">บันทึก</button>
+            <a href="{{ route('reward') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:600px; ">ยกเลิก</a>
         </div>
         @if(Session::has('alert'))
         <script>

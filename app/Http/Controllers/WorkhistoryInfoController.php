@@ -29,7 +29,6 @@ class WorkhistoryInfoController extends Controller
         $worktype = $request->input('worktype');
         $startdate = Carbon::createFromFormat('m-Y', $startdate)->format('Y-m-d');
         $enddate_end = Carbon::createFromFormat('m-Y', $enddate_end)->format('Y-m-d');
-        
         if ($enddate === 'on') {
             $now = Carbon::now();
             $thaiYear = $now->addYears(543)->format('m-Y'); 
@@ -68,6 +67,7 @@ class WorkhistoryInfoController extends Controller
     }
     public function update(Request $request, $id){
 
+        
         $ID_student = Auth::user()->student_id;
         $id = $request->input('id');
         $startdate_m = $request->input('startdate_m');

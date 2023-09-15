@@ -263,10 +263,18 @@
                                         <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
                                             @if($contactInfo)
                                                 <select name="prefix" id="prefix" class="select">
-                                                    <option value="{{ $contactInfo->prefix }}">{{ $contactInfo->prefix }}</option>
-                                                    <option value="นาย">นาย</option>
+                                                    @if($row->reward_type == 'นาย' )
                                                     <option value="นาง">นาง</option>
                                                     <option value="นางสาว">นางสาว</option>
+                                                    @endif
+                                                    @if($row->reward_type == 'นาง' )
+                                                    <option value="นาย">นาย</option>
+                                                    <option value="นางสาว">นางสาว</option>
+                                                    @endif
+                                                    @if($row->reward_type == 'นางสาว' )
+                                                    <option value="นาย">นาย</option>
+                                                    <option value="นาง">นาง</option>
+                                                    @endif
                                                 </select>
                                             @else 
                                                 <select name="prefix" id="prefix" class="select">
