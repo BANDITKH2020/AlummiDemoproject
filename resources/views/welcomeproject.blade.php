@@ -254,5 +254,23 @@
                 <div class="wave"></div>
              </div> --}}
         </div>
+        @if(Session::has('alert'))
+            <script>
+                swal("{{Session::get('alert')}}",{
+                    icon: "success",
+                    if(exist){
+                        alert(msg);
+                }});
+            </script>
+        @endif  
+        @if(Session::has('error'))
+            <script>
+                swal("{{Session::get('error')}}",{
+                    icon: "error",
+                    if(exist){
+                        alert(msg);
+                }});
+            </script>
+        @endif
     </body>
 </html>

@@ -279,7 +279,7 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-center">
-                                    
+                                        {{$users->links()}}
                                     </div>
                                     @foreach($users as $row)
                                     <div class="modal fade" id="exampleModal{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
