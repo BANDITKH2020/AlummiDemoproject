@@ -25,15 +25,19 @@ class SocialController extends Controller
         $student_grp = $request->input('student_grp');
         $token_id = $request->input('token_id');
         $recaptcha = $request->input('g-recaptcha-response');
+        $student_id = User::where('student_id', $student_id)->first();
+        if ($student_id) {
+            return redirect()->back()->with('error','กรุณากรอกรหัสนักศึกษาให้ถูกต้อง');
+        }
+        if (!$recaptcha) {
+            return redirect()->back()->with('error', 'กรุณาตอบคำถาม reCAPTCHA');
+        }
         session()->put('firstname', $firstname);
         session()->put('lastname', $lastname);
         session()->put('student_id', $student_id);
         session()->put('student_grp', $student_grp);
         session()->put('token_id', $token_id);
         session()->put('recaptcha', $recaptcha);
-        if (!$recaptcha) {
-            return redirect()->back()->with('error', 'กรุณาตอบคำถาม reCAPTCHA');
-        }
         // ตรวจสอบคำตอบของ reCAPTCHA ด้วย Google reCAPTCHA API
         return redirect('auth/google');
     }
