@@ -250,16 +250,18 @@
                                                         7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
                                                         10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
                                                     ];
-                                                    $user_id = $row->id;
+                                                    $loginDate = \Carbon\Carbon::parse($row->login_at);
+
                                                 @endphp
                                                 <tr class="custom-row">
                                                     <td scope="col" class="text-center ">{{$row->firstname}}</td>
                                                     <td scope="col" class="text-center ">{{$row->lastname}}</td>
                                                     <td scope="col" class="text-center ">{{$row->role_acc}}</td>
-                                                    <td scope="col" class="text-center">
-                                                @if(isset($login_at))
-                                                    {{ \Carbon\Carbon::parse($login_at)->format('d') }} {{$thaiMonths[\Carbon\Carbon::parse($login_at)->month]}} {{ \Carbon\Carbon::parse($login_at)->year + 543}}
-                                                @endif</td>
+                                                    @if($row->role_acc === 'Admin')
+                                                    <td scope="col" class="text-center ">-</td>
+                                                    @else
+                                                    <td scope="col" class="text-center"> {{$loginDate->format('d')}} {{$thaiMonths[$loginDate->month]}} {{$loginDate->year + 543}}</td>
+                                                    @endif
 
                                                     <td scope="col" class="text-center ">{{$row->inviteby}}</td>
                                                     <td scope="col" class="text-center ">{{$row->student_grp}}</td>

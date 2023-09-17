@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserDeleted;
 use App\Http\Controllers\Controller;
+use App\Models\Contart_info;
+use App\Models\Education_infom;
+use App\Models\language_skill;
 use App\Models\LoginHistory;
+use App\Models\Skill_info;
+use App\Models\Tranning_info;
 use App\Models\User;
+use App\Models\Workhistory_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ManageAccountController extends Controller
@@ -56,15 +63,14 @@ class ManageAccountController extends Controller
 
         
         
-        $users = $query
-            ->select('id','student_id', 'firstname', 'lastname', 'educational_status','inviteby','student_grp','role_acc','created_at','active','email','graduatesem','groupleader')
-            ->paginate(10);
             
-            $user_id = Auth::user()->id;
-            $loginHistory = LoginHistory::find($user_id);
-            $login_at = isset($loginHistory) ? $loginHistory->login_at : null;
+            $users = $query->select('users.id', 'users.student_id', 'users.firstname', 'users.lastname', 'users.educational_status', 'users.inviteby', 'users.student_grp', 'users.role_acc', 'users.created_at', 'users.active', 'users.email', 'users.graduatesem', 'users.groupleader', 'login_histories.login_at')
+                    ->whereIn('users.role_acc', ['student', 'teacher','Admin'])
+                    ->leftJoin('login_histories', 'users.id', '=', 'login_histories.user_id')
+                    ->paginate(10);
             
-        return view('Admin.manage.manage_account',compact('users','login_at'));
+            
+        return view('Admin.manage.manage_account',compact('users'));
     }
     public function update(Request $request, $id) 
     { 
@@ -77,7 +83,19 @@ class ManageAccountController extends Controller
 
     }
     public function delete($id){
-        $delete= User::find($id)->delete();
+        $user = User::find($id);
+        
+        if (!$user) {
+            return redirect()->back()->with('alert', 'ไม่พบผู้ใช้งาน');
+        }
+        $student_id = $user->student_id;
+        Contart_info::where('ID_student', $student_id)->delete();
+        Education_infom::where('ID_student', $student_id)->delete();
+        Workhistory_info::where('ID_student', $student_id)->delete();
+        Skill_info::where('ID_student', $student_id)->delete();
+        language_skill::where('ID_student', $student_id)->delete();
+        Tranning_info::where('ID_student', $student_id)->delete();
+        $user->delete();
         return redirect()->back()->with('alert','ลบผู้ใช้งานเรียบร้อย');
     }  
 

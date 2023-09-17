@@ -36,12 +36,12 @@ class UsersetController extends Controller
         $user = User::where('student_id', $student_id)->first();
         $department = department::where('ID', 1)->first();
 
-        $contact = Contart_info::where('ID_student', $student_id)->get();
-        $education = Education_infom::where('ID_student', $student_id)->get();
-        $Workhistory = Workhistory_info::where('ID_student', $student_id)->get();
-        $Skill_info = Skill_info::where('ID_student', $student_id)->select( 'id','Skill_name')->paginate(3);
-        $language_skill = language_skill::where('ID_student', $student_id)->paginate(3);
-        $Tranning_info = Tranning_info::where('ID_student', $student_id)->paginate(3);
+        $contact = Contart_info::where('ID_student', $student_id)->paginate(2);
+        $education = Education_infom::where('ID_student', $student_id)->paginate(2);
+        $Workhistory = Workhistory_info::where('ID_student', $student_id)->paginate(3);
+        $Skill_info = Skill_info::where('ID_student', $student_id)->select( 'id','Skill_name')->paginate(2);
+        $language_skill = language_skill::where('ID_student', $student_id)->paginate(2);
+        $Tranning_info = Tranning_info::where('ID_student', $student_id)->paginate(2);
 
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
             return $message->created_at->format('Y-m-d'); // แยกตามวันที่

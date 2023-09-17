@@ -1090,7 +1090,10 @@
                                                                             <label class="col-form-label font-weight-bold text-dark">ภาษา</label>
                                                                             <select name="language" id="language" class="select form-control">
                                                                                 <option value="ไทย">ไทย</option>
-                                                                                <option value="อังกฤษ">อังกฤษ</option>
+                                                                                <option value="อังกฤษ">อังกฤษ</option> 
+                                                                                <option value="จีน">จีน</option>
+                                                                                <option value="ญี่ปุ่น">ญี่ปุ่น</option>
+                                                                                <option value="ฝรั่งเศษ">ฝรั่งเศษ</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 my-5">
@@ -1257,10 +1260,37 @@
                                                         @if($row->language === 'ไทย' )
                                                         <option value="ไทย">ไทย</option>
                                                         <option value="อังกฤษ">อังกฤษ</option> 
+                                                        <option value="จีน">จีน</option>
+                                                        <option value="ญี่ปุ่น">ญี่ปุ่น</option>
+                                                        <option value="ฝรั่งเศษ">ฝรั่งเศษ</option>
                                                         @endif
                                                         @if($row->language === 'อังกฤษ' )
                                                         <option value="อังกฤษ">อังกฤษ</option> 
                                                         <option value="ไทย">ไทย</option>
+                                                        <option value="จีน">จีน</option>
+                                                        <option value="ญี่ปุ่น">ญี่ปุ่น</option>
+                                                        <option value="ฝรั่งเศษ">ฝรั่งเศษ</option>
+                                                        @endif
+                                                        @if($row->language === 'จีน' )
+                                                        <option value="จีน">จีน</option>
+                                                        <option value="ไทย">ไทย</option>
+                                                        <option value="อังกฤษ">อังกฤษ</option> 
+                                                        <option value="ญี่ปุ่น">ญี่ปุ่น</option>
+                                                        <option value="ฝรั่งเศษ">ฝรั่งเศษ</option>
+                                                        @endif
+                                                        @if($row->language === 'ญี่ปุ่น' )
+                                                        <option value="ญี่ปุ่น">ญี่ปุ่น</option>
+                                                        <option value="ไทย">ไทย</option>
+                                                        <option value="อังกฤษ">อังกฤษ</option> 
+                                                        <option value="จีน">จีน</option>
+                                                        <option value="ฝรั่งเศษ">ฝรั่งเศษ</option>
+                                                        @endif
+                                                        @if($row->language === 'ฝรั่งเศษ' )
+                                                        <option value="ฝรั่งเศษ">ฝรั่งเศษ</option>
+                                                        <option value="ไทย">ไทย</option>
+                                                        <option value="อังกฤษ">อังกฤษ</option> 
+                                                        <option value="จีน">จีน</option>
+                                                        <option value="ญี่ปุ่น">ญี่ปุ่น</option>
                                                         @endif
                                                     </select>
                                                 </div>
@@ -1443,6 +1473,9 @@
                                                     </tbody>
                                                     @endforeach
                                                 </table>
+                                                <div class="d-flex justify-content-center">
+                                                    {{$education->links()}}
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
@@ -1710,26 +1743,29 @@
                                             <hr>
                                             <div class="container mt-2">
                                                 <table class="table ">
-                                                    @foreach( $Workhistory as $Workhistory)
+                                                    @foreach( $Workhistory as $Workhistoryrow)
                                                     <tbody>
                                                         <tr>
-                                                            <td>{{ $Workhistory->Company_name }}</td>
-                                                            <td>{{ $Workhistory->position }}</td>
-                                                            <td>{{ $Workhistory->salary }}</td>
-                                                            <td>{{ $Workhistory->Company_add }}</td>
-                                                            <td>{{ $Workhistory->worktype }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($Workhistory->startdate)->format('m-Y') }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($Workhistory->enddate)->format('m-Y') }}</td>
+                                                            <td>{{ $Workhistoryrow->Company_name }}</td>
+                                                            <td>{{ $Workhistoryrow->position }}</td>
+                                                            <td>{{ $Workhistoryrow->salary }}</td>
+                                                            <td>{{ $Workhistoryrow->Company_add }}</td>
+                                                            <td>{{ $Workhistoryrow->worktype }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($Workhistoryrow->startdate)->format('m-Y') }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($Workhistoryrow->enddate)->format('m-Y') }}</td>
                                                             <td>
                                                                 <label class="col-form-label font-weight-bold text-danger">
-                                                                <a href="#edit{{$Workhistory->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
-                                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteWorkhistory({{ $Workhistory->id }})">
+                                                                <a href="#edit{{$Workhistoryrow->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
+                                                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteWorkhistory({{ $Workhistoryrow->id }})">
                                                                 <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                     @endforeach
                                                 </table>
+                                                <div class="d-flex justify-content-center">
+                                                    {{$Workhistory->links()}}
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
