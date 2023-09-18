@@ -617,7 +617,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขประวัติการฝึกอบรม</h1>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">ประวัติการฝึกอบรม</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -725,7 +725,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการฝึกอบรม</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -770,21 +770,20 @@
                         @endforeach
                     </div>
                     <div>
-                        {{--ประวัติการทำงาน update--}}
-                        @foreach($Workhistory as $row  )
-                        <div class="modal fade" id="edit{{$row->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        @foreach($Workhistory as $Why  )
+                        <div class="modal fade" id="edit{{$Why->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">ประวัติการทำงาน</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการทำงาน</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                 </div>
                                 <div class="modal-body">
-                                <form action="{{ url('/update/Workhistory/ .$row->id') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ url('/update/Workhistory/ .$Why->id') }}" method="post" enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="container">
                                                 <div class="row">
-                                                    <input type="hidden" id="selectedIdsInput" name="id" value="{{ $row->id}}">
+                                                    <input type="hidden" id="selectedIdsInput" name="id" value="{{ $Why->id}}">
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ระยะเวลา</label>
                                                         <select id="monthSelect" name="startdate_m" class="form-select" >
@@ -797,7 +796,7 @@
                                                             ];
                                                         @endphp
                                                         @php
-                                                            $parsedDate = \Carbon\Carbon::parse($row->startdate);
+                                                            $parsedDate = \Carbon\Carbon::parse($Why->startdate);
                                                             $monthN = $parsedDate->format('n');
                                                             $monthNw = $parsedDate->format('m');
                                                         @endphp
@@ -820,8 +819,8 @@
                                                         </select>
                                                         <br>
                                                         <select id="yearSelect" name="startdate_y" class="form-select" >
-                                                            <option value="{{ $row->startdate ? \Carbon\Carbon::parse($row->startdate)->format('Y') : date('Y') }}">
-                                                                {{ $row->startdate ? \Carbon\Carbon::parse($row->startdate)->format('Y') : date('Y') }}
+                                                            <option value="{{ $Why->startdate ? \Carbon\Carbon::parse($Why->startdate)->format('Y') : date('Y') }}">
+                                                                {{ $Why->startdate ? \Carbon\Carbon::parse($Why->startdate)->format('Y') : date('Y') }}
                                                             </option>
                                                             <?php
                                                             $currentYear = date("Y");
@@ -843,7 +842,7 @@
                                                             ];
                                                         @endphp
                                                         @php
-                                                            $parsedDate = \Carbon\Carbon::parse($row->enddate);
+                                                            $parsedDate = \Carbon\Carbon::parse($Why->enddate);
                                                             $monthNumber = $parsedDate->format('n');
                                                             $monthNw = $parsedDate->format('m');
                                                         @endphp
@@ -864,9 +863,9 @@
                                                             <option value="12">ธันวาคม</option>
                                                         </select>
                                                         <br>
-                                                        <select id="yearSelect" name="enddate_y" class="form-select" value="{{$row->enddate_y }}">
-                                                            <option value="{{ $row->enddate ? \Carbon\Carbon::parse($row->enddate)->format('Y') : date('Y') }}">
-                                                                {{ $row->enddate ? \Carbon\Carbon::parse($row->enddate)->format('Y') : date('Y') }}
+                                                        <select id="yearSelect" name="enddate_y" class="form-select" value="{{$Why->enddate_y }}">
+                                                            <option value="{{ $Why->enddate ? \Carbon\Carbon::parse($Why->enddate)->format('Y') : date('Y') }}">
+                                                                {{ $Why->enddate ? \Carbon\Carbon::parse($Why->enddate)->format('Y') : date('Y') }}
                                                             </option>
                                                             <?php
                                                             $currentYear = date("Y");
@@ -882,16 +881,16 @@
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ชื่อบริษัท</label>
-                                                        <input type="text" class="form-control" name="Company_name" value="{{ $row->Company_name}}" required>
+                                                        <input type="text" class="form-control" name="Company_name" value="{{ $Why->Company_name}}" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ตำแหน่งงาน</label>
-                                                        <input type="text" class="form-control" name="position" value="{{ $row->position}}" required>
+                                                        <input type="text" class="form-control" name="position" value="{{ $Why->position}}" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ช่วงเงินเดือน</label>
-                                                        <select name="salary" class="form-select" value="{{ $row->salary}}">
-                                                            @if($row->salary === 'น้อยกว่า 15,000' )
+                                                        <select name="salary" class="form-select" value="{{ $Why->salary}}">
+                                                            @if($Why->salary === 'น้อยกว่า 15,000' )
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
                                                             <option value="20,001-25,000">20,001-25,000</option>
@@ -900,7 +899,7 @@
                                                             <option value="35,001-40,000">35,001-40,000</option>
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             @endif
-                                                            @if($row->salary === '15,000-20,000' )
+                                                            @if($Why->salary === '15,000-20,000' )
                                                             <option value="15,000-20,000">15,000-20,000</option>
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="20,001-25,000">20,001-25,000</option>
@@ -909,7 +908,7 @@
                                                             <option value="35,001-40,000">35,001-40,000</option>
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             @endif
-                                                            @if($row->salary === '20,001-25,000' )
+                                                            @if($Why->salary === '20,001-25,000' )
                                                             <option value="20,001-25,000">20,001-25,000</option>
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
@@ -918,7 +917,7 @@
                                                             <option value="35,001-40,000">35,001-40,000</option>
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             @endif
-                                                            @if($row->salary === '25,001-30,000' )
+                                                            @if($Why->salary === '25,001-30,000' )
                                                             <option value="25,001-30,000">25,001-30,000</option>
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
@@ -927,7 +926,7 @@
                                                             <option value="35,001-40,000">35,001-40,000</option>
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             @endif
-                                                            @if($row->salary === '30,001-35,000' )
+                                                            @if($Why->salary === '30,001-35,000' )
                                                             <option value="30,001-35,000">30,001-35,000</option>
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
@@ -936,7 +935,7 @@
                                                             <option value="35,001-40,000">35,001-40,000</option>
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             @endif
-                                                            @if($row->salary === '35,001-40,000' )
+                                                            @if($Why->salary === '35,001-40,000' )
                                                             <option value="35,001-40,000">35,001-40,000</option>
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
@@ -945,7 +944,7 @@
                                                             <option value="30,001-35,000">30,001-35,000</option>
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             @endif
-                                                            @if($row->salary === '40,001 ขึ้นไป' )
+                                                            @if($Why->salary === '40,001 ขึ้นไป' )
                                                             <option value="40,001 ขึ้นไป">40,001 ขึ้นไป</option> 
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
@@ -958,12 +957,12 @@
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ที่อยู่บริษัท</label>
-                                                        <input type="text" class="form-control" name="Company_add" value="{{ $row->Company_add}}" required>
+                                                        <input type="text" class="form-control" name="Company_add" value="{{ $Why->Company_add}}" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                         <label class="form-label">ประเภทงาน</label>
                                                         <select name="worktype" class="form-select">
-                                                            @if($row->worktype === 'ข้าราชการ' )
+                                                            @if($Why->worktype === 'ข้าราชการ' )
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
@@ -971,7 +970,7 @@
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
                                                             <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option>  
                                                             @endif
-                                                            @if($row->worktype === 'รัฐวิสาหกิจ' )
+                                                            @if($Why->worktype === 'รัฐวิสาหกิจ' )
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
@@ -979,7 +978,7 @@
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
                                                             <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
                                                             @endif
-                                                            @if($row->worktype === 'พนักงานบริษัท' )
+                                                            @if($Why->worktype === 'พนักงานบริษัท' )
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
@@ -987,7 +986,7 @@
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
                                                             <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
                                                             @endif
-                                                            @if($row->worktype === 'อาชีพอิสระ' )
+                                                            @if($Why->worktype === 'อาชีพอิสระ' )
                                                             <option value="อาชีพอิสระ">อาชีพอิสระ</option>
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
@@ -995,7 +994,7 @@
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
                                                             <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
                                                             @endif
-                                                            @if($row->worktype === 'กิจการของครอบครัว' )
+                                                            @if($Why->worktype === 'กิจการของครอบครัว' )
                                                             <option value="กิจการของครอบครัว">กิจการของครอบครัว</option>
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
@@ -1003,7 +1002,7 @@
                                                             <option value="อาชีพอิสระ">อาชีพอิสระ</option>
                                                             <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
                                                             @endif
-                                                            @if($row->worktype === 'พนักงานบริษัทข้ามชาติ' )
+                                                            @if($Why->worktype === 'พนักงานบริษัทข้ามชาติ' )
                                                             <option value="พนักงานบริษัทข้ามชาติ">พนักงานบริษัทข้ามชาติ</option> 
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
@@ -1015,7 +1014,7 @@
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
                                                     <label class="col-form-label font-weight-bold text-dark">รายละเอียดของงาน (ถ้ามี)</label>
-                                                    <textarea id="desctiption" name="desctiption" rows="3" cols="25">{{ $row->desctiption}}</textarea>
+                                                    <textarea id="desctiption" name="desctiption" rows="3" cols="25">{{ $Why->desctiption}}</textarea>
                                                 </div>
                                                 </div>
                                             </div>
@@ -1036,7 +1035,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติประวัติการศึกษา</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">ทักษะตามสาขาอาชีพ</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1220,7 +1219,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขทักษะ</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1246,7 +1245,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขทักษะด้านภาษา</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1464,7 +1463,7 @@
                                                             <td>{{ $Education->schooltype }}</td>
                                                             <td>
                                                                 <label class="col-form-label font-weight-bold text-danger">
-                                                                <a href="#edit{{$Education->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
+                                                                <a href="#editEducation{{$Education->id}}" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>    
                                                                 <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDeleteEducation({{ $Education->id }})">
                                                                 <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                                 </label>
@@ -1487,9 +1486,9 @@
                             </div>
                         </div>
                         
-                    </div>
+                    
                     @foreach($education as $row  )
-                        <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="editEducation{{$row->id}}" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -1604,6 +1603,7 @@
                             </div>
                         </div>
                         @endforeach
+                    </div>
                     <script>
                         function confirmDeleteEducation (id) {
                         swal({
@@ -1634,7 +1634,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="Workhistoryinfo">แก้ไขประวัติประวัติการศึกษา</h1>
+                                        <h1 class="modal-title fs-5" id="Workhistoryinfo">ประวัติการทำงาน</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
