@@ -52,11 +52,11 @@ class DashboardController extends Controller
                   ->where('attention', 'not like', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
         })->count();
         $totalCount = Contart_info::count();
-        $percentageOne = intval(($countone / $totalCount) * 100);
-        $percentageTwo = intval(($counttwo / $totalCount) * 100);
-        $percentageThree = intval(($countthree / $totalCount) * 100);
-        $percentageFour = intval(($countfour / $totalCount) * 100);
-        $percentageOthers = intval(($countOthers / $totalCount) * 100);
+        $percentageOne = $totalCount === 0 ? null : intval(($countone / $totalCount) * 100);
+        $percentageTwo = $totalCount === 0 ? null : intval(($counttwo / $totalCount) * 100);
+        $percentageThree = $totalCount === 0 ? null : intval(($countthree / $totalCount) * 100);
+        $percentageFour = $totalCount === 0 ? null : intval(($countfour / $totalCount) * 100);
+        $percentageOthers = $totalCount === 0 ? null : intval(($countOthers / $totalCount) * 100);
         
         
         return view('Admin.dashboard.dashboard',compact('user','educational_status','inactiveUserCount','monthlyCounts'

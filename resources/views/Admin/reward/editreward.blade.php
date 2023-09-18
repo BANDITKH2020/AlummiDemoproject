@@ -171,7 +171,7 @@
             <div style="display: flex; align-items: center;">
                 <h4 style="margin-right: 15px;">ปีการศึกษาที่จบ</h4>
                 <select class="form-select" name="year" onchange="resultName(this.value);" >
-                    <option value="">-</option>
+                    <option value="{{$reward->year}}">-</option>
                     <?php
                     $selectedYear = isset($_GET['YearsSelect']) ? $_GET['YearsSelect'] : ""; // เก็บค่าปีที่ถูกเลือกจาก URL parameter
                     for ($y = 2564; $y <= 2580; $y++) {
@@ -215,11 +215,11 @@
             <div style="display: flex; align-items: center;">
                 <h4 style="margin-right: 15px;">ประเภทรางวัล</h4>
                 <select name="reward_type" class="form-select" >
-                    @if($row->reward_type == 'รางวัล' )
+                    @if($reward->reward_type == 'รางวัล' )
                     <option value="รางวัล">รางวัล</option>
                     <option value="ทุนการศึกษา" >ทุนการศึกษา</option>
                     @endif
-                    @if($row->reward_type == 'ทุนการศึกษา' )
+                    @if($reward->reward_type == 'ทุนการศึกษา' )
                     <option value="ทุนการศึกษา" >ทุนการศึกษา</option>
                     <option value="รางวัล">รางวัล</option>
                     @endif

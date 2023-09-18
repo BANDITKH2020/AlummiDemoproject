@@ -155,6 +155,14 @@
         .return:hover iconify-icon {
             color: #778899; /* สีของไอคอนเมื่อ hover */
         }
+        .re-admin iconify-icon {
+        font-size: 29px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
+        .re-teacher iconify-icon {
+        font-size: 24px;
+        color: black; /* สีตั้งต้นของไอคอน */
+        }
 
         </style>
 
@@ -181,7 +189,7 @@
                 <h3 class="card-text"></h3>
             @endif
         @endif
-        <h3>วันที่ลงเนื้อหา: {{$view->created_at}}</h3>
+        <h3>วันที่ลงเนื้อหา: {{$view->created_at->format('d-m-Y')}}</h3>
         <div class="row">
             
             @if($view->images->count() > 0)
