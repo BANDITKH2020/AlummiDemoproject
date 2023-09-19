@@ -108,7 +108,7 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>ปรับสภานภาพ</h2>
     <hr class="mt-1" style="border: 1px solid #000">
-    <button type="button" class="btn btn-warning" id="openModalButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-warning" id="openModalButton" data-bs-toggle="modal" data-bs-target="#statusStudent">
     ปรับสถานะนักศึกษา
     </button>
         <form action="" method="GET" >
@@ -245,7 +245,7 @@
                                 });
 
                             </script>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="statusStudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                              <div class="modal-header">

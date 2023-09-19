@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -72,4 +73,13 @@ class Kernel extends HttpKernel
         // ... โค้ดอื่น ๆ ...
         'checkRole' => \App\Http\Middleware\PreventRouteChangeForLoggedInUser::class,
     ];
+    protected $commands = [
+        // ...
+        \App\Console\Commands\DeleteExpiredTokens::class,
+    ];
+    protected function schedule(Schedule $schedule)
+    {
+        // เรียกใช้คำสั่งเช็คและลบข้อมูลที่ถูกเลยเวลาทุกๆ 1 นาที
+        $schedule->command('tokens:delete-expired')->everyMinute();
+    }
 }

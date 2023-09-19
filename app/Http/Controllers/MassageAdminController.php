@@ -15,10 +15,15 @@ class MassageAdminController extends Controller
         $queryMassage = Massage::query();
         $search = $request->input('search');
         $searchdata = $request->searchdata;
-        
+        if ($search === null) {
+            $search = 1;
+        }
         if (!empty($search)) {
             switch ($searchdata) {
                 case 'all':
+                    if ($search === 1) {
+                        $search = null;
+                    }
                     $queryMassage->where('firstname', 'LIKE', "%{$search}%")
                             ->orWhere('lastname', 'LIKE', "%{$search}%")
                             ->orWhere('massage_name', 'LIKE', "%{$search}%");
@@ -47,7 +52,7 @@ class MassageAdminController extends Controller
                     } elseif ($search === 'ไม่ติดดาว') {
                         $search = 0;
                     }
-                    $queryMassage->where('status_massage', $search);
+                    $queryMassage->where('status_massage',$search);
                     break;
             }
         }
