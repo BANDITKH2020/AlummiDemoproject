@@ -53,12 +53,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('เข้าสู่ระบบ') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('จำรหัสผ่านไม่ได้ ?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>

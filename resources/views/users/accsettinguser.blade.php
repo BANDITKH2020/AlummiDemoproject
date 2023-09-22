@@ -16,13 +16,14 @@
 <body>
     <style>
         body {
-                font-family:'THSarabunNew';
-              }
+            font-family:'TH Niramit AS';
+            font-size: 20px;
+        }
         a:link {
-                color: black;
-                background-color: transparent;
-                text-decoration: none;
-              }
+            color: black;
+            background-color: transparent;
+            text-decoration: none;
+        }
 
         h5:hover{
             /* color: #05FF2D; */
@@ -36,82 +37,87 @@
             color: #FF0033; /* สีของไอคอนเมื่อ hover */
         }
         .horizontal-text {
-    display: flex; /* ให้แสดงเป็น Flex Container */
-    flex-direction: row; /* กำหนดเรียงแนวนอน */
-    align-items: center; /* ให้เนื้อหาอยู่ตรงกลางแนวดิ่ง */
-}
-.horizontal-text h5 {
-    margin-right: 10px; /* กำหนดระยะห่างระหว่างข้อความ */
-}
+            display: flex; /* ให้แสดงเป็น Flex Container */
+            flex-direction: row; /* กำหนดเรียงแนวนอน */
+            align-items: center; /* ให้เนื้อหาอยู่ตรงกลางแนวดิ่ง */
+        }
+        .horizontal-text h5 {
+            margin-right: 10px; /* กำหนดระยะห่างระหว่างข้อความ */
+        }
+        h3{
+            font-weight: bold;
+        }
+        h2{
+            font-weight: bold;
+        }
+        p{
+            font-size: 20px;
+        }
+        h4{
+            font-weight: bold;
+        }
     </style>
-  <div class="col-12">
-    <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+  <div class="col-12 outset" style="background-color: #EFF4FF;">
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                </div>
+                <div  class="col-11">
+                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
 
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
-            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 @else
                 <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
                 @endif
-                <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="/users/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/users/homeuser" class="textmenu"><h3>หน้าหลัก</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentslist') }}" class="textmenu"><h3>รายชื่อนักศึกษา</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{route('graduateuser')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="{{route('graduateuser')}}" class="textmenu"><h3>ทำเนียบบัณฑิต</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{route('rewarduser')}}" class="textmenu"><h5>รางวัลประกาศ</h5></a>
+                <a href="{{route('rewarduser')}}" class="textmenu"><h3>รางวัลประกาศ</h3></a>
+                @endif
+                
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+            @if($surveylink)
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
+            @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
+                <a href="{{ route('accountuser') }}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                    @if($surveylink)
-                        <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
-                    @endif
-                @endif
-                
-                
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('accountuser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
-                @endif
-                
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
+                <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h3>ประวัติการติดต่อ</h3></a>
                 @endif
                 
                 
@@ -121,7 +127,7 @@
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
+                <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
@@ -188,8 +194,8 @@
         } 
     </style>
     <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-        <div class="col-12 mt-5">
-            <h4 class="mt-3">ตั้งค่าโปรไฟล์</h4>
+        <div class="col-12 ">
+            <h2>ตั้งค่าโปรไฟล์</h2>
             <hr>
             @php
                 $thaiMonths = [
@@ -202,12 +208,12 @@
             <div class="col-12" style="text-align: end">
                 @if($contactInfo)
                     @if($contactInfo->updated_at === null)
-                        <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
+                        <p>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</p>
                     @else
-                        <h5>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</h5>
+                        <p>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</p>
                     @endif
                 @else
-                    <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
+                    <p>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</p>
                 @endif
             </div>
             <div class="col-10 mx-auto mt-3 text-center">
@@ -220,25 +226,25 @@
                 @else
                     <img src="{{ asset('images/teamwork.png') }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
                 @endif
-                <h5>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h5>
+                <h4>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h4>
             </div>
             <br>
-            <hr class="mt-5" style="border: 1px solid #000">
         </div>
         <div class="col-12 row">
+        <hr class="mt-5" style="border: 1px solid #000">
             <div class="row" style="text-align: center;" >
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" onclick="openCity(event, 'ประวัติการศึกษา')" id="defaultOpen"><h5>ประวัติการศึกษา <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Educationinfo"></i></h5></a>
+                        <a class="nav-link" onclick="openCity(event, 'ประวัติการศึกษา')" id="defaultOpen"><h4>ประวัติการศึกษา <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Educationinfo"></i></h4></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " style="margin-left: 180px;" onclick="openCity(event, 'ประวัติการทำงาน')" ><h5>ประวัติการทำงาน <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Workhistoryinfo"></i></h5></a>
+                        <a class="nav-link " style="margin-left: 180px;" onclick="openCity(event, 'ประวัติการทำงาน')" ><h4>ประวัติการทำงาน <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Workhistoryinfo"></i></h4></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="margin-left: 180px;" onclick="openCity(event, 'ทักษะ')" id="defaultOpen"><h5>ทักษะ <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Skill_info"></i></h5></a>
+                        <a class="nav-link" style="margin-left: 180px;" onclick="openCity(event, 'ทักษะ')" id="defaultOpen"><h4>ทักษะ <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Skill_info"></i></h4></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " style="margin-left: 180px;" onclick="openCity(event, 'ประวัติการฝึกอบรม')" ><h5>ประวัติการฝึกอบรม <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Tranning_info"></i></h5></a>
+                        <a class="nav-link " style="margin-left: 180px;" onclick="openCity(event, 'ประวัติการฝึกอบรม')" ><h4>ประวัติการฝึกอบรม <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#Tranning_info"></i></h4></a>
                     </li>
                 </ul>
             </div>
@@ -617,7 +623,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">ประวัติการฝึกอบรม</h1>
+                                        <h3 class="modal-title" id="staticBackdropLabel">ประวัติการฝึกอบรม</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -628,21 +634,21 @@
                                                     <div class="card-body">
                                                         <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                         <div class="mb-3">
-                                                            <label class="form-label">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร</label>
-                                                            <input type="text" class="form-control" name="Certi_name" required>
+                                                            <label class="form-label" style="font-size: 20px;">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร</label>
+                                                            <input type="text" style="font-size: 20px;" class="form-control" name="Certi_name" required>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label class="form-label">ชื่อบริษัท/หน่วยงานที่จัดอบรม</label>
-                                                            <input type="text" class="form-control" name="Organize_name" required>
+                                                            <label class="form-label"style="font-size: 20px;">ชื่อบริษัท/หน่วยงานที่จัดอบรม</label>
+                                                            <input type="text" style="font-size: 20px;"class="form-control" name="Organize_name" required>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6 mb-3">
-                                                                <label class="form-label">วันที่เริ่ม</label>
-                                                                <input type="date" class="form-control" name="startdate">
+                                                                <label class="form-label"style="font-size: 20px;">วันที่เริ่ม</label>
+                                                                <input type="date" style="font-size: 20px;"class="form-control" name="startdate">
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label class="form-label">วันที่จบ</label>
-                                                                <input type="date" class="form-control" name="enddate">
+                                                                <label class="form-label"style="font-size: 20px;">วันที่จบ</label>
+                                                                <input type="date" style="font-size: 20px;"class="form-control" name="enddate">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -688,8 +694,8 @@
                                             </div>
                                             <br>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">ปิด</button>
+                                                <button type="submit" class="btn btn-primary" style="font-size: 20px;">บันทึก</button>
                                             </div>
                                         </form>
                                     </div>
@@ -697,11 +703,23 @@
                             </div>
                         </div>
                     </div>
+                    <style>
+                    .my-swal-title {
+                        font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+                        font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+                    }
+                    </style>
+                    <style>
+                    /* สร้างคลาสใหม่เพื่อกำหนดขนาดตัวอักษรของข้อความใน SweetAlert */
+                    .swal-text {
+                        font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+                    }
+                    </style>
                     <script>
                         function confirmDeleteTraining (id) {
                         swal({
                             title: "",
-                            text: "คุณแน่ใจที่จะลบข่าวนี้ใช่ไหม",
+                            text: "คุณแน่ใจที่จะลบใบประกอบวิชาชีพ/ประกาศนียบัตรนี้ใช่ไหม",
                             icon: "warning",
                             buttons: true,
                             dangerMode: true,
@@ -712,7 +730,7 @@
                             window.location.href = "{{ url('/User/accountuser/tranning/delete/') }}" + '/' + id;
                             } else {
                             // ถ้าผู้ใช้คลิก "ยกเลิก"
-                            swal("คุณยกเลิกการลบข่าวแล้ว");
+                            swal("คุณยกเลิกการลบใบประกอบวิชาชีพ/ประกาศนียบัตรแล้ว");
                             }
                         });
                         return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
@@ -725,7 +743,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการฝึกอบรม</h1>
+                                        <h3 class="modal-title" id="exampleModalLabel">แก้ไขประวัติการฝึกอบรม</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -736,21 +754,21 @@
                                                         <div class="card-body">
                                                             <input type="hidden" id="selectedIdsInput" name="id" value="{{ $row->id}}">
                                                             <div class="mb-3">
-                                                                <label class="form-label">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร</label>
-                                                                <input type="text" class="form-control" name="Certi_name" value="{{$row->Certi_name}}" required>
+                                                                <label class="form-label" style="font-size: 20px;">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร</label>
+                                                                <input type="text" style="font-size: 20px;" class="form-control" name="Certi_name" value="{{$row->Certi_name}}" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">ชื่อบริษัท/หน่วยงานที่จัดอบรม</label>
-                                                                <input type="text" class="form-control" name="Organize_name" value="{{$row->Organize_name}}" required>
+                                                                <label class="form-label" style="font-size: 20px;">ชื่อบริษัท/หน่วยงานที่จัดอบรม</label>
+                                                                <input type="text"  style="font-size: 20px;" class="form-control" name="Organize_name" value="{{$row->Organize_name}}" required>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 mb-3">
-                                                                    <label class="form-label">วันที่เริ่ม</label>
-                                                                    <input type="date" class="form-control" name="startdate" value="{{$row->startdate}}">
+                                                                    <label class="form-label" style="font-size: 20px;">วันที่เริ่ม</label>
+                                                                    <input type="date"  style="font-size: 20px;" class="form-control" name="startdate" value="{{$row->startdate}}">
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
-                                                                    <label class="form-label">วันที่จบ</label>
-                                                                    <input type="date" class="form-control" name="enddate"value="{{$row->enddate}}">
+                                                                    <label class="form-label"style="font-size: 20px;">วันที่จบ</label>
+                                                                    <input type="date" style="font-size: 20px;" class="form-control" name="enddate"value="{{$row->enddate}}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -759,8 +777,8 @@
                                                 
                                                 <br>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetPage()">ปิด</button>
-                                                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetPage()" style="font-size: 20px;">ปิด</button>
+                                                    <button type="submit" class="btn btn-primary" style="font-size: 20px;">บันทึก</button>
                                                 </div>  
                                             </form>
                                         </div>
@@ -775,7 +793,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการทำงาน</h1>
+                                    <h3 class="modal-title" id="exampleModalLabel">แก้ไขประวัติการทำงาน</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                 </div>
                                 <div class="modal-body">
@@ -785,8 +803,8 @@
                                                 <div class="row">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ $Why->id}}">
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ระยะเวลา</label>
-                                                        <select id="monthSelect" name="startdate_m" class="form-select" >
+                                                        <label class="form-label" style="font-size: 20px;">ระยะเวลา</label>
+                                                        <select id="monthSelect" name="startdate_m" class="form-select" style="font-size: 20px;">
                                                         @php
                                                             $thaiMonths = [
                                                                 1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
@@ -818,7 +836,7 @@
                                                             <option value="12">ธันวาคม</option>
                                                         </select>
                                                         <br>
-                                                        <select id="yearSelect" name="startdate_y" class="form-select" >
+                                                        <select id="yearSelect" name="startdate_y" class="form-select" style="font-size: 20px;">
                                                             <option value="{{ $Why->startdate ? \Carbon\Carbon::parse($Why->startdate)->format('Y') : date('Y') }}">
                                                                 {{ $Why->startdate ? \Carbon\Carbon::parse($Why->startdate)->format('Y') : date('Y') }}
                                                             </option>
@@ -832,7 +850,7 @@
                                                     </div>
                                                     <div class="col-lg-6 mb-4">
                                                         <label class="form-label">ถึง</label>
-                                                        <select id="monthSelect" name="enddate_m" class="form-select" >
+                                                        <select id="monthSelect" name="enddate_m" class="form-select" style="font-size: 20px;">
                                                         @php
                                                             $thaiMonths = [
                                                                 1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
@@ -875,21 +893,21 @@
                                                             ?>
                                                         </select>
                                                         <div class="form-check mt-3">
-                                                            <input class="form-check-input" type="checkbox" id="contactCheckbox" name="enddate" >
-                                                            <label class="form-check-label" for="contactCheckbox">ถึงปัจจุบัน</label>
+                                                            <input class="form-check-input" type="checkbox" id="contactCheckbox" name="enddate" style="font-size: 20px;">
+                                                            <label class="form-check-label" for="contactCheckbox" style="font-size: 20px;">ถึงปัจจุบัน</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ชื่อบริษัท</label>
-                                                        <input type="text" class="form-control" name="Company_name" value="{{ $Why->Company_name}}" required>
+                                                        <label class="form-label"style="font-size: 20px;">ชื่อบริษัท</label>
+                                                        <input type="text" class="form-control" name="Company_name" value="{{ $Why->Company_name}}"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ตำแหน่งงาน</label>
-                                                        <input type="text" class="form-control" name="position" value="{{ $Why->position}}" required>
+                                                        <label class="form-label"style="font-size: 20px;">ตำแหน่งงาน</label>
+                                                        <input type="text" class="form-control" name="position" value="{{ $Why->position}}"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ช่วงเงินเดือน</label>
-                                                        <select name="salary" class="form-select" value="{{ $Why->salary}}">
+                                                        <label class="form-label" style="font-size: 20px;">ช่วงเงินเดือน</label>
+                                                        <select name="salary" class="form-select" value="{{ $Why->salary}}" style="font-size: 20px;">
                                                             @if($Why->salary === 'น้อยกว่า 15,000' )
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
@@ -956,12 +974,12 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ที่อยู่บริษัท</label>
-                                                        <input type="text" class="form-control" name="Company_add" value="{{ $Why->Company_add}}" required>
+                                                        <label class="form-label" style="font-size: 20px;">ที่อยู่บริษัท</label>
+                                                        <input type="text" class="form-control" name="Company_add" value="{{ $Why->Company_add}}"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ประเภทงาน</label>
-                                                        <select name="worktype" class="form-select">
+                                                        <label class="form-label" style="font-size: 20px;">ประเภทงาน</label>
+                                                        <select name="worktype" class="form-select" style="font-size: 20px;">
                                                             @if($Why->worktype === 'ข้าราชการ' )
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
@@ -1013,14 +1031,14 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                    <label class="col-form-label font-weight-bold text-dark">รายละเอียดของงาน (ถ้ามี)</label>
-                                                    <textarea id="desctiption" name="desctiption" rows="3" cols="25">{{ $Why->desctiption}}</textarea>
+                                                    <label class="col-form-label font-weight-bold text-dark" style="font-size: 20px;">รายละเอียดของงาน (ถ้ามี)</label>
+                                                    <textarea id="desctiption" style="font-size: 20px;"name="desctiption" rows="3" cols="25">{{ $Why->desctiption}}</textarea>
                                                 </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetPage()">ปิด</button>
-                                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetPage()"style="font-size: 20px;">ปิด</button>
+                                                <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>
                                             </div>
                                         </form>    
                                 </div>
@@ -1035,7 +1053,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">ทักษะตามสาขาอาชีพ</h1>
+                                        <h3 class="modal-title" id="exampleModalLabel">ทักษะตามสาขาอาชีพ</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1046,7 +1064,7 @@
                                                         <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                         <div class="card">
                                                             <div class="card-header">
-                                                                <h5 class="font-weight-bold text-dark">ทักษะตามสาขาอาชีพ (สูงสุด 10 ทักษะ)</h5>
+                                                                <h4 class="font-weight-bold text-dark">ทักษะตามสาขาอาชีพ (สูงสุด 10 ทักษะ)</h4>
                                                             </div>
                                                             <div class="card-body">
                                                                 <form action="{{ url('/User/accountuser/saveskill/addskill') }}" method="post" enctype="multipart/form-data">
@@ -1054,7 +1072,7 @@
                                                                     <div class="input-group mb-2 my-3">
                                                                         <input type="text" class="form-control text-center bg-white" id="Skill_name" name="Skill_name" required>
                                                                         <div class="input-group-append">
-                                                                            <button type="submit" class="btn btn-warning" >เพิ่มทักษะ</button>
+                                                                            <button type="submit" class="btn btn-warning" style="font-size: 20px;">เพิ่มทักษะ</button>
                                                                         </div>
                                                                         <div class="container mt-2">
                                                                             <table class="table">
@@ -1086,8 +1104,8 @@
                                                                     <div class="row">
                                                                         <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                                         <div class="col-lg-2 my-5">
-                                                                            <label class="col-form-label font-weight-bold text-dark">ภาษา</label>
-                                                                            <select name="language" id="language" class="select form-control">
+                                                                            <label class="col-form-label font-weight-bold text-dark" style="font-size: 20px;">ภาษา</label>
+                                                                            <select name="language" id="language" class="select form-control"style="font-size: 20px;">
                                                                                 <option value="ไทย">ไทย</option>
                                                                                 <option value="อังกฤษ">อังกฤษ</option> 
                                                                                 <option value="จีน">จีน</option>
@@ -1096,32 +1114,32 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 my-5">
-                                                                            <label class="col-form-label font-weight-bold text-dark">ฟัง</label>
-                                                                            <select name="listening" id="listening" class="select form-control">
+                                                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">ฟัง</label>
+                                                                            <select name="listening" id="listening" class="select form-control"style="font-size: 20px;">
                                                                                 <option value="พอใช้">พอใช้</option>
                                                                                 <option value="ดี">ดี</option>
                                                                                 <option value="ดีมาก">ดีมาก</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 my-5">
-                                                                            <label class="col-form-label font-weight-bold text-dark">พูด</label>
-                                                                            <select name="speaking" id="speaking" class="select form-control">
+                                                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">พูด</label>
+                                                                            <select name="speaking" id="speaking" class="select form-control"style="font-size: 20px;">
                                                                                 <option value="พอใช้">พอใช้</option>
                                                                                 <option value="ดี">ดี</option>
                                                                                 <option value="ดีมาก">ดีมาก</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 my-5">
-                                                                            <label class="col-form-label font-weight-bold text-dark">อ่าน</label>
-                                                                            <select name="reading" id="reading" class="select form-control">
+                                                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">อ่าน</label>
+                                                                            <select name="reading" id="reading" class="select form-control"style="font-size: 20px;">
                                                                                 <option value="พอใช้">พอใช้</option>
                                                                                 <option value="ดี">ดี</option>
                                                                                 <option value="ดีมาก">ดีมาก</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 my-5">
-                                                                            <label class="col-form-label font-weight-bold text-dark">เขียน</label>
-                                                                            <select name="writing" id="writing" class="select form-control">
+                                                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">เขียน</label>
+                                                                            <select name="writing" id="writing" class="select form-control"style="font-size: 20px;">
                                                                                 <option value="พอใช้">พอใช้</option>
                                                                                 <option value="ดี">ดี</option>
                                                                                 <option value="ดีมาก">ดีมาก</option>
@@ -1129,7 +1147,7 @@
                                                                         </div>
                                                                         <div class="col-lg-2 mt-2">
                                                                             <br><br><br>
-                                                                            <button type="submit" class="btn btn-warning btn-block" >เพิ่มภาษา</button>
+                                                                            <button type="submit" class="btn btn-warning btn-block" style="font-size: 20px;">เพิ่มภาษา</button>
                                                                         </div>
                                                                         <div class="container mt-2">
                                                                             <table class="table">
@@ -1219,7 +1237,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขทักษะ</h1>
+                                        <h3 class="modal-title" id="staticBackdropLabel">แก้ไขทักษะ</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1227,9 +1245,9 @@
                                             {{ csrf_field() }}
                                                 <div class="input-group mb-2 my-3">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ $row->id}}">
-                                                    <input type="text" class="form-control text-center bg-white" id="Skill_name" name="Skill_name" required value="{{$row->Skill_name}}">
+                                                    <input type="text" class="form-control text-center bg-white" id="Skill_name" name="Skill_name" required value="{{$row->Skill_name}}"style="font-size: 20px;">
                                                     <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-warning" >เพิ่มทักษะ</button>
+                                                        <button type="submit" class="btn btn-warning"style="font-size: 20px;" >เพิ่มทักษะ</button>
                                                     </div>                              
                                                 </div>
                                         </form>
@@ -1245,7 +1263,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">แก้ไขทักษะด้านภาษา</h1>
+                                        <h3 class="modal-title" id="staticBackdropLabel">แก้ไขทักษะด้านภาษา</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1254,8 +1272,8 @@
                                             <div class="row">
                                                 <div class="col-lg-2 my-5">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ $row->id}}">
-                                                    <label class="col-form-label font-weight-bold text-dark">ภาษา</label>
-                                                    <select name="language" id="language" class="select form-control">     
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">ภาษา</label>
+                                                    <select name="language" id="language" class="select form-control"style="font-size: 20px;">     
                                                         @if($row->language === 'ไทย' )
                                                         <option value="ไทย">ไทย</option>
                                                         <option value="อังกฤษ">อังกฤษ</option> 
@@ -1294,8 +1312,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
-                                                    <label class="col-form-label font-weight-bold text-dark">ฟัง</label>
-                                                    <select name="listening" id="listening" class="select form-control">
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">ฟัง</label>
+                                                    <select name="listening" id="listening" class="select form-control"style="font-size: 20px;">
                                                         @if($row->listening === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
@@ -1314,8 +1332,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
-                                                    <label class="col-form-label font-weight-bold text-dark">พูด</label>
-                                                    <select name="speaking" id="speaking" class="select form-control">
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">พูด</label>
+                                                    <select name="speaking" id="speaking" class="select form-control"style="font-size: 20px;">
                                                         @if($row->speaking === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
@@ -1334,8 +1352,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
-                                                    <label class="col-form-label font-weight-bold text-dark">อ่าน</label>
-                                                    <select name="reading" id="reading" class="select form-control">
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">อ่าน</label>
+                                                    <select name="reading" id="reading" class="select form-control"style="font-size: 20px;">
                                                         @if($row->reading === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
@@ -1354,8 +1372,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2 my-5">
-                                                    <label class="col-form-label font-weight-bold text-dark">เขียน</label>
-                                                    <select name="writing" id="writing" class="select form-control">
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">เขียน</label>
+                                                    <select name="writing" id="writing" class="select form-control"style="font-size: 20px;">
                                                         @if($row->writing === 'พอใช้' )
                                                         <option value="พอใช้">พอใช้</option>
                                                         <option value="ดี">ดี</option>
@@ -1375,7 +1393,7 @@
                                                 </div>
                                                 <div class="col-lg-2 mt-2">
                                                     <br><br><br>
-                                                    <button type="submit" class="btn btn-warning btn-block" >เพิ่มภาษา</button>
+                                                    <button type="submit" class="btn btn-warning btn-block" style="font-size: 20px;">เพิ่มภาษา</button>
                                                 </div>                
                                             </div>
                                         </form>
@@ -1390,7 +1408,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการศึกษา</h1>
+                                        <h3 class="modal-title" id="exampleModalLabel">แก้ไขประวัติการศึกษา</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1400,24 +1418,24 @@
                                                 <div class="row">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">สถาบัน</label>
-                                                        <input type="text" class="form-control" name="School_name" required>
+                                                        <label class="form-label"style="font-size: 20px;">สถาบัน</label>
+                                                        <input type="text" class="form-control" name="School_name"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">คณะวิชา</label>
-                                                        <input type="text" class="form-control" name="faculty_study" required>
+                                                        <label class="form-label"style="font-size: 20px;">คณะวิชา</label>
+                                                        <input type="text" class="form-control" name="faculty_study" style="font-size: 20px;"required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">สาขาวิชา</label>
-                                                        <input type="text" class="form-control" name="field_study" required>
+                                                        <label class="form-label"style="font-size: 20px;">สาขาวิชา</label>
+                                                        <input type="text" class="form-control" name="field_study"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">เกรดเฉลี่ย</label>
-                                                        <input type="text" class="form-control" name="gpa" required>
+                                                        <label class="form-label"style="font-size: 20px;">เกรดเฉลี่ย</label>
+                                                        <input type="text" class="form-control" name="gpa" style="font-size: 20px;"required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ปีที่จบการศึกษา</label>
-                                                        <select class="form-select" name="endyear" onchange="resultName(this.value);">
+                                                        <label class="form-label"style="font-size: 20px;">ปีที่จบการศึกษา</label>
+                                                        <select class="form-select" name="endyear" onchange="resultName(this.value);"style="font-size: 20px;">
                                                             <option value="">-</option>
                                                             <?php
                                                             $selectedYear = isset($_GET['YearsSelect']) ? $_GET['YearsSelect'] : ""; // เก็บค่าปีที่ถูกเลือกจาก URL parameter
@@ -1429,8 +1447,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">วุฒิการศึกษา</label>
-                                                        <select name="degree" class="form-select">
+                                                        <label class="form-label"style="font-size: 20px;">วุฒิการศึกษา</label>
+                                                        <select name="degree" class="form-select"style="font-size: 20px;">
                                                             <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
                                                             <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
                                                             <option value="ปริญญาตรี">ปริญญาตรี</option>
@@ -1439,8 +1457,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ประเภทของสถาบันการศึกษา</label>
-                                                        <select name="schooltype" class="form-select">
+                                                        <label class="form-label"style="font-size: 20px;">ประเภทของสถาบันการศึกษา</label>
+                                                        <select name="schooltype" class="form-select"style="font-size: 20px;">
                                                             <option value="รัฐบาล">รัฐบาล</option>
                                                             <option value="เอกชน">เอกชน</option>
                                                             <option value="ต่างประเทศ">ต่างประเทศ</option>
@@ -1477,8 +1495,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">ปิด</button>
+                                                <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>
                                             </div>
                                         </form>            
                                     </div>
@@ -1492,7 +1510,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขประวัติการศึกษา</h1>
+                                        <h3 class="modal-title" id="exampleModalLabel">แก้ไขประวัติการศึกษา</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"onclick="resetPage()"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1502,24 +1520,24 @@
                                                     <div class="row">
                                                         <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">สถาบัน</label>
-                                                            <input type="text" class="form-control" name="School_name" value="{{ $row->School_name }}" required>
+                                                            <label class="form-label"style="font-size: 20px;">สถาบัน</label>
+                                                            <input type="text" class="form-control" name="School_name" value="{{ $row->School_name }}" style="font-size: 20px;"required>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">คณะวิชา</label>
-                                                            <input type="text" class="form-control" name="faculty_study"  value="{{ $row->faculty_study }}" required>
+                                                            <label class="form-label"style="font-size: 20px;">คณะวิชา</label>
+                                                            <input type="text" class="form-control" name="faculty_study"  value="{{ $row->faculty_study }}"style="font-size: 20px;" required>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">สาขาวิชา</label>
-                                                            <input type="text" class="form-control" name="field_study" value="{{ $row->field_study }}" required>
+                                                            <label class="form-label"style="font-size: 20px;">สาขาวิชา</label>
+                                                            <input type="text" class="form-control" name="field_study" value="{{ $row->field_study }}"style="font-size: 20px;"required>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">เกรดเฉลี่ย</label>
-                                                            <input type="text" class="form-control" name="gpa"  value="{{ $row->gpa }}" required>
+                                                            <label class="form-label"style="font-size: 20px;">เกรดเฉลี่ย</label>
+                                                            <input type="text" class="form-control" name="gpa"  value="{{ $row->gpa }}"style="font-size: 20px;" required>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">ปีที่จบการศึกษา</label>
-                                                            <select class="form-select" name="endyear" onchange="resultName(this.value);">
+                                                            <label class="form-label"style="font-size: 20px;">ปีที่จบการศึกษา</label>
+                                                            <select class="form-select" name="endyear" onchange="resultName(this.value);"style="font-size: 20px;">
                                                                 <option value="{{$row->endyear }}">{{$row->endyear }}</option>
                                                                 <?php
                                                                 $selectedYear = isset($_GET['YearsSelect']) ? $_GET['YearsSelect'] : ""; // เก็บค่าปีที่ถูกเลือกจาก URL parameter
@@ -1531,8 +1549,8 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">วุฒิการศึกษา</label>
-                                                            <select name="degree" class="form-select"  value="{{ $row->degree }}">
+                                                            <label class="form-label"style="font-size: 20px;">วุฒิการศึกษา</label>
+                                                            <select name="degree" class="form-select"  value="{{ $row->degree }}"style="font-size: 20px;">
                                                                 @if($row->degree === 'ประกาศนียบัตรบัณฑิต' )
                                                                 <option value="ประกาศนียบัตรบัณฑิต">ประกาศนียบัตรบัณฑิต</option>
                                                                 <option value="ประกาศนียบัตรบัณฑิตชั้นสูง">ประกาศนียบัตรบัณฑิตชั้นสูง</option>
@@ -1572,8 +1590,8 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label class="form-label">ประเภทของสถาบันการศึกษา</label>
-                                                            <select name="schooltype" class="form-select" >
+                                                            <label class="form-label"style="font-size: 20px;">ประเภทของสถาบันการศึกษา</label>
+                                                            <select name="schooltype" class="form-select" style="font-size: 20px;">
                                                                 @if($row->schooltype === 'รัฐบาล' )
                                                                 <option value="รัฐบาล">รัฐบาล</option>
                                                                 <option value="เอกชน">เอกชน</option>
@@ -1594,8 +1612,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"onclick="resetPage()">ปิด</button>
-                                                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"onclick="resetPage()"style="font-size: 20px;">ปิด</button>
+                                                    <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>
                                                 </div>
                                         </form>  
                                     </div>
@@ -1634,7 +1652,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="Workhistoryinfo">ประวัติการทำงาน</h1>
+                                        <h3 class="modal-title" id="Workhistoryinfo">ประวัติการทำงาน</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1644,8 +1662,8 @@
                                                 <div class="row">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ระยะเวลา</label>
-                                                        <select id="monthSelect" name="startdate_m" class="form-select">
+                                                        <label class="form-label"style="font-size: 20px;">ระยะเวลา</label>
+                                                        <select id="monthSelect" name="startdate_m" class="form-select"style="font-size: 20px;">
                                                             <option value="01">มกราคม</option>
                                                             <option value="02">กุมภาพันธ์</option>
                                                             <option value="03">มีนาคม</option>
@@ -1660,7 +1678,7 @@
                                                             <option value="12">ธันวาคม</option>
                                                         </select>
                                                         <br>
-                                                        <select id="yearSelect" name="startdate_y" class="form-select">
+                                                        <select id="yearSelect" name="startdate_y" class="form-select"style="font-size: 20px;">
                                                             <?php
                                                             $currentYear = date("Y");
                                                             for ($year = $currentYear + 543; $year >= $currentYear + 543 - 15; $year--) {
@@ -1670,8 +1688,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-4">
-                                                        <label class="form-label">ถึง</label>
-                                                        <select id="monthSelect" name="enddate_m" class="form-select">
+                                                        <label class="form-label"style="font-size: 20px;">ถึง</label>
+                                                        <select id="monthSelect" name="enddate_m" class="form-select"style="font-size: 20px;">
                                                             <option value="01">มกราคม</option>
                                                             <option value="02">กุมภาพันธ์</option>
                                                             <option value="03">มีนาคม</option>
@@ -1686,7 +1704,7 @@
                                                             <option value="12">ธันวาคม</option>
                                                         </select>
                                                         <br>
-                                                        <select id="yearSelect" name="enddate_y" class="form-select">
+                                                        <select id="yearSelect" name="enddate_y" class="form-select"style="font-size: 20px;">
                                                             <?php
                                                             $currentYear = date("Y");
                                                             for ($year = $currentYear + 543; $year >= $currentYear + 543 - 15; $year--) {
@@ -1695,21 +1713,21 @@
                                                             ?>
                                                         </select>
                                                         <div class="form-check mt-3">
-                                                            <input class="form-check-input" type="checkbox" id="contactCheckbox" name="enddate">
-                                                            <label class="form-check-label" for="contactCheckbox">ถึงปัจจุบัน</label>
+                                                            <input class="form-check-input" type="checkbox" id="contactCheckbox" name="enddate"style="font-size: 20px;">
+                                                            <label class="form-check-label" for="contactCheckbox"style="font-size: 20px;">ถึงปัจจุบัน</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ชื่อบริษัท</label>
-                                                        <input type="text" class="form-control" name="Company_name" required>
+                                                        <label class="form-label"style="font-size: 20px;">ชื่อบริษัท</label>
+                                                        <input type="text" class="form-control" name="Company_name" style="font-size: 20px;"required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ตำแหน่งงาน</label>
-                                                        <input type="text" class="form-control" name="position" required>
+                                                        <label class="form-label"style="font-size: 20px;">ตำแหน่งงาน</label>
+                                                        <input type="text" class="form-control" name="position"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ช่วงเงินเดือน</label>
-                                                        <select name="salary" class="form-select">
+                                                        <label class="form-label"style="font-size: 20px;">ช่วงเงินเดือน</label>
+                                                        <select name="salary" class="form-select"style="font-size: 20px;">
                                                             <option value="น้อยกว่า 15,000">น้อยกว่า 15,000</option>
                                                             <option value="15,000-20,000">15,000-20,000</option>
                                                             <option value="20,001-25,000">20,001-25,000</option>
@@ -1720,12 +1738,12 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ที่อยู่บริษัท</label>
-                                                        <input type="text" class="form-control" name="Company_add" required>
+                                                        <label class="form-label"style="font-size: 20px;">ที่อยู่บริษัท</label>
+                                                        <input type="text" class="form-control" name="Company_add"style="font-size: 20px;" required>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                        <label class="form-label">ประเภทงาน</label>
-                                                        <select name="worktype" class="form-select">
+                                                        <label class="form-label"style="font-size: 20px;">ประเภทงาน</label>
+                                                        <select name="worktype" class="form-select"style="font-size: 20px;">
                                                             <option value="ข้าราชการ">ข้าราชการ</option>
                                                             <option value="รัฐวิสาหกิจ">รัฐวิสาหกิจ</option>
                                                             <option value="พนักงานบริษัท">พนักงานบริษัท</option>
@@ -1735,7 +1753,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 mb-3">
-                                                    <label class="col-form-label font-weight-bold text-dark">รายละเอียดของงาน (ถ้ามี)</label>
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">รายละเอียดของงาน (ถ้ามี)</label>
                                                     <textarea id="desctiption" name="desctiption" rows="3" cols="40"></textarea>
                                                 </div>
                                                 </div>
@@ -1768,8 +1786,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">ปิด</button>
+                                                <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>
                                             </div>
                                         </form>            
                                     </div>
@@ -1803,7 +1821,7 @@
                             <div class="modal-dialog modal-lg" style="max-width: 40%">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">แก้ไขประวัติส่วนตัว</h5>
+                                        <h3 class="modal-title">แก้ไขประวัติส่วนตัว</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -1820,18 +1838,16 @@
                                                         @endif
                                                         </div>
                                                         <div class="col-lg-8" style="margin-top:50px ">
-                                                            <h5 style="font-size: 16px; text-align: left;">1.อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h5>
-                                                            <h5 style="font-size: 16px; text-align: left;">2.ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h5>
-                                                            <h5 style="font-size: 16px; text-align: left;"> <input type="file" name="image" accept="image/jpeg, image/png, image/svg" aria-label="Upload"></h5>
-                                                           
+                                                            <p style="font-size: 16px; text-align: left;">อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</p>
+                                                            <p style="font-size: 16px; text-align: left;">ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</p>
+                                                             <input type="file" style="font-size: 20px;"name="image" accept="image/jpeg, image/png, image/svg" aria-label="Upload">
                                                         </div>
-
                                                     </div>
                                                     <hr class="mt-3">
                                                     <div class="col-lg-2">
-                                                    <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
-                                                    @if($contactInfo)
-                                                        <select name="prefix" id="prefix" class="select" value="{{ $contactInfo->prefix }}">
+                                                    <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">คำนำหน้า</label>
+                                                        @if($contactInfo)
+                                                        <select name="prefix" class="form-select"style="font-size: 20px;">
                                                             <option value="{{ $contactInfo->prefix }}">{{ $contactInfo->prefix }}</option>
                                                             @if($contactInfo->prefix == 'นาย' )
                                                             <option value="นาง">นาง</option>
@@ -1844,25 +1860,31 @@
                                                             @if($contactInfo->prefix == 'นางสาว' )
                                                             <option value="นาย">นาย</option>
                                                             <option value="นาง">นาง</option>
-                                                            @endif
+                                                            @endif                              
                                                         </select>
-                                                    @endif  
+                                                        @else
+                                                        <select name="prefix" class="form-select" style="font-size: 20px;">
+                                                            <option value="นาย">นาย</option>
+                                                            <option value="นาง">นาง</option>
+                                                            <option value="นางสาว">นางสาว</option>  
+                                                        </select>
+                                                        @endif
                                                     </div>
                                                     <div class="col-lg-3">
                                                     @if($user)
-                                                        <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">ชื่อ</label>
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="firstname"
-                                                            required value="{{ $user->firstname }}">
+                                                            required value="{{ $user->firstname }}"style="font-size: 20px;">
                                                         </div>
                                                     @endif  
                                                     </div>
                                                     <div class="col-lg-3">
                                                     @if($user)
-                                                        <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">นามสกุล</label>
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="lastname"
-                                                            required value="{{ $user->lastname }}">
+                                                            required value="{{ $user->lastname }}" style="font-size: 20px;">
                                                             <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                         </div>
                                                     @endif 
@@ -1870,18 +1892,25 @@
                                                     <hr class="mt-3">
                                                     <div class="col-lg-12">
                                                         <div class="d-flex align-items-center">
-                                                            <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                                            <label class="col-form-label font-weight-bold text-dark me-3"style="font-size: 20px;">ช่องทางการติดต่อ</label>
                                                             @if($contactInfo)
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="{{ $contactInfo->status_contact }}" id="contactCheckbox" name="status_contact" onclick="toggleContactStatus()" >
-                                                                <input type="hidden" name="status_contact" id="status_contact_input">
-                                                                <label class="form-check-label" for="contactCheckbox">ไม่เปิดเผยช่องทางการติดต่อ</label>
-                                                            </div>
-                                                            @else
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="contactCheckbox" name="status_contact" onclick="toggleContactStatus()" >
-                                                                <input type="hidden" name="status_contact" id="status_contact_input">
-                                                                <label class="form-check-label" for="contactCheckbox">ไม่เปิดเผยช่องทางการติดต่อ</label>
+                                                                <input class="form-check-input" type="checkbox" value="1" id="contactCheckbox" name="status_contact" 
+                                                                @if($contactInfo->status_contact === 1)
+                                                                    checked
+                                                                @endif
+                                                                onclick="toggleContactStatus(this)">
+                                                                <input type="hidden" name="status_contact" id="status_contact_input" value="{{ $contactInfo->status_contact }}">
+                                                                @if($contactInfo->status_contact === 1)
+                                                                <label class="form-check-label" for="contactCheckbox">
+                                                                    เปิดเผยช่องทางการติดต่อ
+                                                                </label>
+                                                                @else
+                                                                <label class="form-check-label" for="contactCheckbox">
+                                                                    ไม่เปิดเผยช่องทางการติดต่อ
+                                                                </label>
+                                                                @endif
+                                                               
                                                             </div>
                                                             @endif 
                                                         </div>
@@ -1889,109 +1918,109 @@
                                                     
                                                     <div class="col-lg-5">
                                                 
-                                                        <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">อีเมล</label>
                                                         @if($contactInfo)
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="email"
-                                                            required value="{{ $contactInfo->ID_email }}">
+                                                            required value="{{ $contactInfo->ID_email }}"style="font-size: 20px;">
                                                         </div>
                                                         @else
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="email"
-                                                            required >
+                                                            required style="font-size: 20px;">
                                                         </div>
                                                         @endif 
                                                     </div>
                                                     <div class="col-lg-5">
-                                                        <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Line</label>
                                                         @if($contactInfo)
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Line"
-                                                            required value="{{ $contactInfo->ID_line }}">
+                                                            required value="{{ $contactInfo->ID_line }}"style="font-size: 20px;">
                                                         </div>
                                                         @else
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Line"
-                                                            required >
+                                                            required style="font-size: 20px;">
                                                         </div>
                                                         @endif 
                                                     </div>
                                                     <div class="col-lg-5">
-                                                        <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Facebook</label>
                                                         @if($contactInfo)
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Facebook"
-                                                            required value="{{ $contactInfo->ID_facebook }}">
+                                                            required value="{{ $contactInfo->ID_facebook }}"style="font-size: 20px;">
                                                         </div>
                                                         @else
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Facebook"
-                                                            required >
+                                                            required style="font-size: 20px;">
                                                         </div>
                                                         @endif 
                                                     </div>
                                                     <div class="col-lg-5">
-                                                        <label class="col-form-label font-weight-bold text-dark">Tel.</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Tel.</label>
                                                         @if($contactInfo)
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Tel"
-                                                            required value="{{ $contactInfo->telephone }}">
+                                                            required value="{{ $contactInfo->telephone }}"style="font-size: 20px;">
                                                         </div>
                                                         @else
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Tel"
-                                                            required >
+                                                            required style="font-size: 20px;">
                                                         </div>
                                                         @endif 
                                                     </div>
                                                     <div class="col-lg-5">
-                                                        <label class="col-form-label font-weight-bold text-dark">Instagram</label>
+                                                        <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Instagram</label>
                                                         @if($contactInfo)
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Instagram"
-                                                            required value="{{ $contactInfo->ID_instagram }}" >
+                                                            required value="{{ $contactInfo->ID_instagram }}"style="font-size: 20px;" >
                                                         </div>
                                                         @else
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-sm text-center bg-white" name="Instagram"
-                                                            required  >
+                                                            required style="font-size: 20px;" >
                                                         </div>
                                                         @endif 
                                                     </div>
                                                     <hr class="mt-3">
                                                     <div class="col-lg-12">
                                                         <div class="d-flex align-items-center">
-                                                            <label class="col-form-label font-weight-bold text-dark me-3">ความสนใจ</label>
+                                                            <label class="col-form-label font-weight-bold text-dark me-3"style="font-size: 20px;">ความสนใจ</label>
                                                         </div>
                                                         <div class="col-form-label font-weight-bold text-dark me-3" style="display: flex; align-items: center;">
                                                             <div class="form-check" style="margin-right: 10px;">
                                                                 <input class="form-check-input" type="checkbox" name="category1" id="flexRadioDefault1" value="งานพบประสังสรรค์ประจำปี">
                                                             </div>
-                                                            <label for="flexRadioDefault1">งานพบประสังสรรค์ประจำปี</label>
+                                                            <label for="flexRadioDefault1"style="font-size: 20px;">งานพบประสังสรรค์ประจำปี</label>
                                                         </div>
                                                         <div class="col-form-label font-weight-bold text-dark me-3" style="display: flex; align-items: center;">
                                                             <div class="form-check" style="margin-right: 10px;">
                                                                 <input class="form-check-input" type="checkbox"name="category2"  id="flexRadioDefault1" value="อบรมให้ความรู้วิชาการ">
                                                             </div>
-                                                            <label for="flexRadioDefault1">อบรมให้ความรู้วิชาการ</label>
+                                                            <label for="flexRadioDefault1"style="font-size: 20px;">อบรมให้ความรู้วิชาการ</label>
                                                         </div>
                                                         <div class="col-form-label font-weight-bold text-dark me-3" style="display: flex; align-items: center;">
                                                             <div class="form-check" style="margin-right: 10px;">
                                                                 <input class="form-check-input" type="checkbox"name="category3"  id="flexRadioDefault1" value="งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์">
                                                             </div>
-                                                            <label for="flexRadioDefault1">งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
+                                                            <label for="flexRadioDefault1"style="font-size: 20px;">งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์</label>
                                                         </div>
                                                         <div class="col-form-label font-weight-bold text-dark me-3" style="display: flex; align-items: center;">
                                                             <div class="form-check" style="margin-right: 10px;">
                                                                 <input class="form-check-input" type="checkbox"name="category4"  id="flexRadioDefault1" value="กิจกรรมศิษย์เก่าสัมพันธ์">
                                                             </div>
-                                                            <label for="flexRadioDefault1">กิจกรรมศิษย์เก่าสัมพันธ์</label>
+                                                            <label for="flexRadioDefault1"style="font-size: 20px;">กิจกรรมศิษย์เก่าสัมพันธ์</label>
                                                         </div>
                                                         <div class="col-form-label font-weight-bold text-dark me-3" style="display: flex; align-items: center;">
                                                             <div class="form-check" style="margin-right: 10px;">
                                                                 <input class="form-check-input" type="checkbox"name="category4"  id="flexRadioDefault1" value="">
                                                             </div>
-                                                            <label for="flexRadioDefault1">กิจกรรมอื่นๆ</label>
+                                                            <label for="flexRadioDefault1"style="font-size: 20px;">กิจกรรมอื่นๆ</label>
                                                             <input type="text" class="form-control custom-input"placeholder=" โปรดระบุ" name="categoryall" aria-label="category1" aria-describedby="basic-addon1" maxlength="50">
                                                         </div>
                                                         
@@ -2001,8 +2030,8 @@
                                                 </div>
                                             
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">ปิด</button>
+                                                    <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -2011,21 +2040,16 @@
                             </div>
                         </div>
                         <script>
-                            var status_contact = true; // ให้เริ่มต้นเป็น true
-
-                                function toggleContactStatus() {
-                                    var checkbox = document.getElementById("contactCheckbox");
-                                    var statusContactInput = document.getElementById("status_contact_input");
-
-                                    if (checkbox.checked) {
-                                        status_contact = false; // ถ้า checkbox ถูกติ๊ก
-                                    } else {
-                                        status_contact = true; // ถ้า checkbox ไม่ถูกติ๊ก
-                                    }
-
-                                    // ตั้งค่า value ของ input แบบซ่อนเป็นค่า status_contact ที่อัพเดต
-                                    statusContactInput.value = status_contact;
+                            function toggleContactStatus(checkbox) {
+                                var statusContactInput = document.getElementById('status_contact_input');
+                                if (checkbox.checked == 1) {
+                                    statusContactInput.value = true; // กำหนดค่าให้เป็น 1 เมื่อ checkbox ถูกติก
+                                } else if(checkbox.checked == 0) {
+                                    statusContactInput.value = true; // กำหนดค่าให้เป็น 0 เมื่อ checkbox ไม่ถูกติก
+                                }else{
+                                    statusContactInput.value = false;
                                 }
+                            }
                         </script>
                     </div>
                     
@@ -2050,31 +2074,31 @@
 
 
 
-    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+        <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <h3 class="modal-title">ช่องทางการติดต่อ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div action="{{route('addaccount')}}" method="post" enctype="multipart/form-data">
+                    <div>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
-                                <div class="col-lg-6">
+                            <div class="col-lg-6">
                                     <div class="col-lg-12 row" style="margin-left:15px">
                                         <div class="col-lg-1">
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
                                     <div class="col-lg-11">
-                                        <h5>{{$department->address}}</h5>
+                                        <h3>{{$department->address}}</h3>
                                     </div>
                                     <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
                                         <div class="col-lg-11">
-                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                            <h3>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 row" >
@@ -2098,28 +2122,28 @@
                                     <form action="/user/post/massage" method="POST" enctype="multipart/form-data">
                                     @csrf
                                         <div class="col-lg-12">
-                                            <label class="col-form-label font-weight-bold text-dark">ชื่อเรื่อง</label>
+                                            <label class="col-form-label font-weight-bold text-dark" style="font-size: 24px;">ชื่อเรื่อง</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control form-control-sm text-center bg-white" name="massage_name"
+                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm text-center bg-white" name="massage_name"
                                                 required>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <label class="col-form-label font-weight-bold text-dark">ข้อความ</label>
+                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ</label>
                                             <div class="input-group">
-                                                <textarea type="text" id="" rows="4" cols="100" name="massage_cotent"></textarea>
+                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">  
-                                                <label class="col-form-label font-weight-bold text-dark">เลือกเอกสารที่ต้องการอัพโหลด</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">เลือกเอกสารที่ต้องการอัพโหลด</label>
                                                 <div class="input-group">
-                                                    <input type="file" class="form-control" id="massage_file" name="massage_file">
+                                                    <input type="file"style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file">
                                                 </div>
                                         </div>
                                         <br><br><br><br><br>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">ส่ง</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 24px;">ปิด</button>
                                         </div>
                                     </form>
                                 </div>
@@ -2134,7 +2158,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">ประวัติข้อความ</h1>
+                    <h3 class="modal-title" id="exampleModalLabel">ประวัติข้อความ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -2159,7 +2183,7 @@
                     </table>
                     @endforeach
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                     </div>
                 </div>
             </div>
@@ -2187,15 +2211,23 @@ function resetPage() {
 }
 
 </script>
-@if(Session::has('alert'))
-<script>
-    swal("{{Session::get('alert')}}",{
-        icon: "success",
-    if(exist){
-        alert(msg);
-    }});
-</script>
-@endif   
+    @if(Session::has('alert'))
+        <script>
+            swal({
+                title: "{{ Session::get('alert') }}",
+                icon: "success",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+    @endif 
 
 
 </body>

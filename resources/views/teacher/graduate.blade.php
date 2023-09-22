@@ -16,84 +16,86 @@
 <body>
     <style>
         body {
-                font-family:'THSarabunNew';
+                font-family:'TH Niramit AS';
+                font-size: 20px;
               }
         a:link {
                 color: black;
                 background-color: transparent;
                 text-decoration: none;
               }
+
+        h5:hover{
+            /* color: #05FF2D; */
+        }
+        h3{
+                font-weight: bold;
+            }
+        h2{
+                font-weight: bold;
+            }
     </style>
-  <div class="col-12">
-    <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+  <div class="col-12 outset" style="background-color: #EFF4FF;">
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                </div>
+                <div  class="col-11">
+                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
 
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
-            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ;">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF;">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 @else
                 <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
                 @endif
-                <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/users/hometeacher" class="textmenu"><h3>หน้าหลัก</h3></a>
                 @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h3>รายชื่อนักศึกษา</h3></a>
                 @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h3>ทำเนียบบัณฑิต</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ทำเนียบบัณฑิต</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h3>จัดการโค้ด</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>จัดการโค้ด</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
             @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
             @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('accTeacher')}}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                <a href="{{route('accTeacher')}}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ตั้งค่าบัญชี</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
+                <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
@@ -102,12 +104,12 @@
         </div>
   </div>
   
-  <div class="container "style="position:absolute;left:500px;top: 215px;">
+  <div class="container "style="position: absolute; left: 500px; top: 180px;">
         <h2>ทำเนียบบัณฑิต</h2>
         <hr class="mt-1" style="border: 1px solid #000">
         <form action="" method="GET" >
-                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
-                    <select name="searchdata" class="form-select" >
+                <label class="form-label" style="position: absolute;left:700px;top: 65px;">
+                    <select name="searchdata" class="form-select"style="font-size: 20px;" >
                         <option value="all">ทั้งหมด</option>
                         <option value="graduatesem" >ปีการศึกษาที่จบ</option>
                         <option value="student_id" >รหัสนักศึกษา</option>
@@ -116,8 +118,8 @@
                         <option value="lastname">นามสกุล</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="position:relative;left:300px;top:-37px"/> 
-                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="font-size: 20px;position:relative;left:320px;top:-43px"/> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -161,7 +163,9 @@
                         </div>    
                 </div> 
             </div> 
-        </div>
+        </div> 
+    </div>
+</div> 
         
         <script>
             var msg = '{{Session::get('alert')}}';
@@ -189,14 +193,14 @@
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
                                     <div class="col-lg-11">
-                                        <h5>{{$department->address}}</h5>
+                                        <h3>{{$department->address}}</h3>
                                     </div>
                                     <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
                                         <div class="col-lg-11">
-                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                            <h3>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 row" >

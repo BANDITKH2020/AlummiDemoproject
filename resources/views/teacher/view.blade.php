@@ -8,13 +8,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
     <style>
         body {
-                font-family:'THSarabunNew';
+            font-family:'TH Niramit AS';
+                font-size: 20px;
               }
         a:link {
                 color: black;
@@ -22,27 +24,28 @@
                 text-decoration: none;
               }
 
-        h5:hover{
-            /* color: #05FF2D; */
+              h3{
+            font-weight: bold;
+        }
+        h2{
+            font-weight: bold;
         }
     </style>
-  <div class="col-12">
     <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                </div>
+                <div  class="col-11">
+                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
 
+   
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
                 @if($contactInfo === null) 
@@ -50,52 +53,46 @@
                 @else
                 <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
                 @endif
-                <h4>{{Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/users/hometeacher" class="textmenu"><h3>หน้าหลัก</h3></a>
                 @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h3>รายชื่อนักศึกษา</h3></a>
                 @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h3>ทำเนียบบัณฑิต</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ทำเนียบบัณฑิต</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h3>จัดการโค้ด</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>จัดการโค้ด</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
             @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
             @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('accTeacher')}}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                <a href="{{route('accTeacher')}}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ตั้งค่าบัญชี</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
+                <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
@@ -103,16 +100,28 @@
             <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
-  <style>
-    <style>
-    .custom-card {
-        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
-        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
-        margin-bottom: 10px;
-    }
-    .content-container {
-            text-align: center;
-            color: red;
+
+
+<div class="container"  style="position: absolute; left: 500px; top: 180px;">
+    @csrf
+    
+        <h2  class="text-center">{{$view->title_name}}</h2>
+        <style>
+        .custom-card {
+            width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
+            max-width: 300px; /* ขนาดสูงสุดของการ์ด */
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .centered-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .centered-image {
+            width: 400px;
+            height: 350px;
+            object-fit: cover;
         }
         .modal-content1 {
             background-color: white;
@@ -135,49 +144,6 @@
         .content-container {
             text-align: center;
             color: red;
-        }
-  </style>
-
-
-<div class="container"  style="position: absolute; left: 500px; top: 200px;">
-    @csrf
-    
-        <h1>{{$view->title_name}}</h1>
-        <style>
-        .centered-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .centered-image {
-            width: 400px;
-            height: 350px;
-            object-fit: cover;
-        }
-        .indented-text {
-            font-size: 24px;
-            line-height: 1.5;
-            text-align: justify;
-            text-indent: 4em; /* ปรับค่าตามที่ต้องการ */
-        }
-        /* ซ่อนตัวแสดงรูป */
-        #imageModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        /* ขยายรูป */
-        .modal-content {
-            margin: auto;
-            display: absolute;
-            top: 150px;
-            max-width: 50%;
-            max-height: 100%;
         }
 
         /* ปุ่มปิดตัวแสดงรูป */
@@ -205,38 +171,30 @@
             <img src="{{ asset($view->title_image) }}" class="centered-image img-fluid rounded-start" alt="Image" onclick="openModal('{{ asset($view->title_image) }}')">
         </div>
         <div class="indented-text  mt-3 my-3">
-            <h4>{{$view->cotent}}</h4>
+            <p style="font-size: 24px;">{{$view->cotent}}</p>
         </div>
-        <h3>ประเภทเนื้อหา: {{$view->category}}</h3>
+        <p>ประเภทเนื้อหา: {{$view->category}}</p>
         @if ($view->objective) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->objective == '-') <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                <h3 class="card-text"></h3>
+                <p style="font-size: 20px;" class="card-text"></p>
             @else
-            <h3> {{$view->objective}}</h3>
+                <p style="font-size: 20px;" >{{$view->objective}}</p>
             @endif
         @endif
-        @php
-        $thaiMonths = [
-            1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-            4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-            7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-            10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
-            ];
-            $eventdate = \Carbon\Carbon::parse($view->event_date);
-        @endphp
         @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                <h3 class="card-text">วันที่จัดกิจกรรม: 
-                {{$eventdate->format('d')}} {{$thaiMonths[$eventdate->month]}} {{$eventdate->year + 543}}
-                </h3>
+                <p class="card-text" style="font-size: 20px;">วันที่จัดกิจกรรม: 
+                {{ Carbon\Carbon::parse($view->event_date)->format('d-m-Y') }}
+                </p>
             @else
-                <h3 class="card-text"></h3>
+                <p class="card-text"></p>
             @endif
         @endif
-        <h3>วันที่ลงเนื้อหา: {{$view->created_at->format('d')}} {{$thaiMonths[$view->created_at->month]}} {{$view->created_at->year + 543}}</h3>
+        <p style="font-size: 20px;">วันที่ลงเนื้อหา: {{$view->created_at->format('d-m-Y')}}</p>
         <div class="row">
+            
             @if($view->images->count() > 0)
-            <h3>รูปภาพกิจกรรม</h3>
+            <p>รูปภาพกิจกรรม</p>
                 @foreach($view->images as $index => $image)
                     @if($index > 0 && $index % 6 === 0)
                         </div><div class="row">
@@ -248,34 +206,58 @@
             @endif
         </div>
         <div class="d-flex justify-content-center">
-            <a href="{{ url('/users/hometeacher') }}" class="return"><iconify-icon icon="ic:baseline-assignment-return"></iconify-icon></a>
+            <a href="{{ url('/users/homeuser') }}" class="return"><iconify-icon icon="ic:baseline-assignment-return"></iconify-icon></a>
         </div>
     </div>
     <div id="imageModal" class="modal">
     <span class="close-button" onclick="closeModal()">&times;</span>
     <img src="" class="modal-content" id="modalImage">
     </div>
-    <script>
-        // เมื่อคลิกที่รูป
-        function openModal(imageSrc) {
-        var modal = document.getElementById('imageModal');
-        var modalImg = document.getElementById('modalImage');
-        modal.style.display = 'block';
-        modalImg.src = imageSrc;
-        }
+   
 
-        // เมื่อคลิกที่ปุ่มปิด
-        function closeModal() {
-        var modal = document.getElementById('imageModal');
-        modal.style.display = 'none';
-        }
     </script>
-
+    <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title " id="exampleModalLabel">ประวัติข้อความ</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @foreach ($messages as $date => $groupedMessages)
+                    <table class="table caption-top ">
+                        <thead>
+                            <tr>
+                            <th scope="col"colspan="4"class="table-info">{{ $groupedMessages['date'] }}</th>
+                            </tr>
+                        </thead>
+                        @foreach ($groupedMessages['messages'] as $message)
+                            @if ($message->ID_student === Auth::user()->student_id)
+                            <tbody>
+                                <tr>
+                                <th>{{ $message->massage_name }}</th>
+                                <td>{{ $message->massage_cotent }}</td>
+                                <td>{{ $message->created_at->format('H:i:s') }}</td>
+                                </tr>
+                            </tbody>
+                            @endif
+                        @endforeach
+                    </table>
+                    @endforeach
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <h3 class="modal-title">ช่องทางการติดต่อ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -288,14 +270,14 @@
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
                                     <div class="col-lg-11">
-                                        <h5>{{$department->address}}</h5>
+                                        <h3>{{$department->address}}</h3>
                                     </div>
                                     <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
                                         <div class="col-lg-11">
-                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                            <h3>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 row" >
@@ -311,11 +293,38 @@
                                         </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
                                     <iframe src="{{$department->map}}"
                                         width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                                     </iframe>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form action="/user/post/massage" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                        <div class="col-lg-12">
+                                            <label class="col-form-label font-weight-bold text-dark" style="font-size: 24px;">ชื่อเรื่อง</label>
+                                            <div class="input-group">
+                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm text-center bg-white" name="massage_name"
+                                                required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ</label>
+                                            <div class="input-group">
+                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">  
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">เลือกเอกสารที่ต้องการอัพโหลด</label>
+                                                <div class="input-group">
+                                                    <input type="file"style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file">
+                                                </div>
+                                        </div>
+                                        <br><br><br><br><br>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 24px;">ปิด</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -324,10 +333,28 @@
             </div>
         </div>
     </div>
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');
+    }
+    function openMassageModal() {
+        $('#MassageModal').modal('show');
     }
 </script>
 <script>
@@ -337,7 +364,45 @@
         history.pushState(null, null, location.href);
     });
 </script>
+<script>
+        // เมื่อคลิกที่รูป
+        function openModal(imageSrc) {
+        var modal = document.getElementById('imageModal');
+        var modalImg = document.getElementById('modalImage');
+        modal.style.display = 'block';
+        modalImg.src = imageSrc;
+        }
 
+        // เมื่อคลิกที่ปุ่มปิด
+        function closeModal() {
+        var modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+        }
+
+    </script>
+        <style>
+        .my-swal-title {
+            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+        }
+        </style>
+        @if(Session::has('alert'))
+        <script>
+            swal({
+                title: "{{ Session::get('alert') }}",
+                icon: "success",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
 </body>
 </html>
 

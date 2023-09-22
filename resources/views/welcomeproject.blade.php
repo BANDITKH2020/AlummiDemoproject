@@ -9,10 +9,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <style>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       <style>
             body {
                 margin: auto;
-                font-family:'THSarabunNew';
+                font-family:'TH Niramit AS';
                 overflow: auto;
                 background: linear-gradient(315deg, rgb(146, 143, 146) 3%, rgb(150, 162, 173) 38%, rgb(149, 167, 165) 68%, rgb(173, 162, 162) 98%);
                 animation: gradient 15s ease infinite;
@@ -81,7 +82,7 @@
             }
 
             h1 {
-                font-size: 40px;
+                font-size: 50px;
                 color: #fff;
             }
             .waviy {
@@ -237,8 +238,8 @@
                         <h1>ศิษย์เก่าทุกท่านกลับเข้าสู่รั้ว</h1>
                         <h1>ราชมงคลธัญบุรี</h1>
                         <h1>คณะวิศวกรรมคอมพิวเตอร์</h1>
-                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login.ris') }}'">เข้าสู่ระบบ</button>
-                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('register.ris') }}'">สมัครสมาชิก</button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login.ris') }}'"style="font-size: 24px;">เข้าสู่ระบบ</button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('register.ris') }}'"style="font-size: 24px;">สมัครสมาชิก</button>
                     </div>
                 </div>
                 <div class="col-lg-4 gallery">
@@ -248,29 +249,46 @@
                     <img src="{{ asset('images/teamwork.png') }}">
                 </div>
             </div>
-            {{-- <div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-             </div> --}}
         </div>
+        <style>
+        .my-swal-title {
+            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+        }
+        </style>
         @if(Session::has('alert'))
-            <script>
-                swal("{{Session::get('alert')}}",{
-                    icon: "success",
-                    if(exist){
-                        alert(msg);
-                }});
-            </script>
-        @endif  
-        @if(Session::has('error'))
-            <script>
-                swal("{{Session::get('error')}}",{
-                    icon: "error",
-                    if(exist){
-                        alert(msg);
-                }});
-            </script>
+        <script>
+            swal({
+                title: "{{ Session::get('alert') }}",
+                icon: "success",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
         @endif
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif 
     </body>
 </html>

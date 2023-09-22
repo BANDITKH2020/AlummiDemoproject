@@ -13,7 +13,8 @@
 <body>
     <style>
         body {
-                font-family:'THSarabunNew';
+                font-family:'TH Niramit AS';
+                font-size: 20px;
             }
         a:link {
                 color: black;
@@ -59,23 +60,26 @@
                 left:1050px;
                 top:275px;
             }
+        h3{
+            font-weight: bold;
+        }
+        h2{
+            font-weight: bold;
+        }
     </style>
     
-    <div class="col-12">
-        <div class="col-12 outset" style="background-color: #EFF4FF;">
-        <div class="col-12">
-            <div class="col-12 row">
+    <div class="col-12 outset" style="background-color: #EFF4FF;">
+      <div class="col-12">
+        <div class="col-12 row">
             <div class="col-1">
-                <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
+            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
             </div>
-            <div class="col-4" style="padding: 15px; ;">
-                <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-                <hr class="mt-1" style="border: 1px solid #000">
-                <h2>Computer Engineering Alummi</h2>
+            <div  class="col-11">
+              <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
             </div>
-            </div>
-            <hr class="mt-1" style="border: 2px solid #000">
         </div>
+        <hr class="mt-1" style="border: 2px solid #000">
+      </div>
     </div>
     <div class="container">
         <div class="centered-text">
@@ -103,27 +107,27 @@
                     <h2>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h2>
                 </div>
             </div>
-            <div class="col-lg-12 row" style="margin-left:55px">
-                <div class="col-lg-1">
+            <div class="col-lg-8 row" style="margin-left:50px">
+                <div class="col-lg-2">
                     <a href="{{$department->facebook}}" target="_blank">
-                        <img src="{{ asset('images/facebook-icon.png') }}" style="width:50px;height:50px">
+                        <img src="{{ asset('images/facebook-icon.png') }}" style="height:40px">
                     </a>
                 </div>
                 <div class="col-lg-1">
                     <a href="{{$department->web}}" target="_blank">
-                        <img src="{{ asset('images/www-icon.png') }}" style="width:50px;height:50px">
+                        <img src="{{ asset('images/www-icon.png') }}" style="height:40px">
                     </a>
                 </div>
                 </div>
             </div>
         </div>
-        <div class="custom-map">
+        <div class="custom-map"style="margin-left:85px;">
             <iframe src="{{$department->map}}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         @endif
-        <div class="d-flex justify-content" style="position:absolute;left:842.5px;top: 755px;">
-            <button class="btn btn-info" onclick="window.location.href='/admin/home'" role="button" style="margin-right: 10px;">กลับหน้าหลัก</button>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#department" role="button" >แก้ไขข้อมูลภาควิชา</button>
+        <div class="d-flex justify-content" style="position:absolute;left:972.5px;top: 755px;">
+            <button class="btn btn-info"    onclick="window.location.href='/admin/home'" role="button" style="margin-right: 10px;" style="font-size: 20px;">กลับหน้าหลัก</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#department" role="button" style="font-size: 20px;">แก้ไขข้อมูลภาควิชา</button>
         </div>
     </div>
 
@@ -131,7 +135,7 @@
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">ข้อมูลติดต่อ</h1>
+                <h2 class="modal-title text-center" id="exampleModalLabel">ข้อมูลติดต่อ</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -139,33 +143,33 @@
                 {{ csrf_field() }}
                 <div class="col-lg-12 row">
                     <div class="col-lg-12 mt-3">
-                        <label for="address" class="form-label">ที่อยู่</label>
-                        <input type="text" name="address" class="form-control" id="address" placeholder="" required>
+                        <label for="address" class="form-label" style="font-size: 20px;">ที่อยู่</label>
+                        <input type="text" name="address" class="form-control" id="address" placeholder="" value="{{$department->address}}" style="font-size: 20px;" required>
                     </div>
                     <div class="col-lg-6 mt-3">
-                        <label for="contact_time" class="form-label">ช่วงเวลาติดต่อ</label>
-                        <input type="text" name="contact_time" class="form-control" id="contact_time" placeholder="" required>
+                        <label for="contact_time" class="form-label" style="font-size: 20px;">ช่วงเวลาติดต่อ</label>
+                        <input type="text" name="contact_time" class="form-control" id="contact_time" placeholder="" value="{{$department->contact_time}}" style="font-size: 20px;"  required>
                     </div>  
                     <div class="col-lg-6 mt-3">
-                        <label for="phone_number" class="form-label">เบอร์โทร</label>
-                        <input type="text" name="phone_number" class="form-control" id="phone_number" placeholder="" required>
+                        <label for="phone_number" class="form-label"style="font-size: 20px;">เบอร์โทร</label>
+                        <input type="text" name="phone_number" class="form-control" id="phone_number" placeholder="" value="{{$department->phone_number}}" style="font-size: 20px;"required>
                     </div>   
                     <div class="col-lg-12 mt-3">
-                        <label for="facebook" class="form-label">facebook</label>
-                        <input type="text" name="facebook" class="form-control" id="facebook" placeholder="" required>
+                        <label for="facebook" class="form-label"style="font-size: 20px;">facebook</label>
+                        <input type="text" name="facebook" class="form-control" id="facebook" placeholder="" value="{{$department->facebook}}" style="font-size: 20px;"required>
                     </div>
                     <div class="col-lg-12 mt-3">
-                        <label for="web" class="form-label">เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</label>
-                        <input type="text" name="web" class="form-control" id="web" placeholder="" required>
+                        <label for="web" class="form-label"style="font-size: 20px;">เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</label>
+                        <input type="text" name="web" class="form-control" id="web" placeholder="" value="{{$department->web}}" style="font-size: 20px;" required>
                     </div>
                     <div class="col-lg-12 mt-3">
-                        <label for="map" class="form-label">แผนที่มหาวิยาลัย</label>
-                        <input type="text" name="map" class="form-control" id="map" placeholder="" required>
+                        <label for="map" class="form-label"style="font-size: 20px;">แผนที่มหาวิยาลัย</label>
+                        <input type="text" name="map" class="form-control" id="map" placeholder="" value="{{$department->map}}" style="font-size: 20px;"required>
                     </div>   
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">Close</button>
+                    <button button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึกข้อมูล</button>
                 </div>
                 </form>
             </div>
@@ -173,14 +177,28 @@
             </div>
         </div>
     </div>
-    @if(Session::has('alert'))
+        <style>
+        .my-swal-title {
+            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+        }
+        </style>
+        @if(Session::has('alert'))
         <script>
-            swal("{{Session::get('alert')}}",{
+            swal({
+                title: "{{ Session::get('alert') }}",
                 icon: "success",
-                if(exist){
-                    alert(msg);
-            }});
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
         </script>
-    @endif  
+        @endif  
 </body>
 </html>

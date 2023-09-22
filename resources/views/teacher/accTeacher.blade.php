@@ -13,90 +13,90 @@
 
 </head>
 <body>
-    <style>
+<style>
         body {
-                font-family:'THSarabunNew';
-              }
+            font-family:'TH Niramit AS';
+            font-size: 20px;
+            }
         a:link {
                 color: black;
                 background-color: transparent;
                 text-decoration: none;
-              }
-
-        h5:hover{
-            /* color: #05FF2D; */
-        }
+            }
+            h4{
+                font-weight: bold;
+            }
+        h3{
+                font-weight: bold;
+            }
+        h2{
+                font-weight: bold;
+            }
+            p{
+                font-size: 20px; 
+            }
     </style>
-  <div class="col-12">
     <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                </div>
+                <div  class="col-11">
+                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
 
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
-            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ;">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF;">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 @else
                 <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
                 @endif
-                <h4>{{Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="/users/hometeacher" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/users/hometeacher" class="textmenu"><h3>หน้าหลัก</h3></a>
                 @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentslist_teacher') }}" class="textmenu"><h3>รายชื่อนักศึกษา</h3></a>
                 @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="{{route('graduateuser_teacher')}}" class="textmenu"><h3>ทำเนียบบัณฑิต</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ทำเนียบบัณฑิต</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                <a href="{{route('teacherviewtoken')}}" class="textmenu"><h3>จัดการโค้ด</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>จัดการโค้ด</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
             @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
             @endif
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                <a href="{{route('accTeacher')}}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
+                <a href="{{route('accTeacher')}}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
                 @endif
-                @if (Auth::check() && Auth::user()->role_acc !== 'teacher')
-                <h5>ตั้งค่าบัญชี</h5>
-                @endif
+                
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
+                <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
@@ -140,8 +140,8 @@
 
 
     <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-        <div class="col-12 mt-5">
-            <h4 class="mt-3">ตั้งค่าโปรไฟล์</h4><hr>
+        <div class="col-12">
+            <h2>ตั้งค่าโปรไฟล์</h2><hr>
                 @php
                 $thaiMonths = [
                 1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
@@ -153,12 +153,12 @@
                 <div class="col-12" style="text-align: end">
                     @if($contactInfo)
                         @if($contactInfo->updated_at === null)
-                            <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
+                            <p>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</p>
                             @else
-                                <h5>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</h5>
+                                <p>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</p>
                             @endif
                             @else
-                                <h5>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</h5>
+                                <p>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</p>
                             @endif
 
                         <div class="col-10 mx-auto mt-3 text-center">
@@ -171,7 +171,7 @@
                             @else
                                     <img src="{{ asset('images/teamwork.png') }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
                             @endif
-                            <h5>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h5>
+                            <h4>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h4>
                             <hr>
                         </div>
                 </div>
@@ -195,14 +195,14 @@
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
                                     <div class="col-lg-11">
-                                        <h5>{{$department->address}}</h5>
+                                        <h3>{{$department->address}}</h3>
                                     </div>
                                     <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
                                         <div class="col-lg-11">
-                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                            <h3>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 row" >
@@ -236,7 +236,7 @@
             <div class="modal-dialog modal-lg" style="max-width: 40%">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">แก้ไขประวัติส่วนตัว</h5>
+                        <h3 class="modal-title">แก้ไขประวัติส่วนตัว</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -253,31 +253,32 @@
                                             @endif
                                         </div>
                                         <div class="col-lg-8" style="margin-top:50px ">
-                                            <h5 style="font-size: 16px; text-align: left;">1.อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h5>
-                                            <h5 style="font-size: 16px; text-align: left;">2.ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h5>
-                                            <h5 style="font-size: 16px; text-align: left;"> <input type="file" name="image" accept="image/jpeg, image/png, image/svg" aria-label="Upload"></h5>   
+                                            <h5 style="font-size: 16px; text-align: left;">อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h5>
+                                            <h5 style="font-size: 16px; text-align: left;">ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h5>
+                                             <input type="file" style="font-size: 20px;"name="image" accept="image/jpeg, image/png, image/svg" aria-label="Upload">
                                         </div>
                                         </div>
                                         <hr class="mt-3">
                                         <div class="col-lg-2">
                                         <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
                                             @if($contactInfo)
-                                                <select name="prefix" id="prefix" class="select">
-                                                    @if($row->reward_type == 'นาย' )
+                                                <select name="prefix" id="prefix" class="select" style="font-size: 20px;">
+                                                    <option value="{{ $contactInfo->prefix }}">{{ $contactInfo->prefix }}</option>
+                                                    @if($contactInfo->prefix == 'นาย' )
                                                     <option value="นาง">นาง</option>
                                                     <option value="นางสาว">นางสาว</option>
                                                     @endif
-                                                    @if($row->reward_type == 'นาง' )
+                                                    @if($contactInfo->prefix == 'นาง' )
                                                     <option value="นาย">นาย</option>
                                                     <option value="นางสาว">นางสาว</option>
                                                     @endif
-                                                    @if($row->reward_type == 'นางสาว' )
+                                                    @if($contactInfo->prefix == 'นางสาว' )
                                                     <option value="นาย">นาย</option>
                                                     <option value="นาง">นาง</option>
                                                     @endif
                                                 </select>
                                             @else 
-                                                <select name="prefix" id="prefix" class="select">
+                                                <select name="prefix" id="prefix" class="select" style="font-size: 20px;">
                                                     <option value="นาย">นาย</option>
                                                     <option value="นาง">นาง</option>
                                                     <option value="นางสาว">นางสาว</option>
@@ -286,19 +287,19 @@
                                             </div>
                                             <div class="col-lg-3">
                                             @if($user)
-                                                <label class="col-form-label font-weight-bold text-dark">ชื่อ</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">ชื่อ</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="firstname"
-                                                    required value="{{ $user->firstname }}">
+                                                    required value="{{ $user->firstname }}"style="font-size: 20px;">
                                                 </div>
                                             @endif  
                                             </div>
                                             <div class="col-lg-3">
                                             @if($user)
-                                                <label class="col-form-label font-weight-bold text-dark">นามสกุล</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">นามสกุล</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="lastname"
-                                                    required value="{{ $user->lastname }}">
+                                                    required value="{{ $user->lastname }}"style="font-size: 20px;">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                 </div>
                                             @endif 
@@ -306,96 +307,103 @@
                                             <hr class="mt-3">
                                             <div class="col-lg-12">
                                                 <div class="d-flex align-items-center">
-                                                    <label class="col-form-label font-weight-bold text-dark me-3">ช่องทางการติดต่อ</label>
+                                                    <label class="col-form-label font-weight-bold text-dark me-3"style="font-size: 20px;">ช่องทางการติดต่อ</label>
                                                     @if($contactInfo)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="{{ $contactInfo->status_contact }}" id="contactCheckbox" name="status_contact" onclick="toggleContactStatus()" >
-                                                        <input type="hidden" name="status_contact" id="status_contact_input">
-                                                        <label class="form-check-label" for="contactCheckbox">ไม่เปิดเผยช่องทางการติดต่อ</label>
-                                                    </div>
-                                                    @else
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="contactCheckbox" name="status_contact" onclick="toggleContactStatus()" >
-                                                        <input type="hidden" name="status_contact" id="status_contact_input">
-                                                        <label class="form-check-label" for="contactCheckbox">ไม่เปิดเผยช่องทางการติดต่อ</label>
-                                                    </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="contactCheckbox" name="status_contact" 
+                                                            @if($contactInfo->status_contact === 1)
+                                                                checked
+                                                            @endif
+                                                            onclick="toggleContactStatus(this)">
+                                                            <input type="hidden" name="status_contact" id="status_contact_input" value="{{ $contactInfo->status_contact }}">
+                                                            @if($contactInfo->status_contact === 1)
+                                                            <label class="form-check-label" for="contactCheckbox">
+                                                                เปิดเผยช่องทางการติดต่อ
+                                                            </label>
+                                                            @else
+                                                            <label class="form-check-label" for="contactCheckbox">
+                                                                ไม่เปิดเผยช่องทางการติดต่อ
+                                                            </label>
+                                                            @endif
+                                                               
+                                                        </div>
                                                     @endif 
                                                 </div>
                                             </div>     
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark">อีเมล</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">อีเมล</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="email"
-                                                    required value="{{ $contactInfo->ID_email }}">
+                                                    required value="{{ $contactInfo->ID_email }}"style="font-size: 20px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="email"
-                                                    required >
+                                                    required style="font-size: 20px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark">Line</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Line</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Line"
-                                                    required value="{{ $contactInfo->ID_line }}">
+                                                    required value="{{ $contactInfo->ID_line }}"style="font-size: 20px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Line"
-                                                    required >
+                                                    required style="font-size: 20px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark">Facebook</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Facebook</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Facebook"
-                                                    required value="{{ $contactInfo->ID_facebook }}">
+                                                    required value="{{ $contactInfo->ID_facebook }}"style="font-size: 20px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Facebook"
-                                                    required >
+                                                    required style="font-size: 20px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark">Tel.</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Tel.</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Tel"
-                                                    required value="{{ $contactInfo->telephone }}">
+                                                    required value="{{ $contactInfo->telephone }}"style="font-size: 20px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Tel"
-                                                    required >
+                                                    required style="font-size: 20px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark">Instagram</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Instagram</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Instagram"
-                                                    required value="{{ $contactInfo->ID_instagram }}" >
+                                                    required value="{{ $contactInfo->ID_instagram }}" style="font-size: 20px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Instagram"
-                                                    required  >
+                                                    required  style="font-size: 20px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">ปิด</button>
+                                        <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>
                                     </div>
                                 </div>
                             </form>
@@ -403,21 +411,17 @@
                     </div>
                 </div>
             </div>
-            <script>
-                var status_contact = true; // ให้เริ่มต้นเป็น true
-
-                function toggleContactStatus() {
-                var checkbox = document.getElementById("contactCheckbox");
-                var statusContactInput = document.getElementById("status_contact_input");
-
-                if (checkbox.checked) {
-                    status_contact = false; // ถ้า checkbox ถูกติ๊ก
-                } else {
-                    status_contact = true; // ถ้า checkbox ไม่ถูกติ๊ก
+        <script>
+            function toggleContactStatus(checkbox) {
+                var statusContactInput = document.getElementById('status_contact_input');
+                if (checkbox.checked == 1) {
+                    statusContactInput.value = true; // กำหนดค่าให้เป็น 1 เมื่อ checkbox ถูกติก
+                } else if(checkbox.checked == 0) {
+                    statusContactInput.value = true; // กำหนดค่าให้เป็น 0 เมื่อ checkbox ไม่ถูกติก
+                }else{
+                    statusContactInput.value = false;
                 }
-
-                // ตั้งค่า value ของ input แบบซ่อนเป็นค่า status_contact ที่อัพเดต
-                statusContactInput.value = status_contact;
+                
             }
         </script>
     </div>
@@ -435,15 +439,29 @@
         history.pushState(null, null, location.href);
     });
 </script>
-    @if(Session::has('alert'))
+    <style>
+        .my-swal-title {
+            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+        }
+        </style>
+        @if(Session::has('alert'))
         <script>
-            swal("Massage","{{Session::get('alert')}}",'info',{
+            swal({
+                title: "{{ Session::get('alert') }}",
                 icon: "success",
-                if(exist){
-                    alert(msg);
-            }});
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
         </script>
-    @endif  
+        @endif
 </body>
 </html>
 

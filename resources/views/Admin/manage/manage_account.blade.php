@@ -13,9 +13,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-    <style>
+<style>
         body {
-                font-family:'THSarabunNew';
+                font-family:'TH Niramit AS';
+                font-size: 20px;
               }
         a:link {
                 color: black;
@@ -30,101 +31,101 @@
         font-size: 24px;
         color: black; /* สีตั้งต้นของไอคอน */
         }
+        h3{
+                font-weight: bold;
+            }
+        h2{
+                font-weight: bold;
+            }
     </style>
-    <div class="col-12">
-        <div class="col-12 outset" style="background-color: #EFF4FF;">
-        <div class="col-12">
-            <div class="col-12 row">
+    <div class="col-12 outset" style="background-color: #EFF4FF;">
+      <div class="col-12">
+        <div class="col-12 row">
             <div class="col-1">
-                <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
+            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
             </div>
-            <div class="col-4" style="padding: 15px; ;">
-                <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-                <hr class="mt-1" style="border: 1px solid #000">
-                <h2>Computer Engineering Alummi</h2>
+            <div  class="col-11">
+              <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
             </div>
-            </div>
-            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        </div>
+        <hr class="mt-1" style="border: 2px solid #000">
+      </div>
+    </div>
     
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
-            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                <h3>{{ Auth::user()->firstname }}</h3>
+                <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/admin/home" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/admin/home" class="textmenu"><h3>หน้าข่าวประชาสัมพันธ์</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('manage') }}" class="textmenu"><h5>จัดการบัญชีผู้ใช้</h5></a>
+                <a href="{{ route('status') }}" class="textmenu"><h3>ปรับสถานะภาพนักศึกษา</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-               <a href="{{ route('status') }}" class="textmenu"><h5>ปรับสภาพนักศึกษา</h5></a>
+                <a href="{{ route('massege') }}" class="textmenu"><h3>รายการข้อความ</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('news') }}" class="textmenu"><h5>จัดการข่าวสาร</h5></a>
+                <a href="{{ route('dashboard') }}" class="textmenu"><h3>แดชบอร์ด</h3></a>
+            </div>
+            <div class="col-8 mt-1"style="margin-left:50px">
+              <hr style="border: 1px solid #000">
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('activitys') }}" class="textmenu"><h5>จัดการกิจกรรม</h5></a>
+                <a href="{{ route('manage') }}" class="textmenu"><h3>จัดการบัญชีผู้ใช้</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('reward') }}" class="textmenu"><h5>จัดการรางวัลประกาศ</h5></a>
+                <a href="{{ route('news') }}" class="textmenu"><h3>จัดการข่าวสาร</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('viewtoken') }}" class="textmenu"><h5>จัดการโค้ด</h5></a>
+                <a href="{{ route('activitys') }}" class="textmenu"><h3>จัดการกิจกรรม</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('links') }}" class="textmenu"><h5>จัดการแบบสอบถาม</h5></a>
+                <a href="{{ route('reward') }}" class="textmenu"><h3>จัดการรางวัลประกาศ</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('graduate') }}" class="textmenu"><h5>จัดการทำเนียบบัณทิต</h5></a>
+                <a href="{{ route('viewtoken') }}" class="textmenu"><h3>จัดการโค้ด</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('massege') }}" class="textmenu"><h5>รายการข้อความ</h5></a>
+                <a href="{{ route('links') }}" class="textmenu"><h3>จัดการแบบสอบถาม</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('dashboard') }}" class="textmenu"><h5>แดชบอร์ด</h5></a>
+                <a href="{{ route('graduate') }}" class="textmenu"><h3>จัดการทำเนียบบัณทิต</h3></a>
             </div>
+            
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
+                <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
-            <div  class="col-10 mt-3" style="display: flex; justify-content: center; align-items: center;">
-              <a href="/register/Admin" class="re-admin" title="เพิ่มผู้ดูแลระบบ"style="margin-right: 5px;">
-                  <iconify-icon icon="ri:admin-fill"></iconify-icon>
-              </a>
-              <a href="/register/teacher" class="re-teacher" title="เพิ่มอาจารย์"style="margin-left: 5px;">
-                  <iconify-icon icon="subway:admin-1"></iconify-icon>
-              </a>
-            </div>
-            <hr class="mt-1" style="border: 2px solid #000">
-            
+            <hr class="mt-3" style="border: 2px solid #000">
             <a href="{{ route('contact') }}" class="text-center"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-    </div>
+      </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการบัญชีผู้ใช้</h2>
-    <hr class="mt-1" style="border: 1px solid #000">
-        <div class="mt-1" >
+    <hr class="mt-1" style="border: 1px solid #000 font-size: 20px;">
+    <button class="btn btn-warning" onclick="window.location.href='{{url('/register/Admin')}}'" role="button" style="font-size: 18px;">เพิ่มบัญชีผู้ดูแลระบบ</button>
+    <button class="btn btn-info" onclick="window.location.href='{{url('/register/teacher')}}'" role="button" style="font-size: 18px;">เพิ่มบัญชีอาจารย์</button>
+        <div class="mt-1" style=" font-size: 20px;">
             <form action="" method="GET" >
-                    <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-                        <select name="searchdata" class="form-select" >
+                    <label class="form-label" style="position: absolute;left:750px;top: 65px;font-size: 20px;">
+                        <select name="searchdata" class="form-select" style="font-size: 20px;">
                             <option value="all">ทั้งหมด</option>
                             <option value="student_id" >รหัสนักศึกษา</option>
                             <option value="firstname">ชื่อ</option>
                             <option value="lastname">นามสกุล</option>
                             <option value="graduatesem">ภาคการศึกษาที่จบ</option>
                             <option value="student_grp">กลุ่มนักศึกษา</option>
-                            <option value="active">สถานะเข้าใช้งาน</option>
+                            <option value="active">สถานะสิทธิเข้าใช้งาน</option>
                         </select>
                         <div class="col-mb-2">
-                            <input type="text" class="form-control" name="search" placeholder="ค้นหาบัญชี" style="position:relative;left:250px;top:-37px" /> 
-                            <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">ค้นหา</button>
+                            <input type="text" class="form-control" name="search" placeholder="ค้นหาบัญชี" style="font-size: 20px;position:relative;left:280px;top:-43px" /> 
+                            <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:475px;top:1px;">ค้นหา</button>
                         </div>
                     </label>
             </form>
@@ -237,12 +238,14 @@
                                                 <th scope="col"class="text-center">วันที่เข้าใช้งาน</th>
                                                 <th scope="col"class="text-center">อาจารย์</th>
                                                 <th scope="col"class="text-center">กลุ่มนักศึกษา</th>
-                                                <th scope="col"class="text-center">สถานะเข้าใช้งาน</th>
+                                                <th scope="col"class="text-center">สถานะสิทธิเข้าใช้งาน</th>
                                                 <th scope="col"class="text-center">ตัวเลือก</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($users as $row)
+                                                @if($row->firstname === 'Admintest')
+                                                @else
                                                 @php
                                                     $thaiMonths = [
                                                         1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
@@ -254,17 +257,12 @@
 
                                                 @endphp
                                                 <tr class="custom-row">
-                                                    <td scope="col" class="text-center ">{{$row->firstname}}</td>
-                                                    <td scope="col" class="text-center ">{{$row->lastname}}</td>
-                                                    <td scope="col" class="text-center ">{{$row->role_acc}}</td>
-                                                    @if($row->role_acc === 'Admin')
-                                                    <td scope="col" class="text-center ">-</td>
-                                                    @else
+                                                    <td scope="col" >{{$row->firstname}}</td>
+                                                    <td scope="col" >{{$row->lastname}}</td>
+                                                    <td scope="col" >{{$row->role_acc}}</td>
                                                     <td scope="col" class="text-center"> {{$loginDate->format('d')}} {{$thaiMonths[$loginDate->month]}} {{$loginDate->year + 543}}</td>
-                                                    @endif
-
-                                                    <td scope="col" class="text-center ">{{$row->inviteby}}</td>
-                                                    <td scope="col" class="text-center ">{{$row->student_grp}}</td>
+                                                    <td scope="col" >{{$row->inviteby}}</td>
+                                                    <td scope="col" >{{$row->student_grp}}</td>
                                                     <td scope="col" class="text-center checkbox-center">
                                                         <div class="form-check form-switch">
                                                             <input class="form-check-input user-status-toggle" type="checkbox" data-user-id="{{$row->id}}" {{$row->active ? 'checked' : ''}} disabled>
@@ -272,12 +270,13 @@
                                                         </div>
                                                     </td>
                                                     <td scope="col" class="text-center custom-column ">
-                                                        <a class="edit" data-bs-toggle="modal" data-bs-target="#exampleModal{{$row->id}}"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
+                                                        <a class="edit" data-bs-toggle="modal" data-bs-target="#manage{{$row->id}}"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
                                                         <a href="mailto:{{$row->email}}" class="mail" title="mail" data-toggle="tooltip"><iconify-icon icon="ic:outline-mail"></iconify-icon></a>
                                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">
                                                         <iconify-icon icon="ph:trash-light"></iconify-icon></a>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -285,20 +284,20 @@
                                         {{$users->links()}}
                                     </div>
                                     @foreach($users as $row)
-                                    <div class="modal fade" id="exampleModal{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="manage{{$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">แก้ไขข้อมูล</h1>
+                                                <h3 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูล</h3>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                             <form action="{{url('/update-user-status/'.$row->id)}}" method="post" enctype="multipart/form-data" >
                                                 {{ csrf_field() }}
-                                                <div class="custom-form">
+                                                <div class="custom-form" >
                                                     @if($row->role_acc === 'Admin')
                                                     <div class="mb-3 row @error('active') error @enderror">
-                                                        <label for="active" class="col-form-label custom-label">สถานะเข้าใช้งาน</label>
+                                                        <label for="active" class="col-form-label custom-label">สถานะสิทธิเข้าใช้งาน</label>
                                                         <div class="col">
                                                             <select name="active" class="form-select custom-input" value="{{$row->active}}">
                                                             @if($row->active == 1 )
@@ -314,54 +313,54 @@
                                                     </div>
                                                     @else
                                                     <div class="mb-3 row @error('student_id') error @enderror">
-                                                        <label for="student_id" class="col-form-label custom-label">รหัสนักศึกษา</label>
+                                                        <label for="student_id" class="col-form-label custom-label"style="font-size: 20px;">รหัสนักศึกษา</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control custom-input @error('student_id') is-invalid @enderror" id="student_id" name="student_id" value="{{$row->student_id}}">
+                                                            <input type="text"style="font-size: 20px;" class="form-control custom-input @error('student_id') is-invalid @enderror" id="student_id" name="student_id" value="{{$row->student_id}}">
                                                             @error('student_id')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('firstname') error @enderror">
-                                                        <label for="firstname" class="col-form-label custom-label">ชื่อ</label>
+                                                        <label for="firstname" class="col-form-label custom-label"style="font-size: 20px;">ชื่อ</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control custom-input @error('firstname') is-invalid @enderror" id="firstname" name="firstname" value="{{$row->firstname}}">
+                                                            <input type="text"style="font-size: 20px;" class="form-control custom-input @error('firstname') is-invalid @enderror" id="firstname" name="firstname" value="{{$row->firstname}}">
                                                             @error('firstname')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('lastname') error @enderror">
-                                                        <label for="lastname" class="col-form-label custom-label">นามสกุล</label>
+                                                        <label for="lastname" class="col-form-label custom-label"style="font-size: 20px;">นามสกุล</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control custom-input @error('lastname') is-invalid @enderror" id="lastname" name="lastname" value="{{$row->lastname}}">
+                                                            <input type="text" style="font-size: 20px;"class="form-control custom-input @error('lastname') is-invalid @enderror" id="lastname" name="lastname" value="{{$row->lastname}}">
                                                             @error('lastname')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('graduatesem') error @enderror">
-                                                        <label for="graduatesem" class="col-form-label custom-label">ภาคการศึกษาที่จบ</label>
+                                                        <label for="graduatesem" class="col-form-label custom-label"style="font-size: 20px;">ภาคการศึกษาที่จบ</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control custom-input @error('graduatesem') is-invalid @enderror" id="graduatesem" name="graduatesem"value="{{$row->graduatesem}}">
+                                                            <input type="text"style="font-size: 20px;" class="form-control custom-input @error('graduatesem') is-invalid @enderror" id="graduatesem" name="graduatesem"value="{{$row->graduatesem}}">
                                                             @error('graduatesem')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('student_grp') error @enderror">
-                                                        <label for="student_grp" class="col-form-label custom-label">กลุ่มนักศึกษา</label>
+                                                        <label for="student_grp" class="col-form-label custom-label"style="font-size: 20px;">กลุ่มนักศึกษา</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control custom-input @error('student_grp') is-invalid @enderror" id="student_grp" name="student_grp" value="{{$row->student_grp}}">
+                                                            <input type="text" style="font-size: 20px;"class="form-control custom-input @error('student_grp') is-invalid @enderror" id="student_grp" name="student_grp" value="{{$row->student_grp}}">
                                                             @error('student_grp')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('groupleader') error @enderror">
-                                                        <label for="groupleader" class="col-form-label custom-label">สถานะหัวหน้ากลุ่ม</label>
+                                                        <label for="groupleader" class="col-form-label custom-label"style="font-size: 20px;">สถานะหัวหน้ากลุ่ม</label>
                                                         <div class="col">
-                                                            <select name="groupleader" class="form-select custom-input" value="{{$row->groupleader}}">
+                                                            <select name="groupleader" class="form-select custom-input" style="font-size: 20px;"value="{{$row->groupleader}}">
                                                                 @if($row->groupleader == 'เป็นหัวหน้า' )
                                                                 <option value="เป็นหัวหน้า" >เป็นหัวหน้า</option>
                                                                 <option value="ไม่เป็นหัวหน้า">ไม่เป็นหัวหน้า</option>
@@ -375,9 +374,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('active') error @enderror">
-                                                        <label for="active" class="col-form-label custom-label">สถานะเข้าใช้งาน</label>
+                                                        <label for="active" class="col-form-label custom-label"style="font-size: 20px;">สถานะเข้าใช้งาน</label>
                                                         <div class="col">
-                                                            <select name="active" class="form-select custom-input" value="{{$row->active}}">
+                                                            <select name="active" class="form-select custom-input"style="font-size: 20px;" value="{{$row->active}}">
                                                             @if($row->active == 1 )
                                                             <option value="true" >เปิดการใช้งาน</option>
                                                             <option value="false">ปิดการใช้งาน</option>
@@ -394,8 +393,8 @@
                                                     
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
-                                                    <button type="submit" class="btn btn-primary" id="submitBtn" >ยืนยัน</button>
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size: 20px;">ยกเลิก</button>
+                                                    <button type="submit" class="btn btn-primary" id="submitBtn"style="font-size: 20px;" >ยืนยัน</button>
                                                 </div>
                                             </form>
                                             </div>

@@ -16,82 +16,82 @@
 <body>
     <style>
         body {
-                font-family:'THSarabunNew';
-              }
+            font-family:'TH Niramit AS';
+            font-size: 20px;
+            }
         a:link {
                 color: black;
                 background-color: transparent;
                 text-decoration: none;
               }
+        h3{
+            font-weight: bold;
+        }
+        h2{
+            font-weight: bold;
+        }
     </style>
-  <div class="col-12">
-    <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-          <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
-          </div>
-          <div class="col-4" style="padding: 15px;">
-            <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            <hr class="mt-1" style="border: 1px solid #000">
-            <h2>Computer Engineering Alummi</h2>
-          </div>
+  <div class="col-12 outset" style="background-color: #EFF4FF;">
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                </div>
+                <div  class="col-11">
+                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                </div>
+            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
 
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
-            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #EFF4FF">
+            <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
                 @else
                 <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:100px;height:100px;padding:10px; border-radius: 50%;">
                 @endif
-                <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+                <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="/users/homeuser" class="textmenu"><h5>หน้าหลัก</h5></a>
+                <a href="/users/homeuser" class="textmenu"><h3>หน้าหลัก</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('studentslist') }}" class="textmenu"><h5>รายชื่อนักศึกษา</h5></a>
+                <a href="{{ route('studentslist') }}" class="textmenu"><h3>รายชื่อนักศึกษา</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{route('graduateuser')}}" class="textmenu"><h5>ทำเนียบบัณฑิต</h5></a>
+                <a href="{{route('graduateuser')}}" class="textmenu"><h3>ทำเนียบบัณฑิต</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{route('rewarduser')}}" class="textmenu"><h5>รางวัลประกาศ</h5></a>
+                <a href="{{route('rewarduser')}}" class="textmenu"><h3>รางวัลประกาศ</h3></a>
+                @endif
+                
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+            @if($surveylink)
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
+            @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
+                @if (Auth::check() && Auth::user()->role_acc === 'student')
+                <a href="{{ route('accountuser') }}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
                 @endif
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                    @if($surveylink)
-                        <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h5>แบบสอบถาม</h5></a>
-                    @endif
-                @endif
-                
-                
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('accountuser') }}" class="textmenu"><h5>ตั้งค่าบัญชี</h5></a>
-                @endif
-                
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
-                @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h5>ประวัติการติดต่อ</h5></a>
+                <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h3>ประวัติการติดต่อ</h3></a>
                 @endif
                 
                 
@@ -101,7 +101,7 @@
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger" type="submit">ออกจากระบบ</button>
+                <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
             <hr class="mt-5" style="border: 2px solid #000">
@@ -109,12 +109,12 @@
             <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
         </div>
   </div>
-  <div class="container "style="position:absolute;left:500px;top: 215px;">
+  <div class="container "style="position:absolute;left:500px;top: 180px;">
         <h2>รางวัล/ทุนการศึกษา</h2>
         <hr class="mt-1" style="border: 1px solid #000">
         <form action="" method="GET" >
-                <label class="form-label" style="position: absolute;left:500px;top: 65px;">
-                    <select name="searchdata" class="form-select" >
+                <label class="form-label" style="position: absolute;left:700px;top: 65px;">
+                    <select name="searchdata" class="form-select" style="font-size: 20px;">
                         <option value="all">ทั้งหมด</option>
                         <option value="year" >ปีการศึกษา</option>
                         <option value="student_id">รหัสนักศึกษา</option>
@@ -125,8 +125,8 @@
                         <option value="amount">อันดับ/มูลค่าทุน</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหารางวัล" style="position:relative;left:300px;top:-37px" /> 
-                        <button type="submit"  class="btn btn-primary" style="position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหารางวัล" style="font-size: 20px;position:relative;left:300px;top:-43px" /> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -213,11 +213,12 @@
             </div> 
         </div> 
     </div>
-    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+    
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <h3 class="modal-title">ช่องทางการติดต่อ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -230,14 +231,14 @@
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
                                         </div>
                                     <div class="col-lg-11">
-                                        <h5>{{$department->address}}</h5>
+                                        <h3>{{$department->address}}</h3>
                                     </div>
                                     <div class="col-lg-12 row">
                                         <div class="col-lg-1">
                                             <i class="fas fa-phone" style="margin-top:15px"></i>
                                         </div>
                                         <div class="col-lg-11">
-                                            <h5>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h5>
+                                            <h3>ช่วงเวลาติดต่อ{{$department->contact_time}}<br>{{$department->phone_number}}</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 row" >
@@ -261,28 +262,28 @@
                                     <form action="/user/post/massage" method="POST" enctype="multipart/form-data">
                                     @csrf
                                         <div class="col-lg-12">
-                                            <label class="col-form-label font-weight-bold text-dark">ชื่อเรื่อง</label>
+                                            <label class="col-form-label font-weight-bold text-dark" style="font-size: 24px;">ชื่อเรื่อง</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control form-control-sm text-center bg-white" name="massage_name"
+                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm text-center bg-white" name="massage_name"
                                                 required>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <label class="col-form-label font-weight-bold text-dark">ข้อความ</label>
+                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ</label>
                                             <div class="input-group">
-                                                <textarea type="text" id="" rows="4" cols="100" name="massage_cotent"></textarea>
+                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">  
-                                                <label class="col-form-label font-weight-bold text-dark">เลือกเอกสารที่ต้องการอัพโหลด</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">เลือกเอกสารที่ต้องการอัพโหลด</label>
                                                 <div class="input-group">
-                                                    <input type="file" class="form-control" id="massage_file" name="massage_file">
+                                                    <input type="file"style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file">
                                                 </div>
                                         </div>
                                         <br><br><br><br><br>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">ส่ง</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 24px;">ปิด</button>
                                         </div>
                                     </form>
                                 </div>
@@ -293,12 +294,11 @@
             </div>
         </div>
     </div>
-    
     <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">ประวัติข้อความ</h1>
+                    <h3 class="modal-title" id="exampleModalLabel">ประวัติข้อความ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -323,13 +323,12 @@
                     </table>
                     @endforeach
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');
@@ -337,12 +336,17 @@
     function openMassageModal() {
         $('#MassageModal').modal('show');
     }
-    var msg = '{{Session::get('alert')}}';
-            var exist = '{{Session::has('alert')}}';
-            if(exist){
-            alert(msg);
-            }
+    
 </script>
+@if(Session::has('alert'))
+<script>
+    swal("{{Session::get('alert')}}",{
+        icon: "success",
+    if(exist){
+        alert(msg);
+    }});
+</script>
+@endif   
 
 </body>
 </html>

@@ -18,12 +18,13 @@
     <style>
         body {
                 margin: auto;
-                font-family:'THSarabunNew';
+                font-family:'TH Niramit AS';
                 overflow: auto;
                 background: linear-gradient(315deg, rgb(146, 143, 146) 3%, rgb(150, 162, 173) 38%, rgb(149, 167, 165) 68%, rgb(173, 162, 162) 98%);
                 animation: gradient 15s ease infinite;
                 background-size: 400% 400%;
                 background-attachment: fixed;
+                font-weight: bold;
             }
             @keyframes gradient {
                 0% {
@@ -137,32 +138,32 @@
                                     <div class="col-lg-12">
                                     <form action="{{ route('inputgoogle') }}" method="post" enctype="multipart/form-data" >
                                         {{ csrf_field() }}
-                                            <h3 style="text-align:center">ลงทะเบียนศิษย์เก่า</h3>
+                                            <p style="text-align:center;font-size: 30px;">ลงทะเบียนศิษย์เก่า</p>
                                             <div class="col-lg-12 row">
                                                 <div class="col-lg-12 mt-3">
-                                                    <label for="firstname" class="form-label">ชื่อ</label>
-                                                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="" required>
+                                                    <label for="firstname" class="form-label"style="font-size: 20px;">ชื่อ</label>
+                                                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="" style="font-size: 24px;"required>
                                                 </div>
                                                 <div class="col-lg-12 mt-3">
-                                                    <label for="lastname" class="form-label">นามสกุล</label>
-                                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="" required>
+                                                    <label for="lastname" class="form-label"style="font-size: 20px;">นามสกุล</label>
+                                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="" style="font-size: 24px;"required>
                                                 </div>
                                                 <div class="col-lg-6 mt-3">
-                                                    <label for="student_id" class="form-label">รหัสนักศึกษา</label>
-                                                    <input type="text" name="student_id" class="form-control" id="student_id" required>
+                                                    <label for="student_id" class="form-label"style="font-size: 20px;">รหัสนักศึกษา</label>
+                                                    <input type="text" name="student_id" class="form-control" id="student_id" style="font-size: 24px;"required>
                                                 </div>
                                                 <div class="col-lg-6 mt-3">
-                                                    <label for="student_grp" class="form-label">รุ่นปีการศึกษา</label>
-                                                    <input type="text" name="student_grp" class="form-control" id="student_grp" required>
+                                                    <label for="student_grp" class="form-label"style="font-size: 20px;">รุ่นปีการศึกษา</label>
+                                                    <input type="text" name="student_grp" class="form-control" id="student_grp" style="font-size: 24px;"required>
                                                 </div><div class="col-lg-12 mt-3">
-                                                    <label for="token_id" class="form-label">รหัส</label>
-                                                    <input type="text" name="token_id" class="form-control" id="token_id" required>
+                                                    <label for="token_id" class="form-label"style="font-size: 20px;">รหัส</label>
+                                                    <input type="text" name="token_id" class="form-control" id="token_id"style="font-size: 24px;" required>
                                                 </div>
                                                 <div class="col-lg-12 mt-3">
                                                 <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                                                 </div>
                                                 <div class="d-grid gap-2 col-12 mt-3">
-                                                    <button type="submit" class="btn btn-outline-dark"role="button" style="text-transform:none" id="googleLoginButton" >
+                                                    <button type="submit" class="btn btn-outline-dark"role="button" style="text-transform:none;font-size: 24px;" id="googleLoginButton">
                                                         <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                                                             Login with Google
                                                     </button>
@@ -176,24 +177,46 @@
                     </div>
                 </div>
         </div>
+        <style>
+        .my-swal-title {
+            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+        }
+        </style>
         @if(Session::has('alert'))
-            <script>
-                swal("{{Session::get('alert')}}",{
-                    icon: "success",
-                    if(exist){
-                        alert(msg);
-                }});
-            </script>
-        @endif  
-        @if(Session::has('error'))
-            <script>
-                swal("{{Session::get('error')}}",{
-                    icon: "error",
-                    if(exist){
-                        alert(msg);
-                }});
-            </script>
+        <script>
+            swal({
+                title: "{{ Session::get('alert') }}",
+                icon: "success",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
         @endif
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif 
     </div>
 </body>
 </html>

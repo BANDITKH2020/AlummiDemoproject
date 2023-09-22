@@ -14,7 +14,8 @@
 <body>
     <style>
         body {
-                font-family:'THSarabunNew';
+            font-family:'TH Niramit AS';
+                font-size: 20px;
             }
         a:link {
                 color: black;
@@ -37,18 +38,28 @@
             margin-right: 100px; /* ระยะห่างระหว่างปุ่ม */
         }
         
+        h4{
+            font-weight: bold;
+        }
+        h3{
+            font-weight: bold;
+        }
+        h2{
+            font-weight: bold;
+        }
+        p{
+            font-size: 20px;
+        }
+        
     </style>
-    <div class="col-12">
-        <div class="col-12 outset" style="background-color: #EFF4FF;">
+    <div class="col-12 outset" style="background-color: #EFF4FF;">
         <div class="col-12">
             <div class="col-12 row">
                 <div class="col-1">
-                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 140px; height: 140px;padding: 10px;">
+                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
                 </div>
-                <div class="col-4" style="padding: 15px;">
-                    <h2>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-                    <hr class="mt-1" style="border: 1px solid #000">
-                    <h2>Computer Engineering Alummi</h2>
+                <div  class="col-11">
+                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
                 </div>
             </div>
             <hr class="mt-1" style="border: 2px solid #000">
@@ -56,7 +67,7 @@
     </div>
     <div class="container"  style="position: absolute; left: 350px; top: 180px;">
         <div class="col-md-12">
-            <h4 class="text">ชื่อ {{$user->firstname}} {{$user->lastname}}</h4>
+            <h3 class="text">ชื่อ {{$user->firstname}} {{$user->lastname}}</h3>
         </div>
         <hr class="mt-1" style="border: 1px solid #000">
             <div class="col-10 mx-auto mt-3 text-center">
@@ -70,34 +81,34 @@
                     <img src="{{ asset('images/teamwork.png') }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
                 @endif
             </div>   
-            <h5 class="text mt-3 "style="margin-left: 504px;">ชื่อ-นามสกุล : {{$user->firstname}} {{$user->lastname}}</h5>
+            <h4 class="text mt-3 "style="margin-left: 504px;">ชื่อ-นามสกุล : {{$user->firstname}} {{$user->lastname}}</h4>
             @if($contactInfo)
-                @if($contactInfo->status_contact === 1)
-                <h5 class="text mt-3 "style="margin-left: 564px;">อีเมล : - </h5>
-                <h5 class="text mt-3 "style="margin-left: 494px;">เบอร์โทรศัพท์ : - </h5>
+                @if($contactInfo->status_contact === 0)
+                <h5 class="text mt-3 "style="margin-left: 572px;">อีเมล : {{$contactInfo->ID_email}} </h5>
+                <h5 class="text mt-3 "style="margin-left: 524px;">เบอร์โทรศัพท์ : {{$contactInfo->telephone}} </h5>
                 @else
-                <h5 class="text mt-3 " style="margin-left: 564px;">อีเมล : {{$contactInfo->ID_email}}</h5>
-                <h5 class="text mt-3 "style="margin-left: 494px;">เบอร์โทรศัพท์ : {{$contactInfo->telephone}} </h5>
+                <h5 class="text mt-3 "style="margin-left: 572px;">อีเมล : - </h5>
+                <h5 class="text mt-3 "style="margin-left: 524px;">เบอร์โทรศัพท์ : - </h5>
                 @endif
             @endif
             <hr class="mt-5" style="border: 1px solid #000">
             <div class="col-12">
-                <div class="row" style="text-align: center">
+                <div class="row" style="text-align: center;margin-left: 50px;">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link " onclick="openCity(event, 'ประวัติการศึกษา')" id="defaultOpen"><h5>ประวัติการศึกษา</h5></a>
+                            <a class="nav-link " onclick="openCity(event, 'ประวัติการศึกษา')" id="defaultOpen"><h4>ประวัติการศึกษา</h4></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " onclick="openCity(event, 'ประวัติการทำงาน')" id="tab2Link"><h5>ประวัติการทำงาน</h5></a>
+                            <a class="nav-link " onclick="openCity(event, 'ประวัติการทำงาน')" id="tab2Link"><h4>ประวัติการทำงาน</h4></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " onclick="openCity(event, 'ทักษะ')" id="tab2Link"><h5>ทักษะ</h5></a>
+                            <a class="nav-link " onclick="openCity(event, 'ทักษะ')" id="tab2Link"><h4>ทักษะ</h4></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " onclick="openCity(event, 'ประวัติการฝึกอบรม')" id="tab2Link"><h5>ประวัติการฝึกอบรม</h5></a>
+                            <a class="nav-link " onclick="openCity(event, 'ประวัติการฝึกอบรม')" id="tab2Link"><h4>ประวัติการฝึกอบรม</h4></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onclick="openCity(event, 'รางวัลประกาศ')" id="tab5Link"><h5>รางวัลประกาศ</h5></a>
+                            <a class="nav-link" onclick="openCity(event, 'รางวัลประกาศ')" id="tab5Link"><h4>รางวัลประกาศ</h4></a>
                         </li>
                     </ul>
                 </div>
@@ -525,13 +536,13 @@
         </div>
     </div>
         @if (Auth::check() && Auth::user()->role_acc === 'student')
-        <div style="position: relative; left: 200px; top: 20px;">
-            <button class="btn btn-warning"   onclick="window.location.href='{{ route('studentslist') }}'" role="button" >กลับหน้าหลัก</button>
+        <div style="position: relative; left: 200px; top: 75px;">
+            <button class="btn btn-warning"   onclick="window.location.href='{{ route('studentslist') }}'"style=" font-size: 20px;"role="button" >กลับหน้าหลัก</button>
         </div>
         @endif
         @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-        <div style="position: relative; left: 200px; top: 20px;">
-            <button class="btn btn-warning" onclick="window.location.href='{{ route('studentslist_teacher') }}'" role="button" >กลับหน้าหลัก</button>
+        <div style="position: relative; left: 200px; top: 75px;">
+            <button class="btn btn-warning" onclick="window.location.href='{{ route('studentslist_teacher') }}'" style=" font-size: 20px;"role="button" >กลับหน้าหลัก</button>
         </div>
         @endif
     <script>
