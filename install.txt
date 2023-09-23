@@ -28,3 +28,12 @@ new-laravel ชื่อฐานข้อมูล อัปใหม่ด้�
 
 ไฟล์เกี่ยวกับหน้าเข้าสู่ระบบ อยู่ใน vendor/laravel/ui/auth-backend
 php artisan tokens:delete-expired
+env.
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=muj7894@gmail.com
+MAIL_PASSWORD=adlgjerijtbkwnib
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="muj7894@gmail.com"
+MAIL_FROM_NAME="${APP_NAME}"
