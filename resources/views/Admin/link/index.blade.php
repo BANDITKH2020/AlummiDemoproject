@@ -123,6 +123,13 @@
                                     <input type="text" class="form-control" id="link" name="link" style="font-size: 20px;">
                                     
                                 </div>
+                                <div class="mb-3 @error('sendEmail') error @enderror">
+                                    <label for="message-text" class="col-form-label"style="font-size: 20px;">ส่งข้อความ</label>
+                                    <select name="sendEmail" class="form-select"style="font-size: 20px;">
+                                        <option value="1">ใช่</option>
+                                        <option value="0">ไม่ใช่</option>
+                                    </select>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button"style="font-size: 20px;" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
                                     <button type="submit" style="font-size: 20px;" class="btn btn-primary" id="submitBtn" disabled>ยืนยัน</button>
