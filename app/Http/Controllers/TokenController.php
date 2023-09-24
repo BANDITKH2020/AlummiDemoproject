@@ -17,15 +17,22 @@ class TokenController extends Controller
     {
         $randomCode = $request->input('random_code'); // รับรหัสสุ่มจาก request
         $selectedDateTime = $request->input('selected_date_time'); // รับวันที่และเวลาจาก request
-    
+
         // ทำการบันทึกลงในฐานข้อมูล (ตามโมเดลที่คุณได้สร้าง)
         $randomCodeModel = new randomcode();
         $randomCodeModel->code = $randomCode;
         $randomCodeModel->end_date = $selectedDateTime; // กำหนดวันที่และเวลาที่สร้าง
         $randomCodeModel->user_id = Auth::user()->id;
-        $randomCodeModel->save();
-        return response()->json(['alert' => 'บันทึกข้อมูลเรียบร้อย', 'createdAt' => $randomCodeModel->created_at]);
+
+        if ($randomCodeModel->save()) {
+            // บันทึกสำเร็จ
+            return response()->json(['alert' => 'บันทึกข้อมูลเรียบร้อย', 'createdAt' => $randomCodeModel->created_at]);
+        } else {
+            // บันทึกไม่สำเร็จ
+            return response()->json(['alert' => 'บันทึกข้อมูลไม่สำเร็จ'], 500);
+        }
     }
+
     public function delete($id){
         //ลบข้อมูลฐาน
         $delete= randomcode::find($id)->delete();

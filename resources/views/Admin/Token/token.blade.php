@@ -27,7 +27,7 @@
                 font-weight: bold;
             }
     </style>
-  
+
   <div class="col-12 outset" style="background-color: #EFF4FF;">
       <div class="col-12">
         <div class="col-12 row">
@@ -41,7 +41,7 @@
         <hr class="mt-1" style="border: 2px solid #000">
       </div>
     </div>
-    
+
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
@@ -83,7 +83,7 @@
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('graduate') }}" class="textmenu"><h3>จัดการทำเนียบบัณทิต</h3></a>
             </div>
-            
+
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
@@ -200,7 +200,7 @@
                                         <td class="text-center">{{$row->code}}</td>
                                         <td class="text-center">{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
                                         <td class="text-center" ><a href="#" class="btn btn-outline-danger"style="font-size: 20px;" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">ลบข้อมูล</a></td>
-                                        
+
                                     </tr>
                                 @endforeach
 
@@ -239,7 +239,11 @@
             });
             return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
             }
-    </script> 
+
+            document.getElementById('saveCodeButton').addEventListener('click', function() {
+                location.reload();
+            });
+    </script>
 </div>
 
 
