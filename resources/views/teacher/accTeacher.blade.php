@@ -16,7 +16,7 @@
 <style>
         body {
             font-family:'TH Niramit AS';
-            font-size: 20px;
+            font-size: 24px;
             }
         a:link {
                 color: black;
@@ -140,49 +140,123 @@
 
 
     <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-        <div class="col-12">
-            <h2>ตั้งค่าโปรไฟล์</h2><hr>
-                @php
-                $thaiMonths = [
-                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
-                ];
-                @endphp
-                <div class="col-12" style="text-align: end">
-                    @if($contactInfo)
-                        @if($contactInfo->updated_at === null)
-                            <p>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</p>
-                            @else
-                                <p>วันที่แก้ไข: {{$contactInfo->updated_at->format('d')}} {{$thaiMonths[$contactInfo->updated_at->month]}} {{$contactInfo->updated_at->year + 543}}</p>
-                            @endif
-                            @else
-                                <p>วันที่แก้ไข: วันที่ไม่มีการแก้ไข</p>
-                            @endif
-
-                        <div class="col-10 mx-auto mt-3 text-center">
-                            @if($contactInfo)
-                                @if($contactInfo->image === null)
-                                    <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
-                                @else
-                                    <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
-                                @endif
-                            @else
-                                    <img src="{{ asset('images/teamwork.png') }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
-                            @endif
-                            <h4>@if($user){{ $user->firstname }} {{ $user->lastname }}@endif<a  class="fas fa-pencil-alt fa-xs" style="cursor: pointer;margin-left:3px;color:#000" data-bs-toggle="modal" data-bs-target="#exampleModal"></a></h4>
-                            <hr>
-                        </div>
+        <h2>ตั้งค่าโปรไฟล์</h2>
+        <div class="col-12 row">
+        <hr class="mt-2" style="border: 1px solid #000">
+            <div class="row" style="text-align: center;" >
+                <ul class="nav nav-tabs">
+                    <li   li class="nav-item">
+                        <a class="nav-link" onclick="openCity(event, 'ประวัติส่วนตัว')" id="defaultOpen"><h4>ประวัติส่วนตัว <i class="fas fa-pencil-alt fa-xs" style="cursor: pointer; margin-left: 3px; color: #000" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></h4></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container" style="position: relative; left: 200px; ">
+            <div id="ประวัติส่วนตัว" class="tabcontent mt-3">
+                <div class="row" style="position: relative; left: 5px; ">
+                @if($contactInfo)
+                    @if($contactInfo->image === null)
+                    @else
+                        <img src="{{ Storage::url('image/profileuser/' . $contactInfo->image) }}" style="width:200px;height:200px;padding:10px; border-radius: 50%;">
+                    @endif
+                @else
+                    <img src="{{ asset('images/teamwork.png') }}" style="position: relative; left: 325px;width:200px;height:200px;padding:10px; border-radius: 50%;">
+                @endif
                 </div>
-        </div>               
-    </div>
+                <div class="row">
+                    <p class="col-md-4 col-form-label text-md-end"style="font-size: 24px;">ชื่อ-นามสกุล :</p>
+                    <div class="col-md-5 mt-2">
+                        @if($user)
+                                @if($contactInfo)
+                                    @if($contactInfo->prefix === null)
 
+                                    @else
+                                        {{ $contactInfo->prefix }} {{ $user->firstname }} {{ $user->lastname }}
+                                    @endif
+                                @else
+                                    {{ $user->firstname }} {{ $user->lastname }}
+                                @endif
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 col-form-label text-md-end"style="font-size: 24px;">อีเมล :</p>
+                    <div class="col-md-5 mt-2">
+                        @if($contactInfo)
+                            @if($contactInfo->status_contact == 1)
+                            -
+                            @else
+                                @if($contactInfo->ID_email !== null)
+                                    {{ $contactInfo->ID_email }}
+                                @endif 
+                            @endif                               
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 col-form-label text-md-end"style="font-size: 24px;">Facebook :</p>
+                    <div class="col-md-5 mt-2">
+                        @if($contactInfo)
+                            @if($contactInfo->status_contact == 1)
+                            -
+                            @else
+                                @if($contactInfo->ID_facebook !== null)
+                                    {{ $contactInfo->ID_facebook }}
+                                @endif 
+                            @endif                               
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 col-form-label text-md-end"style="font-size: 24px;">Instagram :</p>
+                    <div class="col-md-5 mt-2">
+                        @if($contactInfo)
+                            @if($contactInfo->status_contact == 1)
+                            -
+                            @else
+                                @if($contactInfo->ID_instagram !== null)
+                                    {{ $contactInfo->ID_instagram }}
+                                @endif 
+                            @endif                               
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 col-form-label text-md-end"style="font-size: 24px;">Line :</p>
+                    <div class="col-md-5 mt-2">
+                        @if($contactInfo)
+                            @if($contactInfo->status_contact == 1)
+                            -
+                            @else
+                                @if($contactInfo->ID_line !== null)
+                                    {{ $contactInfo->ID_line }}
+                                @endif 
+                            @endif                               
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 col-form-label text-md-end"style="font-size: 24px;">Telephone :</p>
+                    <div class="col-md-5 mt-2">
+                        @if($contactInfo)
+                            @if($contactInfo->status_contact == 1)
+                            -
+                            @else
+                                @if($contactInfo->telephone !== null)
+                                    {{ $contactInfo->telephone }}
+                                @endif 
+                            @endif                               
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <h3 class="modal-title">ช่องทางการติดต่อ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -253,16 +327,16 @@
                                             @endif
                                         </div>
                                         <div class="col-lg-8" style="margin-top:50px ">
-                                            <h5 style="font-size: 16px; text-align: left;">อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h5>
-                                            <h5 style="font-size: 16px; text-align: left;">ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h5>
-                                             <input type="file" style="font-size: 20px;"name="image" accept="image/jpeg, image/png, image/svg" aria-label="Upload">
+                                            <h3 style="font-size: 24px; text-align: left;">อัพโหลดรูปถ่ายขนาดไม่เกิน 1 นิ้ว</h3>
+                                            <h3 style="font-size: 24px; text-align: left;">ขนาดไฟล์ไม่เกิน 3 MB ชนิดของไฟล์ JPEG, PNG และ SVG</h3>
+                                             <input type="file" style="font-size: 24px;"name="image" accept="image/jpeg, image/png, image/svg" aria-label="Upload">
                                         </div>
                                         </div>
                                         <hr class="mt-3">
                                         <div class="col-lg-2">
                                         <label class="col-form-label font-weight-bold text-dark">คำนำหน้า</label>
                                             @if($contactInfo)
-                                                <select name="prefix" id="prefix" class="select" style="font-size: 20px;">
+                                                <select name="prefix" id="prefix" class="select" style="font-size: 24px;">
                                                     <option value="{{ $contactInfo->prefix }}">{{ $contactInfo->prefix }}</option>
                                                     @if($contactInfo->prefix == 'นาย' )
                                                     <option value="นาง">นาง</option>
@@ -278,7 +352,7 @@
                                                     @endif
                                                 </select>
                                             @else 
-                                                <select name="prefix" id="prefix" class="select" style="font-size: 20px;">
+                                                <select name="prefix" id="prefix" class="select" style="font-size: 24px;">
                                                     <option value="นาย">นาย</option>
                                                     <option value="นาง">นาง</option>
                                                     <option value="นางสาว">นางสาว</option>
@@ -287,19 +361,19 @@
                                             </div>
                                             <div class="col-lg-3">
                                             @if($user)
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">ชื่อ</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ชื่อ</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="firstname"
-                                                    required value="{{ $user->firstname }}"style="font-size: 20px;">
+                                                    required value="{{ $user->firstname }}"style="font-size: 24px;">
                                                 </div>
                                             @endif  
                                             </div>
                                             <div class="col-lg-3">
                                             @if($user)
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">นามสกุล</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">นามสกุล</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="lastname"
-                                                    required value="{{ $user->lastname }}"style="font-size: 20px;">
+                                                    required value="{{ $user->lastname }}"style="font-size: 24px;">
                                                     <input type="hidden" id="selectedIdsInput" name="id" value="{{ Auth::user()->id }}">
                                                 </div>
                                             @endif 
@@ -307,7 +381,7 @@
                                             <hr class="mt-3">
                                             <div class="col-lg-12">
                                                 <div class="d-flex align-items-center">
-                                                    <label class="col-form-label font-weight-bold text-dark me-3"style="font-size: 20px;">ช่องทางการติดต่อ</label>
+                                                    <label class="col-form-label font-weight-bold text-dark me-3"style="font-size: 24px;">ช่องทางการติดต่อ</label>
                                                     @if($contactInfo)
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="1" id="contactCheckbox" name="status_contact" 
@@ -331,76 +405,78 @@
                                                 </div>
                                             </div>     
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">อีเมล</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">อีเมล</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="email"
-                                                    required value="{{ $contactInfo->ID_email }}"style="font-size: 20px;">
+                                                    required value="{{ $contactInfo->ID_email }}"style="font-size: 24px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="email"
-                                                    required style="font-size: 20px;">
+                                                    required style="font-size: 24px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Line</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">Line</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Line"
-                                                    required value="{{ $contactInfo->ID_line }}"style="font-size: 20px;">
+                                                    required value="{{ $contactInfo->ID_line }}"style="font-size: 24px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Line"
-                                                    required style="font-size: 20px;">
+                                                    required style="font-size: 24px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Facebook</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">Facebook</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Facebook"
-                                                    required value="{{ $contactInfo->ID_facebook }}"style="font-size: 20px;">
+                                                    required value="{{ $contactInfo->ID_facebook }}"style="font-size: 24px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Facebook"
-                                                    required style="font-size: 20px;">
+                                                    required style="font-size: 24px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Tel.</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">Tel.</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Tel"
-                                                    required value="{{ $contactInfo->telephone }}"style="font-size: 20px;">
+                                                    required value="{{ $contactInfo->telephone }}"style="font-size: 24px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Tel"
-                                                    required style="font-size: 20px;">
+                                                    required style="font-size: 24px;">
                                                 </div>
                                                 @endif 
                                             </div>
                                             <div class="col-lg-5">
-                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 20px;">Instagram</label>
+                                                <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">Instagram</label>
                                                 @if($contactInfo)
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Instagram"
-                                                    required value="{{ $contactInfo->ID_instagram }}" style="font-size: 20px;">
+                                                    required value="{{ $contactInfo->ID_instagram }}" style="font-size: 24px;">
                                                 </div>
                                                 @else
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm text-center bg-white" name="Instagram"
-                                                    required  style="font-size: 20px;">
+                                                    required  style="font-size: 24px;">
                                                 </div>
                                                 @endif 
                                             </div>
+                                            
                                     </div>
+                                    <br>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 20px;">ปิด</button>
                                         <button type="submit" class="btn btn-primary"style="font-size: 20px;">บันทึก</button>

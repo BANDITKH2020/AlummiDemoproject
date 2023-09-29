@@ -12,7 +12,7 @@
 <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -103,17 +103,17 @@
             <div class="card mb-4" style="max-width: 640px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
+                        <img src="{{ asset('images/imagephoto.png') }}" style="height: 190px;width: 220px;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <p class="card-text">อัพโหลดรูปภาพปก</p>
                                 <p class="card-text">ชนิดของไฟล์ JPEG,PNG และ SVG</p>
                                 <div class="input-group">
-                                    <input type="file" style="font-size: 20px;"class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <input type="file" style="font-size: 24px;"class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     @error('title_name')
                                     <div class="my-2">
-                                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                                     </div>
                                     @enderror
                                 </div>
@@ -126,55 +126,55 @@
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 430px;">
                 <h3>หัวข้อกิจกรรม</h3>
-                <input type="text" style="font-size: 20px;"class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1">
+                <input type="text" style="font-size: 24px;"class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1">
                 @error('title_name')
                     <div class="my">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
                 <br>
                 <h3>เนื้อหากิจกรรม</h3>
-                <textarea type="text" style="font-size: 20px;"name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
+                <textarea type="text" style="font-size: 24px;"name="cotent" rows="3" cols="25" class="form-control" aria-label="With textarea"></textarea>
                 @error('cotent')
                     <div class="my">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror<br>
                 <h3>วัตถุประสงค์</h3>
-                <textarea type="text"style="font-size: 20px;" name="objective" rows="3" cols="25" class="form-control" placeholder="ถ้าไม่มีเนื้อหาส่วนนี้ให้ใส่ -"aria-label="With textarea"></textarea>
+                <textarea type="text"style="font-size: 24px;" name="objective" rows="3" cols="25" class="form-control" placeholder="ถ้าไม่มีเนื้อหาส่วนนี้ให้ใส่ -"aria-label="With textarea"></textarea>
                 @error('objective')
                     <div class="my">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror<br>
                 <br>
-                <button class="btn btn-primary" style="position: absolute;left:200px;">บันทึก</button>
-                <a href="{{ route('news') }}" class="btn" style="background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
+                <button class="btn btn-primary" style="font-size: 24px;position: absolute;left:200px;">บันทึก</button>
+                <a href="{{ route('news') }}" class="btn" style="font-size: 24px;background-color:#dc3545; color: white; position: absolute;left:300px;">ยกเลิก</a>
         </div>
         <div class="card mb-4" style="max-width: 440px;position: absolute;left:1300px;top: 280px;">
             <div class="card-body">  
-            <h4>ประเภทกิจกรรม</h4>
+            <h3>ประเภทกิจกรรม</h3>
                 <div class="form-check">
-                    <input class="form-check-input " style="font-size: 20px;" type="radio" name="category" id="flexRadioDefault1" value="1">งานพบประสังสรรค์ประจำปี
+                    <input class="form-check-input " style="font-size: 24px;" type="radio" name="category" id="flexRadioDefault1" value="1">งานพบประสังสรรค์ประจำปี
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " style="font-size: 20px;" type="radio" name="category" id="flexRadioDefault1" value="2">อบรมให้ความรู้วิชาการ
+                    <input class="form-check-input " style="font-size: 24px;" type="radio" name="category" id="flexRadioDefault1" value="2">อบรมให้ความรู้วิชาการ
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " style="font-size: 20px;" type="radio" name="category" id="flexRadioDefault1"  value="3">งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์
+                    <input class="form-check-input " style="font-size: 24px;" type="radio" name="category" id="flexRadioDefault1"  value="3">งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input " style="font-size: 20px;" type="radio" name="category" id="flexRadioDefault1"  value="4">กิจกรรมศิษย์เก่าสัมพันธ์
+                    <input class="form-check-input " style="font-size: 24px;" type="radio" name="category" id="flexRadioDefault1"  value="4">กิจกรรมศิษย์เก่าสัมพันธ์
                 </div>
                 <div class="form-check"  >
-                    <input class="form-check-input"style="font-size: 20px;" type="radio" name="category"  id="flexRadioDefault1" value="5">กิจกรรมอื่นๆ
-                    <input type="text"style="font-size: 20px;" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
+                    <input class="form-check-input"style="font-size: 24px;" type="radio" name="category"  id="flexRadioDefault1" value="5">กิจกรรมอื่นๆ
+                    <input type="text"style="font-size: 24px;" class="form-control" name="categoryall" aria-label="category1" aria-describedby="basic-addon1"><br>
                 </div>
                 <h4>วันที่จัดกิจกรรม</h4>
-                <input class="form-control"style="font-size: 20px;" type="date" id="event_date" name="event_date" required>
+                <input class="form-control"style="font-size: 24px;" type="date" id="event_date" name="event_date" required>
                 @error('category')
                     <div class="my">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror<br>
             </div>
@@ -203,7 +203,23 @@
             }
         </script>
         @endif
-        
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
     </form>
 </form>
 </body>

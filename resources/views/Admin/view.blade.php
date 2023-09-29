@@ -13,7 +13,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -164,21 +164,21 @@
         <p>ประเภทเนื้อหา: {{$view->category}}</p>
         @if ($view->objective) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->objective == '-') <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                <p style="font-size: 20px;" class="card-text"></p>
+                <p style="font-size: 24px;" class="card-text"></p>
             @else
-                <p style="font-size: 20px;" >{{$view->objective}}</p>
+                <p style="font-size: 24px;" >{{$view->objective}}</p>
             @endif
         @endif
         @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                <p class="card-text" style="font-size: 20px;">วันที่จัดกิจกรรม: 
+                <p class="card-text" style="font-size: 24px;">วันที่จัดกิจกรรม: 
                 {{ Carbon\Carbon::parse($view->event_date)->format('d-m-Y') }}
                 </p>
             @else
                 <p class="card-text"></p>
             @endif
         @endif
-        <p style="font-size: 20px;">วันที่ลงเนื้อหา: {{$view->created_at->format('d-m-Y')}}</p>
+        <p style="font-size: 24px;">วันที่ลงเนื้อหา: {{$view->created_at->format('d-m-Y')}}</p>
         <div class="row">
             
             @if($view->images->count() > 0)

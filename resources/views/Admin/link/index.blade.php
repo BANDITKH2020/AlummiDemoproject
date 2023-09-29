@@ -14,7 +14,7 @@
 <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -100,7 +100,7 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
         <h2>จัดการแบบสอบถาม</h2>
         <hr class="mt-1" style="border: 1px solid #000">
-        <button type="button" class="btn btn-warning" style="font-size: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-warning" style="font-size: 24px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
             เพิ่มลิงก์
         </button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -114,25 +114,25 @@
                             <form action="{{route('addlinks')}}" method="post" enctype="multipart/form-data" id="linkForm">
                                 {{ csrf_field() }}
                                 <div class="mb-3 @error('graduatedyear') error @enderror">
-                                    <label for="recipient-name" class="col-form-label"style="font-size: 20px;">ปีการศึกษาที่จบ</label>
-                                    <input type="text" class="form-control" id="graduatedyear" name="graduatedyear" style="font-size: 20px;">
+                                    <label for="recipient-name" class="col-form-label"style="font-size: 24px;">ปีการศึกษาที่จบ</label>
+                                    <input type="text" class="form-control" id="graduatedyear" name="graduatedyear" style="font-size: 24px;">
                                    
                                 </div>
                                 <div class="mb-3 @error('link') error @enderror">
-                                    <label for="message-text"style="font-size: 20px;" class="col-form-label">ลิงก์แบบสอบถาม</label>
-                                    <input type="text" class="form-control" id="link" name="link" style="font-size: 20px;">
+                                    <label for="message-text"style="font-size: 24px;" class="col-form-label">ลิงก์แบบสอบถาม</label>
+                                    <input type="text" class="form-control" id="link" name="link" style="font-size: 24px;">
                                     
                                 </div>
                                 <div class="mb-3 @error('sendEmail') error @enderror">
-                                    <label for="message-text" class="col-form-label"style="font-size: 20px;">ส่งข้อความ</label>
-                                    <select name="sendEmail" class="form-select"style="font-size: 20px;">
+                                    <label for="message-text" class="col-form-label"style="font-size: 24px;">ส่งข้อความ</label>
+                                    <select name="sendEmail" class="form-select"style="font-size: 24px;">
                                         <option value="1">ใช่</option>
                                         <option value="0">ไม่ใช่</option>
                                     </select>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button"style="font-size: 20px;" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
-                                    <button type="submit" style="font-size: 20px;" class="btn btn-primary" id="submitBtn" disabled>ยืนยัน</button>
+                                    <button type="button"style="font-size: 24px;" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" style="font-size: 24px;" class="btn btn-primary" id="submitBtn" disabled>ยืนยัน</button>
                                 </div>
                             </form>
                         </div>
@@ -143,8 +143,8 @@
         <form action="{{ url('/search') }}" method="GET" >
                 <label class="form-label" style="position: absolute;left:600px;top: 65px;">
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหาลิงค์" style="font-size: 20px;position:relative;left:320px;top:-1px" /> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:-1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาลิงค์" style="font-size: 24px;position:relative;left:300px;top:-1px" /> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:525px;top:-1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -212,7 +212,7 @@
                                             @foreach($surveylink as $row)
                                             <tr>
                                             <td class="text-center">{{$row->graduatedyear}}</td>
-                                            <td>{{$row->link}}</td>
+                                            <td><a href="{{$row->link}}" target="_blank">{{$row->link}}</a></td>
                                             <td class="text-center">{{$row->created_at->format('d')}} {{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</td>
                                             <td class="custom-action-buttons">
                                                 <a href="#edit{{$row->id}}" data-bs-toggle="modal" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
@@ -245,18 +245,18 @@
                             <form action="{{url('/link/update/'.$row->id)}}" method="post" enctype="multipart/form-data" id="linkForm">
                                 {{ csrf_field() }}
                                 <div class="mb-3 @error('graduatedyear') error @enderror">
-                                    <label for="recipient-name" class="col-form-label"style="font-size: 20px;">ปีการศึกษาที่จบ</label>
-                                    <input type="text" class="form-control" id="graduatedyear" name="graduatedyear" value="{{$row->graduatedyear}}"style="font-size: 20px;" >
+                                    <label for="recipient-name" class="col-form-label"style="font-size: 24px;">ปีการศึกษาที่จบ</label>
+                                    <input type="text" class="form-control" id="graduatedyear" name="graduatedyear" value="{{$row->graduatedyear}}"style="font-size: 24px;" >
                                    
                                 </div>
                                 <div class="mb-3 @error('link') error @enderror">
-                                    <label for="message-text" class="col-form-label"style="font-size: 20px;">ลิงก์แบบสอบถาม</label>
-                                    <input type="text" class="form-control" id="link" name="link" value="{{$row->link}}"style="font-size: 20px;">
+                                    <label for="message-text" class="col-form-label"style="font-size: 24px;">ลิงก์แบบสอบถาม</label>
+                                    <input type="text" class="form-control" id="link" name="link" value="{{$row->link}}"style="font-size: 24px;">
                                     
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size: 20px;">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary" id="submitBtn" style="font-size: 20px;">ยืนยัน</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size: 24px;">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary" id="submitBtn" style="font-size: 24px;">ยืนยัน</button>
                                 </div>
                             </form>
                         </div>
@@ -339,6 +339,23 @@
             return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
             }
         </script> 
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
     </div>
     </div>
 </div>

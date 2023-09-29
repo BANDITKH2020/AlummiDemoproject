@@ -116,10 +116,10 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="firstname" style="font-size: 20px;"class="col-md-4 col-form-label text-md-end">{{ __('ชื่อ') }}</label>
+                            <label for="firstname" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('ชื่อ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" style="font-size: 20px;"type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="name" autofocus>
+                                <input id="firstname" style="font-size: 24px;"type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="name" autofocus>
 
                                 @error('firstname')
                                     <span class="invalid-feedback" role="alert">
@@ -129,10 +129,10 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="lastname" style="font-size: 20px;"class="col-md-4 col-form-label text-md-end">{{ __('นามสกุล') }}</label>
+                            <label for="lastname" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('นามสกุล') }}</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" style="font-size: 20px;"type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="name" autofocus>
+                                <input id="lastname" style="font-size: 24px;"type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="name" autofocus>
 
                                 @error('lastname')
                                     <span class="invalid-feedback" role="alert">
@@ -142,10 +142,10 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="email" style="font-size: 20px;"class="col-md-4 col-form-label text-md-end">{{ __('อีเมล') }}</label>
+                            <label for="email" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('อีเมล') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" style="font-size: 20px;"type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" style="font-size: 24px;"type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -156,10 +156,10 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="button" class="btn btn-danger" style="font-size: 20px;" onclick="window.location.href='{{route('manage')}}'">
+                                <button type="button" class="btn btn-danger" style="font-size: 24px;" onclick="window.location.href='{{route('manage')}}'">
                                     {{ __('ย้อนกลับ') }}
                                 </button>
-                                <button type="submit" class="btn btn-primary"style="font-size: 20px;">
+                                <button type="submit" class="btn btn-primary"style="font-size: 24px;">
                                     {{ __('ยืนยัน') }}
                                 </button>
                             </div>
@@ -193,7 +193,23 @@
         }
     </script>
     @endif
+    @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
 
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
   
   
 </body>

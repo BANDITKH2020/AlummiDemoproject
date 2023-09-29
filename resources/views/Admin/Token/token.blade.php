@@ -27,7 +27,7 @@
                 font-weight: bold;
             }
     </style>
-
+  
   <div class="col-12 outset" style="background-color: #EFF4FF;">
       <div class="col-12">
         <div class="col-12 row">
@@ -41,7 +41,7 @@
         <hr class="mt-1" style="border: 2px solid #000">
       </div>
     </div>
-
+    
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
@@ -83,7 +83,7 @@
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('graduate') }}" class="textmenu"><h3>จัดการทำเนียบบัณทิต</h3></a>
             </div>
-
+            
             <div class="col-10 mt-1" style="margin-left:50px">
               <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                 @csrf
@@ -124,10 +124,8 @@
         saveCodeButton.addEventListener('click', function() {
             const randomCode = randomCodeElement.textContent;
             const selectedDateTime = dateTimeInput.value;
-            sendRandomCodeAndDateTime(randomCode, selectedDateTime);
-        });
+            // sendRandomCodeAndDateTime(randomCode, selectedDateTime);
 
-        function sendRandomCodeAndDateTime(randomCode, selectedDateTime) {
             fetch('/Admin/Token/save', {
                     method: 'POST',
                     headers: {
@@ -140,33 +138,36 @@
                 .then(data => {
                     messageDisplay.textContent = data.alert;
                     console.log('Created At:', data.createdAt);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
-        }
+        });
 });
 
 </script>
         <div class="container "style="position: absolute;left:500px;top: 180px;">
             <h2>จัดการโค้ด</h2>
             <hr class="mt-1" style="border: 1px solid #000">
-            <p id="messageDisplay"></p>
+            <p id="messageDisplay" style="font-size: 24px; color:blue;"></p>
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:800px;top: 330px;">
             <div class="d-grid gap-2 col-6 mx-auto">
             <h3>รหัสโค้ด</h3>
-            <div id="randomCodeContainer" style="font-size: 20px;border: 1px solid #ccc; padding: 5px;height:40px;border-radius:10px">
+            <div id="randomCodeContainer" style="font-size: 24px;border: 1px solid #ccc; padding: 5px;height:40px;border-radius:10px">
                 <span class="ms-2"id="randomCode"></span>
             </div>
-            <button class="btn btn-success  " id="generateCodeButton" style="font-size: 20px;position: absolute;left:540px;top:65px;">สุ่มโค้ด</button>
+            <button class="btn btn-success  " id="generateCodeButton" style="font-size: 24px;position: absolute;left:540px;top:65px;">สุ่มโค้ด</button>
             </div><br>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <h3>วันเวลาที่หมดอายุ</h3>
-                <input class="form-control" style="font-size: 20px;"type="datetime-local" id="dateTimeInput">
+                <input class="form-control" style="font-size: 24px;"type="datetime-local" id="dateTimeInput">
                 <br>
             </div>
-            <button class="btn btn-primary" id="saveCodeButton" style="font-size: 20px;position: absolute;left:325px;">บันทึก</button>
+            <button class="btn btn-primary" id="saveCodeButton" style="font-size: 24px;position: absolute;left:285px;">บันทึก</button>
         </div>
         <br>
     <div class="d-grid gap-2 col-6 mx-auto "style="position: absolute;left:825px;top:625px;">
@@ -177,7 +178,7 @@
                             <table class="table table-bordered">
                                 <thead class="table-warning">
                                     <tr>
-                                        <th scope="col"class="text-center">ID</th>
+                                        
                                         <th scope="col"class="text-center">รหัสโค้ด</th>
                                         <th scope="col"class="text-center">วันเวลาที่หมดอายุ</th>
                                         <th scope="col"class="text-center">ตัวเลือก</th>
@@ -194,13 +195,20 @@
                                             10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
                                         ];
                                         $eventDate = \Carbon\Carbon::parse($row->end_date);
+                                        $nowDate = \Carbon\Carbon::now()->format('Y-m-d');
+
+
                                     @endphp
                                     <tr>
-                                        <td class="text-center">{{$row->id}}</td>
+                                        
                                         <td class="text-center">{{$row->code}}</td>
+                                        @if($eventDate < $nowDate)
+                                        <td class="text-center" style="color:red;">{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
+                                        @else
                                         <td class="text-center">{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}}</td>
-                                        <td class="text-center" ><a href="#" class="btn btn-outline-danger"style="font-size: 20px;" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">ลบข้อมูล</a></td>
-
+                                        @endif
+                                        <td class="text-center" ><a href="#" class="btn btn-danger"style="color: white;font-size: 24px; background-color:#dc3545;" title="Delete" data-toggle="tooltip" onclick="confirmDelete({{ $row->id }})">ลบข้อมูล</a></td>
+                                        
                                     </tr>
                                 @endforeach
 
@@ -208,7 +216,9 @@
                                 </tbody>
 
                             </table>
+                            <div class="d-flex justify-content-center">
                             {{$randomcode->links()}}
+                            </div>
                     </div>
             </div>
         </div>
@@ -239,11 +249,7 @@
             });
             return false; // เพื่อป้องกันการนำลิงก์ไปยัง URL หลังจากแสดง SweetAlert
             }
-
-            document.getElementById('saveCodeButton').addEventListener('click', function() {
-                location.reload();
-            });
-    </script>
+    </script> 
 </div>
 
 

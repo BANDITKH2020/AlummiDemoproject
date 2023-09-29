@@ -17,7 +17,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -109,7 +109,7 @@
         <hr class="mt-1" style="border: 1px solid #000">
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:700px;top: 65px;">
-                    <select name="searchdata" class="form-select"style="font-size: 20px;" >
+                    <select name="searchdata" class="form-select"style="font-size: 24px;" >
                         <option value="all">ทั้งหมด</option>
                         <option value="graduatesem" >ปีการศึกษาที่จบ</option>
                         <option value="student_id" >รหัสนักศึกษา</option>
@@ -118,8 +118,8 @@
                         <option value="lastname">นามสกุล</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="font-size: 20px;position:relative;left:320px;top:-43px"/> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="font-size: 24px;position:relative;left:300px;top:-48px"/> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -140,6 +140,7 @@
                                         <tr>
                                             <th scope="col"class="text-center">ลำดับ</th>
                                             <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
+                                            <th scope="col"class="text-center">ภาคเรียนที่จบ</th>
                                             <th scope="col"class="text-center">รหัสนักศึกษา</th>
                                             <th scope="col"class="text-center">ชื่อ-นามสกุล</th> 
                                         </tr>
@@ -150,6 +151,11 @@
                                         <tr>
                                             <th scope="col"class="text-center">{{$i++}}</th>
                                             <td scope="col"class="text-center">{{$row->graduatesem}}</td>
+                                            @if($row->Term == '3')
+                                            <td scope="col"class="text-center">ฤดูร้อน</td>
+                                            @else
+                                            <td scope="col"class="text-center">{{$row->Term}}</td>
+                                            @endif
                                             <td scope="col"class="text-center">{{$row->student_id}}</td>
                                             <td scope="col"class="text-center">{{$row->firstname}} {{$row->lastname}}</td>
                                         </tr>
@@ -180,7 +186,7 @@
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <h3 class="modal-title">ช่องทางการติดต่อ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

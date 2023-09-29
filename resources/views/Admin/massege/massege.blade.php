@@ -14,7 +14,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -98,11 +98,7 @@
 
 
   <style>
-    .custom-card {
-        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
-        max-width: 500px; /* ขนาดสูงสุดของการ์ด */
-        margin-bottom: 10px;
-    }
+    
     .custom-action-buttons a {
         margin-right: 10px; /* กำหนดระยะห่างด้านขวาของปุ่ม */
     }
@@ -130,11 +126,7 @@
         border-radius: 5px;
     }
 
-    .message-details {
-        /* ให้ข้อความและวันที่อยู่ในคอลัมน์เดียว */
-        display: flex;
-        flex-direction: column;
-    }
+    
 
     /* เพิ่มสไตล์ให้เป็นตัวหนังสือหัวข้อ */
     
@@ -153,7 +145,7 @@
     <hr class="mt-1" style="border: 1px solid #000">
         <form action="" method="GET" >
             <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-                <select name="searchdata" class="form-select"  style="font-size: 20px;" >
+                <select name="searchdata" class="form-select"  style="font-size: 24px;" >
                     <option value="all">ทั้งหมด</option>
                     <option value="name">ชื่อผู้ส่ง</option>
                     <option value="massage_name">ชื่อเรื่อง</option>
@@ -161,15 +153,15 @@
                     <option value="status_massage">ดาว</option>
                 </select>
                 <div class="col-mb-2">
-                    <input type="text" class="form-control" name="search" placeholder="ค้นหาข้อความ" style="font-size: 20px; position:relative;left:280px;top:-44px" /> 
-                    <button type="submit"  class="btn btn-primary" style="font-size: 20px; position: absolute;left:475px;top:1px;">ค้นหา</button>
+                    <input type="text" class="form-control" name="search" placeholder="ค้นหาข้อความ" style="font-size: 24px; position:relative;left:260px;top:-48px" /> 
+                    <button type="submit"  class="btn btn-primary" style="font-size: 24px; position: absolute;left:475px;top:1px;">ค้นหา</button>
                 </div>
             </label>
         </form>
     <br><br><br>
     <div class="row">
         <div class="col-md-4">
-            <div class="card" style="width: 50rem; position: absolute;left:250px;top: 165px;" > <!-- กำหนดขนาดของ Card -->
+            <div class="card" style="width: 70rem; position: absolute;left:150px;top: 165px;" > <!-- กำหนดขนาดของ Card -->
                 <div class="card-body">
                 <h3 class="card-title">ข้อความจากศิษย์เก่า</h3>
                 @foreach ($messages->groupBy(function ($message) {
@@ -196,7 +188,7 @@
                             @foreach ($groupedMessages as $message)
                                 <tr>
                                     <td >จาก {{ $message->firstname }} {{ $message->lastname }}<br>{{ Str::limit($message->massage_cotent, 50) }}</td>
-                                    <td class="custom-action-buttons" style="text-align: right;">
+                                    <td class="custom-action-buttons" style="text-align: right;width: 400px;">
                                         <a href="#view{{$message->id}}" data-bs-toggle="modal" class="view" title="view" id="view" data-toggle="tooltip">
                                             <iconify-icon icon="carbon:view" style=" font-size: 24px;"></iconify-icon></a>
                                         <a href="{{ route('readmassege', ['id' => $message->id, 'star' => 1]) }}" id="star" class="star" title="star" data-toggle="tooltip">
@@ -208,12 +200,12 @@
                                         </a>
                                     </td>
                                     @if ($message->status_read === 1)
-                                        <td scope="col" class="text-center">อ่านแล้ว</td>
+                                        <td scope="col" class="text-center" style="width: 150px;">อ่านแล้ว</td>
                                     @else
-                                        <td scope="col" class="text-center">ยังไม่ได้อ่าน</td>
+                                        <td scope="col" class="text-center" style="width: 150px;">ยังไม่ได้อ่าน</td>
                                     @endif
-                                    <td scope="col" class="text-center">{{ $message->created_at->format('H:i') }}</td>
-                                    <td scope="col" class="text-center"></td>
+                                    <td scope="col" class="text-center" style="width: 150px;">{{ $message->created_at->format('H:i') }}</td>
+                                    <td scope="col" class="text-center" style="width: 150px;"></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -226,18 +218,24 @@
     </div>
     @foreach ($messages as $message)
         <div class="modal fade" id="view{{$message->id}}"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" >
                 <div class="modal-content" >
                     <div class="modal-header">
-                        <div class="message-details">
-                            <h3 style=" margin-top: 10px;font-size: 24px; ">จาก {{ $message->firstname }} {{ $message->lastname }} 
-                                @if($message->status_massage === 1 )
-                                    <iconify-icon icon="octicon:star-fill-16" style="color: #FFCC00;"></iconify-icon>
-                                @else
-                                    <iconify-icon icon="octicon:star-fill-16" style="color: black;"></iconify-icon>
-                                @endif
-                            </h3>
-                            <p>{{ $message->created_at }}</p>
+                        <div class="modal-body">
+                            <div class="row vertical-align-center">
+                            <div class="col-8">
+                                <div style="font-size: 24px;font-weight: bold; ">จาก {{ $message->firstname }} {{ $message->lastname }} 
+                                    @if($message->status_massage === 1 )
+                                        <iconify-icon icon="octicon:star-fill-16" style="color: #FFCC00;"></iconify-icon>
+                                    @else
+                                        <iconify-icon icon="octicon:star-fill-16" style="color: black;"></iconify-icon>
+                                    @endif
+                                </div>
+                            </div>
+                                <div class="col-4 " style="text-align:right;font-size: 20px;">
+                                {{ $message->created_at->format('Y-m-d H:i') }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-body">
@@ -284,7 +282,23 @@
         }
     </script>
     @endif
+    @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
 
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
 </div>
 </body>
 </html>

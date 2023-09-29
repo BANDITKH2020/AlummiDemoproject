@@ -14,7 +14,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -101,17 +101,17 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการข่าวสาร</h2>
     <hr class="mt-1" style="border: 1px solid #000">
-    <a class="btn btn-warning" onclick="window.location.href='{{ route('savenews') }}'" role="button" style="font-size: 20px;">เพิ่มข่าว</a>
+    <a class="btn btn-warning" onclick="window.location.href='{{ route('savenews') }}'" role="button" style="font-size: 24px;">เพิ่มข่าว</a>
         <form action="" method="GET" >
             <label class="form-label" style="position: absolute;left:700px;top: 65px;">
-                <select name="gender" class="form-select"style="font-size: 20px;" >
+                <select name="gender" class="form-select"style="font-size: 24px;" >
                     <option value="all">ทั้งหมด</option>
                     <option value="title_name" >หัวข้อ</option>
                     <option value="created_at">วันที่</option>
                 </select>
                 <div class="col-mb-2">
-                    <input type="text" class="form-control" name="search" placeholder="ค้นหาข่าว" style="font-size: 20px; position:relative;left:320px;top:-42px" /> 
-                    <button type="submit"  class="btn btn-primary" style="font-size: 20px; position: absolute;left:525px;top:1px;">ค้นหา</button>
+                    <input type="text" class="form-control" name="search" placeholder="ค้นหาข่าว" style="font-size: 24px; position:relative;left:300px;top:-48px" /> 
+                    <button type="submit"  class="btn btn-primary" style="font-size: 24px; position: absolute;left:525px;top:1px;">ค้นหา</button>
                 </div>
             </label>
         </form>
@@ -162,7 +162,7 @@
                                         <tr>
                                             <th scope="col"class="text-center">หัวข้อ</th>
                                             <th scope="col"class="text-center">เนื้อหาข่าว</th>
-                                            <th scope="col"class="text-center">วันที่แก้ไข</th>
+                                            <th scope="col"class="text-center"style="width: 150px;">วันที่แก้ไข</th>
                                             <th scope="col"class="text-center">ตัวเลือก</th>
                                             
                                         </tr>

@@ -13,7 +13,7 @@
 <style>
         body {
             font-family:'TH Niramit AS';
-            font-size: 20px;
+            font-size: 24px;
         }
         a:link {
             color: black;
@@ -108,17 +108,17 @@
             <div class="card mb-4" style="max-width: 640px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="{{ asset($newsandactivity->title_image) }}" style="height: 170px;width: 220px;" >
+                        <img src="{{ asset($newsandactivity->title_image) }}"  style="height: 190px;width: 220px;" >
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <p class="card-text">อัพโหลดรูปภาพปก</p>
                                 <p class="card-text">ชนิดของไฟล์ JPEG,PNG และ SVG</p>
                                 <div class="input-group">
-                                    <input type="file" style="font-size: 20px;"class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <input type="file" style="font-size: 24px;"class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     @error('title_name')
                                     <div class="my-2">
-                                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                                     </div>
                                     @enderror
                                 </div>
@@ -130,22 +130,22 @@
         </div>
         <div class="col-4 mt-2" style="padding: 15px; position: absolute;left:500px;top: 480px;">
                 <h2>หัวข้อข่าวสาร</h2>
-                <input type="text" style="font-size: 20px;"class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1" value="{{$newsandactivity->title_name}}"><br>
+                <input type="text" style="font-size: 24px;"class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1" value="{{$newsandactivity->title_name}}"><br>
                 @error('title_name')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
                 <h2>เนื้อหาข่าวสาร</h2>
-                <textarea type="text" style="font-size: 20px;"id="cotent" name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea" required>{{$newsandactivity->cotent}}</textarea>
+                <textarea type="text" style="font-size: 24px;"id="cotent" name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea" required>{{$newsandactivity->cotent}}</textarea>
                 @error('cotent')
                     <div class="my-2">
-                        <span class="text-danger" style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger" style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
                 <br>
-                <button class="btn btn-primary" style="font-size: 20px;position: absolute;left:200px;">บันทึก</button>
-                <button type="button" class="btn btn-danger" style="font-size: 20px;position: absolute;left:300px;" onclick="window.location.href='{{route('news')}}'">{{ __('ย้อนกลับ') }}</button>
+                <button class="btn btn-primary" style="font-size: 24px;position: absolute;left:200px;">บันทึก</button>
+                <button type="button" class="btn btn-danger" style="font-size: 24px;position: absolute;left:300px;" onclick="window.location.href='{{route('news')}}'">{{ __('ย้อนกลับ') }}</button>
         </div> 
                  
         <style>

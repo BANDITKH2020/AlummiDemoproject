@@ -33,7 +33,7 @@ class WorkhistoryInfoController extends Controller
             $now = Carbon::now();
             $thaiYear = $now->addYears(543)->format('m-Y'); 
             $parsedDate = Carbon::createFromFormat('m-Y', $thaiYear)->format('Y-m-d');
-            Workhistory_info::insert([
+            $Workhistory_info = Workhistory_info::insert([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
                 'enddate'=>$parsedDate,
@@ -45,10 +45,17 @@ class WorkhistoryInfoController extends Controller
                 'worktype'=>$worktype,
                 'created_at'=>Carbon::now()
             ]);  
-            return redirect()->back()->with('alert',"อัปเดตประวัติการทำงานเรียบร้อย");
+            if ($Workhistory_info !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
+                
+            }
         }else
         {
-            Workhistory_info::insert([
+            $Workhistory_info =  Workhistory_info::insert([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
                 'enddate'=>$enddate_end,
@@ -60,7 +67,14 @@ class WorkhistoryInfoController extends Controller
                 'worktype'=>$worktype,
                 'created_at'=>Carbon::now()
             ]); 
-            return redirect()->back()->with('alert',"อัปเดตประวัติการทำงานเรียบร้อย");
+            if ($Workhistory_info !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
+                
+            }
         }
         
         
@@ -89,7 +103,7 @@ class WorkhistoryInfoController extends Controller
             $now = Carbon::now();
             $thaiYear = $now->addYears(543)->format('m-Y'); 
             $parsedDate = Carbon::createFromFormat('m-Y', $thaiYear)->format('Y-m-d');
-            Workhistory_info::find($id)->update([
+            $Workhistory_info =  Workhistory_info::find($id)->update([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
                 'enddate'=>$parsedDate,
@@ -101,10 +115,17 @@ class WorkhistoryInfoController extends Controller
                 'worktype'=>$worktype,
                 
             ]);  
-            return redirect()->back()->with('alert',"อัปเดตประวัติการทำงานเรียบร้อย");
+            if ($Workhistory_info !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
+                
+            }
         }else
         {
-            Workhistory_info::find($id)->update([
+            $Workhistory_info =  Workhistory_info::find($id)->update([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
                 'enddate'=>$enddate_end,
@@ -116,7 +137,14 @@ class WorkhistoryInfoController extends Controller
                 'worktype'=>$worktype,
                 
             ]); 
-            return redirect()->back()->with('alert',"อัปเดตประวัติการทำงานเรียบร้อย");
+            if ($Workhistory_info !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
+                
+            }
         }
         
         
@@ -124,6 +152,12 @@ class WorkhistoryInfoController extends Controller
     public function delete($id){
         
         $delete= Workhistory_info::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }
 }

@@ -126,7 +126,10 @@ Route::get('/Admin/view/dashboard/', [DashboardController::class, 'dashboard'])-
 
  //user
  Route::get('/User/studentslist', [UserController::class,'studentslist'])->name('studentslist')->middleware('auth', 'checkRole:student');
- Route::get('/users/homeuser', [HomeUserController::class, 'homeuser'])->name('homeuser')->middleware('auth', 'checkRole:student');;
+ Route::get('/users/homeuser', [HomeUserController::class, 'homeuser'])->name('homeuser')->middleware('auth', 'checkRole:student');
+
+ //ประวัติการส่งข้อความ
+ Route::get('/users/viewmassege', [HomeUserController::class, 'viewmassege'])->name('viewmassege')->middleware('auth', 'checkRole:student');
  //---เนื้อหาข่าว
 Route::get('/users/homeuser/view/{id}', [HomeUserController::class,'view'])->name('view')->middleware('auth', 'checkRole:student');
 //----------ประวัติส่วนตัว---------

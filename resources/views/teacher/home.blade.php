@@ -15,7 +15,7 @@
     <style>
         body {
             font-family:'TH Niramit AS';
-            font-size: 20px;
+            font-size: 24px;
             }
         a:link {
                 color: black;
@@ -142,8 +142,8 @@
     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
 
       <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="position:relative;left:250px;top:1px" required/>
-        <button type="submit"  class="btn btn-primary" style="position: absolute;left:475px;top:1px;">Search</button>
+        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="font-size: 24px; position:relative;left:250px;top:1px" required/>
+        <button type="submit"  class="btn btn-primary" style="font-size: 24px; position: absolute;left:475px;top:1px;">ค้นหา</button>
       </div>
     </label>
     </form>
@@ -165,7 +165,7 @@
               <div class="card mt-5 custom-card">
                   <img src="{{ asset($row->title_image) }}" class="img-fluid rounded-start" style="width: 300px; height: 200px;">
                   <div class='card-body'>
-                      <h5 class="card-title font-weight-bold">{{ Str::limit($row->title_name,20) }}</h5>
+                      <h3 class="card-title font-weight-bold">{{ Str::limit($row->title_name,20) }}</h3>
                       <p class="card-text">{{ Str::limit($row->cotent, 50) }}</p>
                       <p class="card-text">วันที่อัพเดต: {{ $createdDate->format('d') }}{{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}</p>
                       @if ($eventDate)
@@ -174,7 +174,7 @@
                           <p class="card-text"><br></p>
                       @endif
                       <div class="d-flex justify-content-center">
-                          <button type="button" onclick="window.location.href='{{ url('/users/homeTeacher/view/'.$row->id) }}'" class="btn btn-primary btn-lg">รายละเอียด</button>
+                          <button type="button"style="font-size: 24px;" onclick="window.location.href='{{ url('/users/homeTeacher/view/'.$row->id) }}'" class="btn btn-primary btn-lg">รายละเอียด</button>
                       </div>
                   </div>
               </div>
@@ -190,7 +190,7 @@
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ช่องทางการติดต่อ</h5>
+                    <h3 class="modal-title">ช่องทางการติดต่อ</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

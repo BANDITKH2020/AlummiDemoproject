@@ -67,21 +67,41 @@ class ManageAccountController extends Controller
             $users = $query->select('users.id', 'users.student_id', 'users.firstname', 'users.lastname', 'users.educational_status', 'users.inviteby', 'users.student_grp', 'users.role_acc', 'users.created_at', 'users.active', 'users.email', 'users.graduatesem', 'users.groupleader', 'login_histories.login_at')
                     ->whereIn('users.role_acc', ['student', 'teacher','Admin'])
                     ->leftJoin('login_histories', 'users.id', '=', 'login_histories.user_id')
+                    ->orderBy('graduatesem', 'desc')
                     ->paginate(10);
             
             
         return view('Admin.manage.manage_account',compact('users'));
     }
     public function update(Request $request, $id) 
-    { 
-        if ($request->isMethod('post')) {
-            $user = $request->all();
-            $activeValue = $user['active'] == 'true' ? 1 : 0;
-            User::where(['id'=>$id])->update(['student_id'=>$user['student_id'],'firstname'=>$user['firstname'],'lastname'=>$user['lastname'],'student_grp'=>$user['student_grp'],'groupleader'=>$user['groupleader'],'active'=>$activeValue]);
-            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+{ 
+    if ($request->isMethod('post')) {
+        $userInput = $request->all();
+        $activeValue = $userInput['active'] == 'true' ? 1 : 0;
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'ไม่พบผู้ใช้ที่คุณต้องการแก้ไข');
         }
 
+        $user->student_id = $userInput['student_id'];
+        $user->firstname = $userInput['firstname'];
+        $user->lastname = $userInput['lastname'];
+        $user->student_grp = $userInput['student_grp'];
+        $user->groupleader = $userInput['groupleader'];
+        $user->active = $activeValue;
+        
+        if ($user->save()) {
+            return redirect()->back()->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+        } else {
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }
     }
+
+    // Handle cases when the request is not a POST request, if needed.
+}
+
     public function delete($id){
         $user = User::find($id);
         
@@ -96,7 +116,13 @@ class ManageAccountController extends Controller
         language_skill::where('ID_student', $student_id)->delete();
         Tranning_info::where('ID_student', $student_id)->delete();
         $user->delete();
-        return redirect()->back()->with('alert','ลบผู้ใช้งานเรียบร้อย');
+        if ($user !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert',"ลบผู้ใช้งานเรียบร้อย");  
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการลบผู้ใช้งาน');
+        }
     }  
 
  

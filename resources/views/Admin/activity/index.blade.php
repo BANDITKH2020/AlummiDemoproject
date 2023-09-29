@@ -14,7 +14,7 @@
 <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -101,18 +101,18 @@
     <div class="container "style="position:absolute;left:500px;top: 215px;">
         <h2>จัดการกิจกรรม</h2>
         <hr class="mt-1" style="border: 1px solid #000">
-        <button class="btn btn-warning" onclick="window.location.href='{{route('saveactivitys')}}'" role="button" style="font-size: 20px;">เพิ่มกิจกรรม</button>
+        <button class="btn btn-warning" onclick="window.location.href='{{route('saveactivitys')}}'" role="button" style="font-size: 24px;">เพิ่มกิจกรรม</button>
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:700px;top: 65px;">
-                    <select name="searchdata" class="form-select" style="font-size: 20px;">
+                    <select name="searchdata" class="form-select" style="font-size: 24px;">
                         <option value="all">ทั้งหมด</option>
                         <option value="title_name" >ชื่อเรื่อง</option>
                         <option value="category">ประเภทกิจกรรม</option>
                         <option value="created_at">วันที่จัดกิจกรรม</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหากิจกรรม" style="font-size: 20px;position:relative;left:320px;top:-42px" /> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหากิจกรรม" style="font-size: 24px;position:relative;left:300px;top:-48px" /> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -190,8 +190,8 @@
                                             @endphp
                                             <tr>
                                             <td>{{$row->title_name}}</td>
-                                            <td >{{$row->category}}</td>
-                                            <td >{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}} </td>
+                                            <td>{{$row->category}}</td>
+                                            <td scope="col"class="text-center">{{$eventDate->format('d')}} {{$thaiMonths[$eventDate->month]}} {{$eventDate->year + 543}} </td>
                                             <td class="custom-action-buttons">
                                                 <a href="{{ url('/activity/editactivity/'.$row->id) }}" class="edit" title="Edit" data-toggle="tooltip"><iconify-icon icon="ph:pencil-light"></iconify-icon></a>
                                                 <a href="#addImage{{$row->id}}" data-bs-toggle="modal" class="addImage" title="addImage" data-toggle="tooltip"><iconify-icon icon="clarity:image-line"></iconify-icon></a>
@@ -223,18 +223,18 @@
                             <form action="{{ route('addImage', ['id' => $row->id]) }}" method="post" enctype="multipart/form-data" id="linkForm">
                                 {{ csrf_field() }}
                                 <div class="mb-3 @error('addImage') error @enderror">
-                                    <label for="recipient-name" class="col-form-label"style="font-size: 20px;">จำนวนรูปภาพ</label>
-                                    <input type="file"style="font-size: 20px;" class="form-control" id="addImage" name="addImage[]" multiple>
+                                    <label for="recipient-name" class="col-form-label"style="font-size: 24px;">จำนวนรูปภาพ</label>
+                                    <input type="file"style="font-size: 24px;" class="form-control" id="addImage" name="addImage[]" multiple>
                                    
                                 </div>
                                 
-                                    <label for="message-text" class="col-form-label"style="font-size: 20px;">รูปภาพที่อัพโหลด</label>
-                                    <ul id="uploadedFiles"style="font-size: 20px;"></ul>
+                                    <label for="message-text" class="col-form-label"style="font-size: 24px;">รูปภาพที่อัพโหลด</label>
+                                    <ul id="uploadedFiles"style="font-size: 24px;"></ul>
                                     
                                 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" style="font-size: 20px;"data-bs-dismiss="modal">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary" style="font-size: 20px;"id="submitBtn" >ยืนยัน</button>
+                                    <button type="button" class="btn btn-danger" style="font-size: 24px;"data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary" style="font-size: 24px;"id="submitBtn" >ยืนยัน</button>
                                 </div>
                             </form>
                             <script>

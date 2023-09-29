@@ -82,75 +82,77 @@ class NewsandActivitiesController extends Controller
         $upload_location = 'image/newsandactivity/';
         $full_path = $upload_location.$img_name;
 
-        newsandactivity::insert([
-            'title_name'=>$request->title_name,
-            'cotent'=>$request->cotent,
-            'title_image'=>$full_path,
-            'category'=>$category,
-            'objective'=>$objective,
-            'cotent_type'=>$cotent_type,
-            'event_date'=>Carbon::now(),
-            'created_at'=>Carbon::now()
-        ]);
+        $new = new newsandactivity();
+        $new->title_name = $request->title_name;
+        $new->cotent = $request->cotent;
+        $new->title_image = $full_path;
+        $new->category = $category;
+        $new->objective = $objective;
+        $new->cotent_type = $cotent_type;
+        $new->event_date = Carbon::now();
+        $new->created_at = Carbon::now();
+        $new->save();
         $title_image->move($upload_location,$img_name);
-        return redirect()->route('news')->with('alert',"บันทึกข้อมูลเรียบร้อย");
-
-        
+        if ($new->wasRecentlyCreated) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->route('news')->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->route('news')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }   
     }
     public function edit($id){
         $newsandactivity = newsandactivity::find($id);
         return view('admin.new.editnews',compact('newsandactivity'));
     }
-    public function update(Request $request, $id){
-        $request->validate(
-            [
-                'title_name'=>'required',
-                'cotent'=>'required',
-                
-            ],
-            [
-                'title_name.required'=>"กรุณาป้อนชื่อหัวข้อข่าวครับ",
-                'cotent.required'=>"กรุณาป้อนเนื้อหาข่าวครับ",
-                
-            ]
-        );
-        $title_image = $request->file('title_image');
-        //อัพเดตภาพและชื่อ
-        if($title_image){
-            $name_gen = hexdec(uniqid());
-
-            //ดึ่งนามสกุลไฟล์ภาพ
-            $img_ext = strtolower($title_image->getClientOriginalExtension());
-            $img_name = $name_gen.'.'.$img_ext;
-        
-            //บันทึกข้อมูล
-            $upload_location = 'image/newsandactivity/';
-            $full_path = $upload_location.$img_name;
-
-            
-            //อัพเดตข้อมูล
-            newsandactivity::find($id)->update([
-                'title_name'=>$request->title_name,
-                'cotent'=>$request->cotent,
-                'title_image'=>$full_path,
-            ]);
-
-            //ลบภาพเก่าแทนภาพใหม่
-            $old_image = $request->old_image;
-            unlink($old_image);
-            $title_image->move($upload_location,$img_name);
-            return redirect()->route('news')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
+    public function update(Request $request, $id) {
+        $request->validate([
+            'title_name' => 'required',
+            'cotent' => 'required',
+            'title_image' => 'nullable|mimes:jpg,jpeg,png|max:3000',
+        ], [
+            'title_name.required' => 'กรุณาป้อนชื่อหัวข้อข่าวครับ',
+            'cotent.required' => 'กรุณาป้อนเนื้อหาข่าวครับ',
+            'title_image.mimes' => 'กรุณาไฟล์ภาพเป็น jpg, jpeg, png ครับ',
+        ]);
     
-        }else{
-           //อัพเดตชื่อ 
-            newsandactivity::find($id)->update([
-                'title_name'=>$request->title_name,
-                'cotent'=>$request->cotent,
-                
-            ]);
-            return redirect()->route('news')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
+        $new = newsandactivity::find($id);
+    
+        if (!$new) {
+            return redirect()->back()->with('error', 'ไม่พบข่าวที่คุณต้องการแก้ไข');
+        }
+    
+        // Check if a new image file is being uploaded
+        if ($request->hasFile('title_image')) {
+            $title_image = $request->file('title_image');
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($title_image->getClientOriginalExtension());
+            $img_name = $name_gen . '.' . $img_ext;
+            $upload_location = 'image/newsandactivity/';
+            $full_path = $upload_location . $img_name;
+    
+            // Delete the old image file if it exists
+            $img = newsandactivity::find($id)->title_image;
+            unlink($img);
+    
+            // Update data with new image path
+            $new->title_name = $request->title_name;
+            $new->cotent = $request->cotent;
+            $new->title_image = $full_path;
+    
+            $title_image->move($upload_location, $img_name);
+        } else {
+            // Update data without changing the image
+            $new->title_name = $request->title_name;
+            $new->cotent = $request->cotent;
+        }
+        if ($new->save()) {
+            return redirect()->route('news')->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+        } else {
+            return redirect()->route('news')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
         }
     }
+    
     public function delete($id){
         //ลบภาพ
         $img = newsandactivity::find($id)->title_image;
@@ -158,6 +160,12 @@ class NewsandActivitiesController extends Controller
         
         //ลบข้อมูลฐาน
         $delete= newsandactivity::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }  
 }

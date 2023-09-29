@@ -43,16 +43,15 @@ class UsersetController extends Controller
         $language_skill = language_skill::where('ID_student', $student_id)->paginate(2);
         $Tranning_info = Tranning_info::where('ID_student', $student_id)->paginate(2);
 
-        $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
-            return $message->created_at->format('Y-m-d'); // แยกตามวันที่
-        });
-        $messages = $messages->map(function ($groupedMessages, $date) {
-            $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
-            return ['date' => $thaiDate,'messages' => $groupedMessages];
-        });
+
+        $countone = Contart_info::where('attention', 'like', '%งานพบประสังสรรค์ประจำปี%')->first();
+        $counttwo = Contart_info::where('attention', 'like', '%อบรมให้ความรู้วิชาการ%')->first();
+        $countthree = Contart_info::where('attention', 'like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')->first();
+        $countfour = Contart_info::where('attention', 'like', '%กิจกรรมศิษย์เก่าสัมพันธ์%')->first();
+
         return view('users.accsettinguser', compact('contactInfo', 'user', 'education_infom',
          'Workhistory_info', 'contact', 'education', 'Workhistory','Skill_info','language_skill',
-         'Skill','language','Tranning_info','Tranning','surveylink','messages','department'));
+         'Skill','language','Tranning_info','Tranning','surveylink','department','countone','counttwo','countthree','countfour'));
     }
     public function store(Request $request)
     {
@@ -75,7 +74,6 @@ class UsersetController extends Controller
             $id = $request->input('id');
             User::where(['id' => $id])->update(['firstname' => $user['firstname'], 'lastname' => $user['lastname']]);
         }
-
         return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
     }
 
@@ -122,13 +120,25 @@ class UsersetController extends Controller
         $existingContact->ID_student = Auth::user()->student_id;
 
         if ($categoryall == null) {
-            $existingContact->attention = $category1 . ',' . $category2 . ',' . $category3 . ',' . $category4;
+            if ($category1 == null && $category2==null&&$category3==null&&$category4==null) {
+                $existingContact->save();
+            }else
+            {
+                $existingContact->attention = $category1 . ' ' . $category2 . ' ' . $category3 . ' ' . $category4;
+            }
         } else {
-            $existingContact->attention = $category1 . ',' . $category2 . ',' . $category3 . ',' . $category4 . ',' . $categoryall;
+            $existingContact->attention = $category1 . ' ' . $category2 . ' ' . $category3 . ' ' . $category4 . ' ' . $categoryall;
         }
 
         $existingContact->save();
-        return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        if ($existingContact !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติส่วนตัว");
+            
+        }
     }
 
     public function createNewContact($student_id, $request)
@@ -153,7 +163,8 @@ class UsersetController extends Controller
         // บันทึกไฟล์รูปใหม่ไปยัง storage/app/public/image/profileuser/
         $image->storeAs('public/image/profileuser', $img_name);
         } else {
-            $img_name = null; // ตั้งค่าเป็น null ในกรณีที่ไม่มีไฟล์รูปถูกส่งมา
+            $img_name = null;
+            return redirect()->back()->with('error', "กรุณาเพิ่มรูปโปรไฟล์");
         }
         // บันทึกข้อมูล
         $upload_location = 'public/image/profileuser/';
@@ -171,12 +182,19 @@ class UsersetController extends Controller
         $Contart_info->ID_student = $student_id;
 
         if ($categoryall == null) {
-            $Contart_info->attention = $category1 . ',' . $category2 . ',' . $category3 . ',' . $category4;
+            $Contart_info->attention = $category1 . ' ' . $category2 . ' ' . $category3 . ' ' . $category4;
         } else {
-            $Contart_info->attention = $category1 . ',' . $category2 . ',' . $category3 . ',' . $category4. ',' . $categoryall;
+            $Contart_info->attention = $category1 . ' ' . $category2 . ' ' . $category3 . ' ' . $category4. ' ' . $categoryall;
         }
         $Contart_info->save();
-        return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        if ($Contart_info !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติส่วนตัว");
+            
+        }
     }
 }
 

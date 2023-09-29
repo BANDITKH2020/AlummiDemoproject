@@ -25,7 +25,7 @@ class DepartmentController extends Controller
             // ไม่มีข้อมูล ทำการเพิ่มข้อมูลใหม่
             $this->updateExistingContact($department, $request);
         }
-        return redirect()->back()->with('alert', 'บันทึกข้อมูลติดต่อภาควิชาเรียบร้อย');
+        return redirect()->back();
     }
     public function createNewContact(Request $request)
     {
@@ -37,17 +37,35 @@ class DepartmentController extends Controller
         $newDepartment->map = $request->input('map');
         $newDepartment->web = $request->input('web');
         $newDepartment->save();
-        return redirect()->back()->with('alert', 'บันทึกข้อมูลติดต่อภาควิชาเรียบร้อย');
+        if ($newDepartment->wasRecentlyCreated !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert',"บันทึกข้อมูลติดต่อภาควิชาเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลติดต่อภาควิชา');
+        } 
+        
     }
     public function updateExistingContact($department, $request)
     {
-        $department->address = $request->input('address'); // แทน column1 ด้วยชื่อคอลัมน์ที่คุณต้องการ
-        $department->contact_time = $request->input('contact_time'); // แทน column2 ด้วยชื่อคอลัมน์ที่คุณต้องการ
-        $department->phone_number = $request->input('phone_number');
-        $department->facebook = $request->input('facebook');
-        $department->map = $request->input('map');
-        $department->web = $request->input('web');
-        $department->save();
-        return redirect()->back()->with('alert', 'แก้ไขข้อมูลติดต่อภาควิชาเรียบร้อย');
+        $department = department::where('ID', 1)->first();
+        $address = $request->input('address');
+        $contact_time = $request->input('contact_time');
+        $phone_number = $request->input('phone_number');
+        $facebook = $request->input('facebook');
+        $web = $request->input('web');
+        $map = $request->input('map');
+        $department->address = $address; // แทน column1 ด้วยชื่อคอลัมน์ที่คุณต้องการ
+        $department->contact_time = $contact_time; // แทน column2 ด้วยชื่อคอลัมน์ที่คุณต้องการ
+        $department->phone_number = $phone_number;
+        $department->facebook = $facebook;
+        $department->map = $map;
+        $department->web = $web;
+        if ($department->save()) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert',"อัพเดตข้อมูลติดต่อภาควิชาเรียบร้อย");
+        } else {
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการอัพเดตข้อมูลติดต่อภาควิชา');
+        } 
     }
 }

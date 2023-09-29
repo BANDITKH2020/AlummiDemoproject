@@ -12,7 +12,7 @@ use App\Models\Surveylink;
 class TokenTeacherController extends Controller
 {
     public function viewtoken(){
-        $randomcode = randomcode::paginate(3);
+        $randomcode = randomcode::orderBy('end_date','desc')->paginate(3);
         $department = department::where('ID', 1)->first();
         $surveylink = Surveylink::query()->latest()->first();
         $id = Auth::user()->student_id;
@@ -29,13 +29,23 @@ class TokenTeacherController extends Controller
         $randomCodeModel->code = $randomCode;
         $randomCodeModel->end_date = $selectedDateTime; // กำหนดวันที่และเวลาที่สร้าง
         $randomCodeModel->user_id = Auth::user()->id;
-        $randomCodeModel->save();
-    
-        return response()->json(['alert' => 'บันทึกข้อมูลเรียบร้อย', 'createdAt' => $randomCodeModel->created_at]);
+        if ($randomCodeModel->save()) {
+            // บันทึกสำเร็จ
+            return response()->json(['alert' => 'บันทึกข้อมูลเรียบร้อย', 'createdAt' => $randomCodeModel->created_at]);
+        } else {
+            // บันทึกไม่สำเร็จ
+            return response()->json(['alert' => 'บันทึกข้อมูลไม่สำเร็จ'], 500);
+        }
     }
     public function delete($id){
         //ลบข้อมูลฐาน
         $delete= randomcode::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }
 }

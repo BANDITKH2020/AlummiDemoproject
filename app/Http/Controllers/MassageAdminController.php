@@ -52,7 +52,7 @@ class MassageAdminController extends Controller
                     } elseif ($search === 'ไม่ติดดาว') {
                         $search = 0;
                     }
-                    $queryMassage->where('status_massage',$search);
+                    $queryMassage->where('status_massage', $search);
                     break;
             }
         }
@@ -68,15 +68,18 @@ class MassageAdminController extends Controller
         if ($star == 1) {
             $massage->status_massage = !$massage->status_massage; // สลับค่า status_massage
             $massage->save(); // บันทึกการเปลี่ยนแปลงลงในฐานข้อมูล
-            return redirect()->back()->with('alert', 'บันทึกข้อความสำคัญเรียบร้อย');
+            if ($massage !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', 'บันทึกข้อความสำคัญเรียบร้อย');
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อความสำคัญ');
+            }
         }
     }
     public function read_massege($id,Request $request)
     { 
-        
-        
         $view = $request->input('view');
-        
         $massage = Massage::find($id);
         if ($view == 1) {
             $status_read ='1';

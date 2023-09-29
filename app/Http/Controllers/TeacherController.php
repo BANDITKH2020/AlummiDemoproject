@@ -162,7 +162,7 @@ class TeacherController extends Controller
             }
         }
         $users = $query
-            ->select('student_id', 'firstname', 'lastname', 'graduatesem')
+            ->select('student_id', 'firstname', 'lastname', 'graduatesem','Term')
             ->where('role_acc', 'student')
             ->where('educational_status', 'จบการศึกษา')
             ->paginate(10);

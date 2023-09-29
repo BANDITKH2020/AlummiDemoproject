@@ -14,7 +14,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -105,14 +105,14 @@
       </div>
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
-    <h2>ปรับสภานภาพ</h2>
+    <h2>ปรับสถานะภาพนักศึกษา</h2>
     <hr class="mt-1" style="border: 1px solid #000">
-    <button type="button" class="btn btn-warning" id="openModalButton" data-bs-toggle="modal" data-bs-target="#statusStudent" style="font-size: 20px;">
+    <button type="button" class="btn btn-warning" id="openModalButton" data-bs-toggle="modal" data-bs-target="#statusStudent" style="font-size: 24px;">
     ปรับสถานะนักศึกษา
     </button>
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:700px;top: 65px;">
-                    <select name="searchdata" class="form-select"  style=" font-size: 20px;" >
+                    <select name="searchdata" class="form-select"  style=" font-size: 24px;" >
                         <option value="all">ทั้งหมด</option>
                         <option value="student_id" >รหัสนักศึกษา</option>
                         <option value="firstname">ชื่อ</option>
@@ -122,8 +122,8 @@
                         <option value="educational_status">สถานะ</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหานักศึกษา" style="font-size: 20px;position:relative;left:320px;top:-44px" /> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหานักศึกษา" style="font-size: 24px;position:relative;left:300px;top:-48px" /> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -177,7 +177,7 @@
                                             <th scope="col"class="text-center">รหัสนักศึกษา</th>
                                             <th scope="col"class="text-center">ชื่อ</th>
                                             <th scope="col"class="text-center">นามสกุล</th>
-                                            <th scope="col"class="text-center">ภาคการศึกษาที่จบ</th>
+                                            <th scope="col"class="text-center">ปีการศึกษา</th>
                                             <th scope="col"class="text-center">กลุ่มนักศึกษา</th>
                                             <th scope="col"class="text-center">สถานะ</th>
                                         </tr>
@@ -267,11 +267,21 @@
                                             <span id="selectedIds" style="display: none;"></span> 
                                             <form action="/Admin/student/status/graduatesem_up" method="post" enctype="multipart/form-data" >
                                                 {{ csrf_field() }}
-                                                <div class="mb-3 @error('graduatesem') error @enderror">
-                                                    <label for="recipient-name" class="col-form-label" style="font-size:26px;">ภาคการศึกษาที่จบ</label>
-                                                    <input type="text" class="form-control" id="graduatesem" name="graduatesem"  >
-                                                
+                                                <div class="row">
+                                                    <div class=" col mb-3 @error('graduatesem') error @enderror">
+                                                        <label for="recipient-name" class="col-form-label" style="font-size:26px;">ปีการศึกษาที่จบ</label>
+                                                        <input type="text" class="form-control" id="graduatesem" name="graduatesem" style="font-size: 24px;" >
+                                                    </div>
+                                                    <div class="col mb-3 @error('graduatesem') error @enderror">
+                                                        <label for="recipient-name" class="col-form-label" style="font-size:26px;">ภาคการศึกษาที่จบ</label>
+                                                        <select name="Term" class="form-select" style="font-size: 24px;">
+                                                            <option value="1">ภาคเรียน 1</option>
+                                                            <option value="2">ภาคเรียน 2</option>
+                                                            <option value="3">ฤดูร้อน</option>  
+                                                        </select>
+                                                    </div>
                                                 </div>
+                                                
                                                 <input type="hidden" id="selectedIdsInput" name="selectedIds" value="">
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size:24px;">ยกเลิก</button>
@@ -311,6 +321,23 @@
         }
     </script>
     @endif
+    @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
     </div>
 </div>
 </body>

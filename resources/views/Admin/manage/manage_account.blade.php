@@ -16,21 +16,14 @@
 <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
                 background-color: transparent;
                 text-decoration: none;
               }
-              .re-admin iconify-icon {
-        font-size: 29px;
-        color: black; /* สีตั้งต้นของไอคอน */
-        }
-        .re-teacher iconify-icon {
-        font-size: 24px;
-        color: black; /* สีตั้งต้นของไอคอน */
-        }
+        
         h3{
                 font-weight: bold;
             }
@@ -108,13 +101,13 @@
     
     <div class="container "style="position:absolute;left:500px;top: 215px;">
     <h2>จัดการบัญชีผู้ใช้</h2>
-    <hr class="mt-1" style="border: 1px solid #000 font-size: 20px;">
-    <button class="btn btn-warning" onclick="window.location.href='{{url('/register/Admin')}}'" role="button" style="font-size: 18px;">เพิ่มบัญชีผู้ดูแลระบบ</button>
-    <button class="btn btn-info" onclick="window.location.href='{{url('/register/teacher')}}'" role="button" style="font-size: 18px;">เพิ่มบัญชีอาจารย์</button>
+    <hr class="mt-1" style="border: 1px solid #000">
+    <button class="btn btn-warning" onclick="window.location.href='{{url('/register/Admin')}}'" role="button" style="font-size: 24px;">เพิ่มบัญชีผู้ดูแลระบบ</button>
+    <button class="btn btn-info" onclick="window.location.href='{{url('/register/teacher')}}'" role="button" style="font-size: 24px;">เพิ่มบัญชีอาจารย์</button>
         <div class="mt-1" style=" font-size: 20px;">
             <form action="" method="GET" >
-                    <label class="form-label" style="position: absolute;left:750px;top: 65px;font-size: 20px;">
-                        <select name="searchdata" class="form-select" style="font-size: 20px;">
+                    <label class="form-label" style="position: absolute;left:750px;top: 65px;font-size: 24px;">
+                        <select name="searchdata" class="form-select" style="font-size: 24px;">
                             <option value="all">ทั้งหมด</option>
                             <option value="student_id" >รหัสนักศึกษา</option>
                             <option value="firstname">ชื่อ</option>
@@ -124,8 +117,8 @@
                             <option value="active">สถานะสิทธิเข้าใช้งาน</option>
                         </select>
                         <div class="col-mb-2">
-                            <input type="text" class="form-control" name="search" placeholder="ค้นหาบัญชี" style="font-size: 20px;position:relative;left:280px;top:-43px" /> 
-                            <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:475px;top:1px;">ค้นหา</button>
+                            <input type="text" class="form-control" name="search" placeholder="ค้นหาบัญชี" style="font-size: 24px;position:relative;left:260px;top:-48px" /> 
+                            <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:475px;top:1px;">ค้นหา</button>
                         </div>
                     </label>
             </form>
@@ -198,7 +191,7 @@
                                     }
 
                                     .custom-label {
-                                        font-size: 16px;
+                                        font-size: 24px;
                                         width: 40%;
                                         text-align: right;
                                         padding-right: 10px;
@@ -229,16 +222,16 @@
                                     
                                 </style>
                                 
-                                    <table class="table table-bordered custom-table">
+                                    <table class="table table-bordered custom-table" style="font-size: 24px;">
                                         <thead >
                                             <tr>
                                                 <th scope="col"class="text-center">ชื่อ</th>
                                                 <th scope="col"class="text-center">นามสกุล</th>
                                                 <th scope="col"class="text-center">ระดับผู้ใช้งาน</th>
                                                 <th scope="col"class="text-center">วันที่เข้าใช้งาน</th>
-                                                <th scope="col"class="text-center">อาจารย์</th>
+                                                <th scope="col"class="text-center">ผู้เชิญเข้าระบบ</th>
                                                 <th scope="col"class="text-center">กลุ่มนักศึกษา</th>
-                                                <th scope="col"class="text-center">สถานะสิทธิเข้าใช้งาน</th>
+                                                <th scope="col"class="text-center">สถานะการใช้งานระบบ</th>
                                                 <th scope="col"class="text-center">ตัวเลือก</th>
                                             </tr>
                                         </thead>
@@ -259,7 +252,13 @@
                                                 <tr class="custom-row">
                                                     <td scope="col" >{{$row->firstname}}</td>
                                                     <td scope="col" >{{$row->lastname}}</td>
-                                                    <td scope="col" >{{$row->role_acc}}</td>
+                                                    @if($row->role_acc === 'teacher')
+                                                    <td scope="col" >อาจารย์</td>
+                                                    @elseif ($row->role_acc == 'student')
+                                                    <td scope="col" >ศิษย์เก่า</td>
+                                                    @else
+                                                    <td scope="col" >ผู้ดูแลระบบ</td>
+                                                    @endif
                                                     <td scope="col" class="text-center"> {{$loginDate->format('d')}} {{$thaiMonths[$loginDate->month]}} {{$loginDate->year + 543}}</td>
                                                     <td scope="col" >{{$row->inviteby}}</td>
                                                     <td scope="col" >{{$row->student_grp}}</td>
@@ -297,7 +296,7 @@
                                                 <div class="custom-form" >
                                                     @if($row->role_acc === 'Admin')
                                                     <div class="mb-3 row @error('active') error @enderror">
-                                                        <label for="active" class="col-form-label custom-label">สถานะสิทธิเข้าใช้งาน</label>
+                                                        <label for="active" class="col-form-label custom-label">สถานะการใช้งานระบบ</label>
                                                         <div class="col">
                                                             <select name="active" class="form-select custom-input" value="{{$row->active}}">
                                                             @if($row->active == 1 )
@@ -313,54 +312,54 @@
                                                     </div>
                                                     @else
                                                     <div class="mb-3 row @error('student_id') error @enderror">
-                                                        <label for="student_id" class="col-form-label custom-label"style="font-size: 20px;">รหัสนักศึกษา</label>
+                                                        <label for="student_id" class="col-form-label custom-label"style="font-size: 24px;">รหัสนักศึกษา</label>
                                                         <div class="col">
-                                                            <input type="text"style="font-size: 20px;" class="form-control custom-input @error('student_id') is-invalid @enderror" id="student_id" name="student_id" value="{{$row->student_id}}">
+                                                            <input type="text"style="font-size: 24px;" class="form-control custom-input @error('student_id') is-invalid @enderror" id="student_id" name="student_id" value="{{$row->student_id}}">
                                                             @error('student_id')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('firstname') error @enderror">
-                                                        <label for="firstname" class="col-form-label custom-label"style="font-size: 20px;">ชื่อ</label>
+                                                        <label for="firstname" class="col-form-label custom-label"style="font-size: 24px;">ชื่อ</label>
                                                         <div class="col">
-                                                            <input type="text"style="font-size: 20px;" class="form-control custom-input @error('firstname') is-invalid @enderror" id="firstname" name="firstname" value="{{$row->firstname}}">
+                                                            <input type="text"style="font-size: 24px;" class="form-control custom-input @error('firstname') is-invalid @enderror" id="firstname" name="firstname" value="{{$row->firstname}}">
                                                             @error('firstname')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('lastname') error @enderror">
-                                                        <label for="lastname" class="col-form-label custom-label"style="font-size: 20px;">นามสกุล</label>
+                                                        <label for="lastname" class="col-form-label custom-label"style="font-size: 24px;">นามสกุล</label>
                                                         <div class="col">
-                                                            <input type="text" style="font-size: 20px;"class="form-control custom-input @error('lastname') is-invalid @enderror" id="lastname" name="lastname" value="{{$row->lastname}}">
+                                                            <input type="text" style="font-size: 24px;"class="form-control custom-input @error('lastname') is-invalid @enderror" id="lastname" name="lastname" value="{{$row->lastname}}">
                                                             @error('lastname')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('graduatesem') error @enderror">
-                                                        <label for="graduatesem" class="col-form-label custom-label"style="font-size: 20px;">ภาคการศึกษาที่จบ</label>
+                                                        <label for="graduatesem" class="col-form-label custom-label"style="font-size: 24px;">ภาคการศึกษาที่จบ</label>
                                                         <div class="col">
-                                                            <input type="text"style="font-size: 20px;" class="form-control custom-input @error('graduatesem') is-invalid @enderror" id="graduatesem" name="graduatesem"value="{{$row->graduatesem}}">
+                                                            <input type="text"style="font-size: 24px;" class="form-control custom-input @error('graduatesem') is-invalid @enderror" id="graduatesem" name="graduatesem"value="{{$row->graduatesem}}">
                                                             @error('graduatesem')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('student_grp') error @enderror">
-                                                        <label for="student_grp" class="col-form-label custom-label"style="font-size: 20px;">กลุ่มนักศึกษา</label>
+                                                        <label for="student_grp" class="col-form-label custom-label"style="font-size: 24px;">กลุ่มนักศึกษา</label>
                                                         <div class="col">
-                                                            <input type="text" style="font-size: 20px;"class="form-control custom-input @error('student_grp') is-invalid @enderror" id="student_grp" name="student_grp" value="{{$row->student_grp}}">
+                                                            <input type="text" style="font-size: 24px;"class="form-control custom-input @error('student_grp') is-invalid @enderror" id="student_grp" name="student_grp" value="{{$row->student_grp}}">
                                                             @error('student_grp')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('groupleader') error @enderror">
-                                                        <label for="groupleader" class="col-form-label custom-label"style="font-size: 20px;">สถานะหัวหน้ากลุ่ม</label>
+                                                        <label for="groupleader" class="col-form-label custom-label"style="font-size: 24px;">สถานะหัวหน้ากลุ่ม</label>
                                                         <div class="col">
-                                                            <select name="groupleader" class="form-select custom-input" style="font-size: 20px;"value="{{$row->groupleader}}">
+                                                            <select name="groupleader" class="form-select custom-input" style="font-size: 24px;"value="{{$row->groupleader}}">
                                                                 @if($row->groupleader == 'เป็นหัวหน้า' )
                                                                 <option value="เป็นหัวหน้า" >เป็นหัวหน้า</option>
                                                                 <option value="ไม่เป็นหัวหน้า">ไม่เป็นหัวหน้า</option>
@@ -374,9 +373,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row @error('active') error @enderror">
-                                                        <label for="active" class="col-form-label custom-label"style="font-size: 20px;">สถานะเข้าใช้งาน</label>
+                                                        <label for="active" class="col-form-label custom-label"style="font-size: 24px;">สถานะการใช้งานระบบ</label>
                                                         <div class="col">
-                                                            <select name="active" class="form-select custom-input"style="font-size: 20px;" value="{{$row->active}}">
+                                                            <select name="active" class="form-select custom-input"style="font-size: 24px;" value="{{$row->active}}">
                                                             @if($row->active == 1 )
                                                             <option value="true" >เปิดการใช้งาน</option>
                                                             <option value="false">ปิดการใช้งาน</option>
@@ -393,8 +392,8 @@
                                                     
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size: 20px;">ยกเลิก</button>
-                                                    <button type="submit" class="btn btn-primary" id="submitBtn"style="font-size: 20px;" >ยืนยัน</button>
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size: 24px;">ยกเลิก</button>
+                                                    <button type="submit" class="btn btn-primary" id="submitBtn"style="font-size: 24px;" >ยืนยัน</button>
                                                 </div>
                                             </form>
                                             </div>
@@ -407,15 +406,46 @@
                     </div> 
                 </div> 
             </div>
-            @if(Session::has('alert'))
-            <script>
-                swal("{{Session::get('alert')}}",{
-                    icon: "success",
-                    if(exist){
-                        alert(msg);
-                }});
-            </script>
-            @endif  
+            <style>
+        .my-swal-title {
+            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+        }
+        </style>
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
+        @if(Session::has('alert'))
+        <script>
+            swal({
+                title: "{{ Session::get('alert') }}",
+                icon: "success",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif  
             <script>
             function confirmDelete(id) {
             swal({

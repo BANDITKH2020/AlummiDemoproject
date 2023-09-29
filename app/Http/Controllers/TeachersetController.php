@@ -90,8 +90,13 @@ class TeachersetController extends Controller
         $existingContact->ID_student = Auth::user()->student_id;
         $existingContact->attention = $attention;
         $existingContact->save();
-
-        return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        if ($existingContact !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'อัปเดตประวัติส่วนตัวเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการอัปเดตประวัติส่วนตัว');
+        }
     }
 
     public function createNewContact($id, Request $request)
@@ -133,7 +138,14 @@ class TeachersetController extends Controller
         $Contart_info->ID_student = Auth::user()->student_id;
         $Contart_info->save();
 
-        return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        if ($Contart_info !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', "อัปเดตประวัติส่วนตัวเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติส่วนตัว");
+            
+        }
     }
 
 }

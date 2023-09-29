@@ -16,7 +16,7 @@
     <style>
         body {
             font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -92,10 +92,8 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h3>ประวัติการติดต่อ</h3></a>
+                <a href="{{ route('viewmassege') }}" class="textmenu"><h3>ประวัติการติดต่อ</h3></a>
                 @endif
-                
-                
             </div>
    
             <div class="col-10 mt-1" style="margin-left:50px">
@@ -154,7 +152,7 @@
         <hr class="mt-1" style="border: 1px solid #000">
             <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:750px;top: 65px;">
-                    <select name="searchdata" class="form-select" style="font-size: 20px;">
+                    <select name="searchdata" class="form-select" style="font-size: 24px;">
                         <option value="all">ทั้งหมด</option>
                         <option value="firstname">ชื่อ</option>
                         <option value="lastname">นามสกุล</option>
@@ -167,30 +165,31 @@
                         <option value="Skill_name">ทักษะ</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="" style="font-size: 20px;position:relative;left:280px;top:-43px" required> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:475px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="" style="font-size: 24px;position:relative;left:260px;top:-48px" required> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:475px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
             </form><br>
             <div class="col-12 my-5">
-            @foreach ($students as $student) 
-            <div class="row">
-                <div class="col-md-2 mt-3">
-                    <div class="card text-center">
-                        @if ($student->image)
-                            <img class="mx-auto mt-3" src="{{ Storage::url('image/profileuser/' . $student->image) }}" alt="{{ $student->firstname }} {{ $student->lastname }}" style="width:120px;height:120px;padding:10px; border-radius: 50%;">
-                        @else
-                            <img class="mx-auto mt-3" src="{{ asset('images/teamwork.png') }}" style="width: 120px; height: 120px;padding: 10px">
-                        @endif
-                        <h4 class="mt-3">{{ $student->firstname }} {{ $student->lastname }}</h4>
-                        <p>{{ $student->student_grp }}</p>
-                        <p><a class="btn btn-primary mt-2" onclick="window.location.href='{{ url('/User/studentslist/view/'.$student->id) }}'"style="font-size: 20px;" >ดูโปรไฟล์</a></p>
+                <div class="row justify-content-start">
+                    @foreach ($students as $student) 
+                    <div class="col-md-2 mt-3">
+                        <div class="card text-center">
+                            @if ($student->image)
+                                <img class="mx-auto mt-3" src="{{ Storage::url('image/profileuser/' . $student->image) }}" alt="{{ $student->firstname }} {{ $student->lastname }}" style="width:120px;height:120px;padding:10px; border-radius: 50%;">
+                            @else
+                                <img class="mx-auto mt-3" src="{{ asset('images/teamwork.png') }}" style="width: 120px; height: 120px;padding: 10px">
+                            @endif
+                            <h4 class="mt-3">{{ $student->firstname }} {{ $student->lastname }}</h4>
+                            <p>{{ $student->student_grp }}</p>
+                            <p><a class="btn btn-primary mt-2" onclick="window.location.href='{{ url('/User/studentslist/view/'.$student->id) }}'"style="font-size: 24px;" >ดูโปรไฟล์</a></p>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
+                {{ $students->links() }}
             </div>
-            @endforeach
-            {{ $students->links() }}
-            </div>
+
     </div>
    
     
@@ -292,48 +291,9 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title " id="exampleModalLabel">ประวัติข้อความ</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @foreach ($messages as $date => $groupedMessages)
-                    <table class="table caption-top ">
-                        <thead>
-                            <tr>
-                            <th scope="col"colspan="4"class="table-info">{{ $groupedMessages['date'] }}</th>
-                            </tr>
-                        </thead>
-                        @foreach ($groupedMessages['messages'] as $message)
-                            @if ($message->ID_student === Auth::user()->student_id)
-                            <tbody>
-                                <tr>
-                                <th>{{ $message->massage_name }}</th>
-                                <td>{{ $message->massage_cotent }}</td>
-                                <td>{{ $message->created_at->format('H:i:s') }}</td>
-                                </tr>
-                            </tbody>
-                            @endif
-                        @endforeach
-                    </table>
-                    @endforeach
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');
-    }
-    function openMassageModal() {
-        $('#MassageModal').modal('show');
     }
 </script>
 <script>

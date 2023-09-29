@@ -13,7 +13,7 @@
 <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -29,17 +29,17 @@
     </style>
   
     <div class="col-12 outset" style="background-color: #EFF4FF;">
-      <div class="col-12">
-        <div class="col-12 row">
-            <div class="col-1">
-            <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+        <div class="col-12">
+            <div class="col-12 row">
+                <div class="col-1">
+                <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                </div>
+                <div  class="col-11">
+                <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                </div>
             </div>
-            <div  class="col-11">
-              <h2  style="font-weight:bold; padding: 30px 0;margin:0px;">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
-            </div>
+            <hr class="mt-1" style="border: 2px solid #000">
         </div>
-        <hr class="mt-1" style="border: 2px solid #000">
-      </div>
     </div>
     
     <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
@@ -48,7 +48,7 @@
                 <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
-                <a href="/admin/home" class="textmenu"><h3 >หน้าข่าวประชาสัมพันธ์</h3></a>
+                <a href="/admin/home" class="textmenu"><h3>หน้าข่าวประชาสัมพันธ์</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('status') }}" class="textmenu"><h3>ปรับสถานะภาพนักศึกษา</h3></a>
@@ -101,7 +101,7 @@
         <hr class="mt-1" style="border: 1px solid #000">
         <form action="" method="GET" >
                 <label class="form-label" style="position: absolute;left:700px;top: 65px;">
-                    <select name="searchdata" class="form-select" style="font-size: 20px;">
+                    <select name="searchdata" class="form-select" style="font-size: 24px;">
                         <option value="all">ทั้งหมด</option>
                         <option value="graduatesem" >ปีการศึกษาที่จบ</option>
                         <option value="student_id" >รหัสนักศึกษา</option>
@@ -110,8 +110,8 @@
                         <option value="lastname">นามสกุล</option>
                     </select>
                     <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="font-size: 20px;position:relative;left:320px;top:-43px"/> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 20px;position: absolute;left:525px;top:1px;">ค้นหา</button>
+                        <input type="text" class="form-control" name="search" placeholder="ค้นหาบัณฑิต" style="font-size: 24px;position:relative;left:300px;top:-48px"/> 
+                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:525px;top:1px;">ค้นหา</button>
                     </div>
                 </label>
         </form>
@@ -132,6 +132,7 @@
                                         <tr>
                                             <th scope="col"class="text-center">ลำดับ</th>
                                             <th scope="col"class="text-center">ปีการศึกษาที่จบ</th>
+                                            <th scope="col"class="text-center">ภาคเรียนที่จบ</th>
                                             <th scope="col"class="text-center">รหัสนักศึกษา</th>
                                             <th scope="col"class="text-center">ชื่อ-นามสกุล</th> 
                                         </tr>
@@ -142,6 +143,11 @@
                                         <tr>
                                             <th scope="col"class="text-center">{{$i++}}</th>
                                             <td scope="col"class="text-center">{{$row->graduatesem}}</td>
+                                            @if($row->Term == '3')
+                                            <td scope="col"class="text-center">ฤดูร้อน</td>
+                                            @else
+                                            <td scope="col"class="text-center">{{$row->Term}}</td>
+                                            @endif
                                             <td scope="col"class="text-center">{{$row->student_id}}</td>
                                             <td scope="col"class="text-center">{{$row->firstname}} {{$row->lastname}}</td>
                                         </tr>
@@ -173,6 +179,23 @@
             });
 
             // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
             var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
             if (msg) {
                 alert(msg);

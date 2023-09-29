@@ -18,7 +18,7 @@ class LanguageSkillController extends Controller
         $speaking = $request->input('speaking');
         $reading = $request->input('reading');
         $writing = $request->input('writing');
-        language_skill::insert([
+       $language_skill = language_skill::insert([
             'ID_student'=>$ID_student,
             'language'=>$language,
             'listening'=>$listening,
@@ -27,7 +27,13 @@ class LanguageSkillController extends Controller
             'writing'=> $writing,
             'created_at'=>Carbon::now()
         ]);
-        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        if ($language_skill !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }
     }
     public function update(Request $request, $id) 
     { 
@@ -39,7 +45,7 @@ class LanguageSkillController extends Controller
             $reading = $request->input('reading');
             $writing = $request->input('writing');
             
-            language_skill::find($id)->update([
+            $language_skill = language_skill::find($id)->update([
                 'language'=>$language,
                 'listening'=>$listening,
                 'speaking'=>$speaking,
@@ -47,13 +53,25 @@ class LanguageSkillController extends Controller
                 'writing'=> $writing,
             ]);
             
-            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+            if ($language_skill !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert',"อัพเดตข้อมูลเรียบร้อย");  
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการอัพเดตข้อมูล');
+            }
         }
 
     }
     public function delete($id){
         
         $delete= language_skill::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }
 }

@@ -99,7 +99,7 @@
         width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
         max-width: 300px; /* ขนาดสูงสุดของการ์ด */
         margin-bottom: 10px;
-        font-size: 20px;
+        font-size: 24px;
     }
   </style>
  
@@ -112,8 +112,8 @@
     <form action="" method="GET" >
     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
       <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="font-size: 20px;position:relative;left:260px;top:1px" /> 
-        <button type="submit"  class="btn btn-primary" style="font-size: 20px; position: absolute;left:455px;top:1px;">ค้นหา</button>
+        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="font-size: 24px;position:relative;left:240px;top:1px" /> 
+        <button type="submit"  class="btn btn-primary" style="font-size: 24px; position: absolute;left:455px;top:1px;">ค้นหา</button>
       </div>
     </label>            
     </form>
@@ -140,11 +140,11 @@
                       @if ($eventDate)
                       <br>วันที่จัดกิจกรรม: {{ $eventDate->format('d') }}{{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}}
                       @else
-                      <p class="card-text"><br></p>
+                      <br>
                       @endif
                       </p>
                       <div class="d-flex justify-content-center">
-                          <button type="button" onclick="window.location.href='{{ url('/home/view/'.$row->id) }}'" class="btn btn-primary btn-lg" style="font-size: 20px;">รายละเอียด</button>
+                          <button type="button" onclick="window.location.href='{{ url('/home/view/'.$row->id) }}'" class="btn btn-primary btn-lg" style="font-size: 24px;">รายละเอียด</button>
                       </div>
                   </div>
               </div>

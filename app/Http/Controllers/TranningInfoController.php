@@ -17,7 +17,7 @@ class TranningInfoController extends Controller
         $Organize_name = $request->input('Organize_name');
         $startdate = $request->input('startdate');
         $enddate = $request->input('enddate');
-        Tranning_info::insert([
+        $Tranning_info =Tranning_info::insert([
             'ID_student'=>$ID_student,
             'Certi_name'=>$Certi_name,
             'Organize_name'=>$Organize_name,
@@ -25,8 +25,13 @@ class TranningInfoController extends Controller
             'enddate'=>$enddate,
             'created_at'=>Carbon::now()
         ]);
-
-        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        if ($Tranning_info !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }
     }
 
     public function update(Request $request, $id) 
@@ -38,20 +43,31 @@ class TranningInfoController extends Controller
             $startdate = $request->input('startdate');
             $enddate = $request->input('enddate');
             
-            Tranning_info::find($id)->update([
+            $Tranning_info = Tranning_info::find($id)->update([
                 'Certi_name'=>$Certi_name,
                 'Organize_name'=>$Organize_name,
                 'startdate'=>$startdate,
                 'enddate'=>$enddate,
             ]);
-            
-            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+            if ($Tranning_info !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            }
         }
 
     }
     public function delete($id){
         
         $delete= Tranning_info::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }
 }

@@ -50,7 +50,7 @@ class RewardController extends Controller
                 break;    
         }
     }
-        $reward = $query->paginate(3);
+        $reward = $query->orderBy('year', 'desc')->paginate(3);
         return view('Admin.reward.reward',compact('reward'));
     }
     public function savereward()
@@ -86,7 +86,7 @@ class RewardController extends Controller
             ]
         );
         
-        reward::insert([
+        $reward = reward::insert([
             'student_id'=>$request->student_id,
             'firstname'=>$request->firstname,
             'lastname'=>$request->lastname,
@@ -97,8 +97,13 @@ class RewardController extends Controller
             'reward_type'=>$request->reward_type,
             'created_at'=>Carbon::now()
         ]);
-
-        return redirect()->route('reward')->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        if ($reward !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->route('reward')->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->route('reward')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }
     }
     public function update(Request $request, $id){
         $request->validate(
@@ -126,16 +131,28 @@ class RewardController extends Controller
 
         if ($request->isMethod('post')) {
             $reward = $request->all();
-            reward::where(['id'=>$id])->update(['student_id'=>$reward['student_id'],'firstname'=>$reward['firstname'],
+            $reward = reward::where(['id'=>$id])->update(['student_id'=>$reward['student_id'],'firstname'=>$reward['firstname'],
             'lastname'=>$reward['lastname'],'year'=>$reward['year'],
             'organizer'=>$reward['organizer'],'award_name'=>$reward['award_name'],
             'amount'=>$reward['amount'],'reward_type'=>$reward['reward_type']]);
-            return redirect()->route('reward')->with('alert',"แก้ไขข้อมูลเรียบร้อย");
+            if ($reward !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->route('reward')->with('alert',"บันทึกข้อมูลเรียบร้อย");
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->route('reward')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            }
         }
     }
         public function delete($id){
         //ลบข้อมูลฐาน
         $delete= reward::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     } 
 }

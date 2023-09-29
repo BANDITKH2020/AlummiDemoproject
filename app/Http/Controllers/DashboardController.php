@@ -45,18 +45,21 @@ class DashboardController extends Controller
         $counttwo = Contart_info::where('attention', 'like', '%อบรมให้ความรู้วิชาการ%')->count();
         $countthree = Contart_info::where('attention', 'like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')->count();
         $countfour = Contart_info::where('attention', 'like', '%กิจกรรมศิษย์เก่าสัมพันธ์%')->count();
-        $countOthers = Contart_info::where(function ($query) {
+        $countOthers = Contart_info::whereNotNull('attention')
+        ->where(function ($query) {
             $query->where('attention', 'not like', '%งานพบประสังสรรค์ประจำปี%')
-                  ->where('attention', 'not like', '%อบรมให้ความรู้วิชาการ%')
-                  ->where('attention', 'not like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')
-                  ->where('attention', 'not like', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
-        })->count();
+                ->orWhere('attention', 'not like', '%อบรมให้ความรู้วิชาการ%')
+                ->orWhere('attention', 'not like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')
+                ->orWhere('attention', 'not like', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
+        })
+        ->count();
         $totalCount = Contart_info::count();
         $percentageOne = $totalCount === 0 ? null : intval(($countone / $totalCount) * 100);
         $percentageTwo = $totalCount === 0 ? null : intval(($counttwo / $totalCount) * 100);
         $percentageThree = $totalCount === 0 ? null : intval(($countthree / $totalCount) * 100);
         $percentageFour = $totalCount === 0 ? null : intval(($countfour / $totalCount) * 100);
         $percentageOthers = $totalCount === 0 ? null : intval(($countOthers / $totalCount) * 100);
+        
         
         
         return view('Admin.dashboard.dashboard',compact('user','educational_status','inactiveUserCount','monthlyCounts'

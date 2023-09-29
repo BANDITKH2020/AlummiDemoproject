@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,13 +23,14 @@ class RegisterAdminController extends Controller
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]
         );
-        User::create([
+        $user = User::create([
             'firstname' => $request->firstname,
             'lastname'=> 'null',
             'student_id'=> 'Admin',
             'student_grp'=> 'Admin',
             'graduatesem'=> 'null',
-            'inviteby'=> 'Admin',
+            'Term'=> 'null',
+            'inviteby'=> Auth::user()->firstname .' '.Auth::user()->lastname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'google_id' => 'Admin',
@@ -36,7 +38,14 @@ class RegisterAdminController extends Controller
             'groupleader'=> 'Admin',
             'educational_status'=> 'Admin',
         ]);
-        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        if ($user->wasRecentlyCreated !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        } 
+        
 
     }
     public function registerTeacher()
@@ -57,20 +66,28 @@ class RegisterAdminController extends Controller
         while (User::where('student_id', 'S' . $randomStudentID)->exists()) {
             $randomStudentID = rand(10000, 99999);
         }
-        User::create([
+        
+        $user = User::create([
             'firstname' => $request->firstname,
             'lastname'=> $request->lastname,
             'student_id'=> 'S' . $randomStudentID,
-            'student_grp'=> 'teacher',
+            'student_grp'=> 'อาจารย์',
             'graduatesem'=> 'teacher',
-            'inviteby'=> 'teacher',
+            'Term'=> 'teacher',
+            'inviteby'=> Auth::user()->firstname .' '.Auth::user()->lastname,
             'email' => $request->email,
             'google_id' => 'null',
             'role_acc' => 'teacher',
             'groupleader'=> 'ไม่เป็นหัวหน้า',
             'educational_status'=> 'teacher',
         ]);
-        return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        if ($user->wasRecentlyCreated !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }
 
     }
 }

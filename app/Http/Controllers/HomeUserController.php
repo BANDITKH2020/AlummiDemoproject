@@ -79,5 +79,20 @@ class HomeUserController extends Controller
         $department = department::where('ID', 1)->first();
         return view('users.view',compact('view','contactInfo','surveylink','department','messages'));
     }
-   
+
+    public function viewmassege()
+    {
+        $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
+            return $message->created_at->format('Y-m-d'); // แยกตามวันที่
+        });
+        $messages = $messages->map(function ($groupedMessages, $date) {
+            $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
+            return ['date' => $thaiDate,'messages' => $groupedMessages];
+        });
+        $surveylink = Surveylink::query()->latest()->first();
+        $id = Auth::user()->student_id;
+        $contactInfo = Contart_info::where('ID_student', $id)->first();
+        $department = department::where('ID', 1)->first();
+        return view('users.viewmassege',compact('contactInfo','surveylink','department','messages'));
+    }
 }

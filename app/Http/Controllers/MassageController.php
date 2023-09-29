@@ -24,7 +24,7 @@ class MassageController extends Controller
             $filePath = $file->store('massage_files', 'public');
     
             // บันทึกข้อมูลลงในฐานข้อมูล
-            Massage::insert([
+            $Massage = Massage::insert([
                 'ID_student' => $ID_student,
                 'firstname' => $firstname,
                 'lastname' => $lastname,
@@ -34,11 +34,16 @@ class MassageController extends Controller
                 // เก็บเส้นทางไฟล์ลงในฐานข้อมูล
                 'created_at' => Carbon::now(),
             ]);
-    
-            return redirect()->back()->with('alert', 'ส่งข้อมูลเรียบร้อย');
+            if ($Massage !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', 'ส่งข้อมูลเรียบร้อย');
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการส่งข้อมูลเรียบร้อย');
+            }
         } else {
             // กรณีไม่มีการอัปโหลดไฟล์
-            Massage::insert([
+            $Massage = Massage::insert([
                 'ID_student' => $ID_student,
                 'firstname' => $firstname,
                 'lastname' => $lastname,
@@ -48,7 +53,13 @@ class MassageController extends Controller
                 
                 'created_at' => Carbon::now(),
             ]);
-            return redirect()->back()->with('alert', 'ส่งข้อมูลเรียบร้อย');
+            if ($Massage !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', 'ส่งข้อมูลเรียบร้อย');
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการส่งข้อมูลเรียบร้อย');
+            }
         }
     }
     

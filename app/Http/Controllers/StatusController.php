@@ -55,19 +55,34 @@ class StatusController extends Controller
         $request->validate(
             [
                 'graduatesem' => 'required',
+                'Term'=>'required'
             ], 
             [
-                'graduatesem.required'=>"กรุณาป้อนชื่อผู้ใช้",
+                'graduatesem.required'=>"กรุณาป้อนปีการศึกษาที่จบ",
+                'Term.required'=>"กรุณาป้อนภาคเรียน"
             ]
         );
         $selectedIds = explode(',', $request->input('selectedIds')); // แปลงเป็นแอร์เรย์
         $graduatesem = $request->input('graduatesem');
+        $Term = $request->input('Term');
         
-        
-        User::whereIn('id', $selectedIds)
+        $user = User::whereIn('id', $selectedIds)
         ->update(['graduatesem' => $graduatesem,
-        'educational_status' => 'จบการศึกษา']);
-
-        return redirect()->back()->with('alert', 'ปรับสถานะสำเร็จ');
+        'educational_status' => 'จบการศึกษา','Term' => $Term]);
+        if ($user === 0) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการปรับสถานะภาพ');
+            
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('alert', 'ปรับสถานะสำเร็จ');
+        }
+        if ($user !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ปรับสถานะสำเร็จ');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการปรับสถานะภาพ');
+        }
     }
 }

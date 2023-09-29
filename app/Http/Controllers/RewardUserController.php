@@ -55,18 +55,11 @@ class RewardUserController extends Controller
                 break;    
         }
     }
-        $reward = $query->paginate(3);
+        $reward = $query->orderBy('year', 'desc')->paginate(3);
         $surveylink = Surveylink::query()->latest()->first();
-        $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
-            return $message->created_at->format('Y-m-d'); // แยกตามวันที่
-        });
-        $messages = $messages->map(function ($groupedMessages, $date) {
-            $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
-            return ['date' => $thaiDate,'messages' => $groupedMessages];
-        });
         $department = department::where('ID', 1)->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
-        return view('users.reward',compact('reward','surveylink','messages','department','contactInfo'));
+        return view('users.reward',compact('reward','surveylink','department','contactInfo'));
     }
 }

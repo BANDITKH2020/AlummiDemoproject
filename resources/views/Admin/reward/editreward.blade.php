@@ -13,7 +13,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
         }
         a:link {
                 color: black;
@@ -130,10 +130,10 @@
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4" style="margin-right: 15px;">รหัสนักศึกษา</h4>
-                <input type="text" style="font-size: 20px;"class="form-control" name="student_id" aria-label="student_id" aria-describedby="basic-addon1" value="{{$reward->student_id}}">
+                <input type="text" style="font-size: 24px;"class="form-control" name="student_id" aria-label="student_id" aria-describedby="basic-addon1" value="{{$reward->student_id}}">
                 @error('student_id')
                     <div>
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
             </div>
@@ -141,27 +141,27 @@
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">ชื่อ</h4>
-                <input type="text" style="font-size: 20px;"class="form-control" name="firstname" aria-label="firstname" aria-describedby="basic-addon1"value="{{$reward->firstname}}">
+                <input type="text" style="font-size: 24px;"class="form-control" name="firstname" aria-label="firstname" aria-describedby="basic-addon1"value="{{$reward->firstname}}">
                 @error('firstname')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
             </div>
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">นามสกุล</h4>
-                <input type="text" style="font-size: 20px;"class="form-control" name="lastname" aria-label="lastname" aria-describedby="basic-addon1" value="{{$reward->lastname}}">
+                <input type="text" style="font-size: 24px;"class="form-control" name="lastname" aria-label="lastname" aria-describedby="basic-addon1" value="{{$reward->lastname}}">
                 @error('lastname')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
             </div>
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">ปีการศึกษาที่จบ</h4>
-                <select class="form-select" name="year" onchange="resultName(this.value);"style="font-size: 20px;" >
+                <select class="form-select" name="year" onchange="resultName(this.value);"style="font-size: 24px;" >
                     <option value="{{$reward->year}}">-</option>
                     <?php
                     $selectedYear = isset($_GET['YearsSelect']) ? $_GET['YearsSelect'] : ""; // เก็บค่าปีที่ถูกเลือกจาก URL parameter
@@ -175,37 +175,37 @@
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">ผู้จัด</h4>
-                <input type="text" style="font-size: 20px;" class="form-control" name="organizer" aria-label="organizer" aria-describedby="basic-addon1" value="{{$reward->organizer}}" >
+                <input type="text" style="font-size: 24px;" class="form-control" name="organizer" aria-label="organizer" aria-describedby="basic-addon1" value="{{$reward->organizer}}" >
                 @error('organizer')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
             </div>
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">ชื่อทุน/รางวัล</h4>
-                <input type="text" style="font-size: 20px;"class="form-control" name="award_name" aria-label="award_name" aria-describedby="basic-addon1" value="{{$reward->award_name}}">
+                <input type="text" style="font-size: 24px;"class="form-control" name="award_name" aria-label="award_name" aria-describedby="basic-addon1" value="{{$reward->award_name}}">
                 @error('award_name')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
             </div>
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">มูลค่าทุน/อันดับ</h4>
-                <input type="text"style="font-size: 20px;" class="form-control" name="amount" aria-label="amount" aria-describedby="basic-addon1" value="{{$reward->amount}}">
+                <input type="text"style="font-size: 24px;" class="form-control" name="amount" aria-label="amount" aria-describedby="basic-addon1" value="{{$reward->amount}}">
                 @error('amount')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
             </div>  
             <br>
             <div style="display: flex; align-items: center;">
                 <h4 class="texth4"style="margin-right: 15px;">ประเภทรางวัล</h4>
-                <select name="reward_type" class="form-select"style="font-size: 20px;" >
+                <select name="reward_type" class="form-select"style="font-size: 24px;" >
                     @if($reward->reward_type == 'รางวัล' )
                     <option value="รางวัล">รางวัล</option>
                     <option value="ทุนการศึกษา" >ทุนการศึกษา</option>
@@ -217,8 +217,8 @@
                 </select>
             </div>   
                 <br>
-                <button class="btn btn-primary" style="font-size: 20px;position: absolute;left:500px;">บันทึก</button>
-                <a href="{{ route('reward') }}" class="btn" style="font-size: 20px;background-color:#dc3545; color: white; position: absolute;left:600px; ">ยกเลิก</a>
+                <button class="btn btn-primary" style="font-size: 24px;position: absolute;left:500px;">บันทึก</button>
+                <a href="{{ route('reward') }}" class="btn" style="font-size: 24px;background-color:#dc3545; color: white; position: absolute;left:600px; ">ยกเลิก</a>
         </div>
          
     </form>
@@ -245,5 +245,22 @@
             }
         </script>
         @endif   
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
 </body>
 </html>

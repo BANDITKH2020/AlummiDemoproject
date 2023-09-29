@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Mail;
 class surveylinkController extends Controller
 {
     public function index(){
-        $surveylink = Surveylink::paginate(3);
+        $surveylink = Surveylink::orderBy('graduatedyear', 'desc')->paginate(3);
+
         return view('admin.link.index',compact('surveylink'));
     }
     public function search(Request $request){
@@ -61,19 +62,32 @@ class surveylinkController extends Controller
         } else {
             return redirect()->route('links')->with('alert', "บันทึกข้อมูลเรียบร้อย");
         }
+
     }
     
     public function update(Request $request, $id){
         if ($request->isMethod('post')) {
             $surveylink = $request->all();
-            Surveylink::where(['id'=>$id])->update(['graduatedyear'=>$surveylink['graduatedyear'],'link'=>$surveylink['link']]);
-            return redirect()->route('links')->with('alert',"บันทึกข้อมูลเรียบร้อย");  
+            $surveylink = Surveylink::where(['id'=>$id])->update(['graduatedyear'=>$surveylink['graduatedyear'],'link'=>$surveylink['link']]);
+            if ($surveylink !== false) {
+                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+                return redirect()->back()->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+            } else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            }
         }
     }
     public function delete($id){
         //ลบข้อมูลฐาน
         $delete= Surveylink::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }
 
 }

@@ -12,7 +12,7 @@
     <style>
         body {
             font-family:'TH Niramit AS';
-            font-size: 20px;
+            font-size: 24px;
         }
         a:link {
             color: black;
@@ -26,7 +26,7 @@
             font-weight: bold;
         }
         p{
-            font-size: 20px;
+            font-size: 24px;
         }
     </style>
   
@@ -107,17 +107,17 @@
             <div class="card mb-4" style="max-width: 640px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="{{ asset('images/imagephoto.png') }}" class="img-fluid rounded-start" alt="...">
+                        <img src="{{ asset('images/imagephoto.png') }}" style="height: 190px;width: 220px;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <p class="card-text">อัพโหลดรูปภาพปก</p>
                                 <p class="card-text">ชนิดของไฟล์ JPEG,PNG และ SVG</p>
                                 <div class="input-group">
-                                    <input type="file" style="font-size: 20px;"class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <input type="file" style="font-size: 24px;"class="form-control" name="title_image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     @error('title_name')
                                     <div class="my-2">
-                                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                                     </div>
                                     @enderror
                                    
@@ -131,22 +131,22 @@
         </div>
         <div class="col-4" style="padding: 15px; position: absolute;left:500px;top: 480px;">
                 <h2>หัวข้อข่าวสาร</h2>
-                <input type="text" style="font-size: 20px;" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
+                <input type="text" style="font-size: 24px;" class="form-control" name="title_name" aria-label="title_name" aria-describedby="basic-addon1"><br>
                 @error('title_name')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
                 <h2>เนื้อหาข่าวสาร</h2>
-                <textarea type="text" style="font-size: 20px;"name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea"></textarea>
+                <textarea type="text" style="font-size: 24px;"name="cotent" rows="5" cols="35" class="form-control" aria-label="With textarea"></textarea>
                 @error('cotent')
                     <div class="my-2">
-                        <span class="text-danger"style="font-size: 20px;">{{$message}}</span>
+                        <span class="text-danger"style="font-size: 24px;">{{$message}}</span>
                     </div>
                 @enderror
                 <br>
-                <button class="btn btn-primary" style="font-size: 20px;position: absolute;left:200px;">บันทึก</button>
-                <button type="button" class="btn btn-danger" style="font-size: 20px;position: absolute;left:300px;" onclick="window.location.href='{{route('news')}}'">{{ __('ย้อนกลับ') }}</button>
+                <button class="btn btn-primary" style="font-size: 24px;position: absolute;left:200px;">บันทึก</button>
+                <button type="button" class="btn btn-danger" style="font-size: 24px;position: absolute;left:300px;" onclick="window.location.href='{{route('news')}}'">{{ __('ย้อนกลับ') }}</button>
         </div>
         <style>
         .my-swal-title {
@@ -165,6 +165,23 @@
             });
 
             // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+        </script>
+        @endif
+        @if(Session::has('error'))
+        <script>
+            swal({
+                title: "{{ Session::get('error') }}",
+                icon: "error",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (error) ด้วย JavaScript โดยใช้ค่าจาก Controller
             var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
             if (msg) {
                 alert(msg);

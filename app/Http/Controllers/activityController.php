@@ -45,172 +45,127 @@ class activityController extends Controller
         return view('admin.activity.saveactivity');
     }
     public function store(Request $request){
-        //ตรวจสอบข้อมูล
-        $request->validate(
-            [
-                'title_name'=>'required',
-                'cotent'=>'required',
-                'title_image'=>'required|mimes:jpg,jpeg,png',
-                'objective'=>'required',
-                'category'=>'required',
-                'event_date'=>'required',
-                
-            ],
-            [
-                'title_name.required'=>"กรุณาป้อนชื่อหัวข้อกิจกรรมครับ",
-                'cotent.required'=>"กรุณาป้อนเนื้อหากิจกรรมครับ",
-                'objective.required'=>"กรุณาป้อนเนื้อหาวัตถุประสงค์ครับ",
-                'title_image.required'=>"กรุณาใส่ภาพประกอบกิจกรรมครับ", 
-                'title_image.mimes'=>"กรุณาไฟล์ภาพเป็น jpg, jpeg, png ครับ", 
-                'category.required'=>"กรุณาเลือกประเภทกิจกรรมครับ", 
-                'event_date.required'=>"กรุณาใส่วันที่จัดกิจกรรมครับ",
-            ]
-           
-        );
-        $title_image = $request->file('title_image');
-        //generate ชื่อภาพ
-        $name_gen = hexdec(uniqid());
-
-        //ดึ่งนามสกุลไฟล์ภาพ
-        $img_ext = strtolower($title_image->getClientOriginalExtension());
-        $img_name = $name_gen.'.'.$img_ext;
+        // Validation
+        $request->validate([
+            'title_name' => 'required',
+            'cotent' => 'required',
+            'title_image' => 'required|mimes:jpg,jpeg,png',
+            'objective' => 'required',
+            'category' => 'required',
+            'event_date' => 'required|date', // Add validation for event_date
+        ], [
+            'title_name.required' => 'กรุณาป้อนชื่อหัวข้อกิจกรรมครับ',
+            'cotent.required' => 'กรุณาป้อนเนื้อหากิจกรรมครับ',
+            'objective.required' => 'กรุณาป้อนเนื้อหาวัตถุประสงค์ครับ',
+            'title_image.required' => 'กรุณาใส่ภาพประกอบกิจกรรมครับ', 
+            'title_image.mimes' => 'กรุณาไฟล์ภาพเป็น jpg, jpeg, png ครับ', 
+            'category.required' => 'กรุณาเลือกประเภทกิจกรรมครับ', 
+            'event_date.required' => 'กรุณาใส่วันที่จัดกิจกรรมครับ',
+            'event_date.date' => 'รูปแบบวันที่ไม่ถูกต้อง',
+        ]);
     
-        //บันทึกข้อมูล
+        // Generate image name and path
+        $title_image = $request->file('title_image');
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($title_image->getClientOriginalExtension());
+        $img_name = $name_gen . '.' . $img_ext;
         $upload_location = 'image/newsandactivity/';
-        $full_path = $upload_location.$img_name;
-        
-        $cotent_type='2';
-        $category = $request->category;
-            switch ($category) {
-                case '1':
-                    $category='งานพบประสังสรรค์ประจำปี';
-                    newsandactivity::insert([
-                        'title_name'=>$request->title_name,
-                        'cotent'=>$request->cotent,
-                        'title_image'=>$full_path,
-                        'category'=>$category,
-                        'objective'=>$request->objective,
-                        'cotent_type'=>$cotent_type,
-                        'event_date'=>$request->event_date,
-                        'created_at'=>Carbon::now()
-                    ]);
-                    break;
-                case '2':
-                    $category='อบรมให้ความรู้วิชาการ';
-                    newsandactivity::insert([
-                        'title_name'=>$request->title_name,
-                        'cotent'=>$request->cotent,
-                        'title_image'=>$full_path,
-                        'category'=>$category,
-                        'objective'=>$request->objective,
-                        'cotent_type'=>$cotent_type,
-                        'event_date'=>$request->event_date,
-                        'created_at'=>Carbon::now()
-                    ]);
-                    break;
-                case '3':
-                    $category='งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์';
-                    newsandactivity::insert([
-                        'title_name'=>$request->title_name,
-                        'cotent'=>$request->cotent,
-                        'title_image'=>$full_path,
-                        'category'=>$category,
-                        'objective'=>$request->objective,
-                        'cotent_type'=>$cotent_type,
-                        'event_date'=>$request->event_date,
-                        'created_at'=>Carbon::now()
-                    ]);
-                    break;
-                case '4':
-                        $category='กิจกรรมศิษย์เก่าสัมพันธ์';
-                        newsandactivity::insert([
-                            'title_name'=>$request->title_name,
-                            'cotent'=>$request->cotent,
-                            'title_image'=>$full_path,
-                            'category'=>$category,
-                            'objective'=>$request->objective,
-                            'cotent_type'=>$cotent_type,
-                            'event_date'=>$request->event_date,
-                            'created_at'=>Carbon::now()
-                        ]);
-                        break;
-                case '5':
-                    newsandactivity::insert([
-                        'title_name'=>$request->title_name,
-                        'cotent'=>$request->cotent,
-                        'title_image'=>$full_path,
-                        'category'=>$request->categoryall,
-                        'objective'=>$request->objective,
-                        'cotent_type'=>$cotent_type,
-                        'event_date'=>$request->event_date,
-                        'created_at'=>Carbon::now()
-                    ]);
-                    break;
-            }
-        
+        $full_path = $upload_location . $img_name;
+    
+        // Determine category based on user selection
+        $category = '';
+        switch ($request->category) {
+            case '1':
+                $category = 'งานพบประสังสรรค์ประจำปี';
+                break;
+            case '2':
+                $category = 'อบรมให้ความรู้วิชาการ';
+                break;
+            case '3':
+                $category = 'งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์';
+                break;
+            case '4':
+                $category = 'กิจกรรมศิษย์เก่าสัมพันธ์';
+                break;
+            case '5':
+                $category = $request->categoryall;
+                break;
+        }
+    
+        // Insert the activity
+        $cotent_type = '2';
+        $activity = new newsandactivity();
+        $activity->title_name = $request->title_name;
+        $activity->cotent = $request->cotent;
+        $activity->title_image = $full_path;
+        $activity->category = $category;
+        $activity->objective = $request->objective;
+        $activity->cotent_type = $cotent_type;
+        $activity->event_date = $request->event_date;
+        $activity->created_at = Carbon::now();
+        $activity->save();
         $title_image->move($upload_location,$img_name);
-        return redirect()->route('activitys')->with('alert',"บันทึกข้อมูลเรียบร้อย"); 
+         
+        if ($activity) {
+            return redirect()->route('activitys')->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+        } else {
+            return redirect()->route('activitys')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        }
     }
     public function edit($id){
         $activity = newsandactivity::find($id);
         return view('admin.activity.editactivity',compact('activity'));
     }
 
-    public function update(Request $request, $id){
-        $request->validate(
-            [
-                'title_name'=>'required',
-                'cotent'=>'required',
-                'objective'=>'required',
-            ],
-            [
-                'title_name.required'=>"กรุณาป้อนชื่อหัวข้อกิจกรรมครับ",
-                'cotent.required'=>"กรุณาป้อนเนื้อหากิจกรรมครับ",
-                'objective.required'=>"กรุณาป้อนเนื้อหาวัตถุประสงค์ครับ",
-                
-            ]
-        );
-        $title_image = $request->file('title_image');
-        //อัพเดตภาพและชื่อ
-        if($title_image){
-            $name_gen = hexdec(uniqid());
-
-            //ดึ่งนามสกุลไฟล์ภาพ
-            $img_ext = strtolower($title_image->getClientOriginalExtension());
-            $img_name = $name_gen.'.'.$img_ext;
-        
-            //บันทึกข้อมูล
-            $upload_location = 'image/newsandactivity/';
-            $full_path = $upload_location.$img_name;
-
-            
-            //อัพเดตข้อมูล
-            newsandactivity::find($id)->update([
-                'title_name'=>$request->title_name,
-                'cotent'=>$request->cotent,
-                'objective'=>$request->objective,
-                'title_image'=>$full_path,
-                'event_date'=>$request->event_date,
-            ]);
-
-            //ลบภาพเก่าแทนภาพใหม่
-            $old_image = $request->old_image;
-            unlink($old_image);
-            $title_image->move($upload_location,$img_name);
-            return redirect()->route('activitys')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
+    public function update(Request $request, $id) {
+        $request->validate([
+            'title_name' => 'required',
+            'cotent' => 'required',
+            'objective' => 'required',
+        ], [
+            'title_name.required' => 'กรุณาป้อนชื่อหัวข้อกิจกรรมครับ',
+            'cotent.required' => 'กรุณาป้อนเนื้อหากิจกรรมครับ',
+            'objective.required' => 'กรุณาป้อนเนื้อหาวัตถุประสงค์ครับ',
+        ]);
+        $activity = newsandactivity::find($id);
     
-        }else{
-           //อัพเดตชื่อ 
-           newsandactivity::find($id)->update([
-                'title_name'=>$request->title_name,
-                'cotent'=>$request->cotent,
-                'objective'=>$request->objective,
-                'event_date'=>$request->event_date,
-                
-            ]);
-            return redirect()->route('activitys')->with('alert',"อัพเดตข้อมูลเรียบร้อย");
+        if (!$activity) {
+            return redirect()->back()->with('error', 'ไม่พบข่าวที่คุณต้องการแก้ไข');
+        }
+    
+        // Check if a new image file is being uploaded
+        if ($request->hasFile('title_image')) {
+            $title_image = $request->file('title_image');
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($title_image->getClientOriginalExtension());
+            $img_name = $name_gen . '.' . $img_ext;
+            $upload_location = 'image/newsandactivity/';
+            $full_path = $upload_location . $img_name;
+    
+            // Delete the old image file if it exists
+            $img = newsandactivity::find($id)->title_image;
+            unlink($img);
+    
+            // Update data with new image path
+            $activity->title_name = $request->title_name;
+            $activity->cotent = $request->cotent;
+            $activity->objective = $request->objective;
+            $activity->title_image = $full_path;
+    
+            $title_image->move($upload_location, $img_name);
+        } else {
+            // Update data without changing the image
+            $activity->title_name = $request->title_name;
+            $activity->cotent = $request->cotent;
+            $activity->objective = $request->objective;
+        }
+        if ($activity->save()) {
+            return redirect()->route('news')->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+        } else {
+            return redirect()->route('news')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
         }
     }
+    
     public function delete($id){
         //ลบภาพ
         $img = newsandactivity::find($id)->title_image;
@@ -218,7 +173,13 @@ class activityController extends Controller
         
         //ลบข้อมูลฐาน
         $delete= newsandactivity::find($id)->delete();
-        return redirect()->back()->with('alert','ลบข้อมูลเรียบร้อย');
+        if ($delete !== false) {
+            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
+            return redirect()->back()->with('alert', 'ลบข้อมูลเรียบร้อย');
+        } else {
+            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
+        }
     }
     public function addImage(Request $request, $id)
     {

@@ -16,7 +16,7 @@
     <style>
         body {
                 font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -29,6 +29,9 @@
         }
         h2{
             font-weight: bold;
+        }
+        p{
+            font-size: 24px;
         }
     </style>
     <div class="col-12 outset" style="background-color: #EFF4FF;">
@@ -91,10 +94,8 @@
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a style="color: black;text-decoration: none;cursor: pointer;" onclick="openMassageModal()" class="textmenu"><h3>ประวัติการติดต่อ</h3></a>
+                <a href="{{ route('viewmassege') }}" class="textmenu"><h3>ประวัติการติดต่อ</h3></a>
                 @endif
-                
-                
             </div>
    
             <div class="col-10 mt-1" style="margin-left:50px">
@@ -154,8 +155,8 @@
     <label class="form-label" style="position: absolute;left:750px;top: 65px;">
 
       <div class="col-mb-2">
-        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="font-size: 20px; position:relative;left:290px;top:1px" required/>
-        <button type="submit"  class="btn btn-primary" style="font-size: 20px; position: absolute;left:475px;top:1px;">ค้นหา</button>
+        <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="font-size: 24px; position:relative;left:250px;top:1px" required/>
+        <button type="submit"  class="btn btn-primary" style="font-size: 24px; position: absolute;left:475px;top:1px;">ค้นหา</button>
       </div>
     </label>
     </form>
@@ -186,7 +187,7 @@
                           <p class="card-text"><br></p>
                       @endif
                       <div class="d-flex justify-content-center">
-                          <button type="button" onclick="window.location.href='{{ url('/users/homeuser/view/'.$row->id) }}'" class="btn btn-primary btn-lg" >รายละเอียด</button>
+                          <button type="button" style="font-size: 24px;" onclick="window.location.href='{{ url('/users/homeuser/view/'.$row->id) }}'" class="btn btn-primary btn-lg" >รายละเอียด</button>
                       </div>
                   </div>
               </div>
@@ -278,47 +279,9 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">ประวัติข้อความ</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @foreach ($messages as $date => $groupedMessages)
-                    <table class="table caption-top ">
-                        <thead>
-                            <tr>
-                            <th scope="col"colspan="4"class="table-info">{{ $groupedMessages['date'] }}</th>
-                            </tr>
-                        </thead>
-                        @foreach ($groupedMessages['messages'] as $message)
-                            @if ($message->ID_student === Auth::user()->student_id)
-                            <tbody>
-                                <tr>
-                                <th>{{ $message->massage_name }}</th>
-                                <td>{{ $message->massage_cotent }}</td>
-                                <td>{{ $message->created_at->format('H:i:s') }}</td>
-                                </tr>
-                            </tbody>
-                            @endif
-                        @endforeach
-                    </table>
-                    @endforeach
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');
-    }
-    function openMassageModal() {
-        $('#MassageModal').modal('show');
     }
 </script>
 <script>

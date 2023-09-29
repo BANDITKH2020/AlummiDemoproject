@@ -49,9 +49,11 @@ class graduateController extends Controller
         }
         
         $users = $query
-            ->select('student_id', 'firstname', 'lastname', 'graduatesem')
+            ->select('student_id', 'firstname', 'lastname', 'graduatesem','Term')
             ->where('role_acc', 'student')
             ->where('educational_status', 'จบการศึกษา')
+            ->orderBy('graduatesem', 'desc')
+            ->orderBy('student_id', 'asc')
             ->paginate(10);
         
         return view('Admin.graduate.graduate', compact('users'));
@@ -93,9 +95,11 @@ class graduateController extends Controller
         }
         
         $users = $query
-            ->select('student_id', 'firstname', 'lastname', 'graduatesem')
+            ->select('student_id', 'firstname', 'lastname', 'graduatesem','Term')
             ->where('role_acc', 'student')
             ->where('educational_status', 'จบการศึกษา')
+            ->orderBy('graduatesem', 'desc')
+            ->orderBy('student_id', 'asc')
             ->paginate(10);
         $surveylink = Surveylink::query()->first();
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {

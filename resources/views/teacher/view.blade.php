@@ -16,7 +16,7 @@
     <style>
         body {
             font-family:'TH Niramit AS';
-                font-size: 20px;
+                font-size: 24px;
               }
         a:link {
                 color: black;
@@ -170,27 +170,27 @@
         <div class="centered-container mt-3">
             <img src="{{ asset($view->title_image) }}" class="centered-image img-fluid rounded-start" alt="Image" onclick="openModal('{{ asset($view->title_image) }}')">
         </div>
-        <div class="indented-text  mt-3 my-3">
-            <p style="font-size: 24px;">{{$view->cotent}}</p>
+        <div class="mt-3 my-3">
+            <p style="font-size: 24px;text-indent:80px;">{{$view->cotent}}</p>
         </div>
         <p>ประเภทเนื้อหา: {{$view->category}}</p>
         @if ($view->objective) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->objective == '-') <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                <p style="font-size: 20px;" class="card-text"></p>
+                <p style="font-size: 24px;" class="card-text"></p>
             @else
-                <p style="font-size: 20px;" >{{$view->objective}}</p>
+                <p style="font-size: 24px;" >{{$view->objective}}</p>
             @endif
         @endif
         @if ($view->cotent_type) <!-- ตรวจสอบว่า event_date ไม่ว่างเปล่า -->
             @if ($view->cotent_type == 2) <!-- ตรวจสอบว่า event_date เป็น 1 -->
-                <p class="card-text" style="font-size: 20px;">วันที่จัดกิจกรรม: 
+                <p class="card-text" style="font-size: 24px;">วันที่จัดกิจกรรม: 
                 {{ Carbon\Carbon::parse($view->event_date)->format('d-m-Y') }}
                 </p>
             @else
                 <p class="card-text"></p>
             @endif
         @endif
-        <p style="font-size: 20px;">วันที่ลงเนื้อหา: {{$view->created_at->format('d-m-Y')}}</p>
+        <p style="font-size: 24px;">วันที่ลงเนื้อหา: {{$view->created_at->format('d-m-Y')}}</p>
         <div class="row">
             
             @if($view->images->count() > 0)
@@ -206,7 +206,7 @@
             @endif
         </div>
         <div class="d-flex justify-content-center">
-            <a href="{{ url('/users/homeuser') }}" class="return"><iconify-icon icon="ic:baseline-assignment-return"></iconify-icon></a>
+            <a href="{{ url('/users/hometeacher') }}" class="return"><iconify-icon icon="ic:baseline-assignment-return"></iconify-icon></a>
         </div>
     </div>
     <div id="imageModal" class="modal">
@@ -214,43 +214,7 @@
     <img src="" class="modal-content" id="modalImage">
     </div>
    
-
-    </script>
-    <div class="modal fade" id="MassageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title " id="exampleModalLabel">ประวัติข้อความ</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @foreach ($messages as $date => $groupedMessages)
-                    <table class="table caption-top ">
-                        <thead>
-                            <tr>
-                            <th scope="col"colspan="4"class="table-info">{{ $groupedMessages['date'] }}</th>
-                            </tr>
-                        </thead>
-                        @foreach ($groupedMessages['messages'] as $message)
-                            @if ($message->ID_student === Auth::user()->student_id)
-                            <tbody>
-                                <tr>
-                                <th>{{ $message->massage_name }}</th>
-                                <td>{{ $message->massage_cotent }}</td>
-                                <td>{{ $message->created_at->format('H:i:s') }}</td>
-                                </tr>
-                            </tbody>
-                            @endif
-                        @endforeach
-                    </table>
-                    @endforeach
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     
   
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
