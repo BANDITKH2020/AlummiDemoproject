@@ -25,6 +25,7 @@ class TeachersetController extends Controller
     }
     public function store(Request $request)
     {
+        
         $student_id = Auth::user()->student_id;
 
         // ตรวจสอบว่ามีข้อมูลด้วย student_id หรือไม่
@@ -51,7 +52,7 @@ class TeachersetController extends Controller
     public function updateExistingContact($existingContact, $request)
     {
         
-        $image = $request->file('image');
+        $image = $request->file('image_profile');
         $prefix = $request->input('prefix');
         $email = $request->input('email');
         $Line = $request->input('Line');
@@ -102,8 +103,8 @@ class TeachersetController extends Controller
     public function createNewContact($id, Request $request)
     { 
         // ตรวจสอบว่ามีไฟล์รูปถูกส่งมาหรือไม่
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
+        if ($request->hasFile('image_profile')) {
+            $image = $request->file('image_profile');
             $prefix = $request->input('prefix');
             $email = $request->input('email');
             $Line = $request->input('Line');

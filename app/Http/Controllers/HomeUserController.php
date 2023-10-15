@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\add_fileMassage;
 use App\Models\Contart_info;
 use App\Models\department;
 use App\Models\LoginHistory;
@@ -27,35 +28,47 @@ class HomeUserController extends Controller
             );
             
         }
-        /*$userLoginHistory = LoginHistory::where('user_id', $user->id)->first();
+        $userLoginHistory = LoginHistory::where('user_id', $user->id)->first();
             if ($userLoginHistory) {
                 $userLoginHistory->update(['login_at' => now()]);
-            }*/
+            }
         $query = newsandactivity::query();
-        $search = $request->input('search');
-        $gender = $request->gender;
-
-    // Apply search filters
-   
-        $query->where('title_name', 'LIKE', "%{$search}%")
-        ->orWhere('category', 'LIKE', "%{$search}%")
-        ->orWhere('created_at', 'LIKE', "%{$search}%");
-       
+        $searchdata = $request->searchdata;
+            switch ($searchdata) {
+                case 'all':
+                    $query->where('category', 'LIKE', '%งานพบประสังสรรค์%')
+                        ->orWhere('category', 'LIKE', '%งานวิชาการ%')
+                        ->orWhere('category', 'LIKE', '%งานแข่งขันกีฬา%')
+                        ->orWhere('category', 'LIKE', '%กิจกรรมศิษย์เก่าสัมพันธ์%')
+                        ->orWhere('category', 'LIKE', '%ข่าวสาร%');
+                    break;
+                case 'งานพบประสังสรรค์ประจำปี':
+                    $query->where('category', 'LIKE', '%งานพบประสังสรรค์%');
+                    break;
+                case 'อบรมให้ความรู้วิชาการ':
+                    $query->where('category', 'LIKE', '%งานวิชาการ%');
+                    break;
+                case 'งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์':
+                    $query->where('category', 'LIKE','%งานแข่งขันกีฬา%');
+                    break; 
+                case 'กิจกรรมศิษย์เก่าสัมพันธ์':
+                    $query->where('category', 'LIKE', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
+                    break; 
+                case 'ข่าวสาร':
+                    $query->where('category', 'LIKE', '%ข่าวสาร%');
+                    break;        
+            }
+            
     
         $surveylink = Surveylink::query()->latest()->first();
-        $newsandactivity = $query->paginate(8);
+        $newsandactivity = $query->paginate(4);
         
-        $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
-            return $message->created_at->format('Y-m-d'); // แยกตามวันที่
-        });
-        $messages = $messages->map(function ($groupedMessages, $date) {
-            $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
-            return ['date' => $thaiDate,'messages' => $groupedMessages];
-        });
+        
+        
         $department = department::where('ID', 1)->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
-        return view('users.home', compact('newsandactivity','surveylink','messages','department','contactInfo'));
+        return view('users.home', compact('newsandactivity','surveylink','department','contactInfo'));
     }
     public function logout()
     {
@@ -66,33 +79,21 @@ class HomeUserController extends Controller
     public function view($id)
     {
         $view = newsandactivity::with('images')->find($id);
-        $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
-            return $message->created_at->format('Y-m-d'); // แยกตามวันที่
-        });
-        $messages = $messages->map(function ($groupedMessages, $date) {
-            $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
-            return ['date' => $thaiDate,'messages' => $groupedMessages];
-        });
         $surveylink = Surveylink::query()->latest()->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
         $department = department::where('ID', 1)->first();
-        return view('users.view',compact('view','contactInfo','surveylink','department','messages'));
+        return view('users.view',compact('view','contactInfo','surveylink','department'));
     }
 
     public function viewmassege()
-    {
-        $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
-            return $message->created_at->format('Y-m-d'); // แยกตามวันที่
-        });
-        $messages = $messages->map(function ($groupedMessages, $date) {
-            $thaiDate = Carbon::parse($date)->addYears(543)->locale('th')->isoFormat('LL');
-            return ['date' => $thaiDate,'messages' => $groupedMessages];
-        });
-        $surveylink = Surveylink::query()->latest()->first();
+    {   
         $id = Auth::user()->student_id;
+        $fileMassage = add_fileMassage::query()->paginate(8);
+        $messages = Massage::where('ID_student', $id)->orderBy('created_at', 'desc')->paginate(8);
+        $surveylink = Surveylink::query()->latest()->first();
         $contactInfo = Contart_info::where('ID_student', $id)->first();
         $department = department::where('ID', 1)->first();
-        return view('users.viewmassege',compact('contactInfo','surveylink','department','messages'));
+        return view('users.viewmassege',compact('contactInfo','surveylink','department','messages','fileMassage'));
     }
 }

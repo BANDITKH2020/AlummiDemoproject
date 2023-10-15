@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\add_fileMassage;
 use App\Models\Massage;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,9 +57,10 @@ class MassageAdminController extends Controller
                     break;
             }
         }
-        
-        $messages = $queryMassage->paginate(10);
-        return view('Admin.massege.massege',compact('messages'));
+        $messages = $queryMassage->orderBy('created_at', 'desc')->paginate(8);
+        $fileMassage = add_fileMassage::query()->paginate(8);
+        $users = User::query()->paginate(8);
+        return view('Admin.massege.massege',compact('messages','fileMassage','users'));
     }
     public function readmassege($id, Request $request)
     { 

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Mail\RMUTT_Alumni;
+use App\Mail\link_Alumni;
+use App\Mail\Update_link_Alumni;
 use App\Models\Surveylink;
 use App\Models\User;
 use Carbon\Carbon;
@@ -46,21 +47,33 @@ class surveylinkController extends Controller
         ]);
 
         $sendEmail = $request->sendEmail;
-        $users = User::all();
+        $users = User::query()->get();
         $link = Surveylink::query()->latest()->first();
+        $graduatedyear = $link->graduatedyear;
 
-        foreach ($users as $user) {
-            if ($user->graduatesem === $link->graduatedyear) {
-                if ($sendEmail == 1 ) {
-                    $userEmail = $user->email;
-                    Mail::to($userEmail)->send(new RMUTT_Alumni());
+        if ($sendEmail == 1) {
+            $userEmails = [];
+            
+            foreach ($users as $user) {
+                $graduatesem = $user->graduatesem;
+                
+                // Check if the user's graduatesem matches graduatedyear
+                if ($graduatesem === $graduatedyear) {
+                    $userEmails[] = $user->email;
                 }
             }
-        }
-        if ($sendEmail == 1 ) {
+            
+            $batchSize = 30;
+            $recipientBatches = array_chunk($userEmails, $batchSize);
+
+            foreach ($recipientBatches as $batch) {
+                $customEmail = new link_Alumni('ขอความร่วมมือตอบแบบสอบถาม');
+                Mail::bcc($batch)->send($customEmail);
+            }
+
             return redirect()->route('links')->with('alert', "บันทึกข้อมูลและส่งข้อความเรียบร้อย");
         } else {
-            return redirect()->route('links')->with('alert', "บันทึกข้อมูลเรียบร้อย");
+            return redirect()->route('error')->with('alert', "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
         }
 
     }
@@ -69,12 +82,34 @@ class surveylinkController extends Controller
         if ($request->isMethod('post')) {
             $surveylink = $request->all();
             $surveylink = Surveylink::where(['id'=>$id])->update(['graduatedyear'=>$surveylink['graduatedyear'],'link'=>$surveylink['link']]);
-            if ($surveylink !== false) {
-                // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+            $sendEmail = $request->sendEmail;
+            $users = User::query()->get();
+            $link = Surveylink::query()->latest('updated_at')->first();
+            $graduatedyear = $link->graduatedyear;
+
+            if ($sendEmail == 1) {
+                $userEmails = [];
+                
+                foreach ($users as $user) {
+                    $graduatesem = $user->graduatesem;
+                    
+                    // Check if the user's graduatesem matches graduatedyear
+                    if ($graduatesem === $graduatedyear) {
+                        $userEmails[] = $user->email;
+                    }
+                }
+                
+                $batchSize = 30;
+                $recipientBatches = array_chunk($userEmails, $batchSize);
+
+                foreach ($recipientBatches as $batch) {
+                    $customEmail = new Update_link_Alumni('ขอความร่วมมือตอบแบบสอบถาม');
+                    Mail::bcc($batch)->send($customEmail);
+                }
+
+                return redirect()->route('links')->with('alert', "บันทึกข้อมูลและส่งข้อความเรียบร้อย");
             } else {
-                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
-                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                return redirect()->route('error')->with('alert', "เกิดข้อผิดพลาดในการส่งข้อความ");
             }
         }
     }

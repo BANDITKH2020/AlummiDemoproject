@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('massage_name');
             $table->text('massage_cotent');
-            $table->string('massage_file');
             $table->boolean('status_massage')->default(false);
             $table->boolean('status_read')->default(false);
             $table->timestamps();

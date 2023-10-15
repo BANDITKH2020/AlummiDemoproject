@@ -15,7 +15,6 @@ class Massage extends Model
         'lastname',
         'massage_name',
         'massage_cotent',
-        'massage_file',
         'status_massage',
         'status_read',
     ];

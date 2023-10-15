@@ -51,7 +51,7 @@
                 <a href="/admin/home" class="textmenu"><h3 >หน้าข่าวประชาสัมพันธ์</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('status') }}" class="textmenu"><h3>ปรับสถานะภาพนักศึกษา</h3></a>
+                <a href="{{ route('status') }}" class="textmenu"><h3>ปรับสถานภาพนักศึกษา</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('massege') }}" class="textmenu"><h3>รายการข้อความ</h3></a>

@@ -5,30 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card" style="">
-                <div class="card-header text-bg-light text-center mt-1"><h4 style="font-weight: bold;">Login Admin</h4></div>
+                <div class="card-header text-bg-light text-center mt-1"><h3 style="font-weight: bold;">Login Admin</h3></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('loginAdmin') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" style="font-size: 24px;font-family:'TH Niramit AS';"class="col-md-4 col-form-label text-md-end">{{ __('ชื่อบัญชีผู้ใช้งาน') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="email" style="font-size: 24px;font-family:'TH Niramit AS';"type="text" class="form-control" name="email" value="{{ old('email') }}" required >
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" style="font-size: 24px;font-family:'TH Niramit AS';"class="col-md-4 col-form-label text-md-end">{{ __('รหัสผ่าน') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password"style="font-size: 24px;font-family:'TH Niramit AS';" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -37,20 +31,9 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('จดจำฉัน') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" style="font-size: 24px;font-family:'TH Niramit AS';"class="btn btn-primary">
                                     {{ __('เข้าสู่ระบบ') }}
                                 </button>
                             </div>

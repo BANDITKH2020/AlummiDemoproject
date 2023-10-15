@@ -88,9 +88,12 @@ class UserController extends Controller
                   ->where('skill_infos.Skill_name', 'like', '%' . $search . '%');
         } 
         $students = $query->select('users.id', 'users.student_id', 'users.firstname', 'users.lastname', 'users.educational_status', 'users.inviteby', 'users.student_grp', 'users.role_acc', 'users.created_at', 'users.active', 'users.email', 'users.graduatesem', 'users.groupleader', 'contart_infos.image')
-                    ->whereIn('users.role_acc', ['student', 'teacher'])
+                    ->whereIn('users.role_acc', ['student'])
+                    ->whereIn('users.educational_status', ['จบการศึกษา'])
                     ->leftJoin('contart_infos', 'users.student_id', '=', 'contart_infos.ID_student')
-                    ->paginate(10);
+                    ->orderBy('users.firstname', 'asc')
+                    ->orderBy('users.lastname', 'asc')
+                    ->paginate(6);
         $LoginHistory = LoginHistory::query()->get(); 
         $surveylink = Surveylink::query()->latest()->first();
         $department = department::where('ID', 1)->first();
@@ -106,8 +109,10 @@ class UserController extends Controller
         $Workhistory_info = Workhistory_info::where('ID_student', $student_id)->paginate(1);
         $Skill_info = Skill_info::where('ID_student', $student_id)->paginate(1);
         $language_skill = language_skill::where('ID_student', $student_id)->paginate(1);
+        $Skillcount = Skill_info::where('ID_student', $student_id)->count();
+        $languagecount = language_skill::where('ID_student', $student_id)->count();
         $Trainings = Tranning_info::where('ID_student', $student_id)->paginate(1);
         $reward = reward::where('student_id', $student_id)->paginate(1);
-        return view('users.viewProfile',compact('user','contactInfo','education_infom','Workhistory_info','Skill_info','language_skill','Trainings','reward'));
+        return view('users.viewProfile',compact('user','contactInfo','education_infom','Workhistory_info','Skill_info','language_skill','Trainings','reward','Skillcount','languagecount'));
     }
 }

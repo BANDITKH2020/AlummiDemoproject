@@ -15,15 +15,15 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $user = User::count();
-        $currentYear = now()->year + 543;
+        $currentYear = now()->year + 543;//ดึงปีการศึกษาล่าสุดในตารางและrole_acc=student
         $educational_status = User::where('educational_status', 'จบการศึกษา')->where('graduatesem', '=', $currentYear)->count();
-        $threeMonthsAgo = Carbon::now()->subMonths(3);
+        $threeMonthsAgo = Carbon::now()->subMonths(12);
         $inactiveUserCount = LoginHistory::where('login_at', '<=', $threeMonthsAgo)->count();
 
         
-        $loginCounts = User::select(
-            DB::raw('YEAR(created_at) as year'),
-            DB::raw('MONTH(created_at) as month'),
+        $loginCounts = LoginHistory::select(
+            DB::raw('YEAR(login_at) as year'),
+            DB::raw('MONTH(login_at) as month'),
             DB::raw('COUNT(*) as count')
         )
         ->groupBy('year', 'month')
@@ -41,28 +41,30 @@ class DashboardController extends Controller
             $monthlyCounts[$date] = $count;
         }
         
-        $countone = Contart_info::where('attention', 'like', '%งานพบประสังสรรค์ประจำปี%')->count();
-        $counttwo = Contart_info::where('attention', 'like', '%อบรมให้ความรู้วิชาการ%')->count();
-        $countthree = Contart_info::where('attention', 'like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')->count();
+        $countone = Contart_info::where('attention', 'like', '%งานพบประสังสรรค์%')->count();
+        $counttwo = Contart_info::where('attention', 'like', '%งานวิชาการ%')->count();
+        $countthree = Contart_info::where('attention', 'like', '%งานแข่งขันกีฬา%')->count();
         $countfour = Contart_info::where('attention', 'like', '%กิจกรรมศิษย์เก่าสัมพันธ์%')->count();
         $countOthers = Contart_info::whereNotNull('attention')
         ->where(function ($query) {
-            $query->where('attention', 'not like', '%งานพบประสังสรรค์ประจำปี%')
-                ->orWhere('attention', 'not like', '%อบรมให้ความรู้วิชาการ%')
-                ->orWhere('attention', 'not like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')
-                ->orWhere('attention', 'not like', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
-        })
+                $query->where('attention', 'like', '%งานพบประสังสรรค์%')
+                ->orWhere('attention', 'like', '%งานวิชาการ%')
+                ->orWhere('attention', 'like', '%งานแข่งขันกีฬา%')
+                ->orWhere('attention', 'like', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
+            })
         ->count();
+       
         $totalCount = Contart_info::count();
+        $countALL=$totalCount-$countOthers;
         $percentageOne = $totalCount === 0 ? null : intval(($countone / $totalCount) * 100);
         $percentageTwo = $totalCount === 0 ? null : intval(($counttwo / $totalCount) * 100);
         $percentageThree = $totalCount === 0 ? null : intval(($countthree / $totalCount) * 100);
         $percentageFour = $totalCount === 0 ? null : intval(($countfour / $totalCount) * 100);
-        $percentageOthers = $totalCount === 0 ? null : intval(($countOthers / $totalCount) * 100);
+        $percentageOthers = $totalCount === 0 ? null : intval(($countALL / $totalCount) * 100);
         
         
         
         return view('Admin.dashboard.dashboard',compact('user','educational_status','inactiveUserCount','monthlyCounts'
-        ,'percentageOne','percentageTwo','percentageThree','percentageFour','percentageOthers'));
+        ,'percentageOne','percentageTwo','percentageThree','percentageFour','percentageOthers','currentYear'));
     }
 }

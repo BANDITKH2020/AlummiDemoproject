@@ -55,7 +55,7 @@ class LanguageSkillController extends Controller
             
             if ($language_skill !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert',"อัพเดตข้อมูลเรียบร้อย");  
+                return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");  
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
                 return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการอัพเดตข้อมูล');

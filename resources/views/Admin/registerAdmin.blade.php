@@ -50,7 +50,7 @@
                 <a href="/admin/home" class="textmenu"><h3 >หน้าข่าวประชาสัมพันธ์</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-                <a href="{{ route('status') }}" class="textmenu"><h3>ปรับสถานะภาพนักศึกษา</h3></a>
+                <a href="{{ route('status') }}" class="textmenu"><h3>ปรับสถานภาพนักศึกษา</h3></a>
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
                 <a href="{{ route('massege') }}" class="textmenu"><h3>รายการข้อความ</h3></a>
@@ -115,10 +115,10 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            <label for="name" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('ชื่อ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" style="font-size: 24px;"type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="name" autofocus>
+                                <input id="firstname" style="font-size: 24px;"type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required >
 
                                 @error('firstname')
                                     <span class="invalid-feedback" role="alert">
@@ -127,12 +127,24 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
-                            <label for="email" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="lastname" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('นามสกุล') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" style="font-size: 24px;"type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="lastname" style="font-size: 24px;"type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required >
+
+                                @error('lastname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="email" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('ชื่อบัญชีผู้ใช้งาน') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" style="font-size: 24px;"type="text" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -143,10 +155,10 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" style="font-size: 24px;"class="col-md-4 col-form-label text-md-end">{{ __('รหัสผ่าน') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" style="font-size: 24px;"type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" style="font-size: 24px;"type="password" class="form-control @error('password') is-invalid @enderror" name="password" required >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -157,10 +169,10 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm"style="font-size: 24px;" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm"style="font-size: 24px;" class="col-md-4 col-form-label text-md-end">{{ __('ยืนยันรหัสผ่าน') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" style="font-size: 24px;"type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" style="font-size: 24px;"type="password" class="form-control" name="password_confirmation" required >
                             </div>
                         </div>
 

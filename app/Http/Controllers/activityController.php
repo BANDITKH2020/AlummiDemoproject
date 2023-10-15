@@ -3,41 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Activity_Alumni;
 use App\Models\newsandactivity;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class activityController extends Controller
 {
     public function index(Request $request){
         $query = newsandactivity::query();
-        $search = $request->input('search');
-        $searchdata = $request->searchdata;
-        
+        $category = $request->input('category');
+        $title_name = $request->input('title_name');
+        $updated_at = $request->input('updated_at');
+        $News = $request->input('News');
     // Apply search filters
-        if (!empty($search)) {
-            switch ($searchdata) {
+    if (!empty($News)) {
+        switch ($News) {
+            case '1':
+                $query->where('title_name', 'LIKE', "%{$title_name}%");
+                break;
+            case '2':
+                $query->where('updated_at', 'LIKE', "%{$updated_at}%");
+                break;
+        }
+    }
+        if (!empty($category)) {
+            switch ($category) {
                 case 'all':
-                    $query->where('title_name', 'LIKE', "%{$search}%")
-                        ->orWhere('category', 'LIKE', "%{$search}%")
-                        ->orWhere('created_at', 'LIKE', "%{$search}%");
+                    if ($category ==='all') {
+                        $category=null;
+                    }
+                    if ($category===null) {
+                        $query->where('cotent_type','2');
+                        break;
+                    }
+                    $query->where('category', 'LIKE', "%{$category}%")
+                        ->orWhere('category', 'LIKE', "%{$category}%")
+                        ->orWhere('category', 'LIKE', "%{$category}%")
+                        ->orWhere('category', 'LIKE', "%{$category}%");
                     break;
-                case 'title_name':
-                    $query->where('title_name', 'LIKE', "%{$search}%");
+                case 'งานพบปะสังสรรค์':
+                    $query->where('category', 'LIKE', "%{$category}%");
                     break;
-                case 'category':
-                    $query->where('category', 'LIKE', "%{$search}%");
+                case 'งานวิชาการ':
+                    $query->where('category', 'LIKE', "%{$category}%");
                     break;
-                case 'created_at':
-                    $query->where('created_at', 'LIKE', "%{$search}%");
+                case 'งานแข่งขันกีฬา':
+                    $query->where('category', 'LIKE', "%{$category}%");
+                    break;
+                case 'กิจกรรมศิษย์เก่าสัมพันธ์':
+                    $query->where('category', 'LIKE', "%{$category}%");
                     break;
             }
+            
         }
-
+        
         if ($query->where('cotent_type','2')->exists()) {
-            $activitys = $query->paginate(10);
+            $activitys = $query->where('cotent_type','2')->orderBy('updated_at', 'desc')->paginate(10);
         }else{
-            $activitys = $query->paginate(10);
+            $activitys = $query->where('cotent_type','2')->orderBy('updated_at', 'desc')->paginate(10);
         }
         return view('admin.activity.index', compact('activitys'));
     }
@@ -76,13 +102,13 @@ class activityController extends Controller
         $category = '';
         switch ($request->category) {
             case '1':
-                $category = 'งานพบประสังสรรค์ประจำปี';
+                $category = 'งานพบประสังสรรค์';
                 break;
             case '2':
-                $category = 'อบรมให้ความรู้วิชาการ';
+                $category = 'งานวิชาการ';
                 break;
             case '3':
-                $category = 'งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์';
+                $category = 'งานแข่งขันกีฬา';
                 break;
             case '4':
                 $category = 'กิจกรรมศิษย์เก่าสัมพันธ์';
@@ -105,12 +131,27 @@ class activityController extends Controller
         $activity->created_at = Carbon::now();
         $activity->save();
         $title_image->move($upload_location,$img_name);
-         
-        if ($activity) {
-            return redirect()->route('activitys')->with('alert', 'บันทึกข้อมูลเรียบร้อย');
-        } else {
-            return redirect()->route('activitys')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
-        }
+        
+        $users = User::where('role_acc', 'like', '%student%')->get();
+        try {
+                $userEmails = [];
+                foreach ($users as $user) {
+                    $userEmails[] = $user->email;
+                }
+                    $batchSize = 30;
+                    $recipientBatches = array_chunk($userEmails, $batchSize);
+
+                foreach ($recipientBatches as $batch) {
+                    $customEmail = new Activity_Alumni('ข่าวกิจกรรมจากภาควิชาวิศวกรรมคอมพิวเตอร์');
+                    Mail::bcc($batch)->send($customEmail);
+                }
+        
+            // The following code will execute if there are no errors
+            return redirect()->route('activitys')->with('alert', "บันทึกข้อมูลและส่งข้อความเรียบร้อย");
+        } catch (\Exception $e) {
+            // Handle the exception here
+            return redirect()->route('activitys')->with('error', 'เกิดข้อผิดพลาดในการส่งข้อความ');
+        }  
     }
     public function edit($id){
         $activity = newsandactivity::find($id);
@@ -160,9 +201,9 @@ class activityController extends Controller
             $activity->objective = $request->objective;
         }
         if ($activity->save()) {
-            return redirect()->route('news')->with('alert', 'บันทึกข้อมูลเรียบร้อย');
+            return redirect()->route('activitys')->with('alert', 'บันทึกข้อมูลเรียบร้อย');
         } else {
-            return redirect()->route('news')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            return redirect()->route('activitys')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
         }
     }
     
@@ -198,4 +239,11 @@ class activityController extends Controller
 
         return redirect()->back()->with('error', 'ไม่พบรูปภาพที่อัพโหลด');
     }
+
+    public function viewactivity($id)
+    {
+        $view = newsandactivity::with('images')->find($id);
+        return view('admin.activity.viewactivity',compact('view'));
+    }
+    
 }

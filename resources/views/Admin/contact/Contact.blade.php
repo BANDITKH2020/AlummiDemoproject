@@ -134,7 +134,7 @@
         @endif
        
     </div>
-    <div class="d-flex justify-content" style="position:absolute;left:942.5px;top: 755px;">
+    <div style="position:absolute;left:832.5px;top: 755px;">
             <button class="btn btn-info"    onclick="window.location.href='/admin/home'" role="button" style="margin-right: 10px;font-size: 24px;" >กลับหน้าหลัก</button>
             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#department" role="button" style="font-size: 24px;">แก้ไขข้อมูลภาควิชา</button>
     </div>
@@ -142,7 +142,7 @@
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title text-center" id="exampleModalLabel">ข้อมูลติดต่อ</h2>
+                <h2 class="modal-title text-center" id="exampleModalLabel">ข้อมูลติดต่อภาควิชา</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             @if($department === null)
@@ -152,31 +152,34 @@
                 <div class="col-lg-12 row">
                     <div class="col-lg-12 mt-3">
                         <label for="address" class="form-label" style="font-size: 24px;">ที่อยู่</label>
-                        <input type="text" name="address" class="form-control" id="address" placeholder="" value="" style="font-size: 20px;" required>
+                        <input type="text" name="address" class="form-control" style="font-size: 24px;"id="address" placeholder="" value="" style="font-size: 20px;" required>
                     </div>
                     <div class="col-lg-6 mt-3">
                         <label for="contact_time" class="form-label" style="font-size: 24px;">ช่วงเวลาติดต่อ</label>
-                        <input type="text" name="contact_time" class="form-control" id="contact_time" placeholder="" value="" style="font-size: 20px;"  required>
+                        <input type="text" name="contact_time" class="form-control" id="contact_time"style="font-size: 24px;" placeholder="" value="" style="font-size: 20px;"  required>
                     </div>  
                     <div class="col-lg-6 mt-3">
                         <label for="phone_number" class="form-label"style="font-size: 24px;">เบอร์โทร</label>
-                        <input type="text" name="phone_number" class="form-control" id="phone_number" placeholder="" value="" style="font-size: 20px;"required>
+                        <input type="text" name="phone_number" class="form-control"style="font-size: 24px;" id="phone_number" placeholder="" value="" style="font-size: 20px;"required>
                     </div>   
                     <div class="col-lg-12 mt-3">
-                        <label for="facebook" class="form-label"style="font-size: 24px;">facebook</label>
-                        <input type="text" name="facebook" class="form-control" id="facebook" placeholder="" value="" style="font-size: 20px;"required>
+                        <label for="facebook" class="form-label"style="font-size: 24px;">Facebook</label>
+                        <input type="text" name="facebook" class="form-control" id="facebook" style="font-size: 24px;"placeholder="" value="" style="font-size: 20px;"required>
                     </div>
                     <div class="col-lg-12 mt-3">
-                        <label for="web" class="form-label"style="font-size: 24px;">เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</label>
-                        <input type="text" name="web" class="form-control" id="web" placeholder="" value="" style="font-size: 20px;" required>
+                        <label for="web" class="form-label"style="font-size: 24px;">เว็บภาควิชา</label>
+                        <input type="text" name="web" class="form-control" id="web"style="font-size: 24px;" placeholder="" value="" style="font-size: 20px;" required>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <label for="map" class="form-label"style="font-size: 24px;">แผนที่มหาวิยาลัย</label> 
+                            <label for="map" class="form-label"style="font-size: 24px;">โค้ดฝังของแผนที่</label> 
                         </div>
                         <div class="col" style="text-align:right; color:blue;">
                             <p type="text" style="font-size: 24px;"  data-bs-toggle="popover" title="วิธีนำโค้ดฝังแผนที่มาใช้งาน" data-bs-content="ใช้โค้ดฝังดังตัวอย่างนี้!! https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6509.706946324125!2d100.72991286843705!3d14.036090222993476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1695547909346!5m2!1sth!2sth">ตัวอย่าง</p>
                         </div>
+                        
+                    </div>
+                    <div class="col-lg-12 mt-3 ms-2">
                         <textarea type="text"style="font-size: 24px;" name="map" rows="3" cols="25" class="form-control" placeholder="ถ้าไม่มีเนื้อหาส่วนนี้ให้ใส่ -"aria-label="With textarea"></textarea>
                     </div>
                        
@@ -205,25 +208,27 @@
                         <input type="text" name="phone_number" class="form-control" id="phone_number" placeholder="" value="{{$department->phone_number}}" style="font-size: 20px;"required>
                     </div>   
                     <div class="col-lg-12 mt-3">
-                        <label for="facebook" class="form-label"style="font-size: 24px;">facebook</label>
+                        <label for="facebook" class="form-label"style="font-size: 24px;">Facebook</label>
                         <input type="text" name="facebook" class="form-control" id="facebook" placeholder="" value="{{$department->facebook}}" style="font-size: 20px;"required>
                     </div>
                     <div class="col-lg-12 mt-3">
-                        <label for="web" class="form-label"style="font-size: 24px;">เว็บภาควิชาวิศวกรรมคอมพิวเตอร์</label>
+                        <label for="web" class="form-label"style="font-size: 24px;">เว็บภาควิชา</label>
                         <input type="text" name="web" class="form-control" id="web" placeholder="" value="{{$department->web}}" style="font-size: 20px;" required>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <label for="map" class="form-label"style="font-size: 24px;">แผนที่มหาวิยาลัย</label> 
+                            <label for="map" class="form-label"style="font-size: 24px;">โค้ดฝังของแผนที่</label> 
                         </div>
                         <div class="col" style="text-align:right; color:blue;">
-                            <p type="text" style="font-size: 24px;"  data-bs-toggle="popover" title="วิธีนำโค้ดฝังแผนที่มาใช้งาน" data-bs-content="ใช้โค้ดฝังดังตัวอย่างนี้!! https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6509.706946324125!2d100.72991286843705!3d14.036090222993476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1695547909346!5m2!1sth!2sth">ตัวอย่าง</p>
+                            <p type="text" style="font-size: 24px;"  data-bs-toggle="popover" title="วิธีนำโค้ดฝังแผนที่มาใช้งาน" data-bs-content="ใช้โค้ดฝังดังตัวอย่างนี้!! https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6509.706946324125!2d100.72991286843705!3d14.036090222993476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d78a4a8713c3f%3A0xf019238243532a0!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lij4Liy4LiK4Lih4LiH4LiE4Lil4LiY4Lix4LiN4Lia4Li44Lij4Li1!5e0!3m2!1sth!2sth!4v1695547909346!5m2!1sth!2sth ">ตัวอย่าง</p>
                         </div>
-                        <textarea type="text"style="font-size: 24px;" name="map" rows="3" cols="25" class="form-control" placeholder="ถ้าไม่มีเนื้อหาส่วนนี้ให้ใส่ -"aria-label="With textarea">{{$department->map}}</textarea>
+                        
                     </div>
-                       
+                    <div class="col-lg-12 mt-1 ms-1">
+                    <textarea type="text"style="font-size: 24px;" name="map" rows="3" cols="25" class="form-control" placeholder="ถ้าไม่มีเนื้อหาส่วนนี้ให้ใส่ -"aria-label="With textarea">{{$department->map}}</textarea>
+                    </div> 
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer mt-3 ">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="font-size: 24px;">ปิด</button>
                     <button button type="submit" class="btn btn-primary"style="font-size: 24px;">บันทึกข้อมูล</button>
                 </div>

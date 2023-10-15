@@ -100,7 +100,7 @@ class graduateController extends Controller
             ->where('educational_status', 'จบการศึกษา')
             ->orderBy('graduatesem', 'desc')
             ->orderBy('student_id', 'asc')
-            ->paginate(10);
+            ->paginate(7);
         $surveylink = Surveylink::query()->first();
         $messages = Massage::orderBy('created_at', 'desc')->get()->groupBy(function ($message) {
             return $message->created_at->format('Y-m-d'); // แยกตามวันที่

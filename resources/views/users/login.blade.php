@@ -39,7 +39,7 @@
                     <h1 class="card-title" style="text-align:center; ">Computer Engineering</h1>
                 </div>
                 <div class="card-body" style="background-color:#76ade3;"><br>
-                    <p align="center" style="color:white;font-size: 30px;">เข้าสู่ระบบ</p>
+                    <p align="center" style="color:white;font-size: 30px;">เข้าสู่ระบบสำหรับศิษย์เก่าและอาจารย์</p>
 
                     <p style="background-image: url({{url('images/color1.png')}});"><br><br><br><br><br>
                 </div>
@@ -53,8 +53,8 @@
                         @csrf
                         <br><br><br><br><br><br><br>
                         <div class="d-grid gap-4 col-6 mx-auto">
-                                <a  class="btn btn-outline-dark"role="button" style="text-transform:none; font-size: 24px;" href="{{ url('auth/google') }}" >
-                                    <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                                <a  class="btn btn-primary"role="button" style="text-transform:none; font-size: 24px;" href="{{ url('auth/google') }}" >
+                                    <img width="30px" style="margin-right:3px; text-align:center;background-color:white;"alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
                                     Login with Google
                                 </a>
                         </div><br>

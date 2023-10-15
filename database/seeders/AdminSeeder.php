@@ -16,13 +16,14 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'firstname' => 'Admintest',
-            'lastname'=> 'null',
+            'lastname'=> 'rmutt',
             'student_id'=> 'Admin',
             'student_grp'=> 'Admin',
             'graduatesem'=> 'null',
+            'Term'=> 'null',
             'inviteby'=> 'Admin',
-            'email' => 'admintest@admin.com',
-            'password' => Hash::make('12345678900'),
+            'email' => 'admintestrmutt',
+            'password' => Hash::make('rmutt123456'),
             'google_id' => 'Admin',
             'role_acc' => 'Admin',
             'groupleader'=> 'Admin',
@@ -30,3 +31,4 @@ class AdminSeeder extends Seeder
         ]);
     }
 }
+

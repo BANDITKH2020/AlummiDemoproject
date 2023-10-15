@@ -51,6 +51,7 @@ class SocialController extends Controller
     public function loginWithGoogle()
     {        
        try {
+       
             $user = Socialite::driver('google')->user();
             $id = $user->getId();
             $name = $user->getName();
@@ -64,8 +65,8 @@ class SocialController extends Controller
             $existing = User::where('google_id', $id)->first();
             $otherUser = randomcode::where('code', $token_id)->first();
             $nowDate = Carbon::now();
-            $formattedDate = $nowDate->format('Y-m-d');
-            $emailteacher = User::where('email', $email)->first();
+            $formattedDate = $nowDate->format('Y-m-d H:i:s');
+            $emailteacher = User::where('email', $email)->where('role_acc','teacher')->first();
             $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LebpBooAAAAAGKjwxVakaAsE64472muJOpCQMm9&response={$recaptcha}");
             $responseKeys = json_decode($response, true);
             if ($existing) { 
@@ -79,7 +80,7 @@ class SocialController extends Controller
                     }
                 }
                 else{
-                    return redirect('/')->with('error','กรุณาลงทะเบียนให้ถูกต้อง');
+                    return redirect('/')->with('error','กรุณาใช้บัญชีที่ลงทะเบียนในการเข้าสู่ระบบ');
                 }
             }
             elseif ($emailteacher) {
@@ -90,49 +91,59 @@ class SocialController extends Controller
                 return redirect('/users/hometeacher')->with('alert','ลงทะเบียนเสร็จสิ้น');
             }
             elseif ($token_id === null) {
-                return redirect('/')->with('error','คุณยังไม่ได้ลงทะเบียน กรุณาลงทะเบียนถูกต้อง');
+                return redirect('/')->with('error','คุณยังไม่ได้ลงทะเบียน กรุณาสมัครสมาชิก');
             }
             elseif (intval($responseKeys["success"]) === 0) {
                 return redirect()->back()->with('error', 'reCAPTCHA ไม่ถูกต้อง');
             }
             else{
+                
                 if (intval($responseKeys["success"]) === 1) { //ตรวจสอบ recapcha
+                    
                     if ($otherUser && $token_id === $otherUser->code ) {
-                        if ($otherUser && $otherUser->end_date <= $formattedDate ) {
+                        
+                        if ($otherUser && ($otherUser->end_date < $formattedDate) ) {
+                            
                             Session::flush();
                             return redirect()->back()->with('error', 'รหัสอาจาย์หมดอายุ');
                         }else{
                             
                             $otherUserId = $otherUser->user_id;
                             $user = User::find($otherUserId);
-                            $name =  $user->firstname . " ". $user->lastname;
-                            $createUser = User::create([
-                            'firstname' => $firstname,
-                            'lastname'=> $lastname,
-                            'student_id'=> $student_id,
-                            'student_grp'=>  $student_grp,
-                            'inviteby'=> $name,
-                            'email' => $email,
-                            'google_id' => $id,
-                            'role_acc' => 'student',
-                            'groupleader'=> 'ไม่เป็นหัวหน้า',
-                            'graduatesem'=> Carbon::now()->year + 543,
-                            'Term'=> '-',
-                            'educational_status'=>'กำลังศึกษา',
-                            ]);
+                            if ($user == null) {
+                            return redirect()->back()->with('error', 'รหัสนี้ไม่สามารถใช้งานได้ กรุณาเปลี่ยนรหัสใหม่');
+                            }else{
+                                $name =  $user->firstname . " ". $user->lastname;
+                                $createUser = User::create([
+                                'firstname' => $firstname,
+                                'lastname'=> $lastname,
+                                'student_id'=> $student_id,
+                                'student_grp'=>  $student_grp,
+                                'inviteby'=> $name,
+                                'email' => $email,
+                                'google_id' => $id,
+                                'role_acc' => 'student',
+                                'groupleader'=> 'ไม่เป็นหัวหน้า',
+                                'graduatesem'=> Carbon::now()->year + 543,
+                                'Term'=> '-',
+                                'educational_status'=>'กำลังศึกษา',
+                                ]);
+                                
+                                Auth::login($createUser);
+                                return redirect('/users/homeuser')->with('alert','ลงทะเบียนเสร็จสิ้น');
+                            }
                             
-                            Auth::login($createUser);
-                            return redirect('/users/homeuser')->with('alert','ลงทะเบียนเสร็จสิ้น');
                         }
                     }else {
                         Session::flush();
                         return redirect()->back()->with('error', 'รหัสอาจาย์ไม่ถูกต้อง');
                     }
                 }
+
             }
             
         } catch (\Throwable $th) {
-                return redirect()->back()->with('alert', 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
         }
         
     }

@@ -210,13 +210,16 @@
         </style>
     </head>
     <body class="container">
-        <div class="col-lg-12 row">
-            <div class="col-lg-12 row">
-                <div class="col-lg-12 row mt-5">
+        <div class="col-12 row">
+            <div class="col-12 row">
+                <div class="col-12 row mt-5">
                     <div class="d-flex align-items-center justify-content-between" style="padding: 0px 15px;">
-                        <div class="col-lg-8 align-items-center justify-content-start">
+                        <div class="col-8 align-items-center justify-content-start">
                             <h1 >Rajamangala University of</h1>
                             <h1 style="margin-left:200px">Technology Thanyaburi</h1>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                            <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('loginAdmin') }}'" style="font-size: 28px;">ผู้ดูแลระบบ</button>
                         </div>
                     </div>
                 </div>
@@ -238,8 +241,8 @@
                         <h1>ศิษย์เก่าทุกท่านกลับเข้าสู่รั้ว</h1>
                         <h1>ราชมงคลธัญบุรี</h1>
                         <h1>คณะวิศวกรรมคอมพิวเตอร์</h1>
-                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login.ris') }}'"style="font-size: 24px;">เข้าสู่ระบบ</button>
-                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('register.ris') }}'"style="font-size: 24px;">สมัครสมาชิก</button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('login.ris') }}'"style="font-size: 28px;">เข้าสู่ระบบ</button>
+                        <button class="btn btn-primary mt-2" onclick="window.location.href='{{ route('register.ris') }}'"style="font-size: 28px;">สมัครสมาชิก</button>
                     </div>
                 </div>
                 <div class="col-lg-4 gallery">

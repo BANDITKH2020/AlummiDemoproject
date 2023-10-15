@@ -34,7 +34,7 @@ class EducationInfomController extends Controller
         $Education_infom->save();
         if ($Education_infom->wasRecentlyCreated) {
             // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-            return redirect()->back()->with('alert', 'อัปเดตประวัติกาศึกษาเรียบร้อย');
+            return redirect()->back()->with('alert', 'บันทึกสำเร็จ');
         } else {
             // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
             return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการอัปเดตประวัติกาศึกษา');
@@ -49,7 +49,7 @@ class EducationInfomController extends Controller
 
             if ($Education !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert', 'อัปเดตประวัติกาศึกษาเรียบร้อย');
+                return redirect()->back()->with('alert', 'บันทึกสำเร็จ');
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
                 return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการอัปเดตประวัติกาศึกษา');

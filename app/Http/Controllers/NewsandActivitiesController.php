@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\News_Alumni;
 use App\Models\newsandactivity;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
@@ -16,28 +19,23 @@ class NewsandActivitiesController extends Controller
 {
     $query = newsandactivity::query();
 
-    $search = $request->input('search');
-    $gender = $request->gender;
-
-    // Apply search filters
-    if (!empty($search)) {
-        switch ($gender) {
-            case 'all':
-                $query->where('title_name', 'LIKE', "%{$search}%")
-                    ->orWhere('created_at', 'LIKE', "%{$search}%");
+    $title_name = $request->input('title_name');
+    $updated_at = $request->input('updated_at');
+    $News = $request->input('News');
+    if (!empty($News)) {
+        switch ($News) {
+            case '1':
+                $query->where('title_name', 'LIKE', "%{$title_name}%");
                 break;
-            case 'title_name':
-                $query->where('title_name', 'LIKE', "%{$search}%");
-                break;
-            case 'created_at':
-                $query->where('created_at', 'LIKE', "%{$search}%");
+            case '2':
+                $query->where('updated_at', 'LIKE', "%{$updated_at}%");
                 break;
         }
     }
     if ($query->where('cotent_type', '1')->exists()) {
-        $newsandactivity = $query->paginate(10);
+        $newsandactivity = $query->orderBy('updated_at', 'desc')->paginate(10);
     }else{
-        $newsandactivity = $query->paginate(10);
+        $newsandactivity = $query->where('cotent_type', '1')->orderBy('updated_at', 'desc')->paginate(10);
     }
     // Paginate the results after applying the filters
    
@@ -93,13 +91,30 @@ class NewsandActivitiesController extends Controller
         $new->created_at = Carbon::now();
         $new->save();
         $title_image->move($upload_location,$img_name);
-        if ($new->wasRecentlyCreated) {
-            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-            return redirect()->route('news')->with('alert',"บันทึกข้อมูลเรียบร้อย");
-        } else {
-            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
-            return redirect()->route('news')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
-        }   
+
+        $users = User::where('role_acc', 'like', '%student%')->get();
+        
+        try {
+            
+                $userEmails = [];
+                
+                foreach ($users as $user) {
+                    $userEmails[] = $user->email;
+                }
+                    $batchSize = 30;
+                    $recipientBatches = array_chunk($userEmails, $batchSize);
+
+                foreach ($recipientBatches as $batch) {
+                    $customEmail = new News_Alumni('ข่าวสารจากภาควิชาวิศวกรรมคอมพิวเตอร์');
+                    Mail::bcc($batch)->send($customEmail);
+                }
+        
+            // The following code will execute if there are no errors
+            return redirect()->route('news')->with('alert', "บันทึกข้อมูลและส่งข้อความเรียบร้อย");
+        } catch (\Exception $e) {
+            // Handle the exception here
+            return redirect()->route('news')->with('error', 'เกิดข้อผิดพลาดในการส่งข้อความ');
+        }  
     }
     public function edit($id){
         $newsandactivity = newsandactivity::find($id);
@@ -168,4 +183,9 @@ class NewsandActivitiesController extends Controller
             return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในลบข้อมูล');
         }
     }  
+    public function viewnew($id)
+    {
+        $view = newsandactivity::with('images')->find($id);
+        return view('admin.new.viewNew',compact('view'));
+    }
 }

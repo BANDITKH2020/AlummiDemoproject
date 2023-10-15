@@ -10,28 +10,41 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
 </head>
 <body>
     <style>
         body {
-            font-family:'TH Niramit AS';
-            font-size: 24px;
-            }
+                font-family:'TH Niramit AS';
+                font-size: 24px;
+              }
         a:link {
                 color: black;
                 background-color: transparent;
                 text-decoration: none;
               }
+
         h3{
             font-weight: bold;
         }
         h2{
             font-weight: bold;
         }
+        p{
+            font-size: 24px;
+        }
+        .custom-card {
+        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
+        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
+        margin-bottom: 10px;
+        font-size: 20px;
+        }
+        .table-color{
+            background-color: Orange;
+            color: black;
+        }
     </style>
-  <div class="col-12 outset" style="background-color: #EFF4FF;">
+    <div class="col-12 outset" style="background-color: #EFF4FF;">
         <div class="col-12">
             <div class="col-12 row">
                 <div class="col-1">
@@ -44,8 +57,8 @@
             <hr class="mt-1" style="border: 2px solid #000">
         </div>
     </div>
-
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
+    <div class="col-12 row" >
+        <div class="col-2 col-lg-2 mt-4" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
@@ -55,8 +68,13 @@
                 <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
+            @if($surveylink)
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
+            @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="/users/homeuser" class="textmenu"><h3>หน้าหลัก</h3></a>
+                <a href="/users/homeuser" class="textmenu"><h3>ข่าวประชาสัมพันธ์</h3></a>
                 @endif
                 
             </div>
@@ -79,13 +97,8 @@
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-            @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
-            @endif
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('accountuser') }}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
+                <a href="{{ route('accountuser') }}" class="textmenu"><h3>โปรไฟล์</h3></a>
                 @endif
                 
             </div>
@@ -102,117 +115,86 @@
                 <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
+            <div class="col-10 mt-5"><br></div>
             <hr class="mt-5" style="border: 2px solid #000">
-
             <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-  </div>
-  <div class="container "style="position:absolute;left:500px;top: 180px;">
-        <h2>รางวัล/ทุนการศึกษา</h2>
-        <hr class="mt-1" style="border: 1px solid #000">
-        <form action="" method="GET" >
-                <label class="form-label" style="position: absolute;left:700px;top: 65px;">
-                    <select name="searchdata" class="form-select" style="font-size: 24px;">
-                        <option value="all">ทั้งหมด</option>
-                        <option value="year" >ปีการศึกษา</option>
-                        <option value="student_id">รหัสนักศึกษา</option>
-                        <option value="firstname">ชื่อ</option>
-                        <option value="lastname" >นามสกุล</option>
-                        <option value="organizer">ผู้จัด</option>
-                        <option value="award_name">รางวัล/ชื่อทุน</option>
-                        <option value="amount">อันดับ/มูลค่าทุน</option>
-                    </select>
-                    <div class="col-mb-2">
-                        <input type="text" class="form-control" name="search" placeholder="ค้นหารางวัล" style="font-size: 24px;position:relative;left:300px;top:-48px" /> 
-                        <button type="submit"  class="btn btn-primary" style="font-size: 24px;position: absolute;left:525px;top:1px;">ค้นหา</button>
+        <div class="col-10 col-lg-8 mt-5 ms-5">
+            <div class="col-md-12">
+                <h2 class="text-left">รางวัล/ทุนการศึกษา</h2>
+            </div>
+            <hr class="mt-1">
+            <div class="col-12" >
+                <form action="" method="GET">
+                    <div class="col-12 row"> 
+                        <div class="col-6 col-lg-7"></div> 
+                        <div class="col-4 col-lg-2">
+                        <select name="searchdata" class="form-select"style="font-size: 24px;" >
+                            <option value="all">ทั้งหมด</option>
+                            <option value="year" >ปีการศึกษา</option>
+                            <option value="student_id">รหัสนักศึกษา</option>
+                            <option value="firstname">ชื่อ</option>
+                            <option value="lastname" >นามสกุล</option>
+                            <option value="organizer">ผู้จัด</option>
+                            <option value="award_name">รางวัล/ชื่อทุน</option>
+                            <option value="amount">อันดับ/มูลค่าทุน</option>
+                        </select>   
+                        </div>  
+                        <div class="col-2 col-lg-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="ค้นหา" style="font-size: 24px;" /> 
+                                <button type="submit"  class="btn btn-primary" style="font-size: 24px;">ค้นหา</button>
+                            </div>
+                        </div>
                     </div>
-                </label>
-        </form>
-        <div class="d-grid gap-2 col-12 mx-auto "style="position: absolute;left:125px;top:125px;">
-            <div class="row" >
-                <div class="col-md-8">
-                        <br>
-                        <div class="card my-3" >
-                            <style>
-                                .custom-action-buttons {
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                }
-
-                                .custom-action-buttons a {
-                                    margin-right: 10px; /* กำหนดระยะห่างด้านขวาของปุ่ม */
-                                }
-                                .custom-action-buttons a.btn {
-                                    color: black;
-                                }
-                                .custom-icon {
-                                    font-size: 24px;
-                                    color: #FFC107;
-                                }
-                                .edit iconify-icon {
-                                    font-size: 24px;
-                                    color: #fd7e14; /* สีตั้งต้นของไอคอน */
-                                    transition: color 0.3s; /* เพิ่มการเปลี่ยนสีเมื่อ hover */
-                                }
-
-                                .edit:hover iconify-icon {
-                                    color: yellow; /* สีของไอคอนเมื่อ hover */
-                                }
-                                .delete iconify-icon {
-                                    font-size: 24px;
-                                    color: #990000; /* สีตั้งต้นของไอคอน */
-                                    transition: color 0.3s; /* เพิ่มการเปลี่ยนสีเมื่อ hover */
-                                }
-
-                                .delete:hover iconify-icon {
-                                    color: #FF0033; /* สีของไอคอนเมื่อ hover */
-                                }
-                                
-                                .table-color{
-                                    background-color: Orange;
-                                    color: black;
-                                }
-                            
-                            </style>
-                            
-                                <table class="table table-bordered">
-                                    <thead class="table-color">
-                                        <tr>
-                                            <th scope="col"class="text-center">ปีการศึกษา</th>
-                                            <th scope="col"class="text-center">รหัสนักศึกษา</th>
-                                            <th scope="col"class="text-center">ชื่อ-นามสกุล</th>
-                                            <th scope="col"class="text-center">ผู้จัด</th>
-                                            <th scope="col"class="text-center">รางวัล/ชื่อทุน</th>
-                                            <th scope="col"class="text-center">อันดับ/มูลค่าทุน</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                            
-                                        @foreach($reward as $row)
-                                        <tr>
-                                            <td>{{$row->year}}</td>
-                                            <td>{{$row->student_id}}</td>
-                                            <td>{{$row->firstname}} {{$row->lastname}}</td>
-                                            <td>{{$row->organizer}}</td>
-                                            <td>{{$row->award_name}}</td>
-                                            <td>{{$row->amount}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                    
-                                </table>
-                                <div class="d-flex justify-content-center">
-                                    {{ $reward->links() }}
-                                </div>   
-                            </div>                
-                        </div>    
-                </div> 
+                </form>
+            </div>
+            <div class="col-12  ">
+                <div class="col-10 mt-5">
+                    <div class="card"style="margin-left: 100px; " >
+                        <table class="table table-bordered">
+                            <thead class="table-color" >
+                                <tr>
+                                    <th scope="col"class="text-center">ปีการศึกษา</th>
+                                    <th scope="col"class="text-center">รหัสนักศึกษา</th>
+                                    <th scope="col"class="text-center">ชื่อ-นามสกุล</th>
+                                    <th scope="col"class="text-center">ผู้จัด</th>
+                                    <th scope="col"class="text-center">รางวัล/ชื่อทุน</th>
+                                    <th scope="col"class="text-center">อันดับ/มูลค่าทุน</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($reward as $row)
+                                <tr>
+                                    <td>{{$row->year}}</td>
+                                    <td>{{$row->student_id}}</td>
+                                    <td>{{$row->firstname}} {{$row->lastname}}</td>
+                                    <td>{{$row->organizer}}</td>
+                                    <td>{{$row->award_name}}</td>
+                                    <td>{{$row->amount}}</td>
+                                </tr>
+                            @endforeach 
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center">
+                            {{ $reward->links() }}
+                        </div>
+                    </div>                
+                </div>    
             </div> 
-        </div> 
+        </div>        
     </div>
-    
-<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
+
+
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
             <div class="modal-content">
                 <div class="modal-header">
@@ -223,7 +205,8 @@
                     <div>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
-                            <div class="col-lg-6">
+                                @if($department)
+                                <div class="col-lg-6">
                                     <div class="col-lg-12 row" style="margin-left:15px">
                                         <div class="col-lg-1">
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
@@ -256,35 +239,39 @@
                                         width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                                     </iframe>
                                 </div>
+                                @endif
                                 <div class="col-lg-6">
                                     <form action="/user/post/massage" method="POST" enctype="multipart/form-data">
                                     @csrf
                                         <div class="col-lg-12">
                                             <label class="col-form-label font-weight-bold text-dark" style="font-size: 24px;">ชื่อเรื่อง</label>
                                             <div class="input-group">
-                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm text-center bg-white" name="massage_name"
+                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm  bg-white" name="massage_name"
                                                 required>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ</label>
+                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ (สูงสุด 200 ตัวอักษร)</label>
                                             <div class="input-group">
-                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent"></textarea>
+                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent" maxlength="200"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">  
                                                 <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">เลือกเอกสารที่ต้องการอัพโหลด</label>
                                                 <div class="input-group">
-                                                    <input type="file"style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file">
+                                                    <input type="file" style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file[]" multiple>
                                                 </div>
                                         </div>
-                                        <br><br><br><br><br>
+                                        <br>
+                                        <span id="file_count" style="font-size: 24px; color:red;"></span>
+                                        <br><br><br><br>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 24px;">ปิด</button>
+                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
                                         </div>
                                     </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -296,16 +283,66 @@
     function openContactModal() {
         $('#contactModal').modal('show');
     }
-</script>
-@if(Session::has('alert'))
-<script>
-    swal("{{Session::get('alert')}}",{
-        icon: "success",
-    if(exist){
-        alert(msg);
-    }});
-</script>
-@endif   
+    // ปิดการใช้งานปุ่มย้อนกลับ
+    history.pushState(null, null, location.href);
+    window.addEventListener('popstate', function(event) {
+        history.pushState(null, null, location.href);
+    });
+    document.getElementById('massage_file').addEventListener('change', function () {
+        var fileInput = this;
+        var fileCount = fileInput.files.length;
+        var fileCountElement = document.getElementById('file_count');
+            
+        for (var i = 0; i < fileCount; i++) {
+            var file = fileInput.files[i];
+            var fileSize = file.size / 1024 / 1024; // แปลงขนาดเป็น MB
 
+            var allowedExtensions = /(\.pdf|\.jpeg|\.jpg|\.png|\.svg)$/i; // ชนิดไฟล์ที่อนุญาต
+            if (!allowedExtensions.exec(file.name)) {
+                fileInput.value = ''; // ล้างค่าไฟล์ที่ถูกเลือก
+                fileCountElement.innerText = 'กรุณาเลือกไฟล์ที่มีนามสกุล .pdf, .jpeg, .jpg, .png, หรือ .svg';
+                return;
+            }
+            if (fileCount > 3) {
+                fileCountElement.innerText = 'กรุณาเลือกไฟล์ไม่เกิน 3 ไฟล์';
+                fileInput.value = ''; // ล้างค่าไฟล์ที่ถูกเลือก
+                return;
+            }
+            if (fileSize > 10) {
+                fileInput.value = ''; // ล้างค่าไฟล์ที่ถูกเลือก
+                fileCountElement.innerText = 'ขนาดของไฟล์ต้องไม่เกิน 10MB';
+                return;
+            }
+        }
+    });
+</script>
+<style>
+    .my-swal-title {
+        font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+        font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+    }
+    .swal-button{
+        font-size: 24px;
+    }
+</style>
+@if(Session::has('alert'))
+    <script>
+            swal({
+                title: "{{ Session::get('alert') }}",
+                icon: "success",
+                customClass: {
+                    title: "my-swal-title" // กำหนดคลาสใหม่สำหรับข้อความหัวเรื่อง
+                }
+            });
+
+            // แสดงการแจ้งเตือน (alert) ด้วย JavaScript โดยใช้ค่าจาก Controller
+            var msg = "{{ $msg ?? '' }}"; // กำหนดค่า msg จาก Controller
+            if (msg) {
+                alert(msg);
+            }
+    </script>
+ @endif  
 </body>
 </html>
+
+

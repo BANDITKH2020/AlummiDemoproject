@@ -15,11 +15,16 @@ class SkillInfoController extends Controller
     {
         $ID_student = Auth::user()->student_id;
         $Skill_name = $request->input('Skill_name');
-        $Skill_info = Skill_info::insert([
-            'ID_student'=>$ID_student,
-            'Skill_name'=>$Skill_name,
-            'created_at'=>Carbon::now()
-        ]);
+        $Skill_get = Skill_info::where('ID_student', $ID_student)->count();
+        if ($Skill_get >= 10) {
+            return redirect()->back()->with('error', 'คุณบันทึกข้อมูลเกินที่กำหนดไว้');
+        }else{
+            $Skill_info = Skill_info::insert([
+                'ID_student'=>$ID_student,
+                'Skill_name'=>$Skill_name,
+                'created_at'=>Carbon::now()
+            ]);
+        }
         if ($Skill_info !== false) {
             // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
             return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
@@ -27,6 +32,7 @@ class SkillInfoController extends Controller
             // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
             return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
         }
+        
     }
     public function update(Request $request, $id) 
     { 
@@ -39,10 +45,10 @@ class SkillInfoController extends Controller
             ]);
             if ($Skill_info !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->route('reward')->with('alert',"บันทึกข้อมูลเรียบร้อย");
+                return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
-                return redirect()->route('reward')->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
             }
         }
 

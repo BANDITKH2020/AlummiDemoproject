@@ -27,8 +27,16 @@ new-laravel ชื่อฐานข้อมูล อัปใหม่ด้�
 
 
 ไฟล์เกี่ยวกับหน้าเข้าสู่ระบบ อยู่ใน vendor/laravel/ui/auth-backend
-php artisan tokens:delete-expired
-env.
+<<<<<<< Updated upstream
+artisan db:seed --class=AdminSeeder
+php artisan storage:link
+=======
+ php artisan db:seed --class=AdminSeeder
+>>>>>>> Stashed changes
+php artisan tokens:delete-expired คำสั่งนี้ใช้ได้เฉพาะเท็จเท่านั้น จะต้องใช้ cron job ในการกำหนดเวลาในเซิฟเวอร์
+
+* * * * * php /path/to/your/laravel/project/artisan tokens:delete-expired
+env email
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
@@ -37,3 +45,5 @@ MAIL_PASSWORD=adlgjerijtbkwnib
 MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS="muj7894@gmail.com"
 MAIL_FROM_NAME="${APP_NAME}"
+
+ php artisan db:seed --class=DepartmentSeeder

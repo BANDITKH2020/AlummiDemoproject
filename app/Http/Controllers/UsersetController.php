@@ -37,21 +37,36 @@ class UsersetController extends Controller
         $department = department::where('ID', 1)->first();
 
         $contact = Contart_info::where('ID_student', $student_id)->paginate(2);
-        $education = Education_infom::where('ID_student', $student_id)->paginate(2);
+        $education = Education_infom::where('ID_student', $student_id)->orderby('endyear','asc')->paginate(2);
         $Workhistory = Workhistory_info::where('ID_student', $student_id)->paginate(3);
-        $Skill_info = Skill_info::where('ID_student', $student_id)->select( 'id','Skill_name')->paginate(2);
-        $language_skill = language_skill::where('ID_student', $student_id)->paginate(2);
+        $Skill_info = Skill_info::where('ID_student', $student_id)->paginate(3);
+        $language_skill = language_skill::where('ID_student', $student_id)->paginate(1);
         $Tranning_info = Tranning_info::where('ID_student', $student_id)->paginate(2);
 
 
-        $countone = Contart_info::where('attention', 'like', '%งานพบประสังสรรค์ประจำปี%')->first();
-        $counttwo = Contart_info::where('attention', 'like', '%อบรมให้ความรู้วิชาการ%')->first();
-        $countthree = Contart_info::where('attention', 'like', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')->first();
+        $countone = Contart_info::where('attention', 'like', '%งานพบประสังสรรค์%')->first();
+        $counttwo = Contart_info::where('attention', 'like', '%งานวิชาการ%')->first();
+        $countthree = Contart_info::where('attention', 'like', '%งานแข่งขันกีฬา%')->first();
         $countfour = Contart_info::where('attention', 'like', '%กิจกรรมศิษย์เก่าสัมพันธ์%')->first();
-
+        $countOthers = Contart_info::whereNotNull('attention')
+        ->where(function ($query) {
+            $query->where('attention', 'not like', '%งานพบประสังสรรค์%')
+                ->orWhere('attention', 'not like', '%งานวิชาการ%')
+                ->orWhere('attention', 'not like', '%งานแข่งขันกีฬา%')
+                ->orWhere('attention', 'not like', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
+        })
+        ->first();
+        if ($countOthers !== null) {
+        $countOthers->attention = str_replace('งานพบประสังสรรค์','',$countOthers->attention);
+        $countOthers->attention = str_replace('งานวิชาการ','',$countOthers->attention);
+        $countOthers->attention = str_replace('งานแข่งขันกีฬา','',$countOthers->attention);
+        $countOthers->attention = str_replace('กิจกรรมศิษย์เก่าสัมพันธ์','',$countOthers->attention);
+        $countOthers->attention = trim($countOthers->attention);
+        }
+        
         return view('users.accsettinguser', compact('contactInfo', 'user', 'education_infom',
          'Workhistory_info', 'contact', 'education', 'Workhistory','Skill_info','language_skill',
-         'Skill','language','Tranning_info','Tranning','surveylink','department','countone','counttwo','countthree','countfour'));
+         'Skill','language','Tranning_info','Tranning','surveylink','department','countone','counttwo','countthree','countfour','countOthers'));
     }
     public function store(Request $request)
     {
@@ -79,7 +94,7 @@ class UsersetController extends Controller
 
     public function updateExistingContact($existingContact, $request)
     {
-        $image = $request->file('image');
+        $image = $request->file('image_profile');
         $prefix = $request->input('prefix');
         $categoryall = $request->input('categoryall');
         $category1 = $request->input('category1');
@@ -143,8 +158,8 @@ class UsersetController extends Controller
 
     public function createNewContact($student_id, $request)
     {
-        if ($request->hasFile('image')) {
-        $image = $request->file('image');
+        if ($request->hasFile('image_profile')) {
+        $image = $request->file('image_profile');
         $prefix = $request->input('prefix');
         $categoryall = $request->input('categoryall');
         $category1 = $request->input('category1');
@@ -169,7 +184,7 @@ class UsersetController extends Controller
         // บันทึกข้อมูล
         $upload_location = 'public/image/profileuser/';
         $full_path = $upload_location . $img_name;
-        $status_contact = $request['status_contact'] == 'true' ? 1 : 0;
+        $status_contact = $request['status_contact'] == 'on' ? 1 : 0;
         $Contart_info = new Contart_info();
         $Contart_info->image = $img_name;
         $Contart_info->prefix = $prefix;

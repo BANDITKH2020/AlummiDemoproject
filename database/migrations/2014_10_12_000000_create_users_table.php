@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('student_id');
             $table->string('student_grp');
             $table->string('graduatesem');//ปีการศึกษา
+            $table->string('Term');//ภาคเรียน
             $table->string('role_acc');
             $table->string('educational_status');
             $table->string('inviteby');//อาจารย์ที่เพิ่ม
@@ -30,7 +31,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */

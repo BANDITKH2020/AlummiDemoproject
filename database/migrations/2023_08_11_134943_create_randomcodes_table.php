@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('code');
-            $table->date('end_date');
+            $table->datetime('end_date');
             $table->timestamps();
         });
     }

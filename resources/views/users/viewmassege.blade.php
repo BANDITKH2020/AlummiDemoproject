@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 </head>
 <body>
@@ -33,6 +34,26 @@
         p{
             font-size: 24px;
         }
+        .custom-card {
+        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
+        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
+        margin-bottom: 10px;
+        font-size: 20px;
+        }
+        .table-color{
+            background-color: Orange;
+            color: black;
+        }
+        .file-link {
+            text-decoration: none; /* ลบขีดเส้นใต้ข้อความลิงก์ */
+            color: #007bff; /* กำหนดสีข้อความลิงก์ (สีนี้คือสีข้อความลิงก์เริ่มต้นของ Bootstrap) */
+            font-weight: bold; /* ทำข้อความลิงก์เป็นตัวหนา (หรือเลือกขนาดและลักษณะตัวอักษรอื่นๆตามที่คุณต้องการ) */
+        }
+
+        .file-link:hover {
+            text-decoration: underline; /* ขีดเส้นใต้ข้อความลิงก์เมื่อเม้าส์ชี้อยู่เหนือลิงก์ */
+        }
+
     </style>
     <div class="col-12 outset" style="background-color: #EFF4FF;">
         <div class="col-12">
@@ -47,8 +68,8 @@
             <hr class="mt-1" style="border: 2px solid #000">
         </div>
     </div>
-
-    <div class="col-2 mt-5" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
+    <div class="col-12 row" >
+        <div class="col-2 col-lg-2 mt-4" style="border: 2px solid #000;margin-left:80px;border-radius:10px;background-color: #EFF4FF ">
             <div class="col-10 mx-auto mt-3 text-center" style="border: 2px solid #000;border-radius:10px;background-color: #FFFFFF">
                 @if($contactInfo === null) 
                 <img src="{{ asset('images/teamwork.png') }}" style="width: 100px; height: 100px;padding: 10px">
@@ -58,8 +79,13 @@
                 <h4 style=" font-weight: bold;">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
             </div>
             <div class="col-7 mt-3" style="margin-left:50px">
+            @if($surveylink)
+                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
+            @endif
+            </div>
+            <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="/users/homeuser" class="textmenu"><h3>หน้าหลัก</h3></a>
+                <a href="/users/homeuser" class="textmenu"><h3>ข่าวประชาสัมพันธ์</h3></a>
                 @endif
                 
             </div>
@@ -82,13 +108,8 @@
                 
             </div>
             <div class="col-10 mt-1" style="margin-left:50px">
-            @if($surveylink)
-                <a href="{{$surveylink->link}}" target="_blank" class="textmenu"><h3>แบบสอบถาม</h3></a>
-            @endif
-            </div>
-            <div class="col-10 mt-1" style="margin-left:50px">
                 @if (Auth::check() && Auth::user()->role_acc === 'student')
-                <a href="{{ route('accountuser') }}" class="textmenu"><h3>ตั้งค่าบัญชี</h3></a>
+                <a href="{{ route('accountuser') }}" class="textmenu"><h3>โปรไฟล์</h3></a>
                 @endif
                 
             </div>
@@ -105,79 +126,114 @@
                 <button class="btn btn-danger" type="submit" style="font-size: 24px;">ออกจากระบบ</button>
               </form>
             </div>
+            <div class="col-10 mt-5"><br></div>
             <hr class="mt-5" style="border: 2px solid #000">
-
             <a class="text-center" onclick="openContactModal()" style="color: black;text-decoration: none;cursor: pointer;"><h3>ติดต่อภาควิชา</h3></a>
         </div>
-  </div>
-  <style>
-    .custom-card {
-        width: 100%; /* ให้การ์ดเต็มความกว้างของ column */
-        max-width: 300px; /* ขนาดสูงสุดของการ์ด */
-        margin-bottom: 10px;
-        font-size: 20px;
-    }
-    .content-container {
-            text-align: center;
-            color: red;
-        }
-        .modal-content1 {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 25%;
-        }
-
-        .close-bottom-right {
-            font-weight: bold; 
-            }
-
-        .close-bottom-right:hover,
-        .close-bottom-right:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            }
-        .content-container {
-            text-align: center;
-            color: red;
-        }
-  </style>
-
-
-  <div class="container"  style="position: absolute; left: 500px; top: 180px;" >
-    <div class="col-md-12">
-      <h2 class="text-center">ประวัติการติดต่อ</h2>
+        <div class="col-10 col-lg-8 mt-5 ms-5">
+            <div class="col-md-12">
+                <h2 class="text-left">ประวัติการติดต่อ</h2>
+            </div>
+            <hr class="mt-1">
+            <div class="col-12  ">
+                <div class="col-12 mt-5">
+                    <div class="card" >
+                        <table class="table table-bordered">
+                            <thead class="table-color" >
+                                <tr>
+                                    <th scope="col"class="text-center">ชื่อเรื่อง</th>
+                                    <th scope="col"class="text-center"style="width: 400px;">เนื้อหา</th>
+                                    <th scope="col"class="text-center"style="width: 150px;">ไฟล์แนบ</th>
+                                    <th scope="col"class="text-center"style="width: 150px;">วันเวลาที่ส่ง</th>
+                                    <th scope="col"class="text-center"style="width: 150px;">สถานะ</th>
+                                    <th scope="col"class="text-center"style="width: 150px;">ตัวเลือก</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($messages as $row)
+                            @php
+                            $thaiMonths = [
+                                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                            ];
+                            @endphp
+                                <tr>
+                                    
+                                    <td>{{$row->massage_name}}</td>
+                                    <td>{{ Str::limit($row->massage_cotent, 50) }}</td>
+                                    <td class="text-center">
+                                    @foreach($fileMassage as $file)
+                                        @if($file->massage_id == $row->id)
+                                            @if(Str::contains($file->massage_file, '.png'))
+                                            <a href="{{ asset('storage/' . $file->massage_file) }}" target="_blank" class="file-link"><i class="fa-solid fa-file-image"></i></a>
+                                            @endif
+                                            @if(Str::contains($file->massage_file, '.jpg'))
+                                            <a href="{{ asset('storage/' . $file->massage_file) }}" target="_blank" class="file-link"><i class="fa-solid fa-image"></i></a>
+                                            @endif
+                                            @if(Str::contains($file->massage_file, '.jpeg'))
+                                            <a href="{{ asset('storage/' . $file->massage_file) }}" target="_blank" class="file-link"><i class="fa-regular fa-image"></i></a>
+                                            @endif
+                                            @if(Str::contains($file->massage_file, '.pdf'))
+                                            <a href="{{ asset('storage/' . $file->massage_file) }}" target="_blank"><i class="fa-solid fa-file-pdf"></i></a>
+                                            @endif
+                                            @if(Str::contains($file->massage_file, '.svg'))
+                                            <a href="{{ asset('storage/' . $file->massage_file) }}" target="_blank"><i class="fa-regular fa-file"></i></a>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                    </td>
+                                    <td>{{$row->created_at->format('d')}} {{$thaiMonths[$row->created_at->month]}} {{$row->created_at->year + 543}} เวลา {{$row->created_at->format('H:m')}} น.</td>
+                                    @if($row->status_read == 0)
+                                    <td class="text-center">ยังไม่ได้อ่าน</td>
+                                    @else
+                                    <td class="text-center">อ่านแล้ว</td>
+                                    @endif
+                                    <td class="text-center">
+                                        <button href="#show{{$row->id}}" class="btn btn-danger" title="เนื้อหา" data-toggle="tooltip" data-bs-toggle="modal" style="color:white;font-size: 24px;">
+                                        อ่านเนื้อหา
+                                        </button>  
+                                    </td>
+                                </tr>
+                            @endforeach 
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center">
+                            
+                        </div>
+                    </div>                
+                </div>    
+            </div> 
+        </div>        
     </div>
-    <hr class="mt-1" style="border: 1px solid #000">
-    
-    @foreach ($messages as $date => $groupedMessages)
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col" colspan="3" class="table-info">
-                    @if($groupedMessages['messages']->isEmpty())
-                        ไม่มีข้อความที่ส่ง
-                    @else
-                        {{ $groupedMessages['date'] }}
-                    @endif
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($groupedMessages['messages'] as $message)
-                <tr>
-                    <td style="width: 150px;">{{ $message->massage_name }}</td>
-                    <td style="width: 400px;">{{ Str::limit($message->massage_cotent, 50) }}</td>
-                    <td style="width: 50px;">{{ $message->created_at->format('H:i:s') }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    @foreach($messages as $row)
+    <div class="modal fade" id="show{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title " id="exampleModalLabel">เนื้อหา</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                {{ $row->massage_cotent }}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="font-size: 24px;" data-bs-dismiss="modal">ปิด</button>
+            </div>
+            </div>
+        </div>
+    </div>
     @endforeach
 
-  </div>
+
+
+
+
+
+
 
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="max-width: 60%">
@@ -190,7 +246,8 @@
                     <div>
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
-                            <div class="col-lg-6">
+                                @if($department)
+                                <div class="col-lg-6">
                                     <div class="col-lg-12 row" style="margin-left:15px">
                                         <div class="col-lg-1">
                                             <i class="fas fa-map-marker-alt" style="margin-top:15px"></i>
@@ -223,35 +280,39 @@
                                         width="500" height="300" style="border:0;margin-top:10px;margin-left:15px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                                     </iframe>
                                 </div>
+                                @endif
                                 <div class="col-lg-6">
                                     <form action="/user/post/massage" method="POST" enctype="multipart/form-data">
                                     @csrf
                                         <div class="col-lg-12">
                                             <label class="col-form-label font-weight-bold text-dark" style="font-size: 24px;">ชื่อเรื่อง</label>
                                             <div class="input-group">
-                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm text-center bg-white" name="massage_name"
+                                                <input type="text" style="font-size: 24px;"class="form-control form-control-sm  bg-white" name="massage_name"
                                                 required>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ</label>
+                                            <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">ข้อความ (สูงสุด 200 ตัวอักษร)</label>
                                             <div class="input-group">
-                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent"></textarea>
+                                                <textarea type="text"style="font-size: 24px;" id="" rows="4" cols="100" name="massage_cotent" maxlength="200"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">  
                                                 <label class="col-form-label font-weight-bold text-dark"style="font-size: 24px;">เลือกเอกสารที่ต้องการอัพโหลด</label>
                                                 <div class="input-group">
-                                                    <input type="file"style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file">
+                                                    <input type="file" style="font-size: 24px;" class="form-control" id="massage_file" name="massage_file[]" multiple>
                                                 </div>
                                         </div>
-                                        <br><br><br><br><br>
+                                        <br>
+                                        <span id="file_count" style="font-size: 24px; color:red;"></span>
+                                        <br><br><br><br>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 24px;">ปิด</button>
+                                            <button type="submit" class="btn btn-primary" style="font-size: 24px;">ส่ง</button>
                                         </div>
                                     </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -259,27 +320,54 @@
             </div>
         </div>
     </div>
-    
 <script>
     function openContactModal() {
         $('#contactModal').modal('show');
     }
-</script>
-<script>
     // ปิดการใช้งานปุ่มย้อนกลับ
     history.pushState(null, null, location.href);
     window.addEventListener('popstate', function(event) {
         history.pushState(null, null, location.href);
     });
+    document.getElementById('massage_file').addEventListener('change', function () {
+        var fileInput = this;
+        var fileCount = fileInput.files.length;
+        var fileCountElement = document.getElementById('file_count');
+            
+        for (var i = 0; i < fileCount; i++) {
+            var file = fileInput.files[i];
+            var fileSize = file.size / 1024 / 1024; // แปลงขนาดเป็น MB
+
+            var allowedExtensions = /(\.pdf|\.jpeg|\.jpg|\.png|\.svg)$/i; // ชนิดไฟล์ที่อนุญาต
+            if (!allowedExtensions.exec(file.name)) {
+                fileInput.value = ''; // ล้างค่าไฟล์ที่ถูกเลือก
+                fileCountElement.innerText = 'กรุณาเลือกไฟล์ที่มีนามสกุล .pdf, .jpeg, .jpg, .png, หรือ .svg';
+                return;
+            }
+            if (fileCount > 3) {
+                fileCountElement.innerText = 'กรุณาเลือกไฟล์ไม่เกิน 3 ไฟล์';
+                fileInput.value = ''; // ล้างค่าไฟล์ที่ถูกเลือก
+                return;
+            }
+            if (fileSize > 10) {
+                fileInput.value = ''; // ล้างค่าไฟล์ที่ถูกเลือก
+                fileCountElement.innerText = 'ขนาดของไฟล์ต้องไม่เกิน 10MB';
+                return;
+            }
+        }
+    });
 </script>
 <style>
-        .my-swal-title {
-            font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
-            font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
-        }
-        </style>
-        @if(Session::has('alert'))
-        <script>
+    .my-swal-title {
+        font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
+        font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */
+    }
+    .swal-button{
+        font-size: 24px;
+    }
+</style>
+@if(Session::has('alert'))
+    <script>
             swal({
                 title: "{{ Session::get('alert') }}",
                 icon: "success",
@@ -293,8 +381,8 @@
             if (msg) {
                 alert(msg);
             }
-        </script>
-        @endif  
+    </script>
+ @endif  
 </body>
 </html>
 

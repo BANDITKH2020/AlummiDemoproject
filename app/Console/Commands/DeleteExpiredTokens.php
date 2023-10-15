@@ -14,17 +14,8 @@ class DeleteExpiredTokens extends Command
      * @var string
      */
     protected $signature = 'tokens:delete-expired';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Delete expired tokens';
 
-    /**
-     * Execute the console command.
-     */
     public function __construct()
     {
         parent::__construct();

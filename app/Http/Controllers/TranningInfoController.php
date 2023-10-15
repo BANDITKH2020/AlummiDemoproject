@@ -17,6 +17,9 @@ class TranningInfoController extends Controller
         $Organize_name = $request->input('Organize_name');
         $startdate = $request->input('startdate');
         $enddate = $request->input('enddate');
+        if ($startdate > $enddate) {
+            return redirect()->back()->with('error', "วันทำงานไม่สอดคล้องกัน");
+        }
         $Tranning_info =Tranning_info::insert([
             'ID_student'=>$ID_student,
             'Certi_name'=>$Certi_name,
@@ -42,7 +45,9 @@ class TranningInfoController extends Controller
             $Organize_name = $request->input('Organize_name');
             $startdate = $request->input('startdate');
             $enddate = $request->input('enddate');
-            
+            if ($startdate > $enddate) {
+                return redirect()->back()->with('error', "วันฝึกอบรมไม่สอดคล้องกัน");
+            }
             $Tranning_info = Tranning_info::find($id)->update([
                 'Certi_name'=>$Certi_name,
                 'Organize_name'=>$Organize_name,

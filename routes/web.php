@@ -51,6 +51,8 @@ Auth::routes();
 //สมัครAdmin
 Route::get('/admin/home', [HomeController::class,'index'])->name('index');
 Route::get('/home/view/{id}', [HomeController::class,'view'])->name('view')->middleware('auth', 'checkRole:Admin');
+Route::get('/home/viewNew/{id}', [NewsandActivitiesController::class,'viewnew'])->name('view')->middleware('auth', 'checkRole:Admin');
+Route::get('/home/viewactivity/{id}', [activityController::class,'viewactivity'])->name('view')->middleware('auth', 'checkRole:Admin');
 //สมัครสมาชิก google
 Route::get('users/login', [LoginController::class, 'login'])->name('login.ris')->block();
 Route::post('/users/input', [SocialController::class, 'inputgoogle'])->name('inputgoogle')->block();

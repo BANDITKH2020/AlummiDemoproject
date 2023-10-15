@@ -30,19 +30,37 @@ class TeacherController extends Controller
             if ($userLoginHistory) {
                 $userLoginHistory->update(['login_at' => now()]);
             }
+            
         $query = newsandactivity::query();
-        $search = $request->input('search');
-        $gender = $request->gender;
-
-    // Apply search filters
-   
-        $query->where('title_name', 'LIKE', "%{$search}%")
-        ->orWhere('category', 'LIKE', "%{$search}%")
-        ->orWhere('created_at', 'LIKE', "%{$search}%");
+        $searchdata = $request->searchdata;
+            switch ($searchdata) {
+                case 'all':
+                    $query->where('category', 'LIKE', '%งานพบประสังสรรค์ประจำปี%')
+                        ->orWhere('category', 'LIKE', '%อบรมให้ความรู้วิชาการ%')
+                        ->orWhere('category', 'LIKE', '%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%')
+                        ->orWhere('category', 'LIKE', '%กิจกรรมศิษย์เก่าสัมพันธ์%')
+                        ->orWhere('category', 'LIKE', '%ข่าวสาร%');
+                    break;
+                case 'งานพบประสังสรรค์ประจำปี':
+                    $query->where('category', 'LIKE', '%งานพบประสังสรรค์ประจำปี%');
+                    break;
+                case 'อบรมให้ความรู้วิชาการ':
+                    $query->where('category', 'LIKE', '%อบรมให้ความรู้วิชาการ%');
+                    break;
+                case 'งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์':
+                    $query->where('category', 'LIKE','%งานแข่งขันกีฬาศิษย์เก่าสัมพันธ์%');
+                    break; 
+                case 'กิจกรรมศิษย์เก่าสัมพันธ์':
+                    $query->where('category', 'LIKE', '%กิจกรรมศิษย์เก่าสัมพันธ์%');
+                    break; 
+                case 'ข่าวสาร':
+                    $query->where('category', 'LIKE', '%ข่าวสาร%');
+                    break;        
+            }
        
     
         $surveylink = Surveylink::query()->latest()->first();
-        $newsandactivity = $query->paginate(8);
+        $newsandactivity = $query->paginate(4);
         
         
         $id = Auth::user()->student_id;
@@ -165,7 +183,7 @@ class TeacherController extends Controller
             ->select('student_id', 'firstname', 'lastname', 'graduatesem','Term')
             ->where('role_acc', 'student')
             ->where('educational_status', 'จบการศึกษา')
-            ->paginate(10);
+            ->paginate(7);
         $surveylink = Surveylink::query()->latest()->first();
         $department = department::where('ID', 1)->first();
         $id = Auth::user()->student_id;
@@ -178,6 +196,7 @@ class TeacherController extends Controller
         $surveylink = Surveylink::query()->latest()->first();
         $id = Auth::user()->student_id;
         $contactInfo = Contart_info::where('ID_student', $id)->first();
+        
         $department = department::where('ID', 1)->first();
         return view('teacher.view',compact('view','contactInfo','surveylink','department'));
     }

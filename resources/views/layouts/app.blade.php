@@ -21,19 +21,17 @@
             <a class="navbar-brand" href="{{ url('/') }}">    
                 <div class="col-12">
                     <div class="col-12 outset" style="background-color: #EFF4FF;">
-                    <div class="col-12">
-                        <div class="col-12 row">
-                            <div class="col-1">
-                                <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="width: 100px; height: 100px;float: right;">
+                        <div class="col-12">
+                            <div class="col-12 row">
+                                <div class="col-1">
+                                    <img src="{{ asset('images/logo-rmutt-icon.jpg') }}" style="height: 100px;padding: 0px;margin:0px;" align="right">
+                                </div>
+                                <div  class="col-11">
+                                    <h2  style="font-weight:bold; padding: 30px 0;margin:0px;font-family:'TH Niramit AS';">เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h2>
+                                </div>
                             </div>
-                            <div class="col-1" style="left:100px;" >
-                                <br>
-                                <h4>เว็บไซต์ศิษย์เก่าวิศวกรรมคอมพิวเตอร์</h4>
-                                <hr class="mt-10" style="border: 1px solid #000; width: 350px;">
-                                <h4>Computer Engineering Alummi</h4>
-                            </div>
+                            <hr class="mt-1" style="border: 2px solid #000">
                         </div>
-                        <hr class="mt-1" style="border: 2px solid #000">
                     </div>
                 </div>
             </a>

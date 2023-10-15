@@ -14,17 +14,17 @@ use Illuminate\Queue\SerializesModels;
 class RMUTT_Alumni extends Mailable
 {
     use Queueable, SerializesModels;
+    public $subject; // เพิ่มตัวแปร public สำหรับเก็บหัวเรื่อง
+
+    public function __construct($subject)
+    {
+        $this->subject = $subject; // กำหนดค่าหัวเรื่องจากคอนสตรักเตอร์
+    }
+
     public function build()
     {
-        $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมดจากฐานข้อมูล
-        $link = Surveylink::query()->latest()->first();
-        $emailContent = "ขอความร่วมมือนักศึกษา\n\n";
-        foreach ($users as $user) {
-            if ($user->graduatesem === $link->graduatedyear) {
-                $emailContent .= $user->name . ' (' . $user->firstname . ' ' . $user->lastname .")\n";
-            }
-        }
-        $emailContent .= "\nแบบสอบถาม : " . $link->link; 
-        return $this->html($emailContent); // กำหนดเนื้อหาข้อความในอีเมล
+        $role_acc = User::where('role_acc', 'like', '%teacher%')->latest()->first();
+        return $this->view('emails.Teacher_Alumni')->with(['firstname' => $role_acc->firstname,'lastname'=>$role_acc->lastname,'email'=>$role_acc->email]);
     }
+    
 }

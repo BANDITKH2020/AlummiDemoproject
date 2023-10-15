@@ -23,7 +23,6 @@ class TokenTeacherController extends Controller
     {
         $randomCode = $request->input('random_code'); // รับรหัสสุ่มจาก request
         $selectedDateTime = $request->input('selected_date_time'); // รับวันที่และเวลาจาก request
-    
         // ทำการบันทึกลงในฐานข้อมูล (ตามโมเดลที่คุณได้สร้าง)
         $randomCodeModel = new randomcode();
         $randomCodeModel->code = $randomCode;

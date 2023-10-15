@@ -22,6 +22,7 @@ class StatusController extends Controller
                         ->orWhere('lastname', 'LIKE', "%{$search}%")
                         ->orWhere('graduatesem', 'LIKE', "%{$search}%")
                         ->orWhere('student_grp', 'LIKE', "%{$search}%")
+                        ->orwhere('Term', 'LIKE', "%{$search}%")
                         ->orWhere('educational_status', 'LIKE', "%{$search}%");
                     break;
                 case 'student_id':
@@ -35,6 +36,9 @@ class StatusController extends Controller
                     break;
                 case 'graduatesem':
                     $query->where('graduatesem', 'LIKE', "%{$search}%");
+                    break;
+                case 'Term':
+                    $query->where('Term', 'LIKE', "%{$search}%");
                     break;
                 case 'student_grp':
                     $query->where('student_grp', 'LIKE', "%{$search}%");

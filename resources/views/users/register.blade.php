@@ -22,7 +22,7 @@
                 overflow: auto;
                 background: linear-gradient(315deg, rgb(146, 143, 146) 3%, rgb(150, 162, 173) 38%, rgb(149, 167, 165) 68%, rgb(173, 162, 162) 98%);
                 animation: gradient 15s ease infinite;
-                background-size: 400% 400%;
+                background-size: 100% 100%;
                 background-attachment: fixed;
                 font-weight: bold;
             }
@@ -125,14 +125,14 @@
                 margin: 100px auto;
             }
     </style>
-    <div class="row justify-content-center" style="margin-top:150px">
-        <div class="col-lg-7">
+    <div class="row justify-content-center" style="margin-top:50px">
+        <div class="col-lg-8">
                 <div class="card" style="border-radius:30px;">
                     <div class="card-body" >
                         <div class="col-lg-12">
                             <div class="col-lg-12 row">
                                 <div class="col-lg-6 mt-3">
-                                    <img src="{{ asset('images/student.jpg') }}" style="width: 400px; height:500px;border-radius: 10px;margin-left:30px;">
+                                    <img src="{{ asset('images/student.jpg') }}" style="width: 500px; height:600px;border-radius: 10px;margin-left:30px;">
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-12">
@@ -141,31 +141,32 @@
                                             <p style="text-align:center;font-size: 30px;">ลงทะเบียนศิษย์เก่า</p>
                                             <div class="col-lg-12 row">
                                                 <div class="col-lg-12 mt-3">
-                                                    <label for="firstname" class="form-label"style="font-size: 20px;">ชื่อ</label>
+                                                    <label for="firstname" class="form-label"style="font-size: 24px;">ชื่อ</label>
                                                     <input type="text" name="firstname" class="form-control" id="firstname" placeholder="" style="font-size: 24px;"required>
                                                 </div>
                                                 <div class="col-lg-12 mt-3">
-                                                    <label for="lastname" class="form-label"style="font-size: 20px;">นามสกุล</label>
+                                                    <label for="lastname" class="form-label"style="font-size: 24px;">นามสกุล</label>
                                                     <input type="text" name="lastname" class="form-control" id="lastname" placeholder="" style="font-size: 24px;"required>
                                                 </div>
                                                 <div class="col-lg-6 mt-3">
-                                                    <label for="student_id" class="form-label"style="font-size: 20px;">รหัสนักศึกษา</label>
-                                                    <input type="text" name="student_id" class="form-control" id="student_id" style="font-size: 24px;"required>
+                                                    <label for="student_id" class="form-label"style="font-size: 24px;">รหัสนักศึกษา</label>
+                                                    <input type="text" name="student_id" class="form-control" id="student_id" maxlength="13" minlength="13" style="font-size: 24px;"required>
                                                 </div>
                                                 <div class="col-lg-6 mt-3">
-                                                    <label for="student_grp" class="form-label"style="font-size: 20px;">รุ่นปีการศึกษา</label>
-                                                    <input type="text" name="student_grp" class="form-control" id="student_grp" style="font-size: 24px;"required>
-                                                </div><div class="col-lg-12 mt-3">
-                                                    <label for="token_id" class="form-label"style="font-size: 20px;">รหัส</label>
+                                                    <label for="student_grp" class="form-label"style="font-size: 24px;">กลุ่มนักศึกษา</label>
+                                                    <input type="text " placeholder="่เช่น 63346CPE" name="student_grp" class="form-control" id="student_grp" style="font-size: 24px;"required>
+                                                </div>
+                                                <div class="col-lg-12 mt-3">
+                                                    <label for="token_id" class="form-label"style="font-size: 24px;">รหัสเชิญให้สมัครสมาชิก</label>
                                                     <input type="text" name="token_id" class="form-control" id="token_id"style="font-size: 24px;" required>
                                                 </div>
                                                 <div class="col-lg-12 mt-3">
                                                 <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                                                 </div>
                                                 <div class="d-grid gap-2 col-12 mt-3">
-                                                    <button type="submit" class="btn btn-outline-dark"role="button" style="text-transform:none;font-size: 24px;" id="googleLoginButton">
-                                                        <img width="20px" style="margin-bottom:3px; margin-right:3px; text-align:center; "alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                                            Login with Google
+                                                    <button type="submit" class="btn btn-primary"role="button" style="text-transform:none;font-size: 24px;color:white" id="googleLoginButton">
+                                                        <img width="30px" style="margin-right:3px; text-align:center;background-color:white;"alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                                            <b>Login with Google</b>
                                                     </button>
                                                 </div>
                                             </div>
@@ -177,7 +178,25 @@
                     </div>
                 </div>
         </div>
+        <script>
+            // Get the input element
+            const student_id = document.getElementById('student_id');
+
+            // Add an event listener to check for special characters
+            student_id.addEventListener('input', function() {
+                const inputValue = this.value;
+                const specialCharacters = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\|/-]/; // Define your list of special characters
+
+                if (specialCharacters.test(inputValue)) {
+                    // If the input contains special characters, display an error message or take appropriate action
+                    alert('กรุณากรอกข้อมูลที่ไม่มีเครื่องหมายพิเศษ');
+                    // You can also clear the input field or prevent form submission here
+                    this.value = ''; // Clear the input field
+                }
+            });
+        </script>
         <style>
+            
         .my-swal-title {
             font-size: 24px; /* ปรับขนาดตามที่คุณต้องการ */
             font-weight: bold; /* กำหนดความหนาของตัวอักษร (ถ้าต้องการ) */

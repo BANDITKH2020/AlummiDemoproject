@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RMUTT_Alumni;
 use Auth;
 use Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterAdminController extends Controller
 {
@@ -19,13 +21,14 @@ class RegisterAdminController extends Controller
         $request->validate(
             [
                 'firstname' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'lastname' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]
         );
         $user = User::create([
             'firstname' => $request->firstname,
-            'lastname'=> 'null',
+            'lastname'=> $request->lastname,
             'student_id'=> 'Admin',
             'student_grp'=> 'Admin',
             'graduatesem'=> 'null',
@@ -81,13 +84,18 @@ class RegisterAdminController extends Controller
             'groupleader'=> 'ไม่เป็นหัวหน้า',
             'educational_status'=> 'teacher',
         ]);
-        if ($user->wasRecentlyCreated !== false) {
-            // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-            return redirect()->back()->with('alert',"บันทึกข้อมูลเรียบร้อย");
-        } else {
-            // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
-            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
-        }
 
+        $role_acc = User::where('role_acc', 'like', '%teacher%')->latest()->first();
+            if ($role_acc->role_acc =='teacher') {
+                    $userEmail = $role_acc->email;
+                    $customEmail = new RMUTT_Alumni('ขอเชิญอาจารย์เข้าสู่ระบบศิษย์เก่าภาควิชาวิศวกรรมคอมพิวเตอร์');
+                    Mail::to($userEmail)->send($customEmail);
+                    return redirect()->back()->with('alert',"บันทึกข้อมูลและส่งข้อความเรียบร้อย");
+            }else {
+                // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
+                return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            } 
+              
+        
     }
 }

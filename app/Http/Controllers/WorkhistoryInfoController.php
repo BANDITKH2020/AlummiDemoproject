@@ -12,14 +12,12 @@ class WorkhistoryInfoController extends Controller
 {
     public function store(Request $request)
     {
-        
+
         $ID_student = Auth::user()->student_id;
         $startdate_m = $request->input('startdate_m');
         $startdate_y = $request->input('startdate_y');
         $startdate=$startdate_m.'-'.$startdate_y;
-        $enddate_m = $request->input('enddate_m');
-        $enddate_y = $request->input('enddate_y');
-        $enddate_end=$enddate_m.'-'.$enddate_y;//
+        $other_worktype = $request->input('other_worktype');
         $enddate = $request->input('enddate');
         $Company_name = $request->input('Company_name');
         $position = $request->input('position');
@@ -27,12 +25,20 @@ class WorkhistoryInfoController extends Controller
         $Company_add = $request->input('Company_add');
         $desctiption = $request->input('desctiption') ?? '-';
         $worktype = $request->input('worktype');
+        
         $startdate = Carbon::createFromFormat('m-Y', $startdate)->format('Y-m-d');
-        $enddate_end = Carbon::createFromFormat('m-Y', $enddate_end)->format('Y-m-d');
+        
         if ($enddate === 'on') {
+            
             $now = Carbon::now();
             $thaiYear = $now->addYears(543)->format('m-Y'); 
             $parsedDate = Carbon::createFromFormat('m-Y', $thaiYear)->format('Y-m-d');
+            if ($startdate > $parsedDate) {
+                return redirect()->back()->with('error', "วันทำงานไม่สอดคล้องกัน");
+            }
+            if ($worktype == null) {
+                $worktype = $other_worktype;
+            }
             $Workhistory_info = Workhistory_info::insert([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
@@ -47,7 +53,7 @@ class WorkhistoryInfoController extends Controller
             ]);  
             if ($Workhistory_info !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+                return redirect()->back()->with('alert', "บันทึกข้อมูลเรียบร้อย");
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
                 return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
@@ -55,6 +61,17 @@ class WorkhistoryInfoController extends Controller
             }
         }else
         {
+            
+            $enddate_m = $request->input('enddate_m');
+            $enddate_y = $request->input('enddate_y');
+            $enddate_end=$enddate_m.'-'.$enddate_y;//
+            $enddate_end = Carbon::createFromFormat('m-Y', $enddate_end)->format('Y-m-d');
+            if ($startdate > $enddate_end) {
+                return redirect()->back()->with('error', "วันทำงานไม่สอดคล้องกัน");
+            }
+            if ($worktype == null) {
+                $worktype = $other_worktype;
+            }
             $Workhistory_info =  Workhistory_info::insert([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
@@ -69,7 +86,7 @@ class WorkhistoryInfoController extends Controller
             ]); 
             if ($Workhistory_info !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+                return redirect()->back()->with('alert', "บันทึกข้อมูลเรียบร้อย");
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
                 return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
@@ -84,6 +101,7 @@ class WorkhistoryInfoController extends Controller
         
         $ID_student = Auth::user()->student_id;
         $id = $request->input('id');
+        $other_worktype = $request->input('other_worktype');
         $startdate_m = $request->input('startdate_m');
         $startdate_y = $request->input('startdate_y');
         $startdate=$startdate_m.'-'.$startdate_y;
@@ -99,10 +117,18 @@ class WorkhistoryInfoController extends Controller
         $worktype = $request->input('worktype');
         $startdate = Carbon::createFromFormat('m-Y', $startdate)->format('Y-m-d');
         $enddate_end = Carbon::createFromFormat('m-Y', $enddate_end)->format('Y-m-d');
+       
         if ($enddate === 'on') {
             $now = Carbon::now();
             $thaiYear = $now->addYears(543)->format('m-Y'); 
             $parsedDate = Carbon::createFromFormat('m-Y', $thaiYear)->format('Y-m-d');
+            if ($startdate > $parsedDate) {
+                return redirect()->back()->with('error', "วันทำงานไม่สอดคล้องกัน");
+            }
+            if ($worktype == null) {
+                $worktype = $other_worktype;
+                
+            }
             $Workhistory_info =  Workhistory_info::find($id)->update([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
@@ -117,7 +143,7 @@ class WorkhistoryInfoController extends Controller
             ]);  
             if ($Workhistory_info !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+                return redirect()->back()->with('alert', "บันทึกข้อมูลเรียบร้อย");
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
                 return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");
@@ -125,6 +151,12 @@ class WorkhistoryInfoController extends Controller
             }
         }else
         {
+            if ($startdate > $enddate_end) {
+                return redirect()->back()->with('error', "วันทำงานไม่สอดคล้องกัน");
+            }
+            if ($worktype == null) {
+                $worktype = $other_worktype;
+            }
             $Workhistory_info =  Workhistory_info::find($id)->update([
                 'ID_student'=>$ID_student,
                 'startdate'=>$startdate,
@@ -139,7 +171,7 @@ class WorkhistoryInfoController extends Controller
             ]); 
             if ($Workhistory_info !== false) {
                 // กระทำเมื่อข้อมูลถูกสร้างขึ้นใหม่
-                return redirect()->back()->with('alert', "อัปเดตประวัติการทำงานเรียบร้อย");
+                return redirect()->back()->with('alert', "บันทึกข้อมูลเรียบร้อย");
             } else {
                 // กระทำเมื่อข้อมูลมีอยู่แล้วในฐานข้อมูล
                 return redirect()->back()->with('error', "เกิดข้อผิดพลาดในการอัพเดตประวัติการทำงาน");

@@ -26,8 +26,7 @@ class ManageAccountController extends Controller
         if (!empty($search)) {
             switch ($searchdata) {
                 case 'all':
-                    $query->where('student_id', 'LIKE', "%{$search}%")
-                        ->orWhere('firstname', 'LIKE', "%{$search}%")
+                    $query->Where('firstname', 'LIKE', "%{$search}%")
                         ->orWhere('lastname', 'LIKE', "%{$search}%")
                         ->orWhere('graduatesem', 'LIKE', "%{$search}%")
                         ->orWhere('student_grp', 'LIKE', "%{$search}%")
@@ -39,8 +38,15 @@ class ManageAccountController extends Controller
                 case 'lastname':
                     $query->where('lastname', 'LIKE', "%{$search}%");
                     break;
-                case 'graduatesem':
-                    $query->where('graduatesem', 'LIKE', "%{$search}%");
+                case 'role_acc':
+                    if ($search === 'อาจารย์' || $search === 'teacher') {
+                        $search = 'teacher';
+                    } elseif ($search === 'ผู้ดูแลระบบ' || $search === 'Admin') {
+                        $search = 'Admin';
+                    }elseif ($search === 'ศิษย์เก่า' || $search === 'student'){
+                        $search = 'student';
+                    }
+                    $query->where('role_acc', $search);
                     break;
                 case 'student_grp':
                     $query->where('student_grp', 'LIKE', "%{$search}%");
@@ -67,7 +73,7 @@ class ManageAccountController extends Controller
             $users = $query->select('users.id', 'users.student_id', 'users.firstname', 'users.lastname', 'users.educational_status', 'users.inviteby', 'users.student_grp', 'users.role_acc', 'users.created_at', 'users.active', 'users.email', 'users.graduatesem', 'users.groupleader', 'login_histories.login_at')
                     ->whereIn('users.role_acc', ['student', 'teacher','Admin'])
                     ->leftJoin('login_histories', 'users.id', '=', 'login_histories.user_id')
-                    ->orderBy('graduatesem', 'desc')
+                    ->orderBy('login_at', 'desc')
                     ->paginate(10);
             
             
