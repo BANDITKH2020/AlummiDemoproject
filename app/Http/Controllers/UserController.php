@@ -105,14 +105,14 @@ class UserController extends Controller
         $user = User::find($id);
         $student_id = $user->student_id;
         $contactInfo = Contart_info::where('ID_student', $student_id)->first();
-        $education_infom = Education_infom::where('ID_student', $student_id)->paginate(1);
-        $Workhistory_info = Workhistory_info::where('ID_student', $student_id)->paginate(1);
-        $Skill_info = Skill_info::where('ID_student', $student_id)->paginate(1);
-        $language_skill = language_skill::where('ID_student', $student_id)->paginate(1);
+        $education_infom = Education_infom::where('ID_student', $student_id)->paginate(6);
+        $Workhistory_info = Workhistory_info::where('ID_student', $student_id)->paginate(6);
+        $Skill_info = Skill_info::where('ID_student', $student_id)->paginate(3);
+        $language_skill = language_skill::where('ID_student', $student_id)->paginate(3);
         $Skillcount = Skill_info::where('ID_student', $student_id)->count();
         $languagecount = language_skill::where('ID_student', $student_id)->count();
-        $Trainings = Tranning_info::where('ID_student', $student_id)->paginate(1);
-        $reward = reward::where('student_id', $student_id)->paginate(1);
+        $Trainings = Tranning_info::where('ID_student', $student_id)->paginate(6);
+        $reward = reward::where('student_id', $student_id)->paginate(6);
         return view('users.viewProfile',compact('user','contactInfo','education_infom','Workhistory_info','Skill_info','language_skill','Trainings','reward','Skillcount','languagecount'));
     }
 }

@@ -75,6 +75,27 @@
         <div class="col-10 col-lg-10 row mt-1">
             <div class="row ms-1" style="text-align: center;" >
                 <ul class="nav nav-tabs">
+                    @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="openCity(event, 'ประวัติส่วนตัว')" id="defaultOpen"><h3>ประวัติส่วนตัว</h3></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-left: 100px;"onclick="openCity(event, 'ประวัติการศึกษา')" ><h3>ประวัติการศึกษา</h3></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " style="margin-left: 100px;" onclick="openCity(event, 'ประวัติการทำงาน')" ><h3>ประวัติการทำงาน</h3></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-left: 100px;" onclick="openCity(event, 'ทักษะ')"><h3>ทักษะ</h3></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " style="margin-left: 100px;" onclick="openCity(event, 'ประวัติการฝึกอบรม')"><h3>ประวัติการฝึกอบรม</h3></a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " style="margin-left: 100px;" onclick="openCity(event, 'รางวัลประกาศ')"><h3>รางวัลประกาศ</h3></a>
+                    </li>
+                    @else
                     <li class="nav-item">
                         <a class="nav-link" onclick="openCity(event, 'ประวัติส่วนตัว')" id="defaultOpen"><h3>ประวัติส่วนตัว</h3></a>
                     </li>
@@ -90,7 +111,7 @@
                     <li class="nav-item">
                         <a class="nav-link " style="margin-left: 160px;" onclick="openCity(event, 'ประวัติการฝึกอบรม')"><h3>ประวัติการฝึกอบรม</h3></a>
                     </li>
-                    
+                    @endif
                 </ul>
             </div>
                 <div id="ประวัติส่วนตัว" class="tabcontent mt-3">
@@ -194,78 +215,33 @@
                         <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ไม่มีข้อมูล</p>
                     </div>
                 @else
-                    @foreach($education_infom as $education)
-                        <div class="row ">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ชื่อสถาบัน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($education)
-                                    @if($education->School_name !== null)
-                                    {{ $education->School_name }}
-                                    @endif                       
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">คณะ :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($education)
-                                    @if($education->faculty_study !== null)
-                                    {{ $education->faculty_study }}
-                                    @endif 
-                                @else
-                                    -                              
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">สาขา :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($education)
-                                    @if($education->field_study !== null)
-                                    {{ $education->field_study }}
-                                    @endif 
-                                @else
-                                    -                             
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">วุฒิการศึกษา :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($education)
-                                    @if($education->degree !== null)
-                                    {{ $education->degree }}
-                                    @endif 
-                                @else
-                                    -                             
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">เกรดเฉลี่ย :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($education)
-                                    @if($education->gpa !== null)
-                                    {{ $education->gpa }}
-                                    @endif 
-                                @else
-                                    -                            
-                                @endif
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ปีที่สำเร็จการศึกษา :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($education)
-                                    @if($education->endyear !== null)
-                                    {{ $education->endyear }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
+                    
+                    <table class="table ">
+                        <thead class="table-active">
+                            <tr>
+                                <th scope="col"class="text-center">ชื่อสถาบัน</th>                            
+                                <th scope="col"class="text-center">คณะ</th>
+                                <th scope="col"class="text-center">สาขา</th>                            
+                                <th scope="col"class="text-center">เกรดเฉลี่ย</th>
+                                <th scope="col"class="text-center">จบการศึกษา</th>                            
+                                <th scope="col"class="text-center">วุฒิการศึกษา </th>  
+                                <th scope="col"class="text-center">ประเภทสถาบัน</th>                          
+                            </tr>
+                        </thead>
+                        @foreach($education_infom as $education)
+                        <tbody>                               
+                        <tr>
+                            <td>{{ $education->School_name }}</td>
+                            <td>{{ $education->faculty_study }}</td>
+                            <td>{{ $education->field_study }}</td>
+                            <td>{{ $education->gpa }}</td>
+                            <td>{{ $education->endyear }}</td>
+                            <td>{{ $education->degree }}</td>
+                            <td>{{ $education->schooltype }}</td>
+                        </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
                     <div class="row">
                         <div class="d-flex justify-content-center mt-2">
                             {{$education_infom->links()}}
@@ -287,109 +263,37 @@
                         <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ไม่มีข้อมูล</p>
                     </div>        
                 @else
-                    @foreach($Workhistory_info as $work_history)
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ชื่อบริษัท :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->Company_name !== null)
-                                    {{ $work_history->Company_name }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ตำแหน่งงาน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->position !== null)
-                                    {{ $work_history->position }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">รายละเอียดงาน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->desctiption !== null)
-                                    {{ $work_history->desctiption }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">เริ่มต้นทำงาน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->startdate !== null)
-                                    {{ $thaiMonths[\Carbon\Carbon::parse($work_history->startdate)->format('n')] }}/{{ \Carbon\Carbon::parse($work_history->startdate)->format('Y') }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">สิ้นสุดทำงาน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->enddate !== null)
-                                    {{ $thaiMonths[\Carbon\Carbon::parse($work_history->enddate)->format('n')] }}/{{ \Carbon\Carbon::parse($work_history->enddate)->format('Y') }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ช่วงเงินเดือน :</p>
-                            <div class="col-md-6 mt-2">
+                    <table class="table ">
+                        <thead class="table-active">
+                        <tr>
+                            <th scope="col"class="text-center">ชื่อบริษัท</th>                            
+                            <th scope="col"class="text-center">ตำแหน่งงาน</th>
+                            <th scope="col"class="text-center">ช่วงเงินเดือน</th>                            
+                            <th scope="col"class="text-center">ที่อยู่บริษัท</th>
+                            <th scope="col"class="text-center">ประเภทของงาน</th>                            
+                            <th scope="col"class="text-center">เริ่มต้นทำงาน</th>
+                            <th scope="col"class="text-center">สิ้นสุดทำงาน </th>                            
+                        </tr>
+                        </thead>
+                        @foreach( $Workhistory_info as $Workhistoryrow)
+                        <tbody>
+                        <tr>
+                            <td>{{ $Workhistoryrow->Company_name }}</td>
+                            <td>{{ $Workhistoryrow->position }}</td>
                             @if (Auth::check() && Auth::user()->role_acc === 'teacher')
-                                @if($work_history)
-                                    @if($work_history->salary !== null)
-                                    {{ $work_history->salary }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
+                            <td class="text-center">{{ $Workhistoryrow->salary }}</td>
                             @endif
                             @if (Auth::check() && Auth::user()->role_acc === 'student')
-                                -
+                            <td class="text-center">-</td>
                             @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ที่อยู่บริษัท :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->Company_add !== null)
-                                    {{ $work_history->Company_add }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>       
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ประเภทของงาน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($work_history)
-                                    @if($work_history->worktype !== null)
-                                    {{ $work_history->worktype }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>        
-                    @endforeach
+                            <td>{{ $Workhistoryrow->Company_add }}</td>
+                            <td class="text-center">{{ $Workhistoryrow->worktype }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($Workhistoryrow->startdate)->format('m-Y') }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($Workhistoryrow->enddate)->format('m-Y') }}</td>
+                        </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
                     <div class="row">
                         <div class="d-flex justify-content-center mt-2">
                             {{$Workhistory_info->links()}}
@@ -403,94 +307,63 @@
                         <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ไม่มีข้อมูล</p>
                 </div>
                 @else
-                    @foreach($Skill_info as $Skill)
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end" style="font-size: 24px;">ทักษะ :</p>
-                            <div class="col-md-6 mt-2">
-                                {{ $Skill->Skill_name }}
-                            </div>
+                    <table class="table " >
+                        <thead class="table-active">
+                        <tr>
+                            <th scope="col"class="text-center">อันดับ</th>                            
+                            <th scope="col"class="text-center">ทักษะตามสาขาอาชีพ</th>                            
+                        </tr>
+                        </thead>
+                        @foreach($Skill_info as $row)
+
+                        <tbody>
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration + ($Skill_info->currentPage() - 1) * $Skill_info->perPage() }}</td>
+                            <td class="text-center">{{$row->Skill_name}}</td>
+                        </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
+                    <div class="row">
+                        <div class="d-flex justify-content-center mt-2">
+                            {{$Skill_info->links()}}
                         </div>
-                    @endforeach
+                    </div>
                 @endif
                 @if($language_skill->isEmpty())
                 <div class="row">
                         <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ไม่มีข้อมูล</p>
                     </div>
                 @else
-                    @foreach($language_skill as $language)
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ภาษา :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($language)
-                                    @if($language->language !== null)
-                                    {{ $language->language }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ฟัง :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($language)
-                                    @if($language->listening !== null)
-                                    {{ $language->listening }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">พูด :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($language)
-                                    @if($language->speaking !== null)
-                                    {{ $language->speaking }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">อ่าน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($language)
-                                    @if($language->reading !== null)
-                                    {{ $language->reading }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">เขียน :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($language)
-                                    @if($language->writing !== null)
-                                    {{ $language->writing }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div> 
-                    @endforeach 
-                    
+                    <table class="table " >
+                        <thead class="table-active">
+                        <tr>
+                            <th scope="col"class="text-center">อันดับ</th>                            
+                            <th scope="col"class="text-center">ภาษา</th>                            
+                            <th scope="col"class="text-center">ฟัง</th>
+                            <th scope="col"class="text-center">พูด</th>
+                            <th scope="col"class="text-center">อ่าน</th>
+                            <th scope="col"class="text-center">เขียน</th>
+                        </tr>
+                        </thead>
+                        @foreach($language_skill as $row )
+                        <tbody>
+                        <tr>
+                            <td class="text-center">{{$loop->iteration + ($language_skill->currentPage() - 1) * $language_skill->perPage() }}</td>
+                            <td class="text-center">{{$row->language}}</td>
+                            <td class="text-center">{{$row->listening}}</td>
+                            <td class="text-center">{{$row->speaking}}</td>
+                            <td class="text-center">{{$row->reading}}</td>
+                            <td class="text-center">{{$row->writing}}</td>
+                        </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
                 @endif 
                 <div class="row">
-                    @if($Skillcount>$languagecount)
-                        <div class="d-flex justify-content-center mt-2">
-                            {{$Skill_info->links()}}
-                        </div>
-                    @else
-                        <div class="d-flex justify-content-center mt-2">
+                    <div class="d-flex justify-content-center">
                         {{$language_skill->links()}}
-                        </div>
-                    @endif
+                    </div>
                 </div>
             </div>
             <div id="ประวัติการฝึกอบรม" class="tabcontent mt-3">
@@ -499,137 +372,86 @@
                         <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ไม่มีข้อมูล</p>
                     </div>
                 @else
-                    @foreach($Trainings as $Training)
-                    @php
-                        $thaiMonths = [
-                            1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-                            4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-                            7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-                            10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                <table class="table">
+                        <thead class="table-active">
+                            <tr>
+                                <th scope="col" class="text-center">อันดับ</th>
+                                <th scope="col" class="text-center">ประกาศนียบัตร</th>
+                                <th scope="col" class="text-center">บริษัทที่จัดอบรม</th>
+                                <th scope="col" class="text-center">วันที่เริ่มอบรม</th>
+                                <th scope="col" class="text-center">วันที่สิ้นสุดอบรม</th>
+                            </tr>
+                        </thead>
+                        @php
+                            $thaiMonths = [
+                                1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+                                4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+                                7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+                                10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+                            ];
                             
-                        ];
-                        $startdate = \Carbon\Carbon::parse($Training->startdate);
-                        $enddate = \Carbon\Carbon::parse($Training->enddate);
-                    @endphp
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end">ชื่อใบประกอบวิชาชีพ/ประกาศนียบัตร :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($Training)
-                                    @if($Training->Certi_name !== null)
-                                    {{ $Training->Certi_name }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end">ชื่อบริษัท/หน่วยงานที่จัดอบรม :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($Training)
-                                    @if($Training->Organize_name !== null)
-                                    {{ $Training->Organize_name }}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end">วันที่เริ่มอบรม :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($Training)
-                                    @if($Training->startdate !== null)
-                                    {{$startdate->format('d')}} {{$thaiMonths[$startdate->month]}} {{$startdate->year + 543}}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="col-md-6 col-form-label text-md-end">วันที่สิ้นสุดอบรม :</p>
-                            <div class="col-md-6 mt-2">
-                                @if($Training)
-                                    @if($Training->enddate !== null)
-                                    {{$enddate->format('d')}} {{$thaiMonths[$enddate->month]}} {{$enddate->year + 543}}
-                                    @endif 
-                                @else
-                                    -                         
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                    <div class="row">
-                        <div class="d-flex justify-content-center mt-2">
-                        {{$Trainings->links()}}
-                        </div>
+                        @endphp
+                        <tbody>
+                            @foreach($Trainings as $row)
+                            @php
+                                $startdate = \Carbon\Carbon::parse($row->startdate);
+                                $enddate = \Carbon\Carbon::parse($row->enddate);
+                            @endphp
+                            <tr>
+                                <td class="text-center">{{$loop->iteration + ($Trainings->currentPage() - 1) * $Trainings->perPage() }}</td>
+                                <td class="text-center">{{ $row->Certi_name }}</td>
+                                <td class="text-center">{{ $row->Organize_name }}</td>
+                                <td class="text-center">{{$startdate->format('d')}} {{$thaiMonths[$startdate->month]}} {{$startdate->year + 543}} </td>
+                                <td class="text-center">{{$enddate->format('d')}} {{$thaiMonths[$enddate->month]}} {{$enddate->year + 543}} </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-center">
+                        {{ $Trainings->links() }}
                     </div>
                 @endif
             </div> 
-            <!-- <div id="รางวัลประกาศ" class="tabcontent mt-3">
+            @if (Auth::check() && Auth::user()->role_acc === 'teacher')
+            <div id="รางวัลประกาศ" class="tabcontent mt-3">
                 @if($reward->isEmpty())
                 <div class="row">
                         <p class="col-md-6 col-form-label text-md-end"style="font-size: 24px;">ไม่มีข้อมูล</p>
                     </div>
                 @else
-                    @foreach($reward as $row)
-                    <div class="row">
-                        <p class="col-md-6 col-form-label text-md-end">ปีการศึกษา :</p>
-                        <div class="col-md-6 mt-2">
-                            @if($row)
-                                @if($row->year !== null)
-                                    {{$row->year}}
-                                @endif 
-                            @else
-                                    -                         
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <p class="col-md-6 col-form-label text-md-end">ผู้จัด :</p>
-                        <div class="col-md-6 mt-2">
-                            @if($row)
-                                @if($row->organizer !== null)
-                                    {{$row->organizer}}
-                                @endif 
-                            @else
-                                    -                         
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <p class="col-md-6 col-form-label text-md-end">รางวัล/ชื่อทุน :</p>
-                        <div class="col-md-6 mt-2">
-                            @if($row)
-                                @if($row->award_name !== null)
-                                    {{$row->award_name}}
-                                @endif 
-                            @else
-                                    -                         
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <p class="col-md-6 col-form-label text-md-end">อันดับ/มูลค่าทุน :</p>
-                        <div class="col-md-6 mt-2">
-                            @if($row)
-                                @if($row->amount !== null)
-                                    {{$row->amount}}
-                                @endif 
-                            @else
-                                    -                         
-                            @endif
-                        </div>
-                    </div>
-                    @endforeach
+                        <table class="table">
+                            <thead class="table-active" >
+                                <tr>
+                                    <th scope="col"class="text-center">ปีการศึกษา</th>
+                                    <th scope="col"class="text-center">รหัสนักศึกษา</th>
+                                    <th scope="col"class="text-center">ชื่อ-นามสกุล</th>
+                                    <th scope="col"class="text-center">ผู้จัด</th>
+                                    <th scope="col"class="text-center">รางวัล/ชื่อทุน</th>
+                                    <th scope="col"class="text-center">อันดับ/มูลค่าทุน</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($reward as $row)
+                                <tr>
+                                    <td>{{$row->year}}</td>
+                                    <td>{{$row->student_id}}</td>
+                                    <td>{{$row->firstname}} {{$row->lastname}}</td>
+                                    <td>{{$row->organizer}}</td>
+                                    <td>{{$row->award_name}}</td>
+                                    <td>{{$row->amount}}</td>
+                                </tr>
+                            @endforeach 
+                            </tbody>
+                        </table>
                     <div class="row">
                         <div class="d-flex justify-content-center mt-2">
                         {{$reward->links()}}
                         </div>
                     </div>
                 @endif
-            </div>  -->
+            </div> 
+            @endif
     </div> 
     <script>
     function openCity(evt, cityName) {
