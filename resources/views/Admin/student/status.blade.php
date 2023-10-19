@@ -142,12 +142,19 @@
             <div class="col-12" >
                 <form action="" method="GET">
                     <div class="col-12 row"> 
-                        <div class="col-6 col-lg-7">
+                        <div class="col-2 col-lg-2">
                         <button type="button" class="btn btn-warning" id="openModalButton" data-bs-toggle="modal" data-bs-target="#statusStudent" style="font-size: 24px;">
                         ปรับสถานะนักศึกษา
                         </button>
                         </div> 
-                        <div class="col-4 col-lg-2">
+                        <div class="col-2 col-lg-2">
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#EditstatusStudent" style="font-size: 24px;">
+                        แก้ไขสถานภาพนักศึกษา
+                        </button>
+                        </div> 
+                        <div class="col-4 col-lg-4">
+                        </div> 
+                        <div class="col-2 col-lg-2">
                         <select name="searchdata" class="form-select"style="font-size: 24px;" >
                             <option value="all">ทั้งหมด</option>
                             <option value="student_id" >รหัสนักศึกษา</option>
@@ -159,7 +166,7 @@
                             <option value="educational_status">สถานภาพ</option>
                         </select>   
                         </div>  
-                        <div class="col-2 col-lg-3">
+                        <div class="col-2 col-lg-2">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="ค้นหานักศึกษา" style="font-size: 24px;" /> 
                                 <button type="submit"  class="btn btn-primary" style="font-size: 24px;">ค้นหา</button>
@@ -215,6 +222,31 @@
             </div> 
         </div>        
     </div>
+    <div class="modal fade" id="EditstatusStudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title " id="exampleModalLabel">แก้ไขสถานภาพนักศึกษา</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/Admin/student/Editstatus/graduatesem" method="post" enctype="multipart/form-data" >
+                    {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col mb-3 @error('graduatesem') error @enderror">
+                                <label for="recipient-name" class="col-form-label" style="font-size: 24px;">ปีการศึกษาที่จบ</label>
+                                <input type="text" class="form-control" id="graduatesem" name="graduatesem" style="font-size: 24px;">
+                            </div>
+                        </div>
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"style="font-size:24px;">ยกเลิก</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn" style="font-size:24px;">ยืนยัน</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="statusStudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -230,11 +262,11 @@
                         <div id="graduatesemForm" style="display: none;">
                             <div class="row">
                                 <div class="col mb-3 @error('graduatesem') error @enderror">
-                                    <label for="recipient-name" class="col-form-label" style="font-size: 26px;">ปีการศึกษาที่จบ</label>
+                                    <label for="recipient-name" class="col-form-label" style="font-size: 24px;">ปีการศึกษาที่จบ</label>
                                     <input type="text" class="form-control" id="graduatesem" name="graduatesem" style="font-size: 24px;">
                                 </div>
                                 <div class="col mb-3 @error('graduatesem') error @enderror">
-                                    <label for="recipient-name" class="col-form-label" style="font-size: 26px;">ภาคการศึกษาที่จบ</label>
+                                    <label for="recipient-name" class="col-form-label" style="font-size: 24px;">ภาคการศึกษาที่จบ</label>
                                     <select name="Term" class="form-select" style="font-size: 24px;">
                                         <option value="1">ภาคเรียน 1</option>
                                         <option value="2">ภาคเรียน 2</option>

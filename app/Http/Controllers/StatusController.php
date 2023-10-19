@@ -89,4 +89,33 @@ class StatusController extends Controller
             return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการปรับสถานะภาพ');
         }
     }
+    public function Editstatus(Request $request)
+    {
+        $request->validate(
+            [
+                'graduatesem' => 'required',
+            ], 
+            [
+                'graduatesem.required'=>"กรุณาป้อนปีการศึกษาที่จบเพื่อแก้ไข",
+            ]
+        );
+        $graduatesem = $request->input('graduatesem');
+        $user = User::where('graduatesem', 'like', "%{$graduatesem}%")->get();
+
+        if ($user->isNotEmpty()) {
+            // ถ้ามีผู้ใช้ที่ตรงกับเงื่อนไขค้นหา
+            $user->each(function ($u) {
+                $u->update([
+                    'educational_status' => 'กำลังศึกษา',
+                    'Term' => '-',
+                ]);
+            });
+
+            return redirect()->back()->with('alert', 'ปรับสถานะสำเร็จ');
+        } else {
+            // ถ้าไม่มีผู้ใช้ที่ตรงกับเงื่อนไขค้นหา
+            return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการปรับสถานะภาพ');
+        }
+
+    }
 }

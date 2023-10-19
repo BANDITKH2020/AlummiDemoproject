@@ -101,6 +101,7 @@ Route::get('/Admin/reward/delete/{id}',[RewardController::class,'delete'])->midd
 //---------------ปรับสภาพนักศึกษา-------------------------
 Route::get('/Admin/student/status',[StatusController::class,'status'])->name('status')->middleware('auth', 'checkRole:Admin');
 Route::post('/Admin/student/status/graduatesem_up', [StatusController::class,'graduatesem_up'])->name('graduatesem_up')->middleware('auth', 'checkRole:Admin');
+Route::post('/Admin/student/Editstatus/graduatesem', [StatusController::class,'Editstatus'])->middleware('auth', 'checkRole:Admin');
 //----------------------หน้าทำเนียบบัณฑิต------------------
 Route::get('/Admin/graduate/view',[graduateController::class,'graduate'])->name('graduate')->middleware('auth', 'checkRole:Admin');
 //-----------------------หน้าจัดการบัญชี------------------
