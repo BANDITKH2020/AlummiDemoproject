@@ -100,22 +100,30 @@ class StatusController extends Controller
             ]
         );
         $graduatesem = $request->input('graduatesem');
-        $user = User::where('graduatesem', 'like', "%{$graduatesem}%")->get();
-
-        if ($user->isNotEmpty()) {
-            // ถ้ามีผู้ใช้ที่ตรงกับเงื่อนไขค้นหา
-            $user->each(function ($u) {
-                $u->update([
-                    'educational_status' => 'กำลังศึกษา',
-                    'Term' => '-',
-                ]);
+        $users = User::where('graduatesem', 'like', "%{$graduatesem}%")->get();
+        
+        if ($users->isNotEmpty()) {
+            // Iterate through each user in the collection
+            $users->each(function ($user) {
+                if ($user->educational_status == 'กำลังศึกษา') {
+                    return redirect()->back()->with('error', 'สถานะเป็นกำลังศึกษาอยู่แล้ว');
+                } else {
+                    // Update the user's educational_status and Term
+                    $user->update([
+                        'educational_status' => 'กำลังศึกษา',
+                        'Term' => '-',
+                    ]);
+                }
             });
-
+        
             return redirect()->back()->with('alert', 'ปรับสถานะสำเร็จ');
         } else {
-            // ถ้าไม่มีผู้ใช้ที่ตรงกับเงื่อนไขค้นหา
+            // If there are no matching users
             return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการปรับสถานะภาพ');
         }
+        
+        
 
     }
+    
 }
